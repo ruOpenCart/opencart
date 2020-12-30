@@ -1,74 +1,72 @@
-# INSTALL
+# УСТАНОВКА
 
-* This is for __new installation only__
-* These instructions are for a manual installation using FTP, cPanel or other web hosting Control Panel.
+* Это только для __новой установки__.
+* Эти инструкции предназначены для ручной установки с использованием FTP, cPanel или другой панели управления веб-хостинга.
 
+Если Вы __обновляете существующий магазин__, обязательно прочитайте [инструкции по обновлению](UPGRADE.md).
 
-If you are __upgrading your existing cart__, be sure to read the [upgrade instructions](UPGRADE.md) instead
+## Установка на Linux
 
+1. Загрузите все файлы и папки на свой сервер из папки «Upload», поместите их в корневой каталог. Корневой каталог на некоторых серверах отличается, для cPanel должен быть `public_html/`, а в Plesk - `httpdocs/`.
+2. Убедитесь, что у Вашего веб-пользователя есть разрешение на чтение, запись и выполнение всех каталогов в корневой веб-директории.
+3. Переименуйте `config-dist.php` в `config.php` и `admin/config-dist.php` в `admin/config.php`.
+4. Для Linux/Unix убедитесь, что следующие папки и файлы доступны для записи:
 
-## Linux Install
+		chmod 0755 или 0777 config.php
+		chmod 0755 или 0777 admin/config.php
 
-1. Upload all of the files and folders to your server from the "Upload" folder, place them in your web root. The web root is different on some servers, cPanel it should be public_html/ and on Plesk it should be httpdocs/.
-2. Make sure your web user has the permission to read, write and execute all directories under the web root.
-3. Rename config-dist.php to config.php and admin/config-dist.php to admin/config.php
-4. For Linux/Unix make sure the following folders and files are writable.
+		Если 0755 не работает, попробуйте 0777.
 
-		chmod 0755 or 0777 config.php
-		chmod 0755 or 0777 admin/config.php
+5. Убедитесь, что Вы установили базу данных MySQL, которой назначен пользователь.
+	* не используйте Ваше имя пользователя `root` и пароль `root`.
+6. Посетите домашнюю страницу магазина, например `https://www.example.com` или `https://www.example.com/store/`.
+7. Вы должны попасть на страницу установщика. Следуйте инструкциям на экране.
+8. После успешной установки удалите каталог `/install/` с помощью ftp.
+9. Если Вы загрузили скомпилированную версию с папкой под названием `vendor` - ее следует загрузить выше корневого веб-каталога (то есть в ту же папку, где находится `public_html` или `httpdocs`)
 
-		If 0755 does not work try 0777.
+## Установка на Windows
 
-5. Make sure you have installed a MySQL Database which has a user assigned to it
-	* do not use your `root` username and root password
-6. Visit the store homepage e.g. http://www.example.com or http://www.example.com/store/
-7. You should be taken to the installer page. Follow the on screen instructions.
-8. After successful install, delete the /install/ directory from ftp.
-9. If you have downloaded the compiled version with a folder called "vendor" - this should be uploaded above the webroot (so the same folder where the public_html or httpdocs is)
-
-
-## Windows Install
-
-1. Upload all the files and folders to your server from the "Upload" folder. This can be to anywhere of your choice. e.g. /wwwroot/store or /wwwroot
-2. Rename config-dist.php to config.php and admin/config-dist.php to admin/config.php
-3. For Windows make sure the following folders and files permissions allow Read and Write.
+1. Загрузите все файлы и папки на свой сервер из папки "Upload". Это может быть любое место по Вашему выбору. Например, `/wwwroot/store` или `/wwwroot`.
+2. Переименуйте `config-dist.php` в `config.php` и `admin/config-dist.php` в `admin/config.php`.
+3. В Windows убедитесь, что для следующих папок и файлов разрешены чтение и запись:
 
 		config.php
 		admin/config.php
 
-4. Make sure you have installed a MySQL Database which has a user assigned to it
-	* do not use your `root` username and root password
-5. You should be taken to the installer page. Follow the on screen instructions.
-6. After successful install, delete the /install/ directory.
+4. Убедитесь, что Вы установили базу данных MySQL, которой назначен пользователь.
+	* не используйте Ваше имя пользователя `root` и пароль `root`.
+5. Вы должны попасть на страницу установщика. Следуйте инструкциям на экране.
+6. После успешной установки удалите каталог `/install/`.
 
-## Local Install
+## Локальная установка
 
-There are many all-in-one web servers out there and most of them should work with OpenCart out of the box.
+Существует много универсальных веб-серверов, и большинство из них должны работать с OpenCart из коробки.
 
-Some examples...
+Несколько примеров...
 
 * http://www.apachefriends.org/en/xampp.html
 * http://www.ampps.com/
 * http://www.usbwebserver.net
 * http://www.wampserver.com/en/
+* https://ospanel.io/
+* https://neard.io/
 
- ## Notes
+## Примечания
 
-Godaddy Issues
+Проблемы Godaddy.
 
-If your hosting on godaddy you might need to rename the php.ini to user.ini
+Если Ваш хостинг находится на godaddy, Вам может потребоваться переименовать php.ini в user.ini.
 
-It seems godadddy has started changing the industry standard names of files.
+Похоже, godadddy начал менять стандартные имена файлов.
 
 ----------------------------
 
-## COMPOSER OR NOT TO COMPOSER
+## COMPOSER ИЛИ НЕ COMPOSER
 
-From __version 2.2 composer has been added__ to aid developers who want to use composer libraries. 2 versions of OpenCart
-will become available, one compiled and one non-compiled (composer.json only - no files in vendor folder).
+Для __версии 2.2 был добавлен composer__ для помощи разработчикам, которые хотят использовать библиотеки composer. Будут доступны 2 версии OpenCart, одна скомпилированная и одна не скомпилированная (только composer.json - файлов в папке `vendor` нет).
 
-We STRONGLY __advise leaving the vendor folder outside of the webroot__ - so files cannot be accessed directly.
+Мы НАСТОЯТЕЛЬНО __советуем оставлять папку `vendor` за пределами корневого каталога__, чтобы к файлам нельзя было получить прямой доступ.
 
-### How to install Composer
+### Как установить Composer
 
-Installing is extremely simple, follow the instructions [HERE](https://getcomposer.org/download/)
+Установка предельно проста, следуйте инструкциям [ЗДЕСЬ](https://getcomposer.org/download/)
