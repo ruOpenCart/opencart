@@ -40,15 +40,15 @@ class Voucher extends \Opencart\System\Engine\Controller {
 					$data = [];
 
 					// Add language vars to the template folder
-					$results = $this->language->all();
+					$results = $this->language->all('mail');
 
 					foreach ($results as $key => $value) {
-						if (substr($key, 0, 5) == 'mail_') {
-							$data[substr($key, 5)] = $value;
-						}
+						$data[$key] = $value;
 					}
 
-					$subject = html_entity_decode(sprintf($this->language->get('mail_text_subject'), $voucher['from_name']), ENT_QUOTES, 'UTF-8');
+					$store_name = html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8');
+
+					$subject = sprintf($this->language->get('mail_text_subject'), $voucher['from_name']);
 
 					$data['title'] = sprintf($this->language->get('mail_text_subject'), $voucher['from_name']);
 
@@ -62,13 +62,14 @@ class Voucher extends \Opencart\System\Engine\Controller {
 						$data['image'] = '';
 					}
 
-					$data['store_name'] = $order_info['store_name'];
-					$data['store_url'] = $order_info['store_url'];
 					$data['message'] = nl2br($voucher['message']);
+
+					$data['store_name'] = $store_name;
+					$data['store_url'] = $order_info['store_url'];
 
 					$mail->setTo($voucher['to_email']);
 					$mail->setFrom($this->config->get('config_email'));
-					$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
+					$mail->setSender($store_name);
 					$mail->setSubject($subject);
 					$mail->setHtml($this->load->view('mail/voucher', $data));
 					$mail->send();

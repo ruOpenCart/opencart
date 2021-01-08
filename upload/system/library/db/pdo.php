@@ -2,12 +2,12 @@
 namespace Opencart\System\Library\DB;
 class PDO {
 	private $connection;
-	private $statement;
-	private $data;
+	private $data = [];
+	private $affected;
 
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
 		try {
-			$pdo = new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => false));
+			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => false));
 		} catch (\PDOException $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
 		}
@@ -19,26 +19,27 @@ class PDO {
 	}
 
 	public function query($sql) {
-		$this->statement = $this->connection->prepare(preg_replace('/(?:\'\:)([a-f0-9]*.)(?:\')/', ':$1', $sql));
-
-		foreach ($this->data as $key => $value) {
-			$this->statement->bindParam($key, $value, \PDO::PARAM_STR);
-		}
-
-		$this->data = [];
+		$statement = $this->connection->prepare(preg_replace('/(?:\'\:)([a-z0-9]*.)(?:\')/', ':$1', $sql));
 
 		try {
-			if ($this->statement && $this->statement->execute()) {
-				if ($this->statement->columnCount()) {
-					$data = $this->statement->fetchAll(\PDO::FETCH_ASSOC);
+			if ($statement && $statement->execute($this->data)) {
+				$this->data = [];
+
+				if ($statement->columnCount()) {
+					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
 					$result->row = (isset($data[0]) ? $data[0] : []);
 					$result->rows = $data;
 					$result->num_rows = count($data);
+					$this->affected = 0;
 
 					return $result;
+				} else {
+					$this->affected = $statement->rowCount();
 				}
+
+				$statement->closeCursor();
 			}
 		} catch (\PDOException $e) {
 			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
@@ -46,7 +47,7 @@ class PDO {
 	}
 
 	public function escape($value) {
-		$key = ':' . token(8);
+		$key = ':' . count($this->data);
 
 		$this->data[$key] = $value;
 
@@ -54,11 +55,7 @@ class PDO {
 	}
 
 	public function countAffected() {
-		if ($this->statement) {
-			return $this->statement->rowCount();
-		} else {
-			return 0;
-		}
+		return $this->affected;
 	}
 
 	public function getLastId() {
@@ -71,5 +68,15 @@ class PDO {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * __destruct
+	 *
+	 * Closes the DB connection when this object is destroyed.
+	 *
+	 */
+	public function __destruct() {
+		$this->connection = '';
 	}
 }

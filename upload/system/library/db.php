@@ -8,7 +8,7 @@
 */
 
 /**
-* DB class
+* DB
 */
 namespace Opencart\System\Library;
 class DB {
@@ -80,7 +80,7 @@ class DB {
 	}
 	
 	/**
-     * IsConnected
+     * Is Connected
 	 *
 	 * Checks if a DB connection is active.
 	 *

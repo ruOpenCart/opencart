@@ -28,12 +28,10 @@ class Voucher extends \Opencart\System\Engine\Controller {
 				$this->language->load('mail/voucher', 'mail', $language_code);
 
 				// Add language vars to the template folder
-				$results = $this->language->all();
+				$results = $this->language->all('mail');
 
 				foreach ($results as $key => $value) {
-					if (substr($key, 0, 5) == 'mail_') {
-						$data[substr($key, 5)] = $value;
-					}
+					$data[$key] = $value;
 				}
 
 				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
@@ -45,13 +43,15 @@ class Voucher extends \Opencart\System\Engine\Controller {
 				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
 				foreach ($voucher_query->rows as $voucher) {
-					// HTML Mail
-					$subject = html_entity_decode(sprintf($this->language->get('mail_text_subject'), $voucher['from_name']), ENT_QUOTES, 'UTF-8');
+					$from_name = html_entity_decode($voucher['from_name'], ENT_QUOTES, 'UTF-8');
 
-					$data['title'] = sprintf($this->language->get('mail_text_subject'), $voucher['from_name']);
+					// HTML Mail
+					$subject = sprintf($this->language->get('mail_text_subject'), $from_name);
+
+					$data['title'] = sprintf($this->language->get('mail_text_subject'), $from_name);
 
 					$data['text_greeting'] = sprintf($this->language->get('mail_text_greeting'), $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
-					$data['text_from'] = sprintf($this->language->get('mail_text_from'), $voucher['from_name']);
+					$data['text_from'] = sprintf($this->language->get('mail_text_from'), $from_name);
 					$data['text_redeem'] = sprintf($this->language->get('mail_text_redeem'), $voucher['code']);
 
 					if (is_file(DIR_IMAGE . $voucher['image'])) {
@@ -60,9 +60,10 @@ class Voucher extends \Opencart\System\Engine\Controller {
 						$data['image'] = '';
 					}
 
+					$data['message'] = nl2br($voucher['message']);
+
 					$data['store_name'] = $order_info['store_name'];
 					$data['store_url'] = $order_info['store_url'];
-					$data['message'] = nl2br($voucher['message']);
 
 					$mail->setTo($voucher['to_email']);
 					$mail->setFrom($this->config->get('config_email'));

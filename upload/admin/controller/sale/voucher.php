@@ -164,8 +164,8 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
-			'start' => ($page - 1) * $this->config->get('config_pagination'),
-			'limit' => $this->config->get('config_pagination')
+			'start' => ($page - 1) * $this->config->get('config_pagination_admin'),
+			'limit' => $this->config->get('config_pagination_admin')
 		];
 
 		$voucher_total = $this->model_sale_voucher->getTotalVouchers();
@@ -248,11 +248,11 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $voucher_total,
 			'page'  => $page,
-			'limit' => $this->config->get('config_pagination'),
+			'limit' => $this->config->get('config_pagination_admin'),
 			'url'   => $this->url->link('sale/voucher', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}')
 		]);
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($voucher_total) ? (($page - 1) * $this->config->get('config_pagination')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination')) > ($voucher_total - $this->config->get('config_pagination'))) ? $voucher_total : ((($page - 1) * $this->config->get('config_pagination')) + $this->config->get('config_pagination')), $voucher_total, ceil($voucher_total / $this->config->get('config_pagination')));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($voucher_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($voucher_total - $this->config->get('config_pagination_admin'))) ? $voucher_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $voucher_total, ceil($voucher_total / $this->config->get('config_pagination_admin')));
 
 		$data['sort'] = $sort;
 		$data['order'] = $order;
@@ -599,12 +599,10 @@ class Voucher extends \Opencart\System\Engine\Controller {
 							$this->language->load('mail/voucher', 'mail', $language_code);
 
 							// Add language vars to the template folder
-							$results = $this->language->all();
+							$results = $this->language->all('mail');
 
 							foreach ($results as $key => $value) {
-								if (substr($key, 0, 5) == 'mail_') {
-									$data[substr($key, 5)] = $value;
-								}
+								$data[$key] = $value;
 							}
 
 							$subject = sprintf($this->language->get('mail_text_subject'), html_entity_decode($voucher_info['from_name'], ENT_QUOTES, 'UTF-8'));
@@ -623,11 +621,12 @@ class Voucher extends \Opencart\System\Engine\Controller {
 							} else {
 								$data['image'] = '';
 							}
-			
+
+							$data['message'] = nl2br($voucher_info['message']);
+
 							$data['store_name'] = $order_info['store_name'];
 							$data['store_url'] = $order_info['store_url'];
-							$data['message'] = nl2br($voucher_info['message']);
-			
+
 							$mail->setTo($voucher_info['to_email']);
 							$mail->setFrom($this->config->get('config_email'));
 							$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
@@ -645,9 +644,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 			
 							$data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $this->config->get('config_currency')));
 							$data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
-							$data['text_message'] = $this->language->get('text_message');
 							$data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
-							$data['text_footer'] = $this->language->get('text_footer');
 			
 							$voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 			
@@ -656,11 +653,12 @@ class Voucher extends \Opencart\System\Engine\Controller {
 							} else {
 								$data['image'] = '';
 							}
-			
+
+							$data['message'] = nl2br($voucher_info['message']);
+
 							$data['store_name'] = $this->config->get('config_name');
 							$data['store_url'] = HTTP_CATALOG;
-							$data['message'] = nl2br($voucher_info['message']);
-			
+
 							$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
 							$mail->parameter = $this->config->get('config_mail_parameter');
 							$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
