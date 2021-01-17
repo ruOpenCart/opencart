@@ -98,6 +98,23 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			$keys = [
+				'firstname',
+				'lastname',
+				'company',
+				'address_1',
+				'city',
+				'postcode',
+				'country_id',
+				'zone_id'
+			];
+
+			foreach ($keys as $key) {
+				if (!isset($this->request->post[$key])) {
+					$this->request->post[$key] = '';
+				}
+			}
+
 			$this->load->model('account/address');
 
 			if (isset($this->request->post['shipping_address']) && $this->request->post['shipping_address'] == 'existing') {
@@ -155,8 +172,8 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 					if ($custom_field['location'] == 'address') {
 						if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 							$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8') . '/']])) {
-							$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+							$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 						}
 					}
 				}
