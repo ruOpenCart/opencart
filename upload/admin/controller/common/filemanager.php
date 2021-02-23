@@ -1,5 +1,5 @@
 <?php
-namespace Opencart\Application\Controller\Common;
+namespace Opencart\Admin\Controller\Common;
 class FileManager extends \Opencart\System\Engine\Controller {
 	public function index() {
 		$this->load->language('common/filemanager');
@@ -102,11 +102,11 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			'jpeg',
 			'png',
 			'gif',
+			'webp',
 			'JPG',
 			'JPEG',
 			'PNG',
-			'GIF',
-			'webp'
+			'GIF'
 		];
 
 		// Validate the file is an image
@@ -310,11 +310,11 @@ class FileManager extends \Opencart\System\Engine\Controller {
 						'jpeg',
 						'png',
 						'gif',
+						'webp',
 						'JPG',
 						'JPEG',
 						'PNG',
-						'GIF',
-						'webp'
+						'GIF'
 					];
 
 					if (!in_array(substr($filename, strrpos($filename, '.') + 1), $allowed)) {
