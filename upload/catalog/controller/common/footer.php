@@ -32,9 +32,9 @@ class Footer extends \Opencart\System\Engine\Controller {
 		$data['voucher'] = $this->url->link('account/voucher', 'language=' . $this->config->get('config_language'));
 
 		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('affiliate/login', 'language=' . $this->config->get('config_language'));
+			$data['affiliate'] = $this->url->link('account/affiliate', 'language=' . $this->config->get('config_language'));
 		} else {
-			$data['affiliate'] = false;
+			$data['affiliate'] = '';
 		}
 
 		$data['special'] = $this->url->link('product/special', 'language=' . $this->config->get('config_language'));
@@ -71,6 +71,8 @@ class Footer extends \Opencart\System\Engine\Controller {
 
 			$this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
 		}
+
+		$data['bootstrap_js'] = 'catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js';
 
 		$data['scripts'] = $this->document->getScripts('footer');
 

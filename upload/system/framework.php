@@ -15,7 +15,7 @@ $config->addPath(DIR_CONFIG);
 
 // Load the default config
 $config->load('default');
-$config->load(APPLICATION);
+$config->load(strtolower(APPLICATION));
 
 // Set the default application
 $config->set('application', APPLICATION);
@@ -146,7 +146,7 @@ if ($config->get('session_autostart')) {
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
-		'SameSite' => 'Strict'
+		'SameSite' => $config->get('session_samesite')
 	];
 
 	setcookie($config->get('session_name'), $session->getId(), $option);
