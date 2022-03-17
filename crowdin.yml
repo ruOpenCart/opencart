@@ -7,3 +7,11 @@ files:
     translation: /upload/**/language/%locale%/%locale%.php
   - source: /upload/**/language/en-gb/en-gb.png
     translation: /upload/**/language/%locale%/%locale%.png
+  - source: /INSTALL.md
+    translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: /UPGRADE.md
+    translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: /README.md
+    translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: /upload/install/opencart.sql
+    translation: /%file_name%_%two_letters_code%.%file_extension%
