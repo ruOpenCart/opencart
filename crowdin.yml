@@ -13,3 +13,5 @@ files:
     translation: /%file_name%_%two_letters_code%.%file_extension%
   - source: /README.md
     translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: /license.txt
+    translation: /%file_name%_%two_letters_code%.%file_extension%
