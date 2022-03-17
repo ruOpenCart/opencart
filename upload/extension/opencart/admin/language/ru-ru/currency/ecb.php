@@ -9,7 +9,7 @@ $_['text_edit']        = 'Edit European Central Bank';
 $_['text_support']     = 'This extension requires at EUR currency to be available currency option.';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify European Central Bank Currency Converter!';

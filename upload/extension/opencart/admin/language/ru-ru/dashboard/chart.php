@@ -14,7 +14,7 @@ $_['text_month']       = 'Month';
 $_['text_year']        = 'Year';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_width']      = 'Width';
 

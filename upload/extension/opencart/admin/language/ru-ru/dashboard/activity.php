@@ -24,7 +24,7 @@ $_['text_activity_affiliate_edit'] = '<a href="customer_id=%d">%s</a> updated th
 $_['text_activity_transaction']    = '<a href="customer_id=%d">%s</a> received commission from an new <a href="order_id=%d">order</a>.';
 
 // Entry
-$_['entry_status']                 = 'Status';
+$_['entry_status']                 = 'Статус';
 $_['entry_sort_order']             = 'Sort Order';
 $_['entry_width']                  = 'Width';
 
