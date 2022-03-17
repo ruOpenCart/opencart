@@ -1,80 +1,80 @@
 # OpenCart
 
-## Overview
+## Обзор
 
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/) [![GitHub release](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart)
+[![Минимальная версия PHP](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/) [![Релиз GitHub](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart)
 
-OpenCart is a free open source ecommerce platform for online merchants. OpenCart provides a professional and reliable foundation from which to build a successful online store.
-
-
-## How to install
-
-Please read the [installation instructions](INSTALL.md) included in the repository or download file.
+OpenCart - это бесплатная платформа электронной коммерции с открытым исходным кодом для онлайн-продавцов. OpenCart обеспечивает профессиональную и надежную основу для создания успешного интернет-магазина.
 
 
-## How to upgrade from previous versions
+## Как установить
 
-Please read the [upgrading instructions](UPGRADE.md) included in the repository or download file.
-
-## Reporting a bug
-
-Read the instructions below before you create a bug report.
-
- 1. Search the [OpenCart forum](https://forum.opencart.com/viewforum.php?f=201), ask the community if they have seen the bug or know how to fix it.
- 2. Check all open and closed issues on the [GitHub bug tracker](https://github.com/opencart/opencart/issues).
- 3. If your bug is related to the OpenCart core code then please create a bug report on GitHub.
- 4. READ the [changelog for the master branch](https://github.com/opencart/opencart/blob/master/CHANGELOG.md)
- 5. Use [Google](https://www.google.com) to search for your issue.
- 6. Make sure that your bug/issue is not related to your hosting environment.
-
-If you are not sure about your issue, it is always best to ask the community on our [bug forum thread](https://forum.opencart.com/viewforum.php?f=201)
-
-**Important!**
-- If your bug report is not related to the core code (such as a 3rd party module or your server configuration) then the issue will be closed without a reason. You must contact the extension developer, use the forum or find a commercial partner to resolve a 3rd party code issue.
-- If you would like to report a serious security bug please PM an OpenCart moderator/administrator on the forum. Please do not report concept/ideas/unproven security flaws - all security reports are taken seriously but you must include the EXACT details steps to reproduce it. Please DO NOT post security flaws in a public location.
-
-## How to contribute
-
-Fork the repository, edit and [submit a pull request](https://github.com/opencart/opencart/wiki/Creating-a-pull-request).
-
-Please be very clear on your commit messages and pull request, empty pull request messages may be rejected without reason.
-
-Your code standards should match the [OpenCart coding standards](https://github.com/opencart/opencart/wiki/Coding-standards). We use an automated code scanner to check for most basic mistakes - if the test fails your pull request will be rejected.
-
-## Versioning
-
-The version is broken down into 4 points e.g 1.2.3.4 We use MAJOR.MINOR.FEATURE.PATCH to describe the version numbers.
-
-A MAJOR is very rare, it would only be considered if the source was effectively re-written or a clean break was desired for other reasons. This increment would likely break most 3rd party modules.
-
-A MINOR is when there are significant changes that affect core structures. This increment would likely break some 3rd party modules.
-
-A FEATURE version is when new extensions or features are added (such as a payment gateway, shipping module etc). Updating a feature version is at a low risk of breaking 3rd party modules.
-
-A PATCH version is when a fix is added, it should be considered safe to update patch versions e.g 1.2.3.4 to 1.2.3.5
-
-## Releases
-
-OpenCart will announce to developers 1 week prior to public release of FEATURE versions, this is to allow for testing of their own modules for compatibility. For bigger releases (ones that contain many core changes, features and fixes) an extended period will be considered following an announced release candidate (RC). Patch versions (which are considered safe to update with) may have a significantly reduced developer release period.
-
-The master branch will always contain an "_rc" postfix of the next intended version. The next "_rc" version may change at any time.
-
-Developer release source code will not change once tagged.
-
-If a bug is found in an announced developer release that is significant (such as a major feature is broken) then the release will be pulled. A patch version will be issued to replace it, depending on the severity of the patch an extended testing period may be announced. If the developer release version was never made public then the preceding patch version tag will be removed.
-
-To receive developer notifications about release information, sign up to the newsletter on the [OpenCart website](https://www.opencart.com) - located in the footer. Then choose the developer news option.
+Пожалуйста, прочитайте [инструкции по установке](INSTALL.md), включенные в репозиторий или скачайте файл.
 
 
-## License
+## Как обновить с предыдущих версий
 
-[GNU General Public License version 3 (GPLv3)](https://github.com/opencart/opencart/blob/master/license.txt)
+Пожалуйста, прочитайте [инструкции по обновлению](UPGRADE.md), включенные в репозиторий или скачайте файл.
 
-## Links
+## Сообщить об ошибке
 
-- [OpenCart homepage](https://www.opencart.com/)
-- [OpenCart forums](https://forum.opencart.com/)
-- [OpenCart blog](https://www.opencart.com/index.php?route=feature/blog)
-- [How to documents](http://docs.opencart.com/en-gb/introduction/)
-- [Newsletter](https://newsletter.opencart.com/h/r/B660EBBE4980C85C)
-- [User Voice suggestions](https://opencart.uservoice.com)
+Прочитайте инструкции ниже, прежде чем создавать отчет об ошибке.
+
+ 1. Выполните поиск на [форуме OpenCart](https://forum.opencart.com/viewforum.php?f=201), спросите сообщество, видели ли они ошибку или знают, как ее исправить.
+ 2. Проверьте все открытые и закрытые проблемы на [трекере ошибок GitHub](https://github.com/opencart/opencart/issues).
+ 3. Если ваша ошибка связана с кодом ядра OpenCart, пожалуйста, создайте отчёт об ошибке на GitHub.
+ 4. ПРОЧИТАЙТЕ [список изменений для главной ветки](https://github.com/opencart/opencart/blob/master/CHANGELOG.md).
+ 5. Используйте [Google](https://www.google.com) для поиска вашей проблемы.
+ 6. Убедитесь, что ваша ошибка/проблема не связана с вашим хостингом.
+
+Если вы не уверены в своей проблеме, всегда лучше спросить сообщество на нашем [форуме, в обсуждении ошибок](https://forum.opencart.com/viewforum.php?f=201).
+
+**Важно!**
+- Если сообщение об ошибке не связано с кодом ядра (например, сторонний модуль или конфигурация сервера), то проблема будет закрыта без причины. Вы должны связаться с разработчиком расширения, использовать форум или найти коммерческого партнера для решения проблемы с кодом сторонних разработчиков.
+- Если вы хотите сообщить о серьезной ошибке в безопасности, пожалуйста, напишите модератору/администратору OpenCart на форуме. Пожалуйста, не сообщайте о концепциях/идеях/недоказанных недостатках безопасности - все отчеты о безопасности воспринимаются серьезно, но Вы должны включать ТОЧНЫЕ подробные шаги для их воспроизведения. Пожалуйста, НЕ размещайте уязвимости безопасности в публичных местах.
+
+## Как внести свой вклад
+
+Форкнуть репозиторий, редактировать и [отправлять запрос на слияние](https://github.com/opencart/opencart/wiki/Creating-a-pull-request).
+
+Пожалуйста, будьте предельно ясны в своих сообщениях о фиксации и запросе на перенос, пустые сообщения запроса на перенос могут быть отклонены без причины.
+
+Стандарты вашего кода должны соответствовать стандартам кодирования [OpenCart](https://github.com/opencart/opencart/wiki/Coding-standards). Мы используем автоматизированный сканер кода для проверки большинства основных ошибок - если тест завершится неудачей, ваш запрос на слияние будет отклонен.
+
+## Управление версиями
+
+Версия разбита на 4 пункта, например 1.2.3.4. Мы используем MAJOR.MINOR.FEATURE.PATCH для описания номеров версий.
+
+MAJOR встречается очень редко, он будет рассматриваться только в том случае, если исходный текст был эффективно переписан или был желателен полный разрыв по другим причинам. Это приращение, вероятно, сломает большинство сторонних модулей.
+
+MINOR - это когда есть значительные изменения, которые влияют на основные структуры. Это приращение, вероятно, приведет к поломке некоторых сторонних модулей.
+
+FEATURE - это когда добавляются новые расширения или функции (например, платежный шлюз, модуль доставки и т.д.). Обновление версии функции сопряжено с низким риском поломки сторонних модулей.
+
+PATCH - это когда исправление добавлено, следует считать безопасным обновлять версии исправлений, например, с 1.2.3.4 до 1.2.3.5
+
+## Релизы
+
+OpenCart объявит разработчикам за 1 неделю до публичного выпуска версий FEATURE, это позволит протестировать их собственные модули на совместимость. Для более крупных выпусков (тех, которые содержат много основных изменений, функций и исправлений) будет рассмотрен расширенный период после объявления кандидата на выпуск (RC). Версии исправлений (которые считаются безопасными для обновления) могут иметь значительно сокращенный период выпуска для разработчиков.
+
+Ветка master всегда будет содержать постфикс "_rc" следующей предполагаемой версии. Следующая версия "_rc" может измениться в любое время.
+
+Исходный код релиза разработчика не изменится после того, как он помечен.
+
+Если в объявленном выпуске разработчика обнаруживается значительная ошибка (например, не работает основная функция), выпуск будет удален. На замену будет выпущена версия патча, в зависимости от серьезности патча может быть объявлен расширенный период тестирования. Если версия выпуска для разработчиков никогда не была опубликована, то предыдущий тег версии исправления будет удален.
+
+Чтобы получать уведомления разработчика о информации о выпуске, подпишитесь на рассылку на сайте [OpenCart](https://www.opencart.com) - расположенном в нижнем колонтитуле. Затем выберите опцию новостей для разработчиков.
+
+
+## Лицензия
+
+[Общедоступная лицензия GNU 3-ей версии (GPLv3)](https://github.com/opencart/opencart/blob/master/license.txt)
+
+## Ссылки
+
+- [Домашняя страница OpenCart](https://www.opencart.com/)
+- [Форум OpenCart](https://forum.opencart.com/)
+- [Блог OpenCart](https://www.opencart.com/index.php?route=feature/blog)
+- [Как оформлять документацию](http://docs.opencart.com/en-gb/introduction/)
+- [Информационная рассылка](https://newsletter.opencart.com/h/r/B660EBBE4980C85C)
+- [Голосовые предложения пользователей](https://opencart.uservoice.com)
