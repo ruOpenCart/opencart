@@ -3,14 +3,14 @@
 $_['heading_title']          = 'Подготовка к установке';
 
 // Text
-$_['text_step_2']            = 'Check your server is set-up correctly';
-$_['text_install_php']       = '1. Please configure your PHP settings to match requirements listed below.';
-$_['text_install_extension'] = '2. Please make sure the PHP extensions listed below are installed.';
-$_['text_install_file']      = '3. Please make sure you have set the correct permissions on the files list below.';
-$_['text_setting']           = 'PHP Settings';
-$_['text_current']           = 'Current Settings';
-$_['text_required']          = 'Required Settings';
-$_['text_extension']         = 'Extension Settings';
+$_['text_step_2']            = 'Проверка корректности настроек вашего сервера';
+$_['text_install_php']       = '1. Пожалуйста, сконфигурируйте ваши настройки PHP, чтобы соответствовать требованиям, перечисленным ниже.';
+$_['text_install_extension'] = '2. Пожалуйста, убедитесь, что расширения PHP, перечисленные ниже, установлены.';
+$_['text_install_file']      = '3. Пожалуйста, убедитесь, что вы установили правильные разрешения в списке файлов ниже.';
+$_['text_setting']           = 'Настройки PHP';
+$_['text_current']           = 'Текущие настройки';
+$_['text_required']          = 'Необходимые настройки';
+$_['text_extension']         = 'Настройки расширений';
 $_['text_db']                = 'Database';
 $_['text_version']           = 'PHP Version';
 $_['text_global']            = 'Register Globals';
@@ -23,13 +23,13 @@ $_['text_openssl']           = 'OpenSSL';
 $_['text_zlib']              = 'ZLIB';
 $_['text_zip']               = 'ZIP';
 $_['text_mbstring']          = 'mbstring';
-$_['text_on']                = 'On';
-$_['text_off']               = 'Off';
-$_['text_file']              = 'Files';
-$_['text_status']            = 'Status';
-$_['text_writable']          = 'Writable';
-$_['text_unwritable']        = 'Unwritable';
-$_['text_missing']           = 'Missing';
+$_['text_on']                = 'Вкл';
+$_['text_off']               = 'Откл';
+$_['text_file']              = 'Файлы';
+$_['text_status']            = 'Статус';
+$_['text_writable']          = 'Доступен для записи';
+$_['text_unwritable']        = 'Недоступен для записи';
+$_['text_missing']           = 'Отсутствует';
 
 // Error
 $_['error_version']          = 'Warning: You need to use PHP8 or above for OpenCart to work!';
