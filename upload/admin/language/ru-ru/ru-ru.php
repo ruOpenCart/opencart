@@ -10,7 +10,7 @@ $_['decimal_point']                 = '.';
 $_['thousand_point']                = ',';
 
 // Text
-$_['text_yes']                      = 'Yes';
+$_['text_yes']                      = 'Да';
 $_['text_no']                       = 'No';
 $_['text_on']                       = 'On';
 $_['text_off']                      = 'Off';
