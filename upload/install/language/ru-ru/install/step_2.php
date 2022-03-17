@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']          = 'Pre-Installation';
+$_['heading_title']          = 'Подготовка к установке';
 
 // Text
 $_['text_step_2']            = 'Check your server is set-up correctly';
