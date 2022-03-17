@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']          = 'Configuration';
+$_['heading_title']          = 'Конфигурация';
 
 // Text
-$_['text_step_3']            = 'Enter your database and administration details';
-$_['text_db_connection']     = '1. Please enter your database connection details.';
-$_['text_db_administration'] = '2. Please enter a username and password for the administration.';
+$_['text_step_3']            = 'Введите ваши параметры базы данных и администратора';
+$_['text_db_connection']     = '1. Пожалуйста, введите данные для подключения к вашей базе данных.';
+$_['text_db_administration'] = '2. Пожалуйста, введите имя пользователя и пароль для администрирования.';
 $_['text_mysqli']            = 'MySQLi';
 $_['text_pdo']               = 'mPDO';
 $_['text_pgsql']             = 'PostgreSQL';
-$_['text_help']              = 'Information about setting up a databases on different platforms:';
+$_['text_help']              = 'Информация о настройке баз данных на различных платформах:';
 $_['text_cpanel']            = 'CPanel DB Setup';
 $_['text_plesk']             = 'Plesk DB Setup';
 
