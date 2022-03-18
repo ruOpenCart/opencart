@@ -15,10 +15,10 @@ $_['entry_product']    = 'Products';
 $_['entry_axis']       = 'Axis';
 $_['entry_width']      = 'Image Width';
 $_['entry_height']     = 'Image Height';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 
 // Help
-$_['help_product']     = '(Autocomplete)';
+$_['help_product']     = '(Автодополнение)';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify featured module!';
