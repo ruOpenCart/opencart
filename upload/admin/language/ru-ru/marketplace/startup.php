@@ -9,7 +9,7 @@ $_['text_list']         = 'Startup List';
 // Column
 $_['column_code']       = 'Startup Code';
 $_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify startup!';
