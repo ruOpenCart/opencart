@@ -13,7 +13,7 @@ $_['text_keyword']           = 'Do not use spaces, instead replace spaces with -
 // Column
 $_['column_name']            = 'Category Name';
 $_['column_sort_order']      = 'Sort Order';
-$_['column_action']          = 'Action';
+$_['column_action']          = 'Действие';
 
 // Entry
 $_['entry_name']             = 'Category Name';
@@ -29,12 +29,12 @@ $_['entry_image']            = 'Image';
 $_['entry_top']              = 'Top';
 $_['entry_column']           = 'Columns';
 $_['entry_sort_order']       = 'Sort Order';
-$_['entry_status']           = 'Status';
+$_['entry_status']           = 'Статус';
 $_['entry_layout']           = 'Layout Override';
 
 // Help
-$_['help_parent']            = '(Autocomplete)';
-$_['help_filter']            = '(Autocomplete)';
+$_['help_parent']            = '(Автодополнение)';
+$_['help_filter']            = '(Автодополнение)';
 $_['help_top']               = 'Display in the top menu bar. Only works for the top parent categories.';
 $_['help_column']            = 'Number of columns to use for the bottom 3 categories. Only works for the top parent categories.';
 
