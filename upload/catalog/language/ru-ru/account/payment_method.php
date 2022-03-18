@@ -12,7 +12,7 @@ $_['text_no_results']       = 'You have no payment methods in your account.';
 $_['column_payment_method'] = 'Payment Method';
 $_['column_type']           = 'Type';
 $_['column_date_expire']    = 'Date Expires';
-$_['column_action']         = 'Action';
+$_['column_action']         = 'Действие';
 
 // Error
 $_['error_payment_method']  = 'Warning: Payment method could not be found!';

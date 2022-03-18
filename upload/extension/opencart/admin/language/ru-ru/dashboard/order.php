@@ -9,7 +9,7 @@ $_['text_edit']        = 'Edit Dashboard Orders';
 $_['text_view']        = 'View more...';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_width']      = 'Width';
 

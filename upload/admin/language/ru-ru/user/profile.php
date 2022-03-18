@@ -8,9 +8,9 @@ $_['text_edit']             = 'Edit Your Profile';
 
 // Column
 $_['column_username']       = 'Username';
-$_['column_status']         = 'Status';
+$_['column_status']         = 'Статус';
 $_['column_date_added']     = 'Date Added';
-$_['column_action']         = 'Action';
+$_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_username']        = 'Username';

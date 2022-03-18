@@ -15,7 +15,7 @@ $_['entry_axis']       = 'Axis';
 $_['entry_limit']      = 'Limit';
 $_['entry_width']      = 'Image Width';
 $_['entry_height']     = 'Image Height';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify bestsellers module!';

@@ -11,7 +11,7 @@ $_['text_filter']        = 'Filter';
 $_['column_name']        = 'Upload Name';
 $_['column_filename']    = 'Filename';
 $_['column_date_added']  = 'Date Added';
-$_['column_action']      = 'Action';
+$_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_name']         = 'Upload Name';

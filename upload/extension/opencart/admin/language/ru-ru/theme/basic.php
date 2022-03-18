@@ -11,7 +11,7 @@ $_['text_product']                     = 'Products';
 $_['text_image']                       = 'Images';
 
 // Entry
-$_['entry_status']                     = 'Status';
+$_['entry_status']                     = 'Статус';
 $_['entry_product_description_length'] = 'List Description Limit';
 $_['entry_pagination']                 = 'Default Items Per Page';
 $_['entry_image_category']             = 'Category Image Size (W x H)';

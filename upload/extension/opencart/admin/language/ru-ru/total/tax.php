@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified taxes total!';
 $_['text_edit']        = 'Edit Tax Total';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Error

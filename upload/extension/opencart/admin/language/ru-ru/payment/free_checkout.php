@@ -9,7 +9,7 @@ $_['text_edit']          = 'Edit Free Checkout';
 
 // Entry
 $_['entry_order_status'] = 'Order Status';
-$_['entry_status']       = 'Status';
+$_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 
 // Error

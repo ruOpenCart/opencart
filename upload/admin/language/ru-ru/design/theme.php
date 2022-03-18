@@ -16,7 +16,7 @@ $_['text_twig']         = 'The theme editor uses the template language Twig. You
 $_['column_store']      = 'Store';
 $_['column_route']      = 'Route';
 $_['column_date_added'] = 'Date Added';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify the theme editor!';

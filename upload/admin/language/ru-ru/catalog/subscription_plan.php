@@ -26,13 +26,13 @@ $_['entry_price']           = 'Price';
 $_['entry_duration']        = 'Duration';
 $_['entry_cycle']           = 'Cycle';
 $_['entry_frequency']       = 'Frequency';
-$_['entry_status']          = 'Status';
+$_['entry_status']          = 'Статус';
 $_['entry_sort_order']      = 'Sort Order';
 
 // Column
 $_['column_name']           = 'Subscription Plan Name';
 $_['column_sort_order']     = 'Sort Order';
-$_['column_action']         = 'Action';
+$_['column_action']         = 'Действие';
 
 // Help
 $_['help_duration']         = 'The duration is the number of times the user will make a payment, set this to 0 if you want payments until they are cancelled.';

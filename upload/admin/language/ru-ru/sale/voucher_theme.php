@@ -10,7 +10,7 @@ $_['text_edit']         = 'Edit Voucher Theme';
 
 // Column
 $_['column_name']       = 'Voucher Theme Name';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Voucher Theme Name';

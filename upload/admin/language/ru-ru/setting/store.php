@@ -22,7 +22,7 @@ $_['text_image']                       = 'Image Sizes';
 // Column
 $_['column_name']                      = 'Store Name';
 $_['column_url']                       = 'Store URL';
-$_['column_action']                    = 'Action';
+$_['column_action']                    = 'Действие';
 
 // Entry
 $_['entry_url']                        = 'Store URL';
@@ -33,7 +33,7 @@ $_['entry_layout']                     = 'Default Layout';
 $_['entry_theme']                      = 'Theme';
 $_['entry_name']                       = 'Store Name';
 $_['entry_owner']                      = 'Store Owner';
-$_['entry_address']                    = 'Address';
+$_['entry_address']                    = 'Адрес';
 $_['entry_geocode']                    = 'Geocode';
 $_['entry_email']                      = 'E-Mail';
 $_['entry_telephone']                  = 'Telephone';

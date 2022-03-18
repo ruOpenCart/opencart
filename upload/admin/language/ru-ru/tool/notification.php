@@ -8,7 +8,7 @@ $_['text_list']        = 'Notification List';
 
 // Column
 $_['column_message']   = 'Message';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify notifications!';

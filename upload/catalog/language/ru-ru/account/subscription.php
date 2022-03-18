@@ -42,7 +42,7 @@ $_['text_cancelled']                       = 'Recurring payment has been cancell
 $_['column_date_added']                    = 'Date Added';
 $_['column_type']                          = 'Type';
 $_['column_amount']                        = 'Amount';
-$_['column_status']                        = 'Status';
+$_['column_status']                        = 'Статус';
 $_['column_product']                       = 'Product';
 $_['column_order_recurring_id']            = 'Recurring ID';
 

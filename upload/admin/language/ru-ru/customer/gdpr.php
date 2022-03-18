@@ -21,14 +21,14 @@ $_['text_filter']       = 'Filter';
 // Column
 $_['column_email']      = 'E-Mail';
 $_['column_request']    = 'Request';
-$_['column_status']     = 'Status';
+$_['column_status']     = 'Статус';
 $_['column_date_added'] = 'Date Added';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_email']       = 'E-Mail';
-$_['entry_action']      = 'Action';
-$_['entry_status']      = 'Status';
+$_['entry_action']      = 'Действие';
+$_['entry_status']      = 'Статус';
 $_['entry_date_added']  = 'Date Added';
 
 // Error

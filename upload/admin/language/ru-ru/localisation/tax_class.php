@@ -15,7 +15,7 @@ $_['text_store']        = 'Store Address';
 
 // Column
 $_['column_title']      = 'Tax Class Title';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_title']       = 'Tax Class Title';

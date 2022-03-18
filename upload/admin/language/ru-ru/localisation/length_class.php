@@ -12,7 +12,7 @@ $_['text_edit']        = 'Edit Length Class';
 $_['column_title']     = 'Length Title';
 $_['column_unit']      = 'Length Unit';
 $_['column_value']     = 'Value';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_title']      = 'Length Title';

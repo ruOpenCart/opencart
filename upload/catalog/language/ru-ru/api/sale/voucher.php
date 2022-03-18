@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_cart']       = 'Success: You have modified your shopping cart!';
-$_['text_for']        = '%s Gift certificate for %s';
+$_['text_for']        = '%s подарочный сертификат для %s';
 $_['text_success']    = 'Success: Your gift voucher discount has been applied!';
 $_['text_remove']     = 'Success: Your gift voucher discount has been removed!';
 

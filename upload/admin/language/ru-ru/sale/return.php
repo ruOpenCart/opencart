@@ -21,12 +21,12 @@ $_['column_order_id']      = 'Order ID';
 $_['column_customer']      = 'Customer';
 $_['column_product']       = 'Product';
 $_['column_model']         = 'Model';
-$_['column_status']        = 'Status';
+$_['column_status']        = 'Статус';
 $_['column_date_added']    = 'Date Added';
 $_['column_date_modified'] = 'Date Modified';
 $_['column_comment']       = 'Comment';
 $_['column_notify']        = 'Customer Notified';
-$_['column_action']        = 'Action';
+$_['column_action']        = 'Действие';
 
 // Entry
 $_['entry_customer']       = 'Customer';
@@ -50,7 +50,7 @@ $_['entry_date_added']     = 'Date Added';
 $_['entry_date_modified']  = 'Date Modified';
 
 // Help
-$_['help_product']         = '(Autocomplete)';
+$_['help_product']         = '(Автодополнение)';
 
 // Error
 $_['error_warning']        = 'Warning: Please check the form carefully for errors!';

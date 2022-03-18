@@ -18,7 +18,7 @@ $_['column_code']          = 'Cron Code';
 $_['column_cycle']         = 'Cycle';
 $_['column_date_added']    = 'Date Added';
 $_['column_date_modified'] = 'Date Modified';
-$_['column_action']        = 'Action';
+$_['column_action']        = 'Действие';
 
 // entry
 $_['entry_cron']           = 'Cron URL';

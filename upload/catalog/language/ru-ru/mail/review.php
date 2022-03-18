@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_subject']  = '%s - Product Review';
+$_['text_subject']  = '%s - Отзыв о товаре';
 $_['text_waiting']  = 'You have a new product review waiting.';
 $_['text_product']  = 'Product:';
 $_['text_reviewer'] = 'Reviewer:';

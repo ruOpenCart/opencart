@@ -16,7 +16,7 @@ $_['column_email']          = 'E-Mail';
 $_['column_customer_group'] = 'Customer Group';
 $_['column_type']           = 'Type';
 $_['column_date_added']     = 'Date Added';
-$_['column_action']         = 'Action';
+$_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_customer']        = 'Customer';

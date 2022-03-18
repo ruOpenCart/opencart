@@ -10,7 +10,7 @@ $_['text_order']       = 'Orders';
 $_['text_sale']        = 'Sales';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 $_['entry_width']      = 'Width';
 

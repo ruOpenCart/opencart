@@ -11,7 +11,7 @@ $_['text_edit']         = 'Edit HTML Content Module';
 $_['entry_name']        = 'Module Name';
 $_['entry_title']       = 'Heading Title';
 $_['entry_description'] = 'Description';
-$_['entry_status']      = 'Status';
+$_['entry_status']      = 'Статус';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify HTML Content module!';

@@ -8,8 +8,8 @@ $_['text_list']        = 'Currency Rate List';
 
 // Column
 $_['column_name']      = 'Currency Rate Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_status']    = 'Статус';
+$_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify currencies rates!';

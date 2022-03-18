@@ -32,9 +32,9 @@ $_['text_image']             = 'Image';
 $_['text_image_additional']  = 'Additional Images';
 $_['text_reward']            = 'Buy Points';
 $_['text_points']            = 'Reward Points';
-$_['text_subscription_trial']    = '%s every %d %s(s) for %d payment(s) then';
-$_['text_subscription_description'] = '%s every %d %s(s) for %d payment(s)';
-$_['text_subscription_cancel']      = '%s every %d %s(s) until canceled';
+$_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда';
+$_['text_subscription_description'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']      = '%s каждые %d %s до отмены';
 
 // Column
 $_['column_name']            = 'Product Name';
@@ -42,12 +42,12 @@ $_['column_model']           = 'Model';
 $_['column_image']           = 'Image';
 $_['column_price']           = 'Price';
 $_['column_quantity']        = 'Quantity';
-$_['column_status']          = 'Status';
+$_['column_status']          = 'Статус';
 $_['column_ip']              = 'IP';
 $_['column_store']           = 'Store';
 $_['column_country']         = 'Country';
 $_['column_date_added']      = 'Date Added';
-$_['column_action']          = 'Action';
+$_['column_action']          = 'Действие';
 
 // Entry
 $_['entry_name']             = 'Product Name';
@@ -93,7 +93,7 @@ $_['entry_attribute_group']  = 'Attribute Group';
 $_['entry_image']            = 'Image';
 $_['entry_text']             = 'Text';
 $_['entry_required']         = 'Required';
-$_['entry_status']           = 'Status';
+$_['entry_status']           = 'Статус';
 $_['entry_sort_order']       = 'Sort Order';
 $_['entry_category']         = 'Categories';
 $_['entry_filter']           = 'Filters';
@@ -114,12 +114,12 @@ $_['help_isbn']              = 'International Standard Book Number';
 $_['help_mpn']               = 'Manufacturer Part Number';
 $_['help_minimum']           = 'Force a minimum ordered amount';
 $_['help_stock_status']      = 'Status shown when a product is out of stock';
-$_['help_manufacturer']      = '(Autocomplete)';
-$_['help_category']          = '(Autocomplete)';
-$_['help_filter']            = '(Autocomplete)';
-$_['help_download']          = '(Autocomplete)';
-$_['help_related']           = '(Autocomplete)';
-$_['help_option']            = '(Autocomplete)';
+$_['help_manufacturer']      = '(Автодополнение)';
+$_['help_category']          = '(Автодополнение)';
+$_['help_filter']            = '(Автодополнение)';
+$_['help_download']          = '(Автодополнение)';
+$_['help_related']           = '(Автодополнение)';
+$_['help_option']            = '(Автодополнение)';
 $_['help_points']            = 'Number of points needed to buy this item. If you don\'t want this product to be purchased with points leave as 0.';
 
 // Error
@@ -130,4 +130,4 @@ $_['error_meta_title']       = 'Meta Title must be greater than 1 and less than 
 $_['error_model']            = 'Product Model must be greater than 1 and less than 64 characters!';
 $_['error_seo']              = 'SEO URL keyword required!';
 $_['error_keyword']          = 'SEO URL must be unique!';
-$_['error_required']         = '%s required!';
+$_['error_required']         = '%s обязательно к заполнению!';

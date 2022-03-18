@@ -3,7 +3,7 @@
 $_['heading_title']       = 'My Account';
 
 // Text
-$_['text_account']        = 'Account';
+$_['text_account']        = 'Аккаунт';
 $_['text_my_account']     = 'My Account';
 $_['text_my_orders']      = 'My Orders';
 $_['text_my_affiliate']   = 'My Affiliate Account';

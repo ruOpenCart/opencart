@@ -9,7 +9,7 @@ $_['text_edit']        = 'Edit Pickup From Store Shipping';
 
 // Entry
 $_['entry_geo_zone']   = 'Geo Zone';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Error

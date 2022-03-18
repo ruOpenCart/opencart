@@ -19,7 +19,7 @@ $_['text_date']            = 'Date';
 $_['text_datetime']        = 'Date &amp; Time';
 $_['text_time']            = 'Time';
 $_['text_account']         = 'Account';
-$_['text_address']         = 'Address';
+$_['text_address']         = 'Адрес';
 $_['text_affiliate']       = 'Affiliate';
 $_['text_regex']           = 'Regex';
 $_['text_custom_field']    = 'Custom Field';
@@ -29,9 +29,9 @@ $_['text_value']           = 'Custom Field Values';
 $_['column_name']          = 'Custom Field Name';
 $_['column_location']      = 'Location';
 $_['column_type']          = 'Type';
-$_['column_status']        = 'Status';
+$_['column_status']        = 'Статус';
 $_['column_sort_order']    = 'Sort Order';
-$_['column_action']        = 'Action';
+$_['column_action']        = 'Действие';
 
 // Entry
 $_['entry_name']           = 'Custom Field Name';
@@ -42,7 +42,7 @@ $_['entry_validation']     = 'Validation';
 $_['entry_custom_value']   = 'Custom Field Value Name';
 $_['entry_customer_group'] = 'Customer Group';
 $_['entry_required']       = 'Required';
-$_['entry_status']         = 'Status';
+$_['entry_status']         = 'Статус';
 $_['entry_sort_order']     = 'Sort Order';
 
 // Help

@@ -11,15 +11,15 @@ $_['text_default']     = 'Default';
 
 // Column
 $_['column_name']      = 'Banner Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_status']    = 'Статус';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'Banner Name';
 $_['entry_title']      = 'Title';
 $_['entry_link']       = 'Link';
 $_['entry_image']      = 'Image';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Error

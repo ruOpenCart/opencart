@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_subject'] = '%s - GDPR request approved!';
+$_['text_subject'] = '%s - GDPR запрос одобрен!';
 $_['text_request'] = 'Account Deletion Request';
 $_['text_hello']   = 'Hello <strong>%s</strong>,';
 $_['text_user']    = 'User';
