@@ -11,12 +11,12 @@ $_['text_info']         = 'Event Information';
 // Column
 $_['column_code']       = 'Event Code';
 $_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Entry
 $_['text_description']  = 'Description';
 $_['text_trigger']      = 'Trigger';
-$_['text_action']       = 'Action';
+$_['text_action']       = 'Действие';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify the events!';
