@@ -10,7 +10,7 @@ $_['text_edit']          = 'Edit Subscription Status';
 
 // Column
 $_['column_name']        = 'Subscription Status Name';
-$_['column_action']      = 'Action';
+$_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_name']         = 'Subscription Status Name';
