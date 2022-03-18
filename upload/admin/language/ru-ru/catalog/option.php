@@ -24,7 +24,7 @@ $_['text_value']         = 'Option Values';
 // Column
 $_['column_name']        = 'Option Name';
 $_['column_sort_order']  = 'Sort Order';
-$_['column_action']      = 'Action';
+$_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_name']         = 'Option Name';
