@@ -19,7 +19,7 @@ $_['entry_indicators'] = 'Indicators';
 $_['entry_interval']   = 'Interval';
 $_['entry_width']      = 'Width';
 $_['entry_height']     = 'Height';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 
 // Help
 $_['help_items']       = 'The number of items to show per slide.';
