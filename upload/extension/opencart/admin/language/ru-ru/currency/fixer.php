@@ -11,7 +11,7 @@ $_['text_support']     = 'This extension Requires at EUR currency to be availabl
 
 // Entry
 $_['entry_api']        = 'API Access Key';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify fixer currency rates!';
