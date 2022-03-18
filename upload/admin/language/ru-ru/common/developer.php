@@ -10,7 +10,7 @@ $_['text_cache']       = 'Success: You have cleared the %s cache!';
 
 // Column
 $_['column_component'] = 'Component';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_theme']      = 'Theme';
