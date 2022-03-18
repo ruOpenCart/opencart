@@ -10,7 +10,7 @@ $_['text_edit']        = 'Edit Return Status';
 
 // Column
 $_['column_name']      = 'Return Status Name';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'Return Status Name';
