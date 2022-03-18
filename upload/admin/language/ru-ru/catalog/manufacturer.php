@@ -13,7 +13,7 @@ $_['text_keyword']      = 'Do not use spaces, instead replace spaces with - and 
 // Column
 $_['column_name']       = 'Manufacturer Name';
 $_['column_sort_order'] = 'Sort Order';
-$_['column_action']     = 'Action';
+$_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Manufacturer Name';
