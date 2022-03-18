@@ -16,7 +16,7 @@ $_['text_import']        = 'For large backup files it is better to upload the SQ
 $_['column_filename']    = 'Filename';
 $_['column_size']        = 'Size';
 $_['column_date_added']  = 'Date Added';
-$_['column_action']      = 'Action';
+$_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_progress']     = 'Progress';
