@@ -18,7 +18,7 @@ $_['text_column_right']   = 'Column Right';
 
 // Column
 $_['column_name']         = 'Layout Name';
-$_['column_action']       = 'Action';
+$_['column_action']       = 'Действие';
 
 // Entry
 $_['entry_name']          = 'Layout Name';
