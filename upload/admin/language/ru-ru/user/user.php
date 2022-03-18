@@ -10,9 +10,9 @@ $_['text_edit']             = 'Edit User';
 
 // Column
 $_['column_username']       = 'Username';
-$_['column_status']         = 'Status';
+$_['column_status']         = 'Статус';
 $_['column_date_added']     = 'Date Added';
-$_['column_action']         = 'Action';
+$_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_username']        = 'Username';
@@ -23,7 +23,7 @@ $_['entry_firstname']       = 'First Name';
 $_['entry_lastname']        = 'Last Name';
 $_['entry_email']           = 'E-Mail';
 $_['entry_image']           = 'Image';
-$_['entry_status']          = 'Status';
+$_['entry_status']          = 'Статус';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify users!';
