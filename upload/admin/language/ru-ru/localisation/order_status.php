@@ -10,7 +10,7 @@ $_['text_edit']        = 'Edit Order Status';
 
 // Column
 $_['column_name']      = 'Order Status Name';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'Order Status Name';
