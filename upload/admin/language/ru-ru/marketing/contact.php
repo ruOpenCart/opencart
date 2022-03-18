@@ -8,11 +8,11 @@ $_['text_success']         = 'Your message has been successfully sent!';
 $_['text_sent']            = 'Your message has been successfully sent to %s - %s recipients!';
 $_['text_default']         = 'Default';
 $_['text_newsletter']      = 'All Newsletter Subscribers';
-$_['text_customer_all']    = 'All Customers';
+$_['text_customer_all']    = 'Все покупатели';
 $_['text_customer_group']  = 'Customer Group';
 $_['text_customer']        = 'Customers';
-$_['text_affiliate_all']   = 'All Affiliates';
-$_['text_affiliate']       = 'Affiliates';
+$_['text_affiliate_all']   = 'Все партнеры';
+$_['text_affiliate']       = 'Партнеры';
 $_['text_product']         = 'Products';
 
 // Entry
@@ -26,8 +26,8 @@ $_['entry_subject']        = 'Subject';
 $_['entry_message']        = 'Message';
 
 // Help
-$_['help_customer']        = '(Autocomplete)';
-$_['help_affiliate']       = '(Autocomplete)';
+$_['help_customer']        = '(Автодополнение)';
+$_['help_affiliate']       = '(Автодополнение)';
 $_['help_product']         = 'Send only to customers who have ordered products in the list. (Autocomplete)';
 
 // Error
