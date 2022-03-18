@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']             = 'Affiliates';
+$_['heading_title']             = 'Партнеры';
 
 // Text
 $_['text_success']              = 'Success: You have modified affiliates!';
@@ -26,7 +26,7 @@ $_['column_name']               = 'Customer Name';
 $_['column_tracking']           = 'Tracking';
 $_['column_commission']         = 'Commission';
 $_['column_balance']            = 'Balance';
-$_['column_status']             = 'Status';
+$_['column_status']             = 'Статус';
 $_['column_ip']                 = 'IP';
 $_['column_account']            = 'Accounts';
 $_['column_store']              = 'Store';
@@ -35,11 +35,11 @@ $_['column_date_added']         = 'Date Added';
 $_['column_comment']            = 'Comment';
 $_['column_description']        = 'Description';
 $_['column_amount']             = 'Amount';
-$_['column_action']             = 'Action';
+$_['column_action']             = 'Действие';
 
 // Entry
 $_['entry_customer']            = 'Customer';
-$_['entry_status']              = 'Status';
+$_['entry_status']              = 'Статус';
 $_['entry_company']             = 'Company';
 $_['entry_tracking']            = 'Tracking Code';
 $_['entry_website']             = 'Web Site';
@@ -73,4 +73,4 @@ $_['error_cheque']              = 'Cheque Payee Name required!';
 $_['error_paypal']              = 'PayPal Email Address does not appear to be valid!';
 $_['error_bank_account_name']   = 'Account Name required!';
 $_['error_bank_account_number'] = 'Account Number required!';
-$_['error_custom_field']        = '%s required!';
+$_['error_custom_field']        = '%s обязательно к заполнению!';
