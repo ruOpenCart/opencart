@@ -12,12 +12,12 @@ $_['text_edit']              = 'Edit Attribute';
 $_['column_name']            = 'Attribute Name';
 $_['column_attribute_group'] = 'Attribute Group';
 $_['column_sort_order']      = 'Sort Order';
-$_['column_action']          = 'Action';
+$_['column_action']          = 'Действие';
 
 // Entry
 $_['entry_name']             = 'Attribute Name';
 $_['entry_attribute_group']  = 'Attribute Group';
-$_['entry_sort_order']       = 'Sort Order';
+$_['entry_sort_order']       = 'Порядок сортировки';
 
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';
