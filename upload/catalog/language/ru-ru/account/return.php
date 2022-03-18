@@ -24,7 +24,7 @@ $_['text_agree']         = 'I have read and agree to the <a href="%s" class="mod
 // Column
 $_['column_return_id']   = 'Return ID';
 $_['column_order_id']    = 'Order ID';
-$_['column_status']      = 'Status';
+$_['column_status']      = 'Статус';
 $_['column_date_added']  = 'Date Added';
 $_['column_customer']    = 'Customer';
 $_['column_product']     = 'Product Name';
@@ -34,7 +34,7 @@ $_['column_price']       = 'Price';
 $_['column_opened']      = 'Opened';
 $_['column_comment']     = 'Comment';
 $_['column_reason']      = 'Reason';
-$_['column_action']      = 'Action';
+$_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_order_id']     = 'Order ID';
