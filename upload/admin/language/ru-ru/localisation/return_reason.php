@@ -10,7 +10,7 @@ $_['text_edit']        = 'Edit Return Reason';
 
 // Column
 $_['column_name']      = 'Return Reason Name';
-$_['column_action']    = 'Action';
+$_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'Return Reason Name';
