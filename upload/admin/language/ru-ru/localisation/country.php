@@ -13,7 +13,7 @@ $_['text_filter']             = 'Filter';
 $_['column_name']             = 'Country Name';
 $_['column_iso_code_2']       = 'ISO Code (2)';
 $_['column_iso_code_3']       = 'ISO Code (3)';
-$_['column_action']           = 'Action';
+$_['column_action']           = 'Действие';
 
 // Entry
 $_['entry_name']              = 'Country Name';
@@ -21,7 +21,7 @@ $_['entry_iso_code_2']        = 'ISO Code (2)';
 $_['entry_iso_code_3']        = 'ISO Code (3)';
 $_['entry_address_format']    = 'Address Format';
 $_['entry_postcode_required'] = 'Postcode Required';
-$_['entry_status']            = 'Status';
+$_['entry_status']            = 'Статус';
 
 // Error
 $_['error_permission']        = 'Warning: You do not have permission to modify countries!';
