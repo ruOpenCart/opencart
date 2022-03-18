@@ -9,7 +9,7 @@ $_['text_edit']        = 'Edit Shipping Total';
 
 // Entry
 $_['entry_estimator']  = 'Shipping Estimator';
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Error
