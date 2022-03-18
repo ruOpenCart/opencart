@@ -8,8 +8,8 @@ $_['text_list']        = 'Other List';
 
 // Column
 $_['column_name']      = 'Other Name';
-$_['column_status']    = 'Status';
-$_['column_action']    = 'Action';
+$_['column_status']    = 'Статус';
+$_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify other extension!';
