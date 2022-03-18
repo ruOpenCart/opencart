@@ -25,7 +25,7 @@ $_['entry_complete_status'] = 'Order Status';
 $_['entry_subscription_status'] = 'Order Status';
 
 $_['entry_geo_zone']     = 'Geo Zone';
-$_['entry_status']       = 'Status';
+$_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 
 // Help
