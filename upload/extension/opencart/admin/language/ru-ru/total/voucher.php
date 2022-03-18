@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified gift voucher total!';
 $_['text_edit']        = 'Edit Gift Voucher Total';
 
 // Entry
-$_['entry_status']     = 'Status';
+$_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Error
