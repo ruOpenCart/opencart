@@ -37,11 +37,11 @@ $_['column_comment']             = 'Comment';
 $_['column_description']         = 'Description';
 $_['column_amount']              = 'Amount';
 $_['column_notify']              = 'Customer Notified';
-$_['column_status']              = 'Status';
+$_['column_status']              = 'Статус';
 $_['column_date_added']          = 'Date Added';
 $_['column_product']             = 'Product Details';
 $_['column_quantity']            = 'Quantity';
-$_['column_action']              = 'Action';
+$_['column_action']              = 'Действие';
 
 // Entry
 $_['entry_order_id']             = 'Order ID';
