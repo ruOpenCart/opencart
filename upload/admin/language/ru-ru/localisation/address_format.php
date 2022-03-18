@@ -11,7 +11,7 @@ $_['text_edit']               = 'Edit Address Format';
 // Column
 $_['column_name']             = 'Address Format Name';
 $_['column_address_format']   = 'Address Format';
-$_['column_action']           = 'Action';
+$_['column_action']           = 'Действие';
 
 // Entry
 $_['entry_name']              = 'Address Format Name';
