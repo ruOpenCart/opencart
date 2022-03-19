@@ -5,7 +5,7 @@ $_['heading_title']       = 'Coupons';
 // Text
 $_['text_success']        = 'Success: You have modified coupons!';
 $_['text_list']           = 'Coupon List';
-$_['text_add']            = 'Add Coupon';
+$_['text_add']            = 'Добавить купон';
 $_['text_edit']           = 'Edit Coupon';
 $_['text_percent']        = 'Percentage';
 $_['text_amount']         = 'Fixed Amount';
@@ -20,7 +20,7 @@ $_['column_date_end']     = 'Date End';
 $_['column_status']       = 'Статус';
 $_['column_order_id']     = 'Order ID';
 $_['column_customer']     = 'Customer';
-$_['column_amount']       = 'Amount';
+$_['column_amount']       = 'Сумма';
 $_['column_date_added']   = 'Date Added';
 $_['column_action']       = 'Действие';
 
