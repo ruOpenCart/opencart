@@ -3,7 +3,7 @@
 $_['heading_title']      = 'My Account Information';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'Аккаунт';
 $_['text_edit']          = 'Edit Information';
 $_['text_your_details']  = 'Your Personal Details';
 $_['text_success']       = 'Success: Your account has been successfully updated.';
