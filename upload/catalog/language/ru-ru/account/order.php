@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Order History';
 
 // Text
-$_['text_account']          = 'Account';
+$_['text_account']          = 'Аккаунт';
 $_['text_order']            = 'Order Information';
 $_['text_order_detail']     = 'Order Details';
 $_['text_invoice_no']       = 'Invoice No.:';
