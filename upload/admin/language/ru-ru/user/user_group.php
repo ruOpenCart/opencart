@@ -7,7 +7,7 @@ $_['text_success']     = 'Success: You have modified user groups!';
 $_['text_list']        = 'User Group';
 $_['text_add']         = 'Add User Group';
 $_['text_edit']        = 'Edit User Group';
-$_['text_access']      = 'Access';
+$_['text_access']      = 'Доступ';
 $_['text_modify']      = 'Modify';
 
 // Column
