@@ -5,7 +5,7 @@ $_['heading_title']       = 'Layouts';
 // Text
 $_['text_success']        = 'Success: You have modified layouts!';
 $_['text_list']           = 'Layout List';
-$_['text_add']            = 'Add Layout';
+$_['text_add']            = 'Добавить макет';
 $_['text_edit']           = 'Edit Layout';
 $_['text_remove']         = 'Remove';
 $_['text_route']          = 'Choose the store and routes to be used with this layout';
