@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']  = 'Administration';
+$_['heading_title']  = 'Администрирование';
 
 // Text
-$_['text_heading']   = 'Administration';
+$_['text_heading']   = 'Администрирование';
 $_['text_login']     = 'Please enter your login details.';
 $_['text_forgotten'] = 'Forgotten Password';
 
