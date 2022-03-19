@@ -5,14 +5,14 @@ $_['heading_title']        = 'Product Returns';
 // Text
 $_['text_success']         = 'Success: You have modified returns!';
 $_['text_list']            = 'Product Return List';
-$_['text_add']             = 'Add Product Return';
+$_['text_add']             = 'Добавить возврат товара';
 $_['text_edit']            = 'Edit Product Return';
 $_['text_opened']          = 'Opened';
 $_['text_unopened']        = 'Unopened';
 $_['text_order']           = 'Order Information';
 $_['text_product']         = 'Product Information &amp; Reason for Return';
 $_['text_history']         = 'History';
-$_['text_history_add']     = 'Add History';
+$_['text_history_add']     = 'Добавить историю';
 $_['text_filter']          = 'Filter';
 
 // Column
