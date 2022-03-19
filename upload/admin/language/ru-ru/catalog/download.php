@@ -5,7 +5,7 @@ $_['heading_title']     = 'Downloads';
 // Text
 $_['text_success']      = 'Success: You have modified downloads!';
 $_['text_list']         = 'Download List';
-$_['text_add']          = 'Add Download';
+$_['text_add']          = 'Добавить загрузку';
 $_['text_edit']         = 'Edit Download';
 $_['text_upload']       = 'Your file was successfully uploaded!';
 $_['text_report']       = 'Report';
@@ -13,7 +13,7 @@ $_['text_report']       = 'Report';
 // Column
 $_['column_name']       = 'Download Name';
 $_['column_ip']         = 'IP';
-$_['column_account']    = 'Accounts';
+$_['column_account']    = 'Учётные записи';
 $_['column_store']      = 'Store';
 $_['column_country']    = 'Country';
 $_['column_date_added'] = 'Date Added';
