@@ -10,7 +10,7 @@ $_['text_address']   = 'Адрес';
 $_['text_telephone'] = 'Telephone';
 $_['text_open']      = 'Opening Times';
 $_['text_comment']   = 'Comments';
-$_['text_message']   = '<p>Your enquiry has been successfully sent to the store owner!</p>';
+$_['text_message']   = '<p>Ваш запрос был успешно отправлен администрации магазина!</p>';
 
 // Entry
 $_['entry_name']     = 'Your Name';
