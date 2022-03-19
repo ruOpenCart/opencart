@@ -3,14 +3,14 @@
 $_['heading_title']      = 'Product Returns';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'Аккаунт';
 $_['text_return']        = 'Return Information';
 $_['text_return_detail'] = 'Return Details';
 $_['text_description']   = 'Please complete the form below to request an RMA number.';
 $_['text_order']         = 'Order Information';
 $_['text_product']       = 'Product Information';
 $_['text_reason']        = 'Reason for Return';
-$_['text_message']       = '<p>Thank you for submitting your return request. Your request has been sent to the relevant department for processing.</p><p> You will be notified via e-mail as to the status of your request.</p>';
+$_['text_message']       = '<p>Вы отправили запрос на возврат.</p><p> Уведомления о статусе запроса вы получите на ваш e-mail. Спасибо!</p>';
 $_['text_return_id']     = 'Return ID:';
 $_['text_orders_id']     = 'Order ID:';
 $_['text_date_ordered']  = 'Order Date:';
