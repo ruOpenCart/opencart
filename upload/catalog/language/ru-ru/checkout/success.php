@@ -6,5 +6,5 @@ $_['heading_title'] = 'Your order has been placed!';
 $_['text_basket']   = 'Shopping Cart';
 $_['text_checkout'] = 'Checkout';
 $_['text_success']  = 'Success';
-$_['text_customer'] = '<p>Your order has been successfully processed!</p><p>You can view your order history by going to the <a href="%s">my account</a> page and by clicking on <a href="%s">history</a>.</p><p>If your purchase has an associated download, you can go to the account <a href="%s">downloads</a> page to view them.</p><p>Please direct any questions you have to the <a href="%s">store owner</a>.</p><p>Thanks for shopping with us online!</p>';
-$_['text_guest']    = '<p>Your order has been successfully processed!</p><p>Please direct any questions you have to the <a href="%s">store owner</a>.</p><p>Thanks for shopping with us online!</p>';
+$_['text_customer'] = '<br><p>Вы можете просматривать историю заказов в <a href="%s">Личном кабинете</a> открыв <a href="%s">Историю заказов</a>.</p><p>Если в вашем заказе есть цифровые товары для скачивания, вы можете посмотреть их на странице <a href="%s">Файлы для скачивания</a>.</p><p>Если у вас возникнут какие-либо вопросы, пожалуйста, <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
+$_['text_guest']    = '<p>Ваш заказ был успешно сформирован!</p><p>Если у вас возникнут какие-либо вопросы, пожалуйста, <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
