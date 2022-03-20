@@ -5,16 +5,16 @@ $_['heading_title']       = 'Layouts';
 // Text
 $_['text_success']        = 'Success: You have modified layouts!';
 $_['text_list']           = 'Layout List';
-$_['text_add']            = 'Add Layout';
+$_['text_add']            = 'Добавить макет';
 $_['text_edit']           = 'Edit Layout';
 $_['text_remove']         = 'Remove';
-$_['text_route']          = 'Choose the store and routes to be used with this layout';
-$_['text_module']         = 'Choose the position of the modules';
-$_['text_default']        = 'Default';
-$_['text_content_top']    = 'Content Top';
-$_['text_content_bottom'] = 'Content Bottom';
-$_['text_column_left']    = 'Column Left';
-$_['text_column_right']   = 'Column Right';
+$_['text_route']          = 'Выберите магазин и маршруты, которые будут использоваться с этим макетом';
+$_['text_module']         = 'Выберите расположение модулей';
+$_['text_default']        = 'По умолчанию';
+$_['text_content_top']    = 'Верхний контент';
+$_['text_content_bottom'] = 'Нижний контент';
+$_['text_column_left']    = 'Левая колонка';
+$_['text_column_right']   = 'Правая колонка';
 
 // Column
 $_['column_name']         = 'Layout Name';
