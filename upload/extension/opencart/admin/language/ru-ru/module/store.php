@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified store module!';
 $_['text_edit']        = 'Edit Store Module';
 
 // Entry
-$_['entry_admin']      = 'Admin Users Only';
+$_['entry_admin']      = 'Только для администраторов';
 $_['entry_status']     = 'Статус';
 
 // Error
