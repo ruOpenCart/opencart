@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']    = 'Currency Rates';
+$_['heading_title']    = 'Курсы валют';
 
 // Text
 $_['text_success']     = 'Success: You have modified currencies rates!';
-$_['text_list']        = 'Currency Rate List';
+$_['text_list']        = 'Список курсов валют';
 
 // Column
-$_['column_name']      = 'Currency Rate Name';
+$_['column_name']      = 'Название курса валюты';
 $_['column_status']    = 'Статус';
 $_['column_action']    = 'Действие';
 
