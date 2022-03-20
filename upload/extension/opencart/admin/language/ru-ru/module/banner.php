@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Banner';
+$_['heading_title']    = 'Баннер';
 
 // Text
 $_['text_extension']   = 'Extensions';
@@ -11,10 +11,10 @@ $_['text_fade']        = 'Fade';
 
 // Entry
 $_['entry_name']       = 'Module Name';
-$_['entry_banner']     = 'Banner';
+$_['entry_banner']     = 'Баннер';
 $_['entry_effect']     = 'Effect';
 $_['entry_items']      = 'Items per Slide';
-$_['entry_controls']   = 'Controls';
+$_['entry_controls']   = 'Управление';
 $_['entry_indicators'] = 'Indicators';
 $_['entry_interval']   = 'Interval';
 $_['entry_width']      = 'Width';
