@@ -1,21 +1,21 @@
 <?php
 // Heading
-$_['heading_title']      = 'Credit Card';
+$_['heading_title']      = 'Кредитная карта';
 
 // Text
 $_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site. This extension is here for developers that need to create a payment gateway integration.';
 $_['text_extension']     = 'Extensions';
 $_['text_success']       = 'Success: You have modified credit card payment module!';
 $_['text_edit']          = 'Edit Credit Card';
-$_['text_approve']       = 'Approve';
-$_['text_deny']          = 'Deny';
+$_['text_approve']       = 'Одобрить';
+$_['text_deny']          = 'Отклонить';
 
 // Entry
-$_['entry_response']     = 'Card Processor Response';
+$_['entry_response']     = 'Ответ процессора карты';
 
-$_['entry_response']     = 'Card Processor Response';
-$_['entry_response']     = 'Card Processor Response';
-$_['entry_response']     = 'Card Processor Response';
+$_['entry_response']     = 'Ответ процессора карты';
+$_['entry_response']     = 'Ответ процессора карты';
+$_['entry_response']     = 'Ответ процессора карты';
 
 
 $_['entry_order_status'] = 'Order Status';
@@ -29,7 +29,7 @@ $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 
 // Help
-$_['help_response']      = 'Choose if the credit card should return approved or denied making test orders';
+$_['help_response']      = 'Выбор одобрения или отказа в возврате кредитной карты при выполнении тестовых заказов';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment credit card!';
