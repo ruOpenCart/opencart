@@ -3,19 +3,19 @@
 $_['heading_title']      = 'Product Returns';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'Аккаунт';
 $_['text_return']        = 'Return Information';
 $_['text_return_detail'] = 'Return Details';
 $_['text_description']   = 'Please complete the form below to request an RMA number.';
 $_['text_order']         = 'Order Information';
 $_['text_product']       = 'Product Information';
 $_['text_reason']        = 'Reason for Return';
-$_['text_message']       = '<p>Thank you for submitting your return request. Your request has been sent to the relevant department for processing.</p><p> You will be notified via e-mail as to the status of your request.</p>';
+$_['text_message']       = '<p>Вы отправили запрос на возврат.</p><p> Уведомления о статусе запроса вы получите на ваш e-mail. Спасибо!</p>';
 $_['text_return_id']     = 'Return ID:';
 $_['text_orders_id']     = 'Order ID:';
 $_['text_date_ordered']  = 'Order Date:';
 $_['text_status']        = 'Status:';
-$_['text_date_added']    = 'Date Added:';
+$_['text_date_added']    = 'Дата добавления:';
 $_['text_comment']       = 'Return Comments';
 $_['text_history']       = 'Return History';
 $_['text_no_results']    = 'You have not made any previous returns!';
@@ -25,14 +25,14 @@ $_['text_agree']         = 'I have read and agree to the <a href="%s" class="mod
 $_['column_return_id']   = 'Return ID';
 $_['column_order_id']    = 'Order ID';
 $_['column_status']      = 'Статус';
-$_['column_date_added']  = 'Date Added';
-$_['column_customer']    = 'Customer';
+$_['column_date_added']  = 'Дата добавления';
+$_['column_customer']    = 'Покупатель';
 $_['column_product']     = 'Product Name';
 $_['column_model']       = 'Model';
 $_['column_quantity']    = 'Quantity';
 $_['column_price']       = 'Price';
 $_['column_opened']      = 'Opened';
-$_['column_comment']     = 'Comment';
+$_['column_comment']     = 'Комментарий';
 $_['column_reason']      = 'Reason';
 $_['column_action']      = 'Действие';
 
@@ -41,7 +41,7 @@ $_['entry_order_id']     = 'Order ID';
 $_['entry_date_ordered'] = 'Order Date';
 $_['entry_firstname']    = 'First Name';
 $_['entry_lastname']     = 'Last Name';
-$_['entry_email']        = 'E-Mail';
+$_['entry_email']        = 'Эл. почта';
 $_['entry_telephone']    = 'Telephone';
 $_['entry_product']      = 'Product Name';
 $_['entry_model']        = 'Product Code';
