@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']  = 'Change Password';
+$_['heading_title']  = 'Изменение пароля';
 
 // Text
-$_['text_account']   = 'Account';
+$_['text_account']   = 'Аккаунт';
 $_['text_password']  = 'Your Password';
 $_['text_success']   = 'Success: Your password has been successfully updated.';
 
