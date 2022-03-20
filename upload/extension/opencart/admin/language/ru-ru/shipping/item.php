@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified shipping per item rates!';
 $_['text_edit']        = 'Edit Per Item Shipping';
 
 // Entry
-$_['entry_cost']       = 'Cost';
+$_['entry_cost']       = 'Стоимость';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_geo_zone']   = 'Geo Zone';
 $_['entry_status']     = 'Статус';
