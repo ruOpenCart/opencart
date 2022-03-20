@@ -5,7 +5,7 @@ $_['heading_title']     = 'GDPR Approvals';
 // Text
 $_['text_success']      = 'Success: You have modified GDPR approvals!';
 $_['text_list']         = 'GDPR Approval List';
-$_['text_info']         = '<strong>GDPR</strong> account deletion requests will process after <strong>%s days</strong> so any fraud detection, chargebacks or refunds can be processed.';
+$_['text_info']         = '<strong>GDPR</strong> запросы на удаление аккаунта будут обрабатываться через <strong>%s дней</strong>, так что любые обнаружения мошенничества, выплаты или возвраты средств могут быть обработаны.';
 $_['text_approve']      = 'Approve';
 $_['text_deny']         = 'Deny';
 $_['text_delete']       = 'Delete';

@@ -5,7 +5,7 @@ $_['heading_title']        = 'APIs';
 // Text
 $_['text_success']         = 'Success: You have modified APIs!';
 $_['text_list']            = 'API List';
-$_['text_add']             = 'Add API';
+$_['text_add']             = 'Добавить API';
 $_['text_edit']            = 'Edit API';
 $_['text_ip']              = 'Below you can create a list of IP\'s allowed to access the API. Your current IP is %s';
 

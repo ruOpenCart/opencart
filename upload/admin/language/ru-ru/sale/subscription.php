@@ -21,10 +21,10 @@ $_['text_cancel']                = 'Until Canceled';
 
 $_['text_product']               = 'Product Details';
 $_['text_quantity']              = 'Quantity';
-$_['text_amount']                = 'Amount';
+$_['text_amount']                = 'Сумма';
 
 $_['text_history']               = 'History';
-$_['text_history_add']           = 'Add History';
+$_['text_history_add']           = 'Добавить историю';
 $_['text_transaction']           = 'Transactions';
 $_['text_transaction_add']       = 'Add Transaction';
 
@@ -35,7 +35,7 @@ $_['column_reference']           = 'Reference';
 $_['column_customer']            = 'Customer';
 $_['column_comment']             = 'Comment';
 $_['column_description']         = 'Description';
-$_['column_amount']              = 'Amount';
+$_['column_amount']              = 'Сумма';
 $_['column_notify']              = 'Customer Notified';
 $_['column_status']              = 'Статус';
 $_['column_date_added']          = 'Date Added';
@@ -52,7 +52,7 @@ $_['entry_payment_method']       = 'Payment Method';
 $_['entry_subscription_status']  = 'Subscription Status';
 $_['entry_comment']              = 'Comment';
 $_['entry_description']          = 'Description';
-$_['entry_amount']               = 'Amount';
+$_['entry_amount']               = 'Сумма';
 $_['entry_notify']               = 'Notify Customer';
 $_['entry_override']             = 'Override';
 $_['entry_comment']              = 'Comment';

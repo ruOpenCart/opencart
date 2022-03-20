@@ -11,7 +11,7 @@ $_['text_year']          = 'Years';
 $_['text_month']         = 'Months';
 $_['text_week']          = 'Weeks';
 $_['text_day']           = 'Days';
-$_['text_all_status']    = 'All Statuses';
+$_['text_all_status']    = 'Все статусы';
 
 // Column
 $_['column_date_start']  = 'Date Start';

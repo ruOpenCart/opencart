@@ -3,7 +3,7 @@
 $_['heading_title']                        = 'Subscriptions';
 
 // Text
-$_['text_account']                         = 'Account';
+$_['text_account']                         = 'Аккаунт';
 $_['text_recurring']                       = 'Recurring Payment Information';
 $_['text_recurring_detail']                = 'Recurring Payment Details';
 $_['text_order_recurring_id']              = 'Recurring ID:';
@@ -17,7 +17,7 @@ $_['text_description']                     = 'Description';
 $_['text_reference']                       = 'Reference';
 $_['text_transaction']                     = 'Transactions';
 
-$_['text_status_1']                        = 'Active';
+$_['text_status_1']                        = 'Активен';
 $_['text_status_2']                        = 'Inactive';
 $_['text_status_3']                        = 'Cancelled';
 $_['text_status_4']                        = 'Suspended';
@@ -41,7 +41,7 @@ $_['text_cancelled']                       = 'Recurring payment has been cancell
 // Column
 $_['column_date_added']                    = 'Date Added';
 $_['column_type']                          = 'Type';
-$_['column_amount']                        = 'Amount';
+$_['column_amount']                        = 'Сумма';
 $_['column_status']                        = 'Статус';
 $_['column_product']                       = 'Product';
 $_['column_order_recurring_id']            = 'Recurring ID';

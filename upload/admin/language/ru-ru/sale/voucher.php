@@ -5,7 +5,7 @@ $_['heading_title']     = 'Gift Vouchers';
 // Text
 $_['text_success']      = 'Success: You have modified vouchers!';
 $_['text_list']         = 'Gift Voucher List';
-$_['text_add']          = 'Add Gift Voucher';
+$_['text_add']          = 'Добавить подарочный сертификат';
 $_['text_edit']         = 'Edit Gift Voucher';
 $_['text_sent']         = 'Success: Gift Voucher e-mail has been sent!';
 $_['text_history']      = 'History';
@@ -16,7 +16,7 @@ $_['column_code']       = 'Code';
 $_['column_from']       = 'From';
 $_['column_to']         = 'To';
 $_['column_theme']      = 'Theme';
-$_['column_amount']     = 'Amount';
+$_['column_amount']     = 'Сумма';
 $_['column_status']     = 'Статус';
 $_['column_order_id']   = 'Order ID';
 $_['column_customer']   = 'Customer';
@@ -31,7 +31,7 @@ $_['entry_to_name']     = 'To Name';
 $_['entry_to_email']    = 'To E-Mail';
 $_['entry_theme']       = 'Theme';
 $_['entry_message']     = 'Message';
-$_['entry_amount']      = 'Amount';
+$_['entry_amount']      = 'Сумма';
 $_['entry_status']      = 'Статус';
 
 // Help

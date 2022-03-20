@@ -1,14 +1,14 @@
 <?php
 // Heading
-$_['heading_title']      = 'Backup &amp; Restore';
+$_['heading_title']      = 'Резервное копирование и Восстановление';
 
 // Text
 $_['text_success']       = 'Success: You have successfully modified your database!';
 
-$_['text_backup']        = 'Backing up table %s records %s to %s records';
+$_['text_backup']        = 'Резервное копирование таблицы %s записей %s на %s записей';
 $_['text_restore']       = 'Restoring %s of %s';
-$_['text_option']        = 'Backup Options';
-$_['text_history']       = 'Backup History';
+$_['text_option']        = 'Параметры резервного копирования';
+$_['text_history']       = 'История резервного копирования';
 $_['text_progress']      = 'Progress';
 $_['text_import']        = 'For large backup files it is better to upload the SQL file via FTP to the <strong>~/storage/backup/</strong> directory.';
 

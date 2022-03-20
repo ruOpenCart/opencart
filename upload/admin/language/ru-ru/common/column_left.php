@@ -1,11 +1,11 @@
 <?php
 // Text
 $_['text_address_format']      = 'Address Format';
-$_['text_affiliate']           = 'Affiliate';
+$_['text_affiliate']           = 'Партнёр';
 $_['text_api']                 = 'API';
 $_['text_attribute']           = 'Attributes';
 $_['text_attribute_group']     = 'Attribute Groups';
-$_['text_backup']              = 'Backup / Restore';
+$_['text_backup']              = 'Резервирование / Восстановление';
 $_['text_banner']              = 'Banners';
 $_['text_catalog']             = 'Catalog';
 $_['text_category']            = 'Categories';

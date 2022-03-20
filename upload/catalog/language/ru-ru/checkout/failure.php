@@ -6,15 +6,4 @@ $_['heading_title'] = 'Failed Payment!';
 $_['text_basket']   = 'Shopping Cart';
 $_['text_checkout'] = 'Checkout';
 $_['text_failure']  = 'Failed Payment';
-$_['text_message']  = '<p>There was a problem processing your payment and the order did not complete.</p>
-
-<p>Possible reasons are:</p>
-<ul>
-  <li>Insufficient funds</li>
-  <li>Verification failed</li>
-</ul>
-
-<p>Please try to order again using a different payment method.</p>
-
-<p>If the problem persists please <a href="%s">contact us</a> with the details of the order you are trying to place.</p>
-';
+$_['text_message']  = '<p>В процессе оплаты возникла ошибка. Из-за ошибки не удалось завершить оформление заказа</p>p>Возможные причины:</p><ul><li>Недостаточно средств</li><li>Сбой проверки</li></ul><p>Пожалуйста, повторите попытку, выбрав другой способ оплаты.</p><p>Если ошибка повторилась, пожалуйста <a href="%s">свяжитесь с администрацией</a> и сообщите подробности заказа.</p>';

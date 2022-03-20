@@ -4,7 +4,7 @@ $_['heading_title']      = 'Forgot Your Password?';
 $_['heading_reset']      = 'Reset your password';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'Аккаунт';
 $_['text_forgotten']     = 'Forgotten Password';
 $_['text_your_email']    = 'Your E-Mail Address';
 $_['text_email']         = 'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.';

@@ -5,7 +5,7 @@ $_['heading_title']           = 'Address Format';
 // Text
 $_['text_success']            = 'Success: You have modified address formats!';
 $_['text_list']               = 'Address Format List';
-$_['text_add']                = 'Add Address Format';
+$_['text_add']                = 'Добавить формат адреса';
 $_['text_edit']               = 'Edit Address Format';
 
 // Column

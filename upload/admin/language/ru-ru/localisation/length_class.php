@@ -5,7 +5,7 @@ $_['heading_title']    = 'Length Classes';
 // Text
 $_['text_success']     = 'Success: You have modified length classes!';
 $_['text_list']        = 'Length Class List';
-$_['text_add']         = 'Add Length Class';
+$_['text_add']         = 'Добавить класс длины';
 $_['text_edit']        = 'Edit Length Class';
 
 // Column

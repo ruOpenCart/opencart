@@ -12,7 +12,7 @@ $_['text_success_add']        = 'Success: Your account has been created!';
 $_['text_success_edit']       = 'Success: Your account has been successfully updated.';
 
 // Entry
-$_['entry_customer_group']    = 'Account Type';
+$_['entry_customer_group']    = 'Тип счёта';
 $_['entry_firstname']         = 'First Name';
 $_['entry_lastname']          = 'Last Name';
 $_['entry_email']             = 'E-Mail';
