@@ -1,15 +1,15 @@
 <?php
 // Text
 $_['text_information']  = 'Information';
-$_['text_service']      = 'Customer Service';
+$_['text_service']      = 'Служба поддержки';
 $_['text_extra']        = 'Extras';
-$_['text_contact']      = 'Contact Us';
+$_['text_contact']      = 'Связаться с нами';
 $_['text_return']       = 'Returns';
 $_['text_sitemap']      = 'Site Map';
 $_['text_gdpr']         = 'GDPR';
-$_['text_manufacturer'] = 'Brands';
+$_['text_manufacturer'] = 'Бренды';
 $_['text_voucher']      = 'Gift Certificates';
-$_['text_affiliate']    = 'Affiliate';
+$_['text_affiliate']    = 'Партнёр';
 $_['text_special']      = 'Specials';
 $_['text_account']      = 'My Account';
 $_['text_order']        = 'Order History';
