@@ -9,7 +9,7 @@ $_['text_estimate']        = 'Please select the preferred shipping method to use
 $_['text_success']         = 'Success: Your shipping estimate has been applied!';
 
 // Entry
-$_['entry_country']        = 'Country';
+$_['entry_country']        = 'Страна';
 $_['entry_zone']           = 'Region / State';
 $_['entry_postcode']       = 'Post Code';
 
