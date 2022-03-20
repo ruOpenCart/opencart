@@ -9,13 +9,13 @@ $_['text_sass']        = 'SASS';
 $_['text_cache']       = 'Success: You have cleared the %s cache!';
 
 // Column
-$_['column_component'] = 'Component';
+$_['column_component'] = 'Компонент';
 $_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_theme']      = 'Theme';
 $_['entry_sass']       = 'SASS';
-$_['entry_cache']      = 'Cache';
+$_['entry_cache']      = 'Кэш';
 
 // Button
 $_['button_on']        = 'On';
