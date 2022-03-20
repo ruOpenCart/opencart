@@ -5,7 +5,7 @@ $_['heading_title']      = 'Geo Zones';
 // Text
 $_['text_success']       = 'Success: You have modified geo zones!';
 $_['text_list']          = 'Geo Zone List';
-$_['text_add']           = 'Add Geo Zone';
+$_['text_add']           = 'Добавить геозону';
 $_['text_edit']          = 'Edit Geo Zone';
 $_['text_geo_zone']      = 'Geo Zones';
 
@@ -17,7 +17,7 @@ $_['column_action']      = 'Действие';
 // Entry
 $_['entry_name']         = 'Geo Zone Name';
 $_['entry_description']  = 'Description';
-$_['entry_country']      = 'Country';
+$_['entry_country']      = 'Страна';
 $_['entry_zone']         = 'Zone';
 
 // Error
