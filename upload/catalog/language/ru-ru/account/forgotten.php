@@ -4,7 +4,7 @@ $_['heading_title']      = 'Forgot Your Password?';
 $_['heading_reset']      = 'Reset your password';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'Аккаунт';
 $_['text_forgotten']     = 'Forgotten Password';
 $_['text_your_email']    = 'Your E-Mail Address';
 $_['text_email']         = 'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.';
@@ -16,7 +16,7 @@ $_['text_success']       = 'Success: Your password has been successfully updated
 $_['entry_email']        = 'E-Mail Address';
 $_['entry_new_password'] = 'New Password';
 $_['entry_password']     = 'Password';
-$_['entry_confirm']      = 'Confirm';
+$_['entry_confirm']      = 'Подтвердить';
 
 // Error
 $_['error_email']        = 'E-Mail Address does not appear to be valid!';
