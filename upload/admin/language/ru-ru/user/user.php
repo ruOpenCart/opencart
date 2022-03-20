@@ -5,23 +5,23 @@ $_['heading_title']         = 'Users';
 // Text
 $_['text_success']          = 'Success: You have modified users!';
 $_['text_list']             = 'User List';
-$_['text_add']              = 'Add User';
+$_['text_add']              = 'Добавить пользователя';
 $_['text_edit']             = 'Edit User';
 
 // Column
 $_['column_username']       = 'Username';
 $_['column_status']         = 'Статус';
-$_['column_date_added']     = 'Date Added';
+$_['column_date_added']     = 'Дата добавления';
 $_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_username']        = 'Username';
 $_['entry_user_group']      = 'User Group';
 $_['entry_password']        = 'Password';
-$_['entry_confirm']         = 'Confirm';
+$_['entry_confirm']         = 'Подтвердить';
 $_['entry_firstname']       = 'First Name';
 $_['entry_lastname']        = 'Last Name';
-$_['entry_email']           = 'E-Mail';
+$_['entry_email']           = 'Эл. почта';
 $_['entry_image']           = 'Image';
 $_['entry_status']          = 'Статус';
 
