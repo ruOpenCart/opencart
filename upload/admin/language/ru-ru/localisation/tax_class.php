@@ -5,7 +5,7 @@ $_['heading_title']     = 'Tax Classes';
 // Text
 $_['text_success']      = 'Success: You have modified tax classes!';
 $_['text_list']         = 'Tax Class List';
-$_['text_add']          = 'Add Tax Class';
+$_['text_add']          = 'Добавить налоговый класс';
 $_['text_edit']         = 'Edit Tax Class';
 $_['text_tax_class']    = 'Tax Class';
 $_['text_tax_rate']     = 'Tax Rates';
@@ -21,7 +21,7 @@ $_['column_action']     = 'Действие';
 $_['entry_title']       = 'Tax Class Title';
 $_['entry_description'] = 'Description';
 $_['entry_rate']        = 'Tax Rate';
-$_['entry_based']       = 'Based On';
+$_['entry_based']       = 'На основе';
 $_['entry_geo_zone']    = 'Geo Zone';
 $_['entry_priority']    = 'Priority';
 
