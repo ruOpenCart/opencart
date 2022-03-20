@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']     = 'Customer Searches Report';
+$_['heading_title']     = 'Отчет по поиску покупателей';
 
 // Text
 $_['text_extension']    = 'Extensions';
@@ -13,16 +13,16 @@ $_['text_customer']     = '<a href="%s">%s</a>';
 // Column
 $_['column_keyword']    = 'Keyword';
 $_['column_products']   = 'Found Products';
-$_['column_category']   = 'Category';
-$_['column_customer']   = 'Customer';
+$_['column_category']   = 'Категория';
+$_['column_customer']   = 'Покупатель';
 $_['column_ip']         = 'IP';
-$_['column_date_added'] = 'Date Added';
+$_['column_date_added'] = 'Дата добавления';
 
 // Entry
 $_['entry_date_start']  = 'Date Start';
-$_['entry_date_end']    = 'Date End';
+$_['entry_date_end']    = 'Дата окончания';
 $_['entry_keyword']     = 'Keyword';
-$_['entry_customer']    = 'Customer';
+$_['entry_customer']    = 'Покупатель';
 $_['entry_ip']          = 'IP';
 $_['entry_status']      = 'Статус';
 $_['entry_sort_order']  = 'Sort Order';
