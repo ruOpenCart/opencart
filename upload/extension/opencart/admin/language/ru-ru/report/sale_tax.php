@@ -10,19 +10,19 @@ $_['text_filter']        = 'Filter';
 $_['text_year']          = 'Years';
 $_['text_month']         = 'Months';
 $_['text_week']          = 'Weeks';
-$_['text_day']           = 'Days';
-$_['text_all_status']    = 'All Statuses';
+$_['text_day']           = 'Дней';
+$_['text_all_status']    = 'Все статусы';
 
 // Column
 $_['column_date_start']  = 'Date Start';
-$_['column_date_end']    = 'Date End';
+$_['column_date_end']    = 'Дата окончания';
 $_['column_title']       = 'Tax Title';
 $_['column_orders']      = 'No. Orders';
 $_['column_total']       = 'Total';
 
 // Entry
 $_['entry_date_start']   = 'Date Start';
-$_['entry_date_end']     = 'Date End';
+$_['entry_date_end']     = 'Дата окончания';
 $_['entry_group']        = 'Group By';
 $_['entry_order_status'] = 'Order Status';
 $_['entry_status']       = 'Статус';
