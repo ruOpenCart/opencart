@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']    = 'Captchas';
+$_['heading_title']    = 'Защиты от ботов';
 
 // Text
 $_['text_success']     = 'Success: You have modified captchas!';
-$_['text_list']        = 'Captcha List';
+$_['text_list']        = 'Список защит от ботов';
 
 // Column
-$_['column_name']      = 'Captcha Name';
+$_['column_name']      = 'Название капчи';
 $_['column_status']    = 'Статус';
 $_['column_action']    = 'Действие';
 
