@@ -5,18 +5,18 @@ $_['heading_title']     = 'Languages';
 // Text
 $_['text_success']      = 'Success: You have modified languages!';
 $_['text_list']         = 'Language List';
-$_['text_add']          = 'Add Language';
+$_['text_add']          = 'Добавить язык';
 $_['text_edit']         = 'Edit Language';
 
 // Column
 $_['column_name']       = 'Language Name';
-$_['column_code']       = 'Code';
+$_['column_code']       = 'Код';
 $_['column_sort_order'] = 'Sort Order';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Language Name';
-$_['entry_code']        = 'Code';
+$_['entry_code']        = 'Код';
 $_['entry_locale']      = 'Locale';
 $_['entry_status']      = 'Статус';
 $_['entry_sort_order']  = 'Sort Order';
