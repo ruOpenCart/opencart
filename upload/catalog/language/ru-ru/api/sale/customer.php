@@ -4,7 +4,7 @@ $_['text_success']         = 'You have successfully modified customers';
 
 // Error
 $_['error_customer']       = 'Warning: Customer could not be found!';
-$_['error_customer_group'] = 'Customer Group does not appear to be valid!';
+$_['error_customer_group'] = 'Группа покупателей недействительна!';
 $_['error_firstname']      = 'First Name must be between 1 and 32 characters!';
 $_['error_lastname']       = 'Last Name must be between 1 and 32 characters!';
 $_['error_email']          = 'E-Mail Address does not appear to be valid!';
