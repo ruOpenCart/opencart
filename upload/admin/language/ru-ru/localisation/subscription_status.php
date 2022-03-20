@@ -5,7 +5,7 @@ $_['heading_title']      = 'Subscription Statuses';
 // Text
 $_['text_success']       = 'Success: You have modified subscription statuses!';
 $_['text_list']          = 'Subscription Status List';
-$_['text_add']           = 'Add Subscription Status';
+$_['text_add']           = 'Добавить статус подписки';
 $_['text_edit']          = 'Edit Subscription Status';
 
 // Column
