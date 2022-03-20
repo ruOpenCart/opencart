@@ -11,5 +11,5 @@ $_['text_store']             = 'Stores';
 $_['text_help']              = 'Help';
 $_['text_homepage']          = 'OpenCart Homepage';
 $_['text_support']           = 'Support Forum';
-$_['text_documentation']     = 'Documentation';
+$_['text_documentation']     = 'Документация';
 $_['text_logout']            = 'Logout';
