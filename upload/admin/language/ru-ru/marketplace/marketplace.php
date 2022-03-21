@@ -1,17 +1,17 @@
 <?php
 // Heading
-$_['heading_title']      = 'Extension Marketplace';
+$_['heading_title']      = 'Магазин расширений';
 
 // Text
 $_['text_success']       = 'Success: You have modified extensions!';
-$_['text_list']          = 'Extension List';
-$_['text_filter']        = 'Filter';
+$_['text_list']          = 'Список расширений';
+$_['text_filter']        = 'Фильтр';
 $_['text_search']        = 'Search for extensions and themes';
 $_['text_category']      = 'Категории';
 $_['text_all']           = 'Все';
 $_['text_theme']         = 'Themes';
 $_['text_marketplace']   = 'Marketplaces';
-$_['text_language']      = 'Languages';
+$_['text_language']      = 'Языки';
 $_['text_payment']       = 'Payment';
 $_['text_shipping']      = 'Shipping';
 $_['text_module']        = 'Modules';
@@ -19,11 +19,11 @@ $_['text_total']         = 'Order Totals';
 $_['text_feed']          = 'Feeds';
 $_['text_report']        = 'Reports';
 $_['text_other']         = 'Other';
-$_['text_free']          = 'Free';
+$_['text_free']          = 'Бесплатно';
 $_['text_paid']          = 'Paid';
 $_['text_purchased']     = 'Purchased';
 $_['text_recommended']   = 'Recommended';
-$_['text_date_modified'] = 'Date Modified';
+$_['text_date_modified'] = 'Дата изменения';
 $_['text_date_added']    = 'Дата добавления';
 $_['text_rating']        = 'Rating';
 $_['text_reviews']       = 'reviews';
@@ -47,7 +47,7 @@ $_['text_secure']        = 'Не передавайте свой PIN-код ко
 $_['text_name']          = 'Название загрузки';
 $_['text_available']     = 'Доступно для установки';
 $_['text_action']        = 'Действие';
-$_['text_install']       = 'Install';
+$_['text_install']       = 'Установить';
 $_['text_uninstall']     = 'Uninstall';
 $_['text_delete']        = 'Удалить';
 $_['text_more']          = 'see more replies...';
@@ -59,7 +59,7 @@ $_['text_featured']		 = 'Featured';
 $_['entry_pin']          = 'PIN';
 
 // Tab
-$_['tab_description']    = 'Description';
+$_['tab_description']    = 'Описание';
 $_['tab_documentation']  = 'Документация';
 $_['tab_download']       = 'Загрузки';
 $_['tab_comment']        = 'Комментарий';
