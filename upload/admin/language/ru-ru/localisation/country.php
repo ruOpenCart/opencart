@@ -6,8 +6,8 @@ $_['heading_title']           = 'Страны';
 $_['text_success']            = 'Success: You have modified countries!';
 $_['text_list']               = 'Список стран';
 $_['text_add']                = 'Добавить страну';
-$_['text_edit']               = 'Edit Country';
-$_['text_filter']             = 'Filter';
+$_['text_edit']               = 'Редактирование страны';
+$_['text_filter']             = 'Фильтр';
 
 // Column
 $_['column_name']             = 'Название страны';
