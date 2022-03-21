@@ -3,7 +3,7 @@
 $_['heading_title']            = 'Important Security Notification!';
 
 // Text
-$_['text_install']             = 'Installation directory';
+$_['text_install']             = 'Каталог установки';
 $_['text_install_description'] = 'Your installation directory needs deleting!';
 $_['text_install_success']     = 'Success: Install directory has been deleted!';
 $_['text_storage']             = 'Storage path';
@@ -18,7 +18,7 @@ $_['text_path']                = 'Path';
 $_['entry_path']               = 'Path';
 $_['entry_path_current']       = 'Текущий путь';
 $_['entry_path_new']           = 'New Path';
-$_['entry_name']               = 'Directory Name';
+$_['entry_name']               = 'Название каталога';
 
 // Button
 $_['button_move']              = 'Move';
