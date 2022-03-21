@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']    = 'Filter';
+$_['heading_title']    = 'Фильтр';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified filter module!';
 $_['text_edit']        = 'Edit Filter Module';
 
