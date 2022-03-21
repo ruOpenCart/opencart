@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['heading_title']      = 'Credit Card Payment';
+$_['heading_title']      = 'Оплата кредитной картой';
 
 // Text
 $_['text_title']         = 'Please enter your card details below';
@@ -10,13 +10,13 @@ $_['text_year']          = 'Years';
 $_['text_store']         = 'Remember My Card';
 
 // Entry
-$_['entry_card_name']    = 'Cardholders Name';
-$_['entry_card_number']  = 'Credit Card Number';
+$_['entry_card_name']    = 'Имя владельца карты';
+$_['entry_card_number']  = 'Номер кредитной карты';
 $_['entry_card_expire']  = 'Expire Date';
-$_['entry_card_cvv']     = 'CVV';
+$_['entry_card_cvv']     = 'CVV-код';
 
 // Help
-$_['help_name']          = 'Cardholder Name';
+$_['help_name']          = 'Имя владельца карты';
 
 // Error
 $_['error_card_name']    = 'Error: Cardholder name required!';

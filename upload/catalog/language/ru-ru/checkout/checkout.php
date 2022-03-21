@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title'] = 'Checkout';
+$_['heading_title'] = 'Оформить заказ';
 
 // Text
 $_['text_cart']     = 'Shopping Cart';

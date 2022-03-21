@@ -5,7 +5,7 @@ $_['heading_title']    = 'Store Locations';
 // Text
 $_['text_success']     = 'Success: You have modified store locations!';
 $_['text_list']        = 'Store Location List';
-$_['text_add']         = 'Add Store Location';
+$_['text_add']         = 'Добавить расположение магазина';
 $_['text_edit']        = 'Edit Store Location';
 $_['text_geocode']     = 'Geocode was not successful for the following reason:';
 
@@ -21,7 +21,7 @@ $_['entry_geocode']    = 'Geocode';
 $_['entry_telephone']  = 'Telephone';
 $_['entry_image']      = 'Image';
 $_['entry_open']       = 'Opening Times';
-$_['entry_comment']    = 'Comment';
+$_['entry_comment']    = 'Комментарий';
 
 // Help
 $_['help_geocode']     = 'Please enter your store location geocode manually.';
@@ -31,5 +31,5 @@ $_['help_comment']     = 'This field is for any special notes you would like to 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify store locations!';
 $_['error_name']       = 'Store name must be between 3 and 32 characters!';
-$_['error_address']    = 'Address must be between 3 and 128 characters!';
+$_['error_address']    = 'Адрес должен быть от 3 до 128 символов!';
 $_['error_telephone']  = 'Telephone must be between 3 and 32 characters!';

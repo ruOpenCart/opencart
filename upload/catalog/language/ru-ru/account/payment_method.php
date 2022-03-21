@@ -11,7 +11,7 @@ $_['text_no_results']       = 'You have no payment methods in your account.';
 // Column
 $_['column_payment_method'] = 'Payment Method';
 $_['column_type']           = 'Type';
-$_['column_date_expire']    = 'Date Expires';
+$_['column_date_expire']    = 'Дата истечения';
 $_['column_action']         = 'Действие';
 
 // Error

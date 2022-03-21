@@ -5,7 +5,7 @@ $_['heading_title']     = 'Voucher Themes';
 // Text
 $_['text_success']      = 'Success: You have modified voucher themes!';
 $_['text_list']         = 'Voucher Theme List';
-$_['text_add']          = 'Add Voucher Theme';
+$_['text_add']          = 'Добавить тему купона';
 $_['text_edit']         = 'Edit Voucher Theme';
 
 // Column

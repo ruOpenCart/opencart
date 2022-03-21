@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']         = 'Customer Orders Report';
+$_['heading_title']         = 'Отчет по заказам покупателей';
 
 // Text
 $_['text_extension']        = 'Extensions';
@@ -10,9 +10,9 @@ $_['text_filter']           = 'Filter';
 $_['text_all_status']       = 'Все статусы';
 
 // Column
-$_['column_customer']       = 'Customer Name';
-$_['column_email']          = 'E-Mail';
-$_['column_customer_group'] = 'Customer Group';
+$_['column_customer']       = 'Имя покупателя';
+$_['column_email']          = 'Эл. почта';
+$_['column_customer_group'] = 'Группа покупателя';
 $_['column_status']         = 'Статус';
 $_['column_orders']         = 'No. Orders';
 $_['column_products']       = 'No. Products';
@@ -21,8 +21,8 @@ $_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_date_start']      = 'Date Start';
-$_['entry_date_end']        = 'Date End';
-$_['entry_customer']        = 'Customer';
+$_['entry_date_end']        = 'Дата окончания';
+$_['entry_customer']        = 'Покупатель';
 $_['entry_order_status']    = 'Order Status';
 $_['entry_status']          = 'Статус';
 $_['entry_sort_order']      = 'Sort Order';

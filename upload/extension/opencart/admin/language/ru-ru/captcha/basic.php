@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Basic Captcha';
+$_['heading_title']    = 'Базовая капча';
 
 // Text
 $_['text_extension']   = 'Расширения';

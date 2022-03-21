@@ -1,31 +1,31 @@
 <?php
 // Heading
-$_['heading_title']        = 'APIs';
+$_['heading_title']        = 'API';
 
 // Text
 $_['text_success']         = 'Success: You have modified APIs!';
-$_['text_list']            = 'API List';
+$_['text_list']            = 'Список API';
 $_['text_add']             = 'Добавить API';
 $_['text_edit']            = 'Edit API';
-$_['text_ip']              = 'Below you can create a list of IP\'s allowed to access the API. Your current IP is %s';
+$_['text_ip']              = 'Ниже вы можете создать список IP-адресов, которым разрешен доступ к API. Ваш текущий IP %s';
 
 // Column
-$_['column_username']      = 'API Username';
+$_['column_username']      = 'Имя пользователя API';
 $_['column_status']        = 'Статус';
 $_['column_token']         = 'Token';
 $_['column_ip']            = 'IP';
-$_['column_date_added']    = 'Date Added';
+$_['column_date_added']    = 'Дата добавления';
 $_['column_date_modified'] = 'Date Modified';
 $_['column_action']        = 'Действие';
 
 // Entry
-$_['entry_username']       = 'API Username';
-$_['entry_key']            = 'API Key';
+$_['entry_username']       = 'Имя пользователя API';
+$_['entry_key']            = 'Ключ API';
 $_['entry_status']         = 'Статус';
 $_['entry_ip']             = 'IP';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modified APIs!';
-$_['error_username']       = 'API USername must be between 3 and 20 characters!';
-$_['error_key']            = 'API Key must be between 64 and 256 characters!';
+$_['error_username']       = 'Имя пользователя API должно содержать от 3 до 20 символов!';
+$_['error_key']            = 'Ключ API должен быть от 3 до 256 символов!';
 $_['error_ip']             = 'You must have at least one IP added to the allowed list!';

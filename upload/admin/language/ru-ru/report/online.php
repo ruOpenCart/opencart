@@ -11,7 +11,7 @@ $_['text_guest']        = 'Guest';
 
 // Column
 $_['column_ip']         = 'IP';
-$_['column_customer']   = 'Customer';
+$_['column_customer']   = 'Покупатель';
 $_['column_url']        = 'Last Page Visited';
 $_['column_referer']    = 'Referer';
 $_['column_date_added'] = 'Last Click';
@@ -19,7 +19,7 @@ $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_ip']          = 'IP';
-$_['entry_customer']    = 'Customer';
+$_['entry_customer']    = 'Покупатель';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify customers online report!';

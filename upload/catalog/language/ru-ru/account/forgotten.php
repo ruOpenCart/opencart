@@ -16,7 +16,7 @@ $_['text_success']       = 'Success: Your password has been successfully updated
 $_['entry_email']        = 'E-Mail Address';
 $_['entry_new_password'] = 'New Password';
 $_['entry_password']     = 'Password';
-$_['entry_confirm']      = 'Confirm';
+$_['entry_confirm']      = 'Подтвердить';
 
 // Error
 $_['error_email']        = 'E-Mail Address does not appear to be valid!';

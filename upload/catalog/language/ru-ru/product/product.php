@@ -1,8 +1,8 @@
 <?php
 // Text
 $_['text_search']                = 'Search';
-$_['text_brand']                 = 'Brand';
-$_['text_manufacturer']          = 'Brand:';
+$_['text_brand']                 = 'Бренд';
+$_['text_manufacturer']          = 'Бренд:';
 $_['text_model']                 = 'Product Code:';
 $_['text_reward']                = 'Reward Points:';
 $_['text_points']                = 'Price in reward points:';
@@ -25,7 +25,7 @@ $_['text_subscription']          = 'Subscription';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
-$_['text_day']                   = 'day';
+$_['text_day']                   = 'день';
 $_['text_week']                  = 'week';
 $_['text_semi_month']            = 'half-month';
 $_['text_month']                 = 'month';
@@ -37,7 +37,7 @@ $_['entry_name']                 = 'Your Name';
 $_['entry_review']               = 'Your Review';
 $_['entry_rating']               = 'Rating';
 $_['entry_good']                 = 'Good';
-$_['entry_bad']                  = 'Bad';
+$_['entry_bad']                  = 'Плохо';
 
 // Tabs
 $_['tab_description']            = 'Description';

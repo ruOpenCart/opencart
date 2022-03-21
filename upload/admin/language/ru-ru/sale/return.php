@@ -18,35 +18,35 @@ $_['text_filter']          = 'Filter';
 // Column
 $_['column_return_id']     = 'Return ID';
 $_['column_order_id']      = 'Order ID';
-$_['column_customer']      = 'Customer';
+$_['column_customer']      = 'Покупатель';
 $_['column_product']       = 'Product';
 $_['column_model']         = 'Model';
 $_['column_status']        = 'Статус';
-$_['column_date_added']    = 'Date Added';
+$_['column_date_added']    = 'Дата добавления';
 $_['column_date_modified'] = 'Date Modified';
-$_['column_comment']       = 'Comment';
-$_['column_notify']        = 'Customer Notified';
+$_['column_comment']       = 'Комментарий';
+$_['column_notify']        = 'Покупатель уведомлен';
 $_['column_action']        = 'Действие';
 
 // Entry
-$_['entry_customer']       = 'Customer';
+$_['entry_customer']       = 'Покупатель';
 $_['entry_order_id']       = 'Order ID';
 $_['entry_date_ordered']   = 'Order Date';
 $_['entry_firstname']      = 'First Name';
 $_['entry_lastname']       = 'Last Name';
-$_['entry_email']          = 'E-Mail';
+$_['entry_email']          = 'Эл. почта';
 $_['entry_telephone']      = 'Telephone';
 $_['entry_product']        = 'Product';
 $_['entry_model']          = 'Model';
 $_['entry_quantity']       = 'Quantity';
 $_['entry_opened']         = 'Opened';
-$_['entry_comment']        = 'Comment';
+$_['entry_comment']        = 'Комментарий';
 $_['entry_return_reason']  = 'Return Reason';
 $_['entry_return_action']  = 'Return Action';
 $_['entry_return_status']  = 'Return Status';
 $_['entry_notify']         = 'Notify Customer';
 $_['entry_return_id']      = 'Return ID';
-$_['entry_date_added']     = 'Date Added';
+$_['entry_date_added']     = 'Дата добавления';
 $_['entry_date_modified']  = 'Date Modified';
 
 // Help

@@ -14,7 +14,7 @@ $_['text_installed']    = 'Installed Extensions';
 $_['column_image']      = 'Image';
 $_['column_name']       = 'Extension Name';
 $_['column_version']    = 'Version';
-$_['column_date_added'] = 'Date Added';
+$_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry

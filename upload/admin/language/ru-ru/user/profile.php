@@ -9,16 +9,16 @@ $_['text_edit']             = 'Edit Your Profile';
 // Column
 $_['column_username']       = 'Username';
 $_['column_status']         = 'Статус';
-$_['column_date_added']     = 'Date Added';
+$_['column_date_added']     = 'Дата добавления';
 $_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_username']        = 'Username';
 $_['entry_password']        = 'Password';
-$_['entry_confirm']         = 'Confirm';
+$_['entry_confirm']         = 'Подтвердить';
 $_['entry_firstname']       = 'First Name';
 $_['entry_lastname']        = 'Last Name';
-$_['entry_email']           = 'E-Mail';
+$_['entry_email']           = 'Эл. почта';
 $_['entry_image']           = 'Image';
 
 // Error

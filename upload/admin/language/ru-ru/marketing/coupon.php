@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']       = 'Coupons';
+$_['heading_title']       = 'Купоны';
 
 // Text
 $_['text_success']        = 'Success: You have modified coupons!';
-$_['text_list']           = 'Coupon List';
+$_['text_list']           = 'Список купонов';
 $_['text_add']            = 'Добавить купон';
 $_['text_edit']           = 'Edit Coupon';
 $_['text_percent']        = 'Percentage';
@@ -12,30 +12,30 @@ $_['text_amount']         = 'Fixed Amount';
 $_['text_coupon']         = 'History';
 
 // Column
-$_['column_name']         = 'Coupon Name';
-$_['column_code']         = 'Code';
+$_['column_name']         = 'Название купона';
+$_['column_code']         = 'Код';
 $_['column_discount']     = 'Discount';
 $_['column_date_start']   = 'Date Start';
-$_['column_date_end']     = 'Date End';
+$_['column_date_end']     = 'Дата окончания';
 $_['column_status']       = 'Статус';
 $_['column_order_id']     = 'Order ID';
-$_['column_customer']     = 'Customer';
+$_['column_customer']     = 'Покупатель';
 $_['column_amount']       = 'Сумма';
-$_['column_date_added']   = 'Date Added';
+$_['column_date_added']   = 'Дата добавления';
 $_['column_action']       = 'Действие';
 
 // Entry
-$_['entry_name']          = 'Coupon Name';
-$_['entry_code']          = 'Code';
+$_['entry_name']          = 'Название купона';
+$_['entry_code']          = 'Код';
 $_['entry_type']          = 'Type';
 $_['entry_discount']      = 'Discount';
-$_['entry_logged']        = 'Customer Login';
+$_['entry_logged']        = 'Авторизация покупателя';
 $_['entry_shipping']      = 'Free Shipping';
 $_['entry_total']         = 'Total Amount';
-$_['entry_category']      = 'Category';
+$_['entry_category']      = 'Категория';
 $_['entry_product']       = 'Products';
 $_['entry_date_start']    = 'Date Start';
-$_['entry_date_end']      = 'Date End';
+$_['entry_date_end']      = 'Дата окончания';
 $_['entry_uses_total']    = 'Uses Per Coupon';
 $_['entry_uses_customer'] = 'Uses Per Customer';
 $_['entry_status']        = 'Статус';
@@ -43,15 +43,15 @@ $_['entry_status']        = 'Статус';
 // Help
 $_['help_code']           = 'The code the customer enters to get the discount.';
 $_['help_type']           = 'Percentage or Fixed Amount.';
-$_['help_logged']         = 'Customer must be logged in to use the coupon.';
+$_['help_logged']         = 'Покупатель должен войти в систему, чтобы использовать купон.';
 $_['help_total']          = 'The total amount that must be reached before the coupon is valid.';
-$_['help_category']       = 'Choose all products under selected category.';
-$_['help_product']        = 'Choose specific products the coupon will apply to. Select no products to apply coupon to entire cart.';
+$_['help_category']       = 'Выберите все товары в выбранной категории.';
+$_['help_product']        = 'Выберите конкретные товары, к которым будет применен купон. Выберите без товаров, чтобы применить купон ко всей корзине.';
 $_['help_uses_total']     = 'The maximum number of times the coupon can be used by any customer. Leave blank for unlimited';
 $_['help_uses_customer']  = 'The maximum number of times the coupon can be used by a single customer. Leave blank for unlimited';
 
 // Error
 $_['error_permission']    = 'Warning: You do not have permission to modify coupons!';
 $_['error_exists']        = 'Warning: Coupon code is already in use!';
-$_['error_name']          = 'Coupon Name must be between 3 and 128 characters!';
-$_['error_code']          = 'Code must be between 3 and 20 characters!';
+$_['error_name']          = 'Название купона должно быть от 3 до 128 символов!';
+$_['error_code']          = 'Код должен содержать от 3-х до 20-и знаков!';

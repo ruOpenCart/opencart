@@ -7,8 +7,8 @@ $_['text_success']      = 'Success: You have modified manufacturers!';
 $_['text_list']         = 'Manufacturer List';
 $_['text_add']          = 'Добавить производителя';
 $_['text_edit']         = 'Edit Manufacturer';
-$_['text_default']      = 'Default';
-$_['text_keyword']      = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
+$_['text_default']      = 'По умолчанию';
+$_['text_keyword']      = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
 // Column
 $_['column_name']       = 'Manufacturer Name';

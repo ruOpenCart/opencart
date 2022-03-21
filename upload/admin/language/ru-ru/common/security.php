@@ -16,7 +16,7 @@ $_['text_path']                = 'Path';
 
 // Entry
 $_['entry_path']               = 'Path';
-$_['entry_path_current']       = 'Current Path';
+$_['entry_path_current']       = 'Текущий путь';
 $_['entry_path_new']           = 'New Path';
 $_['entry_name']               = 'Directory Name';
 

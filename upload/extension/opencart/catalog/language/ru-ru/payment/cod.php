@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']       = 'Cash On Delivery';
+$_['heading_title']       = 'Оплата при доставке';
 
 // Error
 $_['error_order_id']       = 'No order ID in the session!';

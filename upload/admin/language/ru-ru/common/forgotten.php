@@ -13,7 +13,7 @@ $_['text_success']   = 'Success: Your password has been successfully updated.';
 
 // Entry
 $_['entry_password'] = 'Password';
-$_['entry_confirm']  = 'Confirm';
+$_['entry_confirm']  = 'Подтвердить';
 $_['entry_email']    = 'E-Mail Address';
 
 // Error

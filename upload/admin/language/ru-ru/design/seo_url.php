@@ -5,10 +5,10 @@ $_['heading_title']        = 'SEO URL';
 // Text
 $_['text_success']         = 'Success: You have modified SEO URL!';
 $_['text_list']            = 'SEO URL List';
-$_['text_add']             = 'Add SEO URL';
+$_['text_add']             = 'Добавить SEO URL-адрес';
 $_['text_edit']            = 'Edit SEO URL';
 $_['text_filter']          = 'Filter';
-$_['text_default']         = 'Default';
+$_['text_default']         = 'По умолчанию';
 
 // Column
 $_['column_key']           = 'Key';

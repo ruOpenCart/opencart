@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']                = 'Customer Activity Report';
+$_['heading_title']                = 'Отчет об активности покупателей';
 
 // Text
 $_['text_extension']               = 'Extensions';
@@ -25,16 +25,16 @@ $_['text_activity_affiliate_edit'] = '<a href="customer_id=%d">%s</a> обнов
 $_['text_activity_transaction']    = '<a href="customer_id=%d">%s</a> получил комиссию от нового <a href="order_id=%d">заказа</a>.';
 
 // Column
-$_['column_customer']              = 'Customer';
-$_['column_comment']               = 'Comment';
+$_['column_customer']              = 'Покупатель';
+$_['column_comment']               = 'Комментарий';
 $_['column_ip']                    = 'IP';
-$_['column_date_added']            = 'Date Added';
+$_['column_date_added']            = 'Дата добавления';
 
 // Entry
-$_['entry_customer']               = 'Customer';
+$_['entry_customer']               = 'Покупатель';
 $_['entry_ip']                     = 'IP';
 $_['entry_date_start']             = 'Date Start';
-$_['entry_date_end']               = 'Date End';
+$_['entry_date_end']               = 'Дата окончания';
 $_['entry_status']                 = 'Статус';
 $_['entry_sort_order']             = 'Sort Order';
 

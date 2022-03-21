@@ -17,7 +17,7 @@ $_['column_action']      = 'Действие';
 // Entry
 $_['entry_name']         = 'Geo Zone Name';
 $_['entry_description']  = 'Description';
-$_['entry_country']      = 'Country';
+$_['entry_country']      = 'Страна';
 $_['entry_zone']         = 'Zone';
 
 // Error

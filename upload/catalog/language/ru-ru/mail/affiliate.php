@@ -9,10 +9,10 @@ $_['text_thanks']         = 'Thanks,';
 $_['text_new_affiliate']  = 'New Affiliate';
 $_['text_signup']         = 'Зарегистрирован новый партнер:';
 $_['text_website']        = 'Web Site:';
-$_['text_customer_group'] = 'Customer Group:';
+$_['text_customer_group'] = 'Группа покупателя:';
 $_['text_firstname']      = 'First Name:';
 $_['text_lastname']       = 'Last Name:';
-$_['text_company']        = 'Company:';
+$_['text_company']        = 'Компания:';
 $_['text_email']          = 'E-Mail:';
 $_['text_telephone']      = 'Telephone:';
 

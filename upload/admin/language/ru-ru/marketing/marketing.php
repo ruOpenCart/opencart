@@ -13,23 +13,23 @@ $_['text_history_add']  = 'Добавить историю';
 $_['text_report']       = 'Report';
 
 // Column
-$_['column_name']       = 'Campaign Name';
-$_['column_code']       = 'Code';
-$_['column_clicks']     = 'Clicks';
+$_['column_name']       = 'Название кампании';
+$_['column_code']       = 'Код';
+$_['column_clicks']     = 'Клики';
 $_['column_orders']     = 'Orders';
 $_['column_ip']         = 'IP';
 $_['column_account']    = 'Учётные записи';
 $_['column_store']      = 'Store';
-$_['column_country']    = 'Country';
-$_['column_date_added'] = 'Date Added';
+$_['column_country']    = 'Страна';
+$_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_name']        = 'Campaign Name';
-$_['entry_description'] = 'Campaign Description';
+$_['entry_name']        = 'Название кампании';
+$_['entry_description'] = 'Описание кампании';
 $_['entry_code']        = 'Tracking Code';
 $_['entry_example']     = 'Examples';
-$_['entry_date_added']  = 'Date Added';
+$_['entry_date_added']  = 'Дата добавления';
 
 // Help
 $_['help_code']         = 'The tracking code that will be used to track marketing campaigns.';
@@ -37,6 +37,6 @@ $_['help_example']      = 'So the system can track referrals you need to add the
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify marketing tracking!';
-$_['error_name']        = 'Campaign must be between 1 and 32 characters!';
+$_['error_name']        = 'Кампания должна содержать от 1 до 32 символов!';
 $_['error_code']        = 'Tracking Code required!';
 $_['error_exists']      = 'Tracking code is being used by another campaign!';
