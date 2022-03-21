@@ -12,7 +12,7 @@ $_['text_store']         = 'Remember My Card';
 // Entry
 $_['entry_card_name']    = 'Имя владельца карты';
 $_['entry_card_number']  = 'Номер кредитной карты';
-$_['entry_card_expire']  = 'Expire Date';
+$_['entry_card_expire']  = 'Срок действия';
 $_['entry_card_cvv']     = 'CVV-код';
 
 // Help
