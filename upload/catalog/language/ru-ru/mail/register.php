@@ -11,8 +11,8 @@ $_['text_signup']         = 'Зарегистрирован новый клие�
 $_['text_customer_group'] = 'Группа покупателя:';
 $_['text_firstname']      = 'First Name:';
 $_['text_lastname']       = 'Last Name:';
-$_['text_email']          = 'E-Mail:';
+$_['text_email']          = 'Эл. почта:';
 $_['text_telephone']      = 'Telephone:';
 
 // Button
-$_['button_login']        = 'Login';
+$_['button_login']        = 'Войти';
