@@ -4,9 +4,9 @@ $_['heading_title']      = 'Кредитная карта';
 
 // Text
 $_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site. This extension is here for developers that need to create a payment gateway integration.';
-$_['text_extension']     = 'Extensions';
+$_['text_extension']     = 'Расширения';
 $_['text_success']       = 'Success: You have modified credit card payment module!';
-$_['text_edit']          = 'Edit Credit Card';
+$_['text_edit']          = 'Редактирование кредитной карты';
 $_['text_approve']       = 'Одобрить';
 $_['text_deny']          = 'Отклонить';
 
@@ -24,7 +24,7 @@ $_['entry_complete_status'] = 'Order Status';
 
 $_['entry_subscription_status'] = 'Order Status';
 
-$_['entry_geo_zone']     = 'Geo Zone';
+$_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 
