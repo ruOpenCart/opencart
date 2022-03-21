@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']    = 'Information';
+$_['heading_title']    = 'Информация';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified information module!';
 $_['text_edit']        = 'Edit Information Module';
 
