@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Products Viewed Report';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_edit']        = 'Edit Products Viewed Report';
 $_['text_success']     = 'Success: You have reset the products viewed report!';
 
