@@ -17,7 +17,7 @@ $_['entry_username']        = 'Username';
 $_['entry_password']        = 'Password';
 $_['entry_confirm']         = 'Подтвердить';
 $_['entry_firstname']       = 'First Name';
-$_['entry_lastname']        = 'Last Name';
+$_['entry_lastname']        = 'Фамилия';
 $_['entry_email']           = 'Эл. почта';
 $_['entry_image']           = 'Image';
 
@@ -29,5 +29,5 @@ $_['error_password']        = 'Password must be between 4 and 20 characters!';
 $_['error_confirm']         = 'Password and password confirmation do not match!';
 $_['error_firstname']       = 'First Name must be between 1 and 32 characters!';
 $_['error_lastname']        = 'Last Name must be between 1 and 32 characters!';
-$_['error_email']           = 'E-Mail Address does not appear to be valid!';
+$_['error_email']           = 'Адрес электронной почты недействителен!';
 $_['error_email_exists']    = 'Warning: E-Mail Address is already registered!';
