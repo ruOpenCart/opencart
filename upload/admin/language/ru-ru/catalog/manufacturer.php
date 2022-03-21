@@ -18,7 +18,7 @@ $_['column_action']     = 'Действие';
 // Entry
 $_['entry_name']        = 'Manufacturer Name';
 $_['entry_store']       = 'Stores';
-$_['entry_keyword']     = 'Keyword';
+$_['entry_keyword']     = 'Ключевое слово';
 $_['entry_image']       = 'Image';
 $_['entry_sort_order']  = 'Sort Order';
 $_['entry_layout']      = 'Layout Override';
