@@ -14,7 +14,7 @@ $_['text_success']   = 'Success: Your password has been successfully updated.';
 // Entry
 $_['entry_password'] = 'Password';
 $_['entry_confirm']  = 'Подтвердить';
-$_['entry_email']    = 'E-Mail Address';
+$_['entry_email']    = 'Адрес электронной почты';
 
 // Error
 $_['error_email']    = 'Warning: The E-Mail Address was not found in our records!';
