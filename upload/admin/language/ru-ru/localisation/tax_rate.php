@@ -14,9 +14,9 @@ $_['text_amount']          = 'Fixed Amount';
 $_['column_name']          = 'Tax Name';
 $_['column_rate']          = 'Tax Rate';
 $_['column_type']          = 'Type';
-$_['column_geo_zone']      = 'Geo Zone';
+$_['column_geo_zone']      = 'Гео-зона';
 $_['column_date_added']    = 'Дата добавления';
-$_['column_date_modified'] = 'Date Modified';
+$_['column_date_modified'] = 'Дата изменения';
 $_['column_action']        = 'Действие';
 
 // Entry
@@ -24,7 +24,7 @@ $_['entry_name']           = 'Tax Name';
 $_['entry_rate']           = 'Tax Rate';
 $_['entry_type']           = 'Type';
 $_['entry_customer_group'] = 'Группа покупателя';
-$_['entry_geo_zone']       = 'Geo Zone';
+$_['entry_geo_zone']       = 'Гео-зона';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modify tax rates!';
