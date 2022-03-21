@@ -3,12 +3,12 @@
 $_['heading_title']                    = 'Тема магазина по умолчанию';
 
 // Text
-$_['text_extension']                   = 'Extensions';
+$_['text_extension']                   = 'Расширения';
 $_['text_success']                     = 'Success: You have modified the default store theme!';
 $_['text_edit']                        = 'Edit Default Store Theme';
-$_['text_general']                     = 'General';
+$_['text_general']                     = 'Общее';
 $_['text_product']                     = 'Products';
-$_['text_image']                       = 'Images';
+$_['text_image']                       = 'Изображения';
 
 // Entry
 $_['entry_status']                     = 'Статус';
@@ -25,7 +25,7 @@ $_['entry_image_wishlist']             = 'Wish List Image Size (W x H)';
 $_['entry_image_cart']                 = 'Размер изображения в корзине (Ш х В)';
 $_['entry_image_location']             = 'Store Image Size (W x H)';
 $_['entry_width']                      = 'Width';
-$_['entry_height']                     = 'Height';
+$_['entry_height']                     = 'Высота';
 
 // Help
 $_['help_pagination']                  = 'Determines how many catalog items are shown per page (products, categories, etc)';
