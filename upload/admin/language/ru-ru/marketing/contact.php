@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']        = 'Mail';
+$_['heading_title']        = 'Почта';
 
 // Text
 $_['text_mail']            = 'Send e-mail\'s to customers';
@@ -16,7 +16,7 @@ $_['text_affiliate']       = 'Партнеры';
 $_['text_product']         = 'Products';
 
 // Entry
-$_['entry_store']          = 'From';
+$_['entry_store']          = 'От';
 $_['entry_to']             = 'To';
 $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_customer']       = 'Покупатель';
@@ -32,6 +32,6 @@ $_['help_product']         = 'Send only to customers who have ordered products i
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to send E-Mails!';
-$_['error_subject']        = 'E-Mail Subject required!';
-$_['error_message']        = 'E-Mail Message required!';
-$_['error_email']          = 'E-Mail required!';
+$_['error_subject']        = 'Необходимо указать тему письма!';
+$_['error_message']        = 'Необходимо ввести текст сообщения электронной почты!';
+$_['error_email']          = 'Адрес эл. почты обязателен!';
