@@ -10,7 +10,7 @@ $_['text_success']          = 'Success: You have changed shipping address!';
 // Entry
 $_['entry_address']         = 'Выбрать адрес';
 $_['entry_firstname']       = 'First Name';
-$_['entry_lastname']        = 'Last Name';
+$_['entry_lastname']        = 'Фамилия';
 $_['entry_company']         = 'Компания';
 $_['entry_address_1']       = 'Адрес 1';
 $_['entry_address_2']       = 'Адрес 2';
