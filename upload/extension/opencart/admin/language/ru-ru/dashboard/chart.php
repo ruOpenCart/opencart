@@ -3,9 +3,9 @@
 $_['heading_title']    = 'Sales Analytics';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified dashboard chart!';
-$_['text_edit']        = 'Edit Dashboard Chart';
+$_['text_edit']        = 'Редактирование диаграммы для панели';
 $_['text_order']       = 'Orders';
 $_['text_customer']    = 'Покупатели';
 $_['text_day']         = 'Today';
