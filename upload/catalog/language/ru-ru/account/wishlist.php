@@ -3,7 +3,7 @@
 $_['heading_title']   = 'My Wishlist';
 
 // Text
-$_['text_account']    = 'Account';
+$_['text_account']    = 'Аккаунт';
 $_['text_instock']    = 'In Stock';
 $_['text_wishlist']   = 'Wish List (%s)';
 $_['text_login']      = 'You must <a href="%s">login</a> or <a href="%s">create an account</a> to save <a href="%s">%s</a> to your <a href="%s">wish list</a>!';
