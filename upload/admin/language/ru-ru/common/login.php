@@ -12,7 +12,7 @@ $_['entry_username'] = 'Username';
 $_['entry_password'] = 'Password';
 
 // Button
-$_['button_login']   = 'Login';
+$_['button_login']   = 'Войти';
 
 // Error
 $_['error_login']    = 'No match for Username and/or Password.';
