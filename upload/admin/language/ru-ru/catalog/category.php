@@ -6,7 +6,7 @@ $_['heading_title']          = 'Категории';
 $_['text_success']           = 'Success: You have modified categories!';
 $_['text_list']              = 'Список категорий';
 $_['text_add']               = 'Добавить категорию';
-$_['text_edit']              = 'Edit Category';
+$_['text_edit']              = 'Редактирование категории';
 $_['text_default']           = 'По умолчанию';
 $_['text_keyword']           = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
@@ -17,14 +17,14 @@ $_['column_action']          = 'Действие';
 
 // Entry
 $_['entry_name']             = 'Название категории';
-$_['entry_description']      = 'Description';
+$_['entry_description']      = 'Описание';
 $_['entry_meta_title']       = 'Meta Tag Title';
 $_['entry_meta_keyword']     = 'Meta Tag Keywords';
 $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_store']            = 'Stores';
-$_['entry_keyword']          = 'Keyword';
+$_['entry_keyword']          = 'Ключевое слово';
 $_['entry_parent']           = 'Parent';
-$_['entry_filter']           = 'Filters';
+$_['entry_filter']           = 'Фильтры';
 $_['entry_image']            = 'Image';
 $_['entry_top']              = 'Top';
 $_['entry_column']           = 'Колонки';
