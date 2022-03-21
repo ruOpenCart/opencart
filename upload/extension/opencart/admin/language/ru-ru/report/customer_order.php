@@ -3,10 +3,10 @@
 $_['heading_title']         = 'Отчет по заказам покупателей';
 
 // Text
-$_['text_extension']        = 'Extensions';
-$_['text_edit']             = 'Edit Customer Orders Report';
+$_['text_extension']        = 'Расширения';
+$_['text_edit']             = 'Редактирование отчета о заказах покупателя';
 $_['text_success']          = 'Success: You have modified customer orders report!';
-$_['text_filter']           = 'Filter';
+$_['text_filter']           = 'Фильтр';
 $_['text_all_status']       = 'Все статусы';
 
 // Column
@@ -20,7 +20,7 @@ $_['column_total']          = 'Total';
 $_['column_action']         = 'Действие';
 
 // Entry
-$_['entry_date_start']      = 'Date Start';
+$_['entry_date_start']      = 'Дата начала';
 $_['entry_date_end']        = 'Дата окончания';
 $_['entry_customer']        = 'Покупатель';
 $_['entry_order_status']    = 'Order Status';
