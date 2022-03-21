@@ -7,4 +7,4 @@ $_['text_service'] = 'Upon logging in, you will be able to access other services
 $_['text_thanks']  = 'Thanks,';
 
 // Button
-$_['button_login'] = 'Login';
+$_['button_login'] = 'Войти';
