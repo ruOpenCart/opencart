@@ -3,18 +3,18 @@
 $_['heading_title']     = 'Online Report';
 
 // Text
-$_['text_extension']    = 'Extensions';
+$_['text_extension']    = 'Расширения';
 $_['text_success']      = 'Success: You have modified customers online report!';
 $_['text_list']         = 'Online List';
-$_['text_filter']       = 'Filter';
-$_['text_guest']        = 'Guest';
+$_['text_filter']       = 'Фильтр';
+$_['text_guest']        = 'Гость';
 
 // Column
 $_['column_ip']         = 'IP';
 $_['column_customer']   = 'Покупатель';
 $_['column_url']        = 'Last Page Visited';
 $_['column_referer']    = 'Referer';
-$_['column_date_added'] = 'Last Click';
+$_['column_date_added'] = 'Последний клик';
 $_['column_action']     = 'Действие';
 
 // Entry
