@@ -21,5 +21,5 @@ $_['text_cancel']		= 'Отменить';
 $_['entry_email']       = 'Эл. почта';
 
 // Error
-$_['error_email']       = 'E-Mail Address does not appear to be valid!';
+$_['error_email']       = 'Адрес электронной почты недействителен!';
 $_['error_action']      = 'You must select a valid GDPR action!';
