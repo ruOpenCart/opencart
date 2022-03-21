@@ -14,9 +14,9 @@ $_['text_pending']      = 'Pending';
 $_['text_processing']   = 'Processing';
 $_['text_complete']     = 'Завершено';
 $_['text_denied']       = 'Отказано';
-$_['text_export']       = 'Export';
+$_['text_export']       = 'Экспорт';
 $_['text_remove']       = 'Remove';
-$_['text_filter']       = 'Filter';
+$_['text_filter']       = 'Фильтр';
 
 // Column
 $_['column_email']      = 'Эл. почта';
