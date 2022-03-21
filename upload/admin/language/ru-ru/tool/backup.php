@@ -20,13 +20,13 @@ $_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_progress']     = 'Progress';
-$_['entry_export']       = 'Export';
+$_['entry_export']       = 'Экспорт';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify Backup &amp; Restore!';
 $_['error_export']       = 'Warning: You must select at least one table to export!';
 $_['error_table']        = 'Table %s is not in the allowed list!';
 $_['error_file']         = 'File could not be found!';
-$_['error_directory']    = 'Directory could not be found!';
+$_['error_directory']    = 'Каталог не найден!';
 $_['error_not_found']    = 'Error: Could not find file %s !';
 $_['error_headers_sent'] = 'Error: Headers already sent out!';
