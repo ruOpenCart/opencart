@@ -5,7 +5,7 @@ $_['heading_title']      = 'Uploads';
 // Text
 $_['text_success']       = 'Success: You have modified uploads!';
 $_['text_list']          = 'Upload List';
-$_['text_filter']        = 'Filter';
+$_['text_filter']        = 'Фильтр';
 
 // Column
 $_['column_name']        = 'Upload Name';
