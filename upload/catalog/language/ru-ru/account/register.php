@@ -14,7 +14,7 @@ $_['text_agree']           = 'I have read and agree to the <a href="%s" class="m
 // Entry
 $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_firstname']      = 'First Name';
-$_['entry_lastname']       = 'Last Name';
+$_['entry_lastname']       = 'Фамилия';
 $_['entry_email']          = 'Эл. почта';
 $_['entry_telephone']      = 'Telephone';
 $_['entry_newsletter']     = 'Subscribe';
@@ -27,7 +27,7 @@ $_['error_exists']         = 'Warning: E-Mail Address is already registered!';
 $_['error_customer_group'] = 'Группа покупателей недействительна!';
 $_['error_firstname']      = 'First Name must be between 1 and 32 characters!';
 $_['error_lastname']       = 'Last Name must be between 1 and 32 characters!';
-$_['error_email']          = 'E-Mail Address does not appear to be valid!';
+$_['error_email']          = 'Адрес электронной почты недействителен!';
 $_['error_telephone']      = 'Telephone must be between 3 and 32 characters!';;
 $_['error_custom_field']   = '%s обязательно к заполнению!';
 $_['error_regex']          = '%s не является допустимым вводом!';
