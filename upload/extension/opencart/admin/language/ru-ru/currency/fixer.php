@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Fixer';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified fixer currency rates!';
 $_['text_edit']        = 'Edit Fixer';
 $_['text_signup']      = 'Fixer.io is a currency conversion service <a href="https://fixer.io/" target="_blank" class="alert-link">signup here</a>.';
