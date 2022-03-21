@@ -17,7 +17,7 @@ $_['column_action']    = 'Действие';
 // Entry
 $_['entry_name']       = 'User Group Name';
 $_['entry_permission'] = 'Permissions';
-$_['entry_extension']  = 'Extensions';
+$_['entry_extension']  = 'Расширения';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify user groups!';
