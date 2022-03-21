@@ -3,9 +3,9 @@
 $_['heading_title']    = 'Купон';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified coupon total!';
-$_['text_edit']        = 'Edit Coupon';
+$_['text_edit']        = 'Редактирование купона';
 
 // Entry
 $_['entry_status']     = 'Статус';
