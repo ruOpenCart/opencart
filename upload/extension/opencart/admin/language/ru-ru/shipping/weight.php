@@ -3,14 +3,14 @@
 $_['heading_title']    = 'Weight Based Shipping';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified weight based shipping!';
 $_['text_edit']        = 'Edit Weight Based Shipping';
 
 // Entry
 $_['entry_rate']       = 'Rates';
 $_['entry_tax_class']  = 'Tax Class';
-$_['entry_geo_zone']   = 'Geo Zone';
+$_['entry_geo_zone']   = 'Гео-зона';
 $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
