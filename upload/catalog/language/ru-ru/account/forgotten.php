@@ -13,13 +13,13 @@ $_['text_password']      = 'Enter the new password you wish to use.';
 $_['text_success']       = 'Success: Your password has been successfully updated.';
 
 // Entry
-$_['entry_email']        = 'E-Mail Address';
+$_['entry_email']        = 'Адрес электронной почты';
 $_['entry_new_password'] = 'New Password';
 $_['entry_password']     = 'Password';
 $_['entry_confirm']      = 'Подтвердить';
 
 // Error
-$_['error_email']        = 'E-Mail Address does not appear to be valid!';
+$_['error_email']        = 'Адрес электронной почты недействителен!';
 $_['error_not_found']    = 'Warning: The E-Mail Address was not found in our records!';
 $_['error_password']     = 'Password must be between 4 and 20 characters!';
 $_['error_confirm']      = 'Password and password confirmation do not match!';
