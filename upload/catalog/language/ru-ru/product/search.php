@@ -5,7 +5,7 @@ $_['heading_tag']       = 'Tag - ';
 
 // Text
 $_['text_search']       = 'Products meeting the search criteria';
-$_['text_keyword']      = 'Keywords';
+$_['text_keyword']      = 'Ключевые слова';
 $_['text_category']     = 'Все категории';
 $_['text_sub_category'] = 'Search in subcategories';
 $_['text_no_results']   = 'There is no product that matches the search criteria.';
