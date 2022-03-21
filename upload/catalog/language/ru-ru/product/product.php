@@ -7,7 +7,7 @@ $_['text_model']                 = 'Product Code:';
 $_['text_reward']                = 'Reward Points:';
 $_['text_points']                = 'Price in reward points:';
 $_['text_stock']                 = 'Доступность:';
-$_['text_instock']               = 'In Stock';
+$_['text_instock']               = 'В наличии';
 $_['text_tax']                   = 'Ex Tax:';
 $_['text_discount']              = ' или более ';
 $_['text_option']                = 'Доступные опции';
@@ -40,7 +40,7 @@ $_['entry_good']                 = 'Good';
 $_['entry_bad']                  = 'Плохо';
 
 // Tabs
-$_['tab_description']            = 'Description';
+$_['tab_description']            = 'Описание';
 $_['tab_attribute']              = 'Specification';
 $_['tab_review']                 = 'Reviews (%s)';
 
