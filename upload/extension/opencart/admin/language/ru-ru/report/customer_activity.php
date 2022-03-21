@@ -3,10 +3,10 @@
 $_['heading_title']                = 'Отчет об активности покупателей';
 
 // Text
-$_['text_extension']               = 'Extensions';
-$_['text_edit']                    = 'Edit Customer Activity Report';
+$_['text_extension']               = 'Расширения';
+$_['text_edit']                    = 'Редактирование отчета о активности покупателя';
 $_['text_success']                 = 'Success: You have modified customer activity report!';
-$_['text_filter']                  = 'Filter';
+$_['text_filter']                  = 'Фильтр';
 $_['text_activity_register']       = '<a href="customer_id=%d">%s</a> зарегистрировал новый аккаунт.';
 $_['text_activity_edit']           = '<a href="customer_id=%d">%s</a> обновил данные учетной записи.';
 $_['text_activity_password']       = '<a href="customer_id=%d">%s</a> обновил пароль учетной записи.';
@@ -33,7 +33,7 @@ $_['column_date_added']            = 'Дата добавления';
 // Entry
 $_['entry_customer']               = 'Покупатель';
 $_['entry_ip']                     = 'IP';
-$_['entry_date_start']             = 'Date Start';
+$_['entry_date_start']             = 'Дата начала';
 $_['entry_date_end']               = 'Дата окончания';
 $_['entry_status']                 = 'Статус';
 $_['entry_sort_order']             = 'Sort Order';
