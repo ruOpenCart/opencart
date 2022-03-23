@@ -43,14 +43,14 @@ $_['text_order_id']           = 'Order ID';
 $_['text_website']            = 'Web Site';
 $_['text_invoice']            = 'Invoice';
 $_['text_invoice_no']         = 'Invoice No.';
-$_['text_shipping']           = 'Dispatch Note';
+$_['text_shipping']           = 'Список доставки';
 $_['text_store_address']      = 'Store Address';
 $_['text_store_telephone']    = 'Store Telephone';
 $_['text_store_email']        = 'Store E-Mail';
 $_['text_customer_email']     = 'Адрес эл. почты пользователя';
 $_['text_missing']            = 'Missing Orders';
 $_['text_default']            = 'По умолчанию';
-$_['text_picklist']           = 'Dispatch Note';
+$_['text_picklist']           = 'Список доставки';
 
 // Column
 $_['column_order_id']        = 'Order ID';
