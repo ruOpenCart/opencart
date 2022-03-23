@@ -28,7 +28,7 @@ $_['entry_width']                      = 'Width';
 $_['entry_height']                     = 'Высота';
 
 // Help
-$_['help_pagination']                  = 'Determines how many catalog items are shown per page (products, categories, etc)';
+$_['help_pagination']                  = 'Определяет, сколько элементов отображается на странице (товаров, категорий и т. д.)';
 $_['help_product_description_length']  = 'In the list view, short description character limit (categories, special etc)';
 
 // Error
