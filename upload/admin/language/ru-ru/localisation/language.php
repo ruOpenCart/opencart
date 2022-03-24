@@ -6,7 +6,7 @@ $_['heading_title']     = 'Языки';
 $_['text_success']      = 'Success: You have modified languages!';
 $_['text_list']         = 'Список языков';
 $_['text_add']          = 'Добавить язык';
-$_['text_edit']         = 'Edit Language';
+$_['text_edit']         = 'Редактирование языка';
 
 // Column
 $_['column_name']       = 'Название языка';
