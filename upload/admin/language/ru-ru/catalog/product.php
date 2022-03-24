@@ -7,7 +7,7 @@ $_['text_success']           = 'Success: You have modified products!';
 $_['text_variant']           = 'Please note because this is a variant product you must override the <a href="%s" target="_blank" class="alert-link">master product</a> data. Otherwise the data will get replaced with the <a href="%s" target="_blank" class="alert-link">master product</a> data when saved.';
 $_['text_list']              = 'Product List';
 $_['text_add']               = 'Добавить товар';
-$_['text_edit']              = 'Edit Product';
+$_['text_edit']              = 'Редактирование товара';
 $_['text_variant_add']       = 'Добавить вариант';
 $_['text_model']             = 'Model';
 $_['text_price']             = 'Price';
