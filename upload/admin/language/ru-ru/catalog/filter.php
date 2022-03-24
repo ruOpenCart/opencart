@@ -6,7 +6,7 @@ $_['heading_title']     = 'Фильтры';
 $_['text_success']      = 'Success: You have modified filters!';
 $_['text_list']         = 'Список фильтров';
 $_['text_add']          = 'Добавить фильтр';
-$_['text_edit']         = 'Edit Filter';
+$_['text_edit']         = 'Редактирование фильтра';
 $_['text_group']        = 'Группа фильтра';
 $_['text_value']        = 'Значение фильтра';
 
