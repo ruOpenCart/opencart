@@ -6,7 +6,7 @@ $_['heading_title']          = 'Информация';
 $_['text_success']           = 'Success: You have modified information!';
 $_['text_list']              = 'Список информации';
 $_['text_add']               = 'Добавить информацию';
-$_['text_edit']              = 'Edit Information';
+$_['text_edit']              = 'Редактирование информации';
 $_['text_default']           = 'По умолчанию';
 $_['text_keyword']           = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
