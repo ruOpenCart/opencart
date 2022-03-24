@@ -6,7 +6,7 @@ $_['heading_title']      = 'Geo Zones';
 $_['text_success']       = 'Success: You have modified geo zones!';
 $_['text_list']          = 'Geo Zone List';
 $_['text_add']           = 'Добавить геозону';
-$_['text_edit']          = 'Edit Geo Zone';
+$_['text_edit']          = 'Редактирование географической зоны';
 $_['text_geo_zone']      = 'Geo Zones';
 
 // Column
