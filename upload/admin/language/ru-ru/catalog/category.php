@@ -35,7 +35,7 @@ $_['entry_layout']           = 'Layout Override';
 // Help
 $_['help_parent']            = '(Автодополнение)';
 $_['help_filter']            = '(Автодополнение)';
-$_['help_top']               = 'Display in the top menu bar. Only works for the top parent categories.';
+$_['help_top']               = 'Отображение в главном меню. Работает только для главных родительских категорий.';
 $_['help_column']            = 'Number of columns to use for the bottom 3 categories. Only works for the top parent categories.';
 
 // Error
