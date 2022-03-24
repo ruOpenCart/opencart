@@ -6,7 +6,7 @@ $_['heading_title']     = 'Manufacturers';
 $_['text_success']      = 'Success: You have modified manufacturers!';
 $_['text_list']         = 'Manufacturer List';
 $_['text_add']          = 'Добавить производителя';
-$_['text_edit']         = 'Edit Manufacturer';
+$_['text_edit']         = 'Редактирование производителя';
 $_['text_default']      = 'По умолчанию';
 $_['text_keyword']      = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
