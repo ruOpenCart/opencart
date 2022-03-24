@@ -6,7 +6,7 @@ $_['heading_title']    = 'Order Statuses';
 $_['text_success']     = 'Success: You have modified order statuses!';
 $_['text_list']        = 'Order Status List';
 $_['text_add']         = 'Добавить статус заказа';
-$_['text_edit']        = 'Edit Order Status';
+$_['text_edit']        = 'Редактирование статуса заказа';
 
 // Column
 $_['column_name']      = 'Order Status Name';
