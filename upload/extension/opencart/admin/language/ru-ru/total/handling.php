@@ -5,7 +5,7 @@ $_['heading_title']    = 'Handling Fee';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified handling fee total!';
-$_['text_edit']        = 'Edit Handling Fee Total';
+$_['text_edit']        = 'Редактирование общей суммы за обработку';
 
 // Entry
 $_['entry_total']      = 'Order Total';
