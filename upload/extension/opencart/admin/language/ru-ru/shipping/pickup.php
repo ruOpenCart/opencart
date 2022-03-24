@@ -5,7 +5,7 @@ $_['heading_title']    = 'Pickup From Store';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified pickup from store!';
-$_['text_edit']        = 'Edit Pickup From Store Shipping';
+$_['text_edit']        = 'Редактирование доставки самовывоза из магазина';
 
 // Entry
 $_['entry_geo_zone']   = 'Гео-зона';
