@@ -5,7 +5,7 @@ $_['heading_title']    = 'Low Order Fee';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified low order fee total!';
-$_['text_edit']        = 'Edit Low Order Fee Total';
+$_['text_edit']        = 'Редактирование общей суммы минимального заказа';
 
 // Entry
 $_['entry_total']      = 'Order Total';
