@@ -6,7 +6,7 @@ $_['heading_title']     = 'Gift Vouchers';
 $_['text_success']      = 'Success: You have modified vouchers!';
 $_['text_list']         = 'Gift Voucher List';
 $_['text_add']          = 'Добавить подарочный сертификат';
-$_['text_edit']         = 'Edit Gift Voucher';
+$_['text_edit']         = 'Редактирование подарочного сертификата';
 $_['text_sent']         = 'Success: Gift Voucher e-mail has been sent!';
 $_['text_history']      = 'История';
 
