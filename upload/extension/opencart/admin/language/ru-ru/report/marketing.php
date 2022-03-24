@@ -4,7 +4,7 @@ $_['heading_title']      = 'Marketing Report';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_edit']          = 'Edit Marketing Report';
+$_['text_edit']          = 'Редактирование отчета по маркетингу';
 $_['text_success']       = 'Success: You have modified marketing report!';
 $_['text_filter']        = 'Фильтр';
 $_['text_all_status']    = 'Все статусы';
