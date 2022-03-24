@@ -5,7 +5,7 @@ $_['heading_title']                    = 'Тема магазина по умо�
 // Text
 $_['text_extension']                   = 'Расширения';
 $_['text_success']                     = 'Success: You have modified the default store theme!';
-$_['text_edit']                        = 'Edit Default Store Theme';
+$_['text_edit']                        = 'Редактирование темы магазина по умолчанию';
 $_['text_general']                     = 'Общее';
 $_['text_product']                     = 'Products';
 $_['text_image']                       = 'Изображения';
