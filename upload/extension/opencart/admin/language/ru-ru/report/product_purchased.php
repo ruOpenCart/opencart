@@ -4,7 +4,7 @@ $_['heading_title']      = 'Products Purchased Report';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_edit']          = 'Edit Products Purchased Report';
+$_['text_edit']          = 'Редактирование отчета о купленных товарах';
 $_['text_success']       = 'Success: You have modified products purchased report!';
 $_['text_filter']        = 'Фильтр';
 $_['text_all_status']    = 'Все статусы';
