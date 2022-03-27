@@ -4,9 +4,9 @@ $_['heading_title']    = 'Purchase a Gift Certificate';
 
 // Text
 $_['text_account']     = 'Аккаунт';
-$_['text_voucher']     = 'Gift Certificate';
+$_['text_voucher']     = 'Подарочный сертификат';
 $_['text_description'] = 'This gift certificate will be emailed to the recipient after your order has been paid for.';
-$_['text_agree']       = 'I understand that gift certificates are non-refundable';
+$_['text_agree']       = 'Я понимаю, что подарочные сертификаты не подлежат возврату';
 $_['text_message']     = '<p>Спасибо за покупку подарочного сертификата! После завершения заказа получателю будет выслано письмо с инструкцией, о том, как воспользоваться сертификатом</p>';
 $_['text_for']         = '%s подарочный сертификат для %s';
 
@@ -15,7 +15,7 @@ $_['entry_to_name']    = 'Recipient\'s Name';
 $_['entry_to_email']   = 'Recipient\'s e-mail';
 $_['entry_from_name']  = 'Your Name';
 $_['entry_from_email'] = 'Your e-mail';
-$_['entry_theme']      = 'Gift Certificate Theme';
+$_['entry_theme']      = 'Тема подарочного сертификата';
 $_['entry_message']    = 'Message';
 $_['entry_amount']     = 'Сумма';
 
