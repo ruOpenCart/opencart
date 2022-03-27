@@ -18,7 +18,7 @@ $_['column_action']    = 'Действие';
 $_['entry_name']       = 'Название баннера';
 $_['entry_title']      = 'Title';
 $_['entry_link']       = 'Ссылка';
-$_['entry_image']      = 'Image';
+$_['entry_image']      = 'Изображение';
 $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
