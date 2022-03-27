@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'European Central Bank Currency Converter';
+$_['heading_title']    = 'Конвертер валют Европейского Центрального банка';
 
 // Text
 $_['text_extension']   = 'Расширения';
