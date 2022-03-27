@@ -6,7 +6,7 @@ $_['heading_title']     = 'Voucher Themes';
 $_['text_success']      = 'Success: You have modified voucher themes!';
 $_['text_list']         = 'Voucher Theme List';
 $_['text_add']          = 'Добавить тему купона';
-$_['text_edit']         = 'Edit Voucher Theme';
+$_['text_edit']         = 'Редактирование темы купона';
 
 // Column
 $_['column_name']       = 'Voucher Theme Name';
@@ -15,7 +15,7 @@ $_['column_action']     = 'Действие';
 // Entry
 $_['entry_name']        = 'Voucher Theme Name';
 $_['entry_description'] = 'Voucher Theme Description';
-$_['entry_image']       = 'Image';
+$_['entry_image']       = 'Изображение';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify voucher themes!';
