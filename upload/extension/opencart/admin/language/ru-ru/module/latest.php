@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']    = 'Latest';
+$_['heading_title']    = 'Последние';
 
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified latest module!';
 $_['text_edit']        = 'Редактирование модуля новинки';
-$_['text_horizontal']  = 'Horizontal';
+$_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Vertical';
 
 // Entry
