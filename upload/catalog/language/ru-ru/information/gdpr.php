@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']     = 'General Data Protection Regulation Request';
+$_['heading_title']     = 'Запрос по Общему положению о защите данных';
 
 // Text
 $_['text_account']      = 'Аккаунт';
@@ -8,7 +8,7 @@ $_['text_gdpr']         = 'You can view %s GDPR policy on the <a href="%s" targe
 $_['text_verification'] = 'Верификация счета';
 $_['text_email']        = 'Прежде чем мы сможем выполнить любые GDPR запросы, мы должны подтвердить вашу учетную запись. Пожалуйста, введите ваш адрес электронной почты ниже.';
 $_['text_action']       = 'Выберите действие';
-$_['text_export']       = 'Export Personal Data';
+$_['text_export']       = 'Экспорт персональных данных';
 $_['text_remove']       = 'Remove Personal Data';
 $_['text_warning']      = 'Warning you will lose access to your account!';
 $_['text_access']       = 'You will no longer have access to your %s account.';
