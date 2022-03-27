@@ -5,7 +5,7 @@ $_['heading_title']    = 'Reward Points';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified reward points total!';
-$_['text_edit']        = 'Edit Reward Points Total';
+$_['text_edit']        = 'Редактирование общего количества бонусных баллов';
 
 // Entry
 $_['entry_status']     = 'Статус';
