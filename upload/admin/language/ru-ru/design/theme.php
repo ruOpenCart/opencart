@@ -4,7 +4,7 @@ $_['heading_title']     = 'Theme Editor';
 
 // Text
 $_['text_success']      = 'Success: You have modified themes!';
-$_['text_edit']         = 'Edit Theme';
+$_['text_edit']         = 'Редактирование темы';
 $_['text_store']        = 'Выберите магазин';
 $_['text_template']     = 'Выберите шаблон';
 $_['text_default']      = 'По умолчанию';
