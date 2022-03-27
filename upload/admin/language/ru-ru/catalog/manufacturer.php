@@ -19,9 +19,9 @@ $_['column_action']     = 'Действие';
 $_['entry_name']        = 'Manufacturer Name';
 $_['entry_store']       = 'Stores';
 $_['entry_keyword']     = 'Ключевое слово';
-$_['entry_image']       = 'Image';
+$_['entry_image']       = 'Изображение';
 $_['entry_sort_order']  = 'Sort Order';
-$_['entry_layout']      = 'Layout Override';
+$_['entry_layout']      = 'Переопределение макета';
 
 // Error
 $_['error_warning']     = 'Warning: Please check the form carefully for errors!';
