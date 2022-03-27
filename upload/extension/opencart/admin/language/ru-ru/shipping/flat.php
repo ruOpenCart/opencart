@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Flat Rate';
+$_['heading_title']    = 'Фиксированная ставка';
 
 // Text
 $_['text_extension']   = 'Расширения';
