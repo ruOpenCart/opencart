@@ -9,7 +9,7 @@ $_['text_edit']        = 'Редактирование общей суммы м�
 
 // Entry
 $_['entry_total']      = 'Order Total';
-$_['entry_fee']        = 'Fee';
+$_['entry_fee']        = 'Взнос';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
