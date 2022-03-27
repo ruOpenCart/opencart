@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']     = 'Gift Vouchers';
+$_['heading_title']     = 'Подарочные сертификаты';
 
 // Text
 $_['text_success']      = 'Success: You have modified vouchers!';
-$_['text_list']         = 'Gift Voucher List';
+$_['text_list']         = 'Список подарочных сертификатов';
 $_['text_add']          = 'Добавить подарочный сертификат';
 $_['text_edit']         = 'Редактирование подарочного сертификата';
 $_['text_sent']         = 'Success: Gift Voucher e-mail has been sent!';
