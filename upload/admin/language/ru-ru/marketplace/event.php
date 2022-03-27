@@ -5,7 +5,7 @@ $_['heading_title']     = 'События';
 // Text
 $_['text_success']      = 'Success: You have modified events!';
 $_['text_list']         = 'Список событий';
-$_['text_event']        = 'Events are used by extensions to override the default functionality of your store. If you have issues you can disable or enable the events here.';
+$_['text_event']        = 'События используются расширениями для переопределения функциональности вашего магазина. Если у вас есть вопросы, вы можете отключить или включить события здесь.';
 $_['text_info']         = 'Информация о событии';
 
 // Column
