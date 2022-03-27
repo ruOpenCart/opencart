@@ -4,7 +4,7 @@ $_['heading_title']       = 'Returns Report';
 
 // Text
 $_['text_extension']      = 'Расширения';
-$_['text_edit']           = 'Edit Returns Report';
+$_['text_edit']           = 'Редактирование отчета о возвратах';
 $_['text_success']        = 'Success: You have modified returns report!';
 $_['text_filter']         = 'Фильтр';
 $_['text_year']           = 'Years';
@@ -21,7 +21,7 @@ $_['column_returns']      = 'No. Returns';
 // Entry
 $_['entry_date_start']    = 'Дата начала';
 $_['entry_date_end']      = 'Дата окончания';
-$_['entry_group']         = 'Group By';
+$_['entry_group']         = 'Группировать по';
 $_['entry_return_status'] = 'Return Status';
 $_['entry_status']        = 'Статус';
 $_['entry_sort_order']    = 'Sort Order';
