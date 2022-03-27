@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']    = 'Feeds';
+$_['heading_title']    = 'Каналы';
 
 // Text
 $_['text_success']     = 'Success: You have modified feeds!';
-$_['text_list']        = 'Feed List';
+$_['text_list']        = 'Список каналов';
 
 // Column
 $_['column_name']      = 'Product Feed Name';
