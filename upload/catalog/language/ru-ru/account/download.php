@@ -14,5 +14,5 @@ $_['column_size']       = 'Size';
 $_['column_date_added'] = 'Дата добавления';
 
 // Error
-$_['error_not_found']    = 'Error: Could not find file %s !';
-$_['error_headers_sent'] = 'Error: Headers already sent out!';
+$_['error_not_found']    = 'Ошибка: Не удалось найти файл %s!';
+$_['error_headers_sent'] = 'Ошибка: Заголовки уже отправлен!';
