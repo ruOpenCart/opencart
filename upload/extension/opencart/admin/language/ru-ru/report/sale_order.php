@@ -4,7 +4,7 @@ $_['heading_title']     = 'Sales Report';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_edit']          = 'Edit Sales Report';
+$_['text_edit']          = 'Редактирование отчета о продажах';
 $_['text_success']       = 'Success: You have modified sales report!';
 $_['text_filter']        = 'Фильтр';
 $_['text_year']          = 'Years';
@@ -24,7 +24,7 @@ $_['column_total']       = 'Total';
 // Entry
 $_['entry_date_start']   = 'Дата начала';
 $_['entry_date_end']     = 'Дата окончания';
-$_['entry_group']        = 'Group By';
+$_['entry_group']        = 'Группировать по';
 $_['entry_order_status'] = 'Order Status';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
