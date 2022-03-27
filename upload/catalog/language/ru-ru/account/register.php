@@ -5,15 +5,15 @@ $_['heading_title']        = 'Register Account';
 // Text
 $_['text_account']         = 'Аккаунт';
 $_['text_register']        = 'Register';
-$_['text_account_already'] = 'If you already have an account with us, please login at the <a href="%s">login page</a>.';
+$_['text_account_already'] = 'Если у вас уже есть учетная запись, пожалуйста, войдите на <a href="%s">странице входа</a>.';
 $_['text_your_details']    = 'Your Personal Details';
 $_['text_newsletter']      = 'Newsletter';
 $_['text_your_password']   = 'Your Password';
-$_['text_agree']           = 'I have read and agree to the <a href="%s" class="modal-link"><b>%s</b></a>';
+$_['text_agree']           = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
 
 // Entry
 $_['entry_customer_group'] = 'Группа покупателя';
-$_['entry_firstname']      = 'First Name';
+$_['entry_firstname']      = 'Имя';
 $_['entry_lastname']       = 'Фамилия';
 $_['entry_email']          = 'Эл. почта';
 $_['entry_telephone']      = 'Telephone';
@@ -25,8 +25,8 @@ $_['entry_confirm']        = 'Password Confirm';
 $_['error_token']          = 'Warning: Register token invalid!';
 $_['error_exists']         = 'Warning: E-Mail Address is already registered!';
 $_['error_customer_group'] = 'Группа покупателей недействительна!';
-$_['error_firstname']      = 'First Name must be between 1 and 32 characters!';
-$_['error_lastname']       = 'Last Name must be between 1 and 32 characters!';
+$_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';
+$_['error_lastname']       = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']          = 'Адрес электронной почты недействителен!';
 $_['error_telephone']      = 'Telephone must be between 3 and 32 characters!';;
 $_['error_custom_field']   = '%s обязательно к заполнению!';
