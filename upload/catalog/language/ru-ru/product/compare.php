@@ -5,9 +5,9 @@ $_['heading_title']     = 'Product Comparison';
 // Text
 $_['text_product']      = 'Product Details';
 $_['text_name']         = 'Product';
-$_['text_image']        = 'Image';
+$_['text_image']        = 'Изображение';
 $_['text_price']        = 'Price';
-$_['text_model']        = 'Model';
+$_['text_model']        = 'Модель';
 $_['text_manufacturer'] = 'Бренд';
 $_['text_availability'] = 'Доступность';
 $_['text_instock']      = 'В наличии';
