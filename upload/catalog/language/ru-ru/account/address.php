@@ -13,7 +13,7 @@ $_['text_delete']        = 'Your address has been successfully deleted';
 $_['text_no_results']    = 'You have no addresses in your account.';
 
 // Entry
-$_['entry_firstname']    = 'First Name';
+$_['entry_firstname']    = 'Имя';
 $_['entry_lastname']     = 'Фамилия';
 $_['entry_company']      = 'Компания';
 $_['entry_address_1']    = 'Адрес 1';
@@ -28,8 +28,8 @@ $_['entry_default']      = 'Адрес по умолчанию';
 $_['error_token']        = 'Warning: Address token invalid!';
 $_['error_delete']       = 'Warning: You must have at least one address!';
 $_['error_default']      = 'Warning: You can not delete your default address!';
-$_['error_firstname']    = 'First Name must be between 1 and 32 characters!';
-$_['error_lastname']     = 'Last Name must be between 1 and 32 characters!';
+$_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
+$_['error_lastname']     = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_address_1']    = 'Адрес должен быть от 3 до 128 символов!';
 $_['error_postcode']     = 'Postcode must be between 2 and 10 characters!';
 $_['error_city']         = 'Город должен быть от 2 до 128 символов!';
