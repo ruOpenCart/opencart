@@ -8,7 +8,7 @@ $_['text_list']           = 'Список купонов';
 $_['text_add']            = 'Добавить купон';
 $_['text_edit']           = 'Редактирование купона';
 $_['text_percent']        = 'Percentage';
-$_['text_amount']         = 'Fixed Amount';
+$_['text_amount']         = 'Фиксированная сумма';
 $_['text_coupon']         = 'История';
 
 // Column
