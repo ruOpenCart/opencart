@@ -13,7 +13,7 @@ $_['text_all_status']    = 'Все статусы';
 $_['column_date_start']  = 'Дата начала';
 $_['column_date_end']    = 'Дата окончания';
 $_['column_name']        = 'Product Name';
-$_['column_model']       = 'Model';
+$_['column_model']       = 'Модель';
 $_['column_quantity']    = 'Quantity';
 $_['column_total']       = 'Total';
 
