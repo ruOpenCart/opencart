@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_subject']    = '%s - запрос на экспорт GDPR выполнен!';
-$_['text_request']    = 'Export Personal Data';
+$_['text_request']    = 'Экспорт персональных данных';
 $_['text_hello']      = 'Привет <strong>%s</strong>,';
 $_['text_user']       = 'User';
 $_['text_gdpr']       = 'Your GDPR data request has now been complete. Below you will find your GDPR data.';
@@ -21,6 +21,6 @@ $_['text_city']       = 'Город';
 $_['text_country']    = 'Страна';
 $_['text_zone']       = 'Region / State';
 $_['text_history']    = 'История входов в систему';
-$_['text_ip']         = 'IP';
+$_['text_ip']         = 'IP-адрес';
 $_['text_date_added'] = 'Дата добавления';
 $_['text_thanks']     = 'Thanks,';
