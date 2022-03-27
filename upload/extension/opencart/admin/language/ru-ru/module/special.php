@@ -5,8 +5,8 @@ $_['heading_title']    = 'Specials';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified module specials!';
-$_['text_edit']        = 'Edit Specials Module';
-$_['text_horizontal']  = 'Horizontal';
+$_['text_edit']        = 'Редактирование модуля специальных предложений';
+$_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Vertical';
 
 // Entry
