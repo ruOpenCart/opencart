@@ -27,12 +27,12 @@ $_['text_activity_transaction']    = '<a href="customer_id=%d">%s</a> получ
 // Column
 $_['column_customer']              = 'Покупатель';
 $_['column_comment']               = 'Комментарий';
-$_['column_ip']                    = 'IP';
+$_['column_ip']                    = 'IP-адрес';
 $_['column_date_added']            = 'Дата добавления';
 
 // Entry
 $_['entry_customer']               = 'Покупатель';
-$_['entry_ip']                     = 'IP';
+$_['entry_ip']                     = 'IP-адрес';
 $_['entry_date_start']             = 'Дата начала';
 $_['entry_date_end']               = 'Дата окончания';
 $_['entry_status']                 = 'Статус';
