@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']    = 'Featured';
+$_['heading_title']    = 'Рекомендуемые';
 
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified featured module!';
 $_['text_edit']        = 'Редактирование модуля рекомендуемые';
-$_['text_horizontal']  = 'Horizontal';
+$_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Vertical';
 
 // Entry
