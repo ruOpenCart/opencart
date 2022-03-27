@@ -6,7 +6,7 @@ $_['heading_title']    = 'Return Reasons';
 $_['text_success']     = 'Success: You have modified return reasons!';
 $_['text_list']        = 'Return Reason List';
 $_['text_add']         = 'Добавить причину возврата';
-$_['text_edit']        = 'Edit Return Reason';
+$_['text_edit']        = 'Редактирование причины возврата';
 
 // Column
 $_['column_name']      = 'Return Reason Name';
