@@ -6,7 +6,7 @@ $_['heading_title']        = 'SEO URL';
 $_['text_success']         = 'Success: You have modified SEO URL!';
 $_['text_list']            = 'SEO URL List';
 $_['text_add']             = 'Добавить SEO URL-адрес';
-$_['text_edit']            = 'Edit SEO URL';
+$_['text_edit']            = 'Редактирование семантического URL-адреса';
 $_['text_filter']          = 'Фильтр';
 $_['text_default']         = 'По умолчанию';
 
