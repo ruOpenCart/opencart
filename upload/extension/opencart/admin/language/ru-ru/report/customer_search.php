@@ -12,10 +12,10 @@ $_['text_customer']     = '<a href="%s">%s</a>';
 
 // Column
 $_['column_keyword']    = 'Ключевое слово';
-$_['column_products']   = 'Found Products';
+$_['column_products']   = 'Найденные товары';
 $_['column_category']   = 'Категория';
 $_['column_customer']   = 'Покупатель';
-$_['column_ip']         = 'IP';
+$_['column_ip']         = 'IP-адрес';
 $_['column_date_added'] = 'Дата добавления';
 
 // Entry
@@ -23,7 +23,7 @@ $_['entry_date_start']  = 'Дата начала';
 $_['entry_date_end']    = 'Дата окончания';
 $_['entry_keyword']     = 'Ключевое слово';
 $_['entry_customer']    = 'Покупатель';
-$_['entry_ip']          = 'IP';
+$_['entry_ip']          = 'IP-адрес';
 $_['entry_status']      = 'Статус';
 $_['entry_sort_order']  = 'Sort Order';
 
