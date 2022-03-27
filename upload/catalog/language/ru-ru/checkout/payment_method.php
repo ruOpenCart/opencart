@@ -5,7 +5,7 @@ $_['heading_title']         = 'Payment Method';
 // Text
 $_['text_stored']           = 'Stored payment methods';
 $_['text_comments']         = 'Добавить комментарии о вашем заказе';
-$_['text_agree']            = 'I have read and agree to the <a href="%s" class="modal-link"><b>%s</b></a>';
+$_['text_agree']            = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
 $_['text_success']          = 'Success: You have changed payment method!';
 $_['text_comment']          = 'Success: Comment added!';
 
