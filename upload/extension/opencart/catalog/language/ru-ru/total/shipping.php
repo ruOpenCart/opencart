@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']        = 'Estimate Shipping &amp; Taxes';
+$_['heading_title']        = 'Расчёт стоимости доставки и налогов';
 
 // Text
 $_['text_shipping_method'] = 'Shipping method options';
-$_['text_destination']     = 'Enter your destination to get a shipping estimate.';
+$_['text_destination']     = 'Укажите ваш регион для расчета стоимости доставки.';
 $_['text_estimate']        = 'Please select the preferred shipping method to use on this order.';
 $_['text_success']         = 'Success: Your shipping estimate has been applied!';
 
