@@ -11,7 +11,7 @@ $_['text_progress']     = 'Прогресс установки';
 $_['text_installed']    = 'Установленные расширения';
 
 // Column
-$_['column_image']      = 'Image';
+$_['column_image']      = 'Изображение';
 $_['column_name']       = 'Название расширения';
 $_['column_version']    = 'Version';
 $_['column_date_added'] = 'Дата добавления';
@@ -27,5 +27,5 @@ $_['error_file']        = 'Файл установки %s не найден!';
 $_['error_directory']   = 'Каталог установки %s не найден!';
 $_['error_exists']      = 'Path %s already exists!';
 $_['error_unzip']       = 'Zip file could not be opened!';
-$_['error_upload']      = 'File could not be uploaded!';
-$_['error_filetype']    = 'Invalid file type!';
+$_['error_upload']      = 'Файл не может быть загружен!';
+$_['error_filetype']    = 'Недопустимый тип файла!';
