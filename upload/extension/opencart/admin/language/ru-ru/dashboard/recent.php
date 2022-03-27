@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']     = 'Latest Orders';
+$_['heading_title']     = 'Последние заказы';
 
 // Text
 $_['text_extension']    = 'Расширения';
