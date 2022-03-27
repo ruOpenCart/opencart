@@ -15,12 +15,12 @@ $_['text_message']   = '<p>Ваш запрос был успешно отпра�
 // Entry
 $_['entry_name']     = 'Your Name';
 $_['entry_email']    = 'Адрес электронной почты';
-$_['entry_enquiry']  = 'Enquiry';
+$_['entry_enquiry']  = 'Запрос';
 
 // Email
-$_['email_subject']  = 'Enquiry %s';
+$_['email_subject']  = 'Запрос %s';
 
 // Errors
 $_['error_name']     = 'Name must be between 3 and 32 characters!';
 $_['error_email']    = 'Адрес электронной почты недействителен!';
-$_['error_enquiry']  = 'Enquiry must be between 10 and 3000 characters!';
+$_['error_enquiry']  = 'Запрос должен быть от 10 до 3000 символов!';
