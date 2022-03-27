@@ -10,7 +10,7 @@ $_['text_register']                = 'Register Account';
 $_['text_register_account']        = 'Создавая учетную запись Вы сможете совершать покупки быстрее, быть в курсе о статусе заказа, и отслеживайте заказы, которые вы делали ранее.';
 $_['text_returning_customer']      = 'Returning Customer';
 $_['text_i_am_returning_customer'] = 'Я являюсь постоянным покупателем';
-$_['text_forgotten']               = 'Forgotten Password';
+$_['text_forgotten']               = 'Восстановить пароль';
 
 // Entry
 $_['entry_email']                  = 'Адрес электронной почты';
