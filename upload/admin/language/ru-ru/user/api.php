@@ -13,7 +13,7 @@ $_['text_ip']              = 'Ниже вы можете создать спис
 $_['column_username']      = 'Имя пользователя API';
 $_['column_status']        = 'Статус';
 $_['column_token']         = 'Token';
-$_['column_ip']            = 'IP';
+$_['column_ip']            = 'IP-адрес';
 $_['column_date_added']    = 'Дата добавления';
 $_['column_date_modified'] = 'Дата изменения';
 $_['column_action']        = 'Действие';
@@ -22,7 +22,7 @@ $_['column_action']        = 'Действие';
 $_['entry_username']       = 'Имя пользователя API';
 $_['entry_key']            = 'Ключ API';
 $_['entry_status']         = 'Статус';
-$_['entry_ip']             = 'IP';
+$_['entry_ip']             = 'IP-адрес';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modified APIs!';
