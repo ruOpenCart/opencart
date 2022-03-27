@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Gift Voucher';
+$_['heading_title']    = 'Подарочный сертификат';
 
 // Text
 $_['text_extension']   = 'Расширения';
