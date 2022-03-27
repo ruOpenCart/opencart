@@ -5,7 +5,7 @@ $_['heading_title']    = 'Store Credit';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified store credit total!';
-$_['text_edit']        = 'Edit Store Credit Total';
+$_['text_edit']        = 'Редактирование общей суммы кредита магазина';
 
 // Entry
 $_['entry_status']     = 'Статус';
