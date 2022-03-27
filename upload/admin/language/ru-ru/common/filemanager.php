@@ -9,7 +9,7 @@ $_['text_delete']      = 'Success: Your file or directory has been deleted!';
 
 // Entry
 $_['entry_search']     = 'Search..';
-$_['entry_folder']     = 'Folder Name';
+$_['entry_folder']     = 'Имя папки';
 
 // Error
 $_['error_permission'] = 'Warning: Permission Denied!';
