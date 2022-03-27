@@ -5,7 +5,7 @@ $_['heading_title']    = 'Store';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified store module!';
-$_['text_edit']        = 'Edit Store Module';
+$_['text_edit']        = 'Редактирование модуля магазина';
 
 // Entry
 $_['entry_admin']      = 'Только для администраторов';
