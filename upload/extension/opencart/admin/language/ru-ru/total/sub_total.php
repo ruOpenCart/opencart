@@ -5,7 +5,7 @@ $_['heading_title']    = 'Sub-Total';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified sub-total total!';
-$_['text_edit']        = 'Edit Sub-Total Total';
+$_['text_edit']        = 'Редактирование общей суммы промежуточного итога';
 
 // Entry
 $_['entry_status']     = 'Статус';
