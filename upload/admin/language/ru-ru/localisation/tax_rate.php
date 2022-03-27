@@ -6,9 +6,9 @@ $_['heading_title']        = 'Tax Rates';
 $_['text_success']         = 'Success: You have modified tax rates!';
 $_['text_list']            = 'Tax Rate List';
 $_['text_add']             = 'Добавить налоговую ставку';
-$_['text_edit']            = 'Edit Tax Rate';
+$_['text_edit']            = 'Редактирование налоговой ставки';
 $_['text_percent']         = 'Percentage';
-$_['text_amount']          = 'Fixed Amount';
+$_['text_amount']          = 'Фиксированная сумма';
 
 // Column
 $_['column_name']          = 'Tax Name';
