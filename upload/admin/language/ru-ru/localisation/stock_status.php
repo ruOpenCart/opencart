@@ -6,7 +6,7 @@ $_['heading_title']    = 'Stock Statuses';
 $_['text_success']     = 'Success: You have modified stock statuses!';
 $_['text_list']        = 'Stock Status List';
 $_['text_add']         = 'Добавить статус склада';
-$_['text_edit']        = 'Edit Stock Status';
+$_['text_edit']        = 'Редактирование статуса склада';
 
 // Column
 $_['column_name']      = 'Stock Status Name';
