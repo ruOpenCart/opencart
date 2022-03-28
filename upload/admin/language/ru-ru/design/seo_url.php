@@ -27,7 +27,7 @@ $_['entry_keyword']        = 'Ключевое слово';
 $_['entry_sort_order']     = 'Sort Order';
 
 // Help
-$_['help_keyword']         = 'Make sure you only use characters in the a-z or 0-9 use and - or _ for spaces. Leave blank if you just want to remove the perimeter.';
+$_['help_keyword']         = 'Убедитесь, что вы используете только символы a-z или 0-9 и - или _ для пробелов. Оставьте пустым, если вы просто хотите удалить периметр.';
 $_['help_sort_order']      = 'The sort order of the keywords in the URL.';
 
 // Error
