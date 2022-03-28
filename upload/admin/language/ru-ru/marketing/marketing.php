@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']     = 'Marketing Tracking';
+$_['heading_title']     = 'Отслеживание маркетинга';
 
 // Text
 $_['text_success']      = 'Success: You have modified marketing tracking!';
-$_['text_list']         = 'Marketing Tracking List';
+$_['text_list']         = 'Список отслеживания маркетинга';
 $_['text_add']          = 'Добавить отслеживание маркетинга';
 $_['text_edit']         = 'Редактирование отслеживания маркетинга';
 $_['text_filter']       = 'Фильтр';
