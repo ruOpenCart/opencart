@@ -10,7 +10,7 @@ $_['text_search']        = 'Search for extensions and themes';
 $_['text_category']      = 'Категории';
 $_['text_all']           = 'Все';
 $_['text_theme']         = 'Themes';
-$_['text_marketplace']   = 'Marketplaces';
+$_['text_marketplace']   = 'Маркетплейсы';
 $_['text_language']      = 'Языки';
 $_['text_payment']       = 'Payment';
 $_['text_shipping']      = 'Shipping';
@@ -65,7 +65,7 @@ $_['tab_download']       = 'Загрузки';
 $_['tab_comment']        = 'Комментарий';
 
 // Button
-$_['button_opencart']    = 'Marketplace API';
+$_['button_opencart']    = 'Маркетплейс API';
 $_['button_purchase']    = 'Purchase';
 $_['button_view_all']    = 'View all extensions';
 $_['button_support']     = 'Получить поддержку';
