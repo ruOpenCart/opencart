@@ -22,7 +22,7 @@ $_['column_action']     = 'Действие';
 // Entry
 $_['entry_name']        = 'Название загрузки';
 $_['entry_filename']    = 'Имя файла';
-$_['entry_mask']        = 'Mask';
+$_['entry_mask']        = 'Маска';
 
 // Help
 $_['help_filename']     = 'You can upload via the upload button or use FTP to upload to the download directory and enter the details below.';
@@ -35,6 +35,6 @@ $_['error_name']        = 'Имя загрузки должно быть от 3 
 $_['error_filename']    = 'Имя файла должно быть от 3 до 128 символов!';
 $_['error_directory']   = 'Загрузки должны находиться в папке storage/download!';
 $_['error_exists']      = 'Файл не существует!';
-$_['error_mask']        = 'Mask must be between 3 and 128 characters!';
+$_['error_mask']        = 'Маска должна содержать от 3 до 128 символов!';
 $_['error_filetype']    = 'Недопустимый тип файла!';
 $_['error_product']     = 'Warning: This download cannot be deleted as it is currently assigned to %s products!';
