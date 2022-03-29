@@ -24,12 +24,12 @@ $_['column_action']       = 'Действие';
 $_['entry_name']          = 'Название макета';
 $_['entry_store']         = 'Store';
 $_['entry_route']         = 'Route';
-$_['entry_module']        = 'Module';
+$_['entry_module']        = 'Модуль';
 
 // Error
 $_['error_permission']    = 'Warning: You do not have permission to modify layouts!';
 $_['error_name']          = 'Название макета должно быть от 3 до 64 символов!';
-$_['error_module']        = 'Module required!';
+$_['error_module']        = 'Требуется модуль!';
 $_['error_default']       = 'Warning: This layout cannot be deleted as it is currently assigned as the default store layout!';
 $_['error_store']         = 'Warning: This layout cannot be deleted as it is currently assigned to %s stores!';
 $_['error_product']       = 'Warning: This layout cannot be deleted as it is currently assigned to %s products!';
