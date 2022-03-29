@@ -11,7 +11,7 @@ $_['text_cron_2']          = 'You need to set your Cron task to run every hour.'
 $_['text_info']            = 'Информация по Крону';
 $_['text_hour']            = 'Час';
 $_['text_day']             = 'День';
-$_['text_month']           = 'Month';
+$_['text_month']           = 'Месяц';
 
 // Column
 $_['column_code']          = 'Код крона';
