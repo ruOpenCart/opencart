@@ -5,7 +5,7 @@ $_['heading_title']             = 'Your Affiliate Information';
 // Text
 $_['text_account']              = 'Аккаунт';
 $_['text_affiliate']            = 'Партнёр';
-$_['text_my_affiliate']         = 'My Affiliate Account';
+$_['text_my_affiliate']         = 'Мой аккаунт партнера';
 $_['text_payment']              = 'Payment Information';
 $_['text_cheque']               = 'Чек';
 $_['text_paypal']               = 'PayPal';
