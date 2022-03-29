@@ -17,11 +17,11 @@ $_['text_path']                = 'Path';
 // Entry
 $_['entry_path']               = 'Path';
 $_['entry_path_current']       = 'Текущий путь';
-$_['entry_path_new']           = 'New Path';
+$_['entry_path_new']           = 'Новый путь';
 $_['entry_name']               = 'Название каталога';
 
 // Button
-$_['button_move']              = 'Move';
+$_['button_move']              = 'Переместить';
 $_['button_rename']            = 'Rename';
 
 // Error
