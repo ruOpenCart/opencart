@@ -8,7 +8,7 @@ $_['text_success']      = 'Success: You have modified dashboard recent orders!';
 $_['text_edit']         = 'Редактирование последних заказов на панели';
 
 // Column
-$_['column_order_id']   = 'Order ID';
+$_['column_order_id']   = 'Номер заказа';
 $_['column_customer']   = 'Покупатель';
 $_['column_status']     = 'Статус';
 $_['column_total']      = 'Total';
