@@ -10,7 +10,7 @@ $_['text_order']       = 'Orders';
 $_['text_customer']    = 'Покупатели';
 $_['text_day']         = 'Today';
 $_['text_week']        = 'Week';
-$_['text_month']       = 'Month';
+$_['text_month']       = 'Месяц';
 $_['text_year']        = 'Year';
 
 // Entry
