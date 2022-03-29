@@ -21,6 +21,6 @@ $_['entry_enquiry']  = 'Запрос';
 $_['email_subject']  = 'Запрос %s';
 
 // Errors
-$_['error_name']     = 'Name must be between 3 and 32 characters!';
+$_['error_name']     = 'Название должно быть от 3 до 32 символов!';
 $_['error_email']    = 'Адрес электронной почты недействителен!';
 $_['error_enquiry']  = 'Запрос должен быть от 10 до 3000 символов!';
