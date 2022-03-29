@@ -14,7 +14,7 @@ $_['text_success']       = 'Success: Your password has been successfully updated
 
 // Entry
 $_['entry_email']        = 'Адрес электронной почты';
-$_['entry_new_password'] = 'New Password';
+$_['entry_new_password'] = 'Новый пароль';
 $_['entry_password']     = 'Password';
 $_['entry_confirm']      = 'Подтвердить';
 
