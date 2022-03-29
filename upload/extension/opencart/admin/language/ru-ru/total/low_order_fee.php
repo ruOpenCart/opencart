@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Low Order Fee';
+$_['heading_title']    = 'Плата за низкую стоимость заказа';
 
 // Text
 $_['text_extension']   = 'Расширения';
@@ -15,7 +15,7 @@ $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
 
 // Help
-$_['help_total']       = 'The checkout total the order must reach before this order total is deactivated.';
+$_['help_total']       = 'Общая сумма заказа, которую должен достичь заказ, прежде чем эта общая сумма заказа будет деактивирована.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify low order fee total!';
