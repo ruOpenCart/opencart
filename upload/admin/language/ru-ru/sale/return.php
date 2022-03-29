@@ -9,7 +9,7 @@ $_['text_add']             = 'Добавить возврат товара';
 $_['text_edit']            = 'Редактирование возврата товара';
 $_['text_opened']          = 'Opened';
 $_['text_unopened']        = 'Unopened';
-$_['text_order']           = 'Order Information';
+$_['text_order']           = 'Информация о заказе';
 $_['text_product']         = 'Product Information &amp; Reason for Return';
 $_['text_history']         = 'История';
 $_['text_history_add']     = 'Добавить историю';
@@ -17,7 +17,7 @@ $_['text_filter']          = 'Фильтр';
 
 // Column
 $_['column_return_id']     = 'Return ID';
-$_['column_order_id']      = 'Order ID';
+$_['column_order_id']      = 'Номер заказа';
 $_['column_customer']      = 'Покупатель';
 $_['column_product']       = 'Product';
 $_['column_model']         = 'Модель';
@@ -30,8 +30,8 @@ $_['column_action']        = 'Действие';
 
 // Entry
 $_['entry_customer']       = 'Покупатель';
-$_['entry_order_id']       = 'Order ID';
-$_['entry_date_ordered']   = 'Order Date';
+$_['entry_order_id']       = 'Номер заказа';
+$_['entry_date_ordered']   = 'Дата заказа';
 $_['entry_firstname']      = 'Имя';
 $_['entry_lastname']       = 'Фамилия';
 $_['entry_email']          = 'Эл. почта';
@@ -56,7 +56,7 @@ $_['help_product']         = '(Автодополнение)';
 $_['error_warning']        = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']     = 'Warning: You do not have permission to modify returns!';
 $_['error_return']         = 'Warning could not find selected return!';
-$_['error_order_id']       = 'Order ID required!';
+$_['error_order_id']       = 'Необходимо указать номер заказа!';
 $_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']       = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']          = 'Адрес электронной почты недействителен!';
