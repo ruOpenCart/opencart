@@ -15,5 +15,5 @@ $_['entry_password'] = 'Password';
 $_['button_login']   = 'Войти';
 
 // Error
-$_['error_login']    = 'No match for Username and/or Password.';
+$_['error_login']    = 'Имя пользователя и/или пароль не совпадают.';
 $_['error_token']    = 'Время сеанса вышло. Пожалуйста, войдите снова.';
