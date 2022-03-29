@@ -26,7 +26,7 @@ $_['entry_postcode']          = 'Post Code';
 $_['entry_city']              = 'Город';
 $_['entry_country']           = 'Страна';
 $_['entry_zone']              = 'Region / State';
-$_['entry_match']             = 'My delivery and billing addresses are the same.';
+$_['entry_match']             = 'Мой адрес доставки совпадает с адресом платежа.';
 $_['entry_newsletter']        = 'Я хочу подписаться на рассылку новостей %s.';
 
 // Error
