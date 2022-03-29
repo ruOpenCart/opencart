@@ -18,7 +18,7 @@ $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_day']                   = 'день';
 $_['text_week']                  = 'week';
 $_['text_semi_month']            = 'полмесяца';
-$_['text_month']                 = 'month';
+$_['text_month']                 = 'месяц';
 $_['text_year']                  = 'year';
 
 // Column
