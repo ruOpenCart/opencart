@@ -5,7 +5,7 @@ $_['heading_title']    = 'Базовая капча';
 // Text
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified Basic Captcha!';
-$_['text_edit']        = 'Edit Basic Captcha';
+$_['text_edit']        = 'Редактирование базовой капчи';
 
 // Entry
 $_['entry_status']     = 'Статус';

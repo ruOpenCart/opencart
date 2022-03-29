@@ -6,8 +6,8 @@ $_['heading_title']          = 'Zones';
 $_['text_success']           = 'Success: You have modified zones!';
 $_['text_list']              = 'Zone List';
 $_['text_add']               = 'Добавить зону';
-$_['text_edit']              = 'Edit Zone';
-$_['text_filter']            = 'Filter';
+$_['text_edit']              = 'Редактирование зоны';
+$_['text_filter']            = 'Фильтр';
 
 // Column
 $_['column_name']            = 'Zone Name';

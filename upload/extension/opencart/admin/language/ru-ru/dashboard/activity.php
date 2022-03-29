@@ -3,9 +3,9 @@
 $_['heading_title']                = 'Recent Activity';
 
 // Text
-$_['text_extension']               = 'Extensions';
+$_['text_extension']               = 'Расширения';
 $_['text_success']                 = 'Success: You have modified dashboard activity!';
-$_['text_edit']                    = 'Edit Dashboard Recent Activity';
+$_['text_edit']                    = 'Редактирование последней активности на панели';
 $_['text_activity_register']       = '<a href="customer_id=%d">%s</a> зарегистрировал новый аккаунт.';
 $_['text_activity_edit']           = '<a href="customer_id=%d">%s</a> обновил данные учетной записи.';
 $_['text_activity_password']       = '<a href="customer_id=%d">%s</a> обновил пароль учетной записи.';

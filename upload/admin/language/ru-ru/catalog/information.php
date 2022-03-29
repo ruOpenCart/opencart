@@ -1,42 +1,42 @@
 <?php
 // Heading
-$_['heading_title']          = 'Information';
+$_['heading_title']          = 'Информация';
 
 // Text
 $_['text_success']           = 'Success: You have modified information!';
-$_['text_list']              = 'Information List';
+$_['text_list']              = 'Список информации';
 $_['text_add']               = 'Добавить информацию';
-$_['text_edit']              = 'Edit Information';
+$_['text_edit']              = 'Редактирование информации';
 $_['text_default']           = 'По умолчанию';
 $_['text_keyword']           = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
 // Column
-$_['column_title']           = 'Information Title';
+$_['column_title']           = 'Заголовок информации';
 $_['column_sort_order']      = 'Sort Order';
 $_['column_action']          = 'Действие';
 
 // Entry
-$_['entry_title']            = 'Information Title';
-$_['entry_description']      = 'Description';
-$_['entry_meta_title']       = 'Meta Tag Title';
-$_['entry_meta_keyword']     = 'Meta Tag Keywords';
-$_['entry_meta_description'] = 'Meta Tag Description';
+$_['entry_title']            = 'Заголовок информации';
+$_['entry_description']      = 'Описание';
+$_['entry_meta_title']       = 'Мета-тег Title';
+$_['entry_meta_keyword']     = 'Мета-тег Keywords';
+$_['entry_meta_description'] = 'Мета-тег Description';
 $_['entry_store']            = 'Stores';
-$_['entry_keyword']          = 'Keyword';
+$_['entry_keyword']          = 'Ключевое слово';
 $_['entry_bottom']           = 'Низ';
 $_['entry_status']           = 'Статус';
 $_['entry_sort_order']       = 'Sort Order';
-$_['entry_layout']           = 'Layout Override';
+$_['entry_layout']           = 'Переопределение макета';
 
 // Help
-$_['help_bottom']            = 'Display in the bottom footer.';
+$_['help_bottom']            = 'Показывать в нижней части сайта (футере).';
 
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']       = 'Warning: You do not have permission to modify information!';
-$_['error_title']            = 'Information Title must be between 1 and 64 characters!';
-$_['error_description']      = 'Description must be more than 3 characters!';
-$_['error_meta_title']       = 'Meta Title must be greater than 1 and less than 255 characters!';
+$_['error_title']            = 'Заголовок информации должен быть от 3 до 64 символов!';
+$_['error_description']      = 'Описание должно быть более 3 символов!';
+$_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
 $_['error_seo']              = 'SEO URL keyword required!';
 $_['error_keyword']          = 'SEO URL must be unique!';
 $_['error_account']          = 'Warning: This information page cannot be deleted as it is currently assigned as the store account terms!';

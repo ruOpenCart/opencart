@@ -6,7 +6,7 @@ $_['heading_title']     = 'Группы покупателя';
 $_['text_success']      = 'Success: You have modified customer groups!';
 $_['text_list']         = 'Список групп покупателей';
 $_['text_add']          = 'Добавить группу покупателей';
-$_['text_edit']         = 'Edit Customer Group';
+$_['text_edit']         = 'Редактирование группы покупателей';
 
 // Column
 $_['column_name']       = 'Название группы покупателей';
@@ -15,7 +15,7 @@ $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Название группы покупателей';
-$_['entry_description'] = 'Description';
+$_['entry_description'] = 'Описание';
 $_['entry_approval']    = 'Одобрять новых покупателей';
 $_['entry_sort_order']  = 'Sort Order';
 

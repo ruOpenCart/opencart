@@ -6,15 +6,15 @@ $_['heading_title']        = 'Настраиваемые поля';
 $_['text_success']         = 'Success: You have modified custom fields!';
 $_['text_list']            = 'Список настраиваемых полей';
 $_['text_add']             = 'Добавить настраиваемое поле';
-$_['text_edit']            = 'Edit Custom Field';
+$_['text_edit']            = 'Редактирование настраиваемого поля';
 $_['text_choose']          = 'Выберите';
 $_['text_select']          = 'Select';
 $_['text_radio']           = 'Radio';
 $_['text_checkbox']        = 'Флажок';
-$_['text_input']           = 'Input';
+$_['text_input']           = 'Ввод';
 $_['text_text']            = 'Text';
 $_['text_textarea']        = 'Textarea';
-$_['text_file']            = 'File';
+$_['text_file']            = 'Файл';
 $_['text_date']            = 'Дата';
 $_['text_datetime']        = 'Дата и время';
 $_['text_time']            = 'Time';
@@ -27,7 +27,7 @@ $_['text_value']           = 'Значение настраиваемого по
 
 // Column
 $_['column_name']          = 'Имя настраиваемого поля';
-$_['column_location']      = 'Location';
+$_['column_location']      = 'Местоположение';
 $_['column_type']          = 'Type';
 $_['column_status']        = 'Статус';
 $_['column_sort_order']    = 'Sort Order';
@@ -35,7 +35,7 @@ $_['column_action']        = 'Действие';
 
 // Entry
 $_['entry_name']           = 'Имя настраиваемого поля';
-$_['entry_location']       = 'Location';
+$_['entry_location']       = 'Местоположение';
 $_['entry_type']           = 'Type';
 $_['entry_value']          = 'Value';
 $_['entry_validation']     = 'Validation';

@@ -6,7 +6,7 @@ $_['heading_title']         = 'Users';
 $_['text_success']          = 'Success: You have modified users!';
 $_['text_list']             = 'User List';
 $_['text_add']              = 'Добавить пользователя';
-$_['text_edit']             = 'Edit User';
+$_['text_edit']             = 'Редактирование пользователя';
 
 // Column
 $_['column_username']       = 'Username';
@@ -19,10 +19,10 @@ $_['entry_username']        = 'Username';
 $_['entry_user_group']      = 'User Group';
 $_['entry_password']        = 'Password';
 $_['entry_confirm']         = 'Подтвердить';
-$_['entry_firstname']       = 'First Name';
-$_['entry_lastname']        = 'Last Name';
+$_['entry_firstname']       = 'Имя';
+$_['entry_lastname']        = 'Фамилия';
 $_['entry_email']           = 'Эл. почта';
-$_['entry_image']           = 'Image';
+$_['entry_image']           = 'Изображение';
 $_['entry_status']          = 'Статус';
 
 // Error
@@ -32,7 +32,7 @@ $_['error_username']        = 'Username must be between 3 and 20 characters!';
 $_['error_username_exists'] = 'Warning: Username is already in use!';
 $_['error_password']        = 'Password must be between 4 and 20 characters!';
 $_['error_confirm']         = 'Password and password confirmation do not match!';
-$_['error_firstname']       = 'First Name must be between 1 and 32 characters!';
-$_['error_lastname']        = 'Last Name must be between 1 and 32 characters!';
-$_['error_email']           = 'E-Mail Address does not appear to be valid!';
+$_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
+$_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
+$_['error_email']           = 'Адрес электронной почты недействителен!';
 $_['error_exists_email']    = 'Warning: E-Mail Address is already registered!';

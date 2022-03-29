@@ -10,11 +10,11 @@ $_['text_new_affiliate']  = 'New Affiliate';
 $_['text_signup']         = 'Зарегистрирован новый партнер:';
 $_['text_website']        = 'Web Site:';
 $_['text_customer_group'] = 'Группа покупателя:';
-$_['text_firstname']      = 'First Name:';
-$_['text_lastname']       = 'Last Name:';
+$_['text_firstname']      = 'Имя:';
+$_['text_lastname']       = 'Фамилия:';
 $_['text_company']        = 'Компания:';
-$_['text_email']          = 'E-Mail:';
+$_['text_email']          = 'Эл. почта:';
 $_['text_telephone']      = 'Telephone:';
 
 // Button
-$_['button_login']        = 'Login';
+$_['button_login']        = 'Войти';

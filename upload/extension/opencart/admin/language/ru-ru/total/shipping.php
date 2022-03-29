@@ -3,9 +3,9 @@
 $_['heading_title']    = 'Shipping';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified shipping total!';
-$_['text_edit']        = 'Edit Shipping Total';
+$_['text_edit']        = 'Редактирование общей суммы доставки';
 
 // Entry
 $_['entry_estimator']  = 'Shipping Estimator';

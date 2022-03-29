@@ -3,14 +3,14 @@
 $_['heading_title']         = 'Payment Address';
 
 // Text
-$_['text_address_new']      = 'I want to use a new address';
-$_['text_address_existing'] = 'I want to use an existing address';
+$_['text_address_new']      = 'Я хочу использовать новый адрес';
+$_['text_address_existing'] = 'Я хочу использовать существующий адрес';
 $_['text_success']          = 'Success: You have changed payment address!';
 
 // Entry
 $_['entry_address']         = 'Выбрать адрес';
-$_['entry_firstname']       = 'First Name';
-$_['entry_lastname']        = 'Last Name';
+$_['entry_firstname']       = 'Имя';
+$_['entry_lastname']        = 'Фамилия';
 $_['entry_company']         = 'Компания';
 $_['entry_address_1']       = 'Адрес 1';
 $_['entry_address_2']       = 'Адрес 2';
@@ -21,8 +21,8 @@ $_['entry_zone']            = 'Region / State';
 
 // Error
 $_['error_address']         = 'Warning: Payment address could not be found!';
-$_['error_firstname']       = 'First Name must be between 1 and 32 characters!';
-$_['error_lastname']        = 'Last Name must be between 1 and 32 characters!';
+$_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
+$_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_address_1']       = 'Адрес 1 должен содержать от 3 до 128 символов!';
 $_['error_city']            = 'Город должен быть от 2 до 128 символов!';
 $_['error_postcode']        = 'Postcode must be between 2 and 10 characters!';

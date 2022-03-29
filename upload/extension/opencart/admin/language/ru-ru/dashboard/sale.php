@@ -3,9 +3,9 @@
 $_['heading_title']    = 'Total Sales';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified dashboard sales!';
-$_['text_edit']        = 'Edit Dashboard Sales';
+$_['text_edit']        = 'Редактирование продаж на панели';
 $_['text_view']        = 'View more...';
 
 // Entry

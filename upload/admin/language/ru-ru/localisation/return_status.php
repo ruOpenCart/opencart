@@ -6,7 +6,7 @@ $_['heading_title']    = 'Return Statuses';
 $_['text_success']     = 'Success: You have modified return statuses!';
 $_['text_list']        = 'Return Status List';
 $_['text_add']         = 'Добавить статус возврата';
-$_['text_edit']        = 'Edit Return Status';
+$_['text_edit']        = 'Редактирование статуса возврата';
 
 // Column
 $_['column_name']      = 'Return Status Name';

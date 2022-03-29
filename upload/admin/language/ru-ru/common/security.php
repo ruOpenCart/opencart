@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']            = 'Important Security Notification!';
+$_['heading_title']            = 'Важное уведомление безопасности!';
 
 // Text
-$_['text_install']             = 'Installation directory';
+$_['text_install']             = 'Каталог установки';
 $_['text_install_description'] = 'Your installation directory needs deleting!';
 $_['text_install_success']     = 'Success: Install directory has been deleted!';
 $_['text_storage']             = 'Storage path';
-$_['text_storage_description'] = 'It is very important that you move the storage directory outside of the web directory (e.g. public_html, www or htdocs).';
+$_['text_storage_description'] = 'Очень важно переместить каталог хранения вне веб-каталога (например, public_html, www или htdocs).';
 $_['text_storage_success']     = 'Success: Storage directory has been moved!';
 $_['text_admin']               = 'Rename admin directory';
 $_['text_admin_description']   = 'Please type in a new admin directory name in the field below.';
@@ -18,7 +18,7 @@ $_['text_path']                = 'Path';
 $_['entry_path']               = 'Path';
 $_['entry_path_current']       = 'Текущий путь';
 $_['entry_path_new']           = 'New Path';
-$_['entry_name']               = 'Directory Name';
+$_['entry_name']               = 'Название каталога';
 
 // Button
 $_['button_move']              = 'Move';

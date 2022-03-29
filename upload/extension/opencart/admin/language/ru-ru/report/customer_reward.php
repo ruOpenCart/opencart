@@ -3,10 +3,10 @@
 $_['heading_title']         = 'Отчет по бонусным баллам покупателей';
 
 // Text
-$_['text_extension']        = 'Extensions';
-$_['text_edit']             = 'Edit Customer Reward Points Report';
+$_['text_extension']        = 'Расширения';
+$_['text_edit']             = 'Редактирование отчета о бонусных баллах покупателя';
 $_['text_success']          = 'Success: You have modified customer reward points report!';
-$_['text_filter']           = 'Filter';
+$_['text_filter']           = 'Фильтр';
 
 // Column
 $_['column_customer']       = 'Имя покупателя';
@@ -19,7 +19,7 @@ $_['column_total']          = 'Total';
 $_['column_action']         = 'Действие';
 
 // Entry
-$_['entry_date_start']      = 'Date Start';
+$_['entry_date_start']      = 'Дата начала';
 $_['entry_date_end']        = 'Дата окончания';
 $_['entry_customer']        = 'Покупатель';
 $_['entry_status']          = 'Статус';

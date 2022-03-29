@@ -6,15 +6,15 @@ $_['heading_title']      = 'Options';
 $_['text_success']       = 'Success: You have modified options!';
 $_['text_list']          = 'Option List';
 $_['text_add']           = 'Добавить опцию';
-$_['text_edit']          = 'Edit Option';
+$_['text_edit']          = 'Редактирование опции';
 $_['text_choose']        = 'Выберите';
 $_['text_select']        = 'Select';
 $_['text_radio']         = 'Radio';
 $_['text_checkbox']      = 'Флажок';
-$_['text_input']         = 'Input';
+$_['text_input']         = 'Ввод';
 $_['text_text']          = 'Text';
 $_['text_textarea']      = 'Textarea';
-$_['text_file']          = 'File';
+$_['text_file']          = 'Файл';
 $_['text_date']          = 'Дата';
 $_['text_datetime']      = 'Дата и время';
 $_['text_time']          = 'Time';
@@ -30,7 +30,7 @@ $_['column_action']      = 'Действие';
 $_['entry_name']         = 'Option Name';
 $_['entry_type']         = 'Type';
 $_['entry_option_value'] = 'Option Value Name';
-$_['entry_image']        = 'Image';
+$_['entry_image']        = 'Изображение';
 $_['entry_sort_order']   = 'Sort Order';
 
 // Error

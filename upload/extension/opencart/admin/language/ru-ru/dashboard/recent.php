@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']     = 'Latest Orders';
+$_['heading_title']     = 'Последние заказы';
 
 // Text
-$_['text_extension']    = 'Extensions';
+$_['text_extension']    = 'Расширения';
 $_['text_success']      = 'Success: You have modified dashboard recent orders!';
-$_['text_edit']         = 'Edit Dashboard Recent Orders';
+$_['text_edit']         = 'Редактирование последних заказов на панели';
 
 // Column
 $_['column_order_id']   = 'Order ID';

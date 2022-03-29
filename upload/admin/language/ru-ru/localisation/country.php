@@ -6,19 +6,19 @@ $_['heading_title']           = 'Страны';
 $_['text_success']            = 'Success: You have modified countries!';
 $_['text_list']               = 'Список стран';
 $_['text_add']                = 'Добавить страну';
-$_['text_edit']               = 'Edit Country';
-$_['text_filter']             = 'Filter';
+$_['text_edit']               = 'Редактирование страны';
+$_['text_filter']             = 'Фильтр';
 
 // Column
 $_['column_name']             = 'Название страны';
-$_['column_iso_code_2']       = 'ISO Code (2)';
-$_['column_iso_code_3']       = 'ISO Code (3)';
+$_['column_iso_code_2']       = 'Код ISO (2)';
+$_['column_iso_code_3']       = 'Код ISO (3)';
 $_['column_action']           = 'Действие';
 
 // Entry
 $_['entry_name']              = 'Название страны';
-$_['entry_iso_code_2']        = 'ISO Code (2)';
-$_['entry_iso_code_3']        = 'ISO Code (3)';
+$_['entry_iso_code_2']        = 'Код ISO (2)';
+$_['entry_iso_code_3']        = 'Код ISO (3)';
 $_['entry_address_format']    = 'Формат адреса';
 $_['entry_postcode_required'] = 'Postcode Required';
 $_['entry_status']            = 'Статус';

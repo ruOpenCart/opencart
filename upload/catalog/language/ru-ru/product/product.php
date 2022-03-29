@@ -7,8 +7,8 @@ $_['text_model']                 = 'Product Code:';
 $_['text_reward']                = 'Reward Points:';
 $_['text_points']                = 'Price in reward points:';
 $_['text_stock']                 = 'Доступность:';
-$_['text_instock']               = 'In Stock';
-$_['text_tax']                   = 'Ex Tax:';
+$_['text_instock']               = 'В наличии';
+$_['text_tax']                   = 'Без налога:';
 $_['text_discount']              = ' или более ';
 $_['text_option']                = 'Доступные опции';
 $_['text_minimum']               = 'This product has a minimum quantity of %s';
@@ -27,7 +27,7 @@ $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_day']                   = 'день';
 $_['text_week']                  = 'week';
-$_['text_semi_month']            = 'half-month';
+$_['text_semi_month']            = 'полмесяца';
 $_['text_month']                 = 'month';
 $_['text_year']                  = 'year';
 
@@ -36,11 +36,11 @@ $_['entry_qty']                  = 'Qty';
 $_['entry_name']                 = 'Your Name';
 $_['entry_review']               = 'Your Review';
 $_['entry_rating']               = 'Rating';
-$_['entry_good']                 = 'Good';
+$_['entry_good']                 = 'Хорошо';
 $_['entry_bad']                  = 'Плохо';
 
 // Tabs
-$_['tab_description']            = 'Description';
+$_['tab_description']            = 'Описание';
 $_['tab_attribute']              = 'Specification';
 $_['tab_review']                 = 'Reviews (%s)';
 

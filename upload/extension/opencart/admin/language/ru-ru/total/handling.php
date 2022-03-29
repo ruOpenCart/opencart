@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']    = 'Handling Fee';
+$_['heading_title']    = 'Плата за обработку';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified handling fee total!';
-$_['text_edit']        = 'Edit Handling Fee Total';
+$_['text_edit']        = 'Редактирование общей суммы за обработку';
 
 // Entry
 $_['entry_total']      = 'Order Total';
-$_['entry_fee']        = 'Fee';
+$_['entry_fee']        = 'Взнос';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';

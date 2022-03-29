@@ -6,7 +6,7 @@ $_['heading_title']    = 'User Groups';
 $_['text_success']     = 'Success: You have modified user groups!';
 $_['text_list']        = 'User Group';
 $_['text_add']         = 'Добавить группу пользователя';
-$_['text_edit']        = 'Edit User Group';
+$_['text_edit']        = 'Редактирование группы пользователя';
 $_['text_access']      = 'Доступ';
 $_['text_modify']      = 'Modify';
 
@@ -17,7 +17,7 @@ $_['column_action']    = 'Действие';
 // Entry
 $_['entry_name']       = 'User Group Name';
 $_['entry_permission'] = 'Permissions';
-$_['entry_extension']  = 'Extensions';
+$_['entry_extension']  = 'Расширения';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify user groups!';

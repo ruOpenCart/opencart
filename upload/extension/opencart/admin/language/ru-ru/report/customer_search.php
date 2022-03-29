@@ -3,27 +3,27 @@
 $_['heading_title']     = 'Отчет по поиску покупателей';
 
 // Text
-$_['text_extension']    = 'Extensions';
-$_['text_edit']         = 'Edit Customer Searches Report';
+$_['text_extension']    = 'Расширения';
+$_['text_edit']         = 'Редактирование отчета о поиске покупателей';
 $_['text_success']      = 'Success: You have modified customer searches report!';
-$_['text_filter']       = 'Filter';
-$_['text_guest']        = 'Guest';
+$_['text_filter']       = 'Фильтр';
+$_['text_guest']        = 'Гость';
 $_['text_customer']     = '<a href="%s">%s</a>';
 
 // Column
-$_['column_keyword']    = 'Keyword';
-$_['column_products']   = 'Found Products';
+$_['column_keyword']    = 'Ключевое слово';
+$_['column_products']   = 'Найденные товары';
 $_['column_category']   = 'Категория';
 $_['column_customer']   = 'Покупатель';
-$_['column_ip']         = 'IP';
+$_['column_ip']         = 'IP-адрес';
 $_['column_date_added'] = 'Дата добавления';
 
 // Entry
-$_['entry_date_start']  = 'Date Start';
+$_['entry_date_start']  = 'Дата начала';
 $_['entry_date_end']    = 'Дата окончания';
-$_['entry_keyword']     = 'Keyword';
+$_['entry_keyword']     = 'Ключевое слово';
 $_['entry_customer']    = 'Покупатель';
-$_['entry_ip']          = 'IP';
+$_['entry_ip']          = 'IP-адрес';
 $_['entry_status']      = 'Статус';
 $_['entry_sort_order']  = 'Sort Order';
 

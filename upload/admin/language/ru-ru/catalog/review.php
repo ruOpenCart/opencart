@@ -6,8 +6,8 @@ $_['heading_title']     = 'Reviews';
 $_['text_success']      = 'Success: You have modified reviews!';
 $_['text_list']         = 'Review List';
 $_['text_add']          = 'Добавить отзыв';
-$_['text_edit']         = 'Edit Review';
-$_['text_filter']       = 'Filter';
+$_['text_edit']         = 'Редактирование отзыва';
+$_['text_filter']       = 'Фильтр';
 
 // Column
 $_['column_product']    = 'Product';

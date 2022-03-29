@@ -4,11 +4,11 @@ $_['heading_title']     = 'Аккаунт';
 
 // Text
 $_['text_register']     = 'Register';
-$_['text_login']        = 'Login';
-$_['text_logout']       = 'Logout';
-$_['text_forgotten']    = 'Forgotten Password';
+$_['text_login']        = 'Войти';
+$_['text_logout']       = 'Выйти';
+$_['text_forgotten']    = 'Восстановить пароль';
 $_['text_account']      = 'My Account';
-$_['text_edit']         = 'Edit Account';
+$_['text_edit']         = 'Изменить учетную запись';
 $_['text_password']     = 'Password';
 $_['text_address']      = 'Aдресная книга';
 $_['text_wishlist']     = 'Wish List';

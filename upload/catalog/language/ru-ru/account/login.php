@@ -4,16 +4,16 @@ $_['heading_title']                = 'Вход в учетную запись';
 
 // Text
 $_['text_account']                 = 'Аккаунт';
-$_['text_login']                   = 'Login';
+$_['text_login']                   = 'Войти';
 $_['text_new_customer']            = 'New Customer';
 $_['text_register']                = 'Register Account';
 $_['text_register_account']        = 'Создавая учетную запись Вы сможете совершать покупки быстрее, быть в курсе о статусе заказа, и отслеживайте заказы, которые вы делали ранее.';
 $_['text_returning_customer']      = 'Returning Customer';
-$_['text_i_am_returning_customer'] = 'I am a returning customer';
-$_['text_forgotten']               = 'Forgotten Password';
+$_['text_i_am_returning_customer'] = 'Я являюсь постоянным покупателем';
+$_['text_forgotten']               = 'Восстановить пароль';
 
 // Entry
-$_['entry_email']                  = 'E-Mail Address';
+$_['entry_email']                  = 'Адрес электронной почты';
 $_['entry_password']               = 'Password';
 
 // Error

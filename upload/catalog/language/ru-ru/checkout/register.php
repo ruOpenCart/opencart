@@ -3,18 +3,18 @@
 $_['heading_title']           = 'Your Personal Details';
 
 // Text
-$_['text_login']              = 'If you already have an account with us, please login at the <a href="%s"><strong>login page</strong></a>.';
+$_['text_login']              = 'Если у вас уже есть учетная запись, пожалуйста, войдите на <a href="%s"><strong>странице входа</strong></a>.';
 $_['text_register']           = 'Register Account';
-$_['text_guest']              = 'Guest Checkout';
+$_['text_guest']              = 'Оформление без регистрации';
 $_['text_your_password']      = 'Your Password';
-$_['text_agree']              = 'I have read and agree to the <a href="%s" class="modal-link"><b>%s</b></a>';
+$_['text_agree']              = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
 $_['text_success_add']        = 'Success: Your account has been created!';
 $_['text_success_edit']       = 'Success: Your account has been successfully updated.';
 
 // Entry
 $_['entry_customer_group']    = 'Тип счёта';
-$_['entry_firstname']         = 'First Name';
-$_['entry_lastname']          = 'Last Name';
+$_['entry_firstname']         = 'Имя';
+$_['entry_lastname']          = 'Фамилия';
 $_['entry_email']             = 'Эл. почта';
 $_['entry_telephone']         = 'Telephone';
 $_['entry_password']          = 'Password';
@@ -27,15 +27,15 @@ $_['entry_city']              = 'Город';
 $_['entry_country']           = 'Страна';
 $_['entry_zone']              = 'Region / State';
 $_['entry_match']             = 'My delivery and billing addresses are the same.';
-$_['entry_newsletter']        = 'I wish to subscribe to the %s newsletter.';
+$_['entry_newsletter']        = 'Я хочу подписаться на рассылку новостей %s.';
 
 // Error
 $_['error_guest']             = 'Warning: Items in your shopping cart require you to register for an account!';
-$_['error_firstname']         = 'First Name must be between 1 and 32 characters!';
-$_['error_lastname']          = 'Last Name must be between 1 and 32 characters!';
+$_['error_firstname']         = 'Имя должно содержать от 1 до 32 символов!';
+$_['error_lastname']          = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_customer_group']    = 'Группа покупателей недействительна!';
 $_['error_customer_approval'] = 'Warning: Your this customer group requires approval and can not be used with guest account.';
-$_['error_email']             = 'E-Mail address does not appear to be valid!';
+$_['error_email']             = 'Адрес электронной почты недействителен!';
 $_['error_exists']            = 'Warning: E-Mail Address is already registered!';
 $_['error_telephone']         = 'Telephone must be between 3 and 32 characters!';
 $_['error_password']          = 'Password must be between 4 and 20 characters!';

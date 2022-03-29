@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']     = 'HTML Content';
+$_['heading_title']     = 'HTML-контент';
 
 // Text
-$_['text_extension']    = 'Extensions';
+$_['text_extension']    = 'Расширения';
 $_['text_success']      = 'Success: You have modified HTML Content module!';
-$_['text_edit']         = 'Edit HTML Content Module';
+$_['text_edit']         = 'Редактирование модуля HTML-содержимого';
 
 // Entry
 $_['entry_name']        = 'Module Name';
 $_['entry_title']       = 'Heading Title';
-$_['entry_description'] = 'Description';
+$_['entry_description'] = 'Описание';
 $_['entry_status']      = 'Статус';
 
 // Error

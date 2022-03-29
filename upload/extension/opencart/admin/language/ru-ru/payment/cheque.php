@@ -3,14 +3,14 @@
 $_['heading_title']      = 'Чек / Денежный перевод';
 
 // Text
-$_['text_extension']     = 'Extensions';
+$_['text_extension']     = 'Расширения';
 $_['text_success']       = 'Success: You have modified cheque / money order account details!';
-$_['text_edit']          = 'Edit Cheque / Money Order';
+$_['text_edit']          = 'Редактирование чека / денежного перевода';
 
 // Entry
 $_['entry_payable']      = 'Payable To';
 $_['entry_order_status'] = 'Order Status';
-$_['entry_geo_zone']     = 'Geo Zone';
+$_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 

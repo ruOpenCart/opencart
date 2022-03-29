@@ -3,16 +3,16 @@
 $_['heading_title']                    = 'Тема магазина по умолчанию';
 
 // Text
-$_['text_extension']                   = 'Extensions';
+$_['text_extension']                   = 'Расширения';
 $_['text_success']                     = 'Success: You have modified the default store theme!';
-$_['text_edit']                        = 'Edit Default Store Theme';
-$_['text_general']                     = 'General';
+$_['text_edit']                        = 'Редактирование темы магазина по умолчанию';
+$_['text_general']                     = 'Общее';
 $_['text_product']                     = 'Products';
-$_['text_image']                       = 'Images';
+$_['text_image']                       = 'Изображения';
 
 // Entry
 $_['entry_status']                     = 'Статус';
-$_['entry_product_description_length'] = 'List Description Limit';
+$_['entry_product_description_length'] = 'Ограничение описания списка';
 $_['entry_pagination']                 = 'Товаров на странице по умолчанию';
 $_['entry_image_category']             = 'Размер изображения категории (Ш х В)';
 $_['entry_image_thumb']                = 'Product Image Thumb Size (W x H)';
@@ -25,11 +25,11 @@ $_['entry_image_wishlist']             = 'Wish List Image Size (W x H)';
 $_['entry_image_cart']                 = 'Размер изображения в корзине (Ш х В)';
 $_['entry_image_location']             = 'Store Image Size (W x H)';
 $_['entry_width']                      = 'Width';
-$_['entry_height']                     = 'Height';
+$_['entry_height']                     = 'Высота';
 
 // Help
-$_['help_pagination']                  = 'Determines how many catalog items are shown per page (products, categories, etc)';
-$_['help_product_description_length']  = 'In the list view, short description character limit (categories, special etc)';
+$_['help_pagination']                  = 'Определяет, сколько элементов отображается на странице (товаров, категорий и т. д.)';
+$_['help_product_description_length']  = 'Максимальное количество символов в кратком описании в виде списка (категории, специальные и т. д.)';
 
 // Error
 $_['error_permission']                 = 'Warning: You do not have permission to modify the default store theme!';

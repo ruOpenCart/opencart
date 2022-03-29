@@ -3,12 +3,12 @@
 $_['heading_title'] = 'Use Gift Certificate';
 
 // Text
-$_['text_voucher']  = 'Gift Certificate (%s)';
+$_['text_voucher']  = 'Подарочный сертификат (%s)';
 $_['text_success']  = 'Success: Your gift certificate discount has been applied!';
 $_['text_remove']   = 'Success: Your gift certificate discount has been removed!';
 
 // Entry
-$_['entry_voucher'] = 'Enter your gift certificate code here';
+$_['entry_voucher'] = 'Введите код подарочного сертификата здесь';
 
 // Error
 $_['error_voucher'] = 'Warning: Gift Certificate is either invalid or the balance has been used up!';

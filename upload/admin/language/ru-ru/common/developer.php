@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Developer Settings';
+$_['heading_title']    = 'Настройки разработчика';
 
 // Text
 $_['text_success']     = 'Success: You have modified developer settings!';

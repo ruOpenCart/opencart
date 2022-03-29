@@ -3,13 +3,13 @@
 $_['heading_title']    = 'Low Order Fee';
 
 // Text
-$_['text_extension']   = 'Extensions';
+$_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified low order fee total!';
-$_['text_edit']        = 'Edit Low Order Fee Total';
+$_['text_edit']        = 'Редактирование общей суммы минимального заказа';
 
 // Entry
 $_['entry_total']      = 'Order Total';
-$_['entry_fee']        = 'Fee';
+$_['entry_fee']        = 'Взнос';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Sort Order';
