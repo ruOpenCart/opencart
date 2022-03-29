@@ -16,7 +16,7 @@ $_['entry_to_email']   = 'Recipient\'s e-mail';
 $_['entry_from_name']  = 'Your Name';
 $_['entry_from_email'] = 'Your e-mail';
 $_['entry_theme']      = 'Тема подарочного сертификата';
-$_['entry_message']    = 'Message';
+$_['entry_message']    = 'Сообщение';
 $_['entry_amount']     = 'Сумма';
 
 // Help
