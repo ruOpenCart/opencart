@@ -8,7 +8,7 @@ $_['text_list']        = 'User Group';
 $_['text_add']         = 'Добавить группу пользователя';
 $_['text_edit']        = 'Редактирование группы пользователя';
 $_['text_access']      = 'Доступ';
-$_['text_modify']      = 'Modify';
+$_['text_modify']      = 'Изменить';
 
 // Column
 $_['column_name']      = 'User Group Name';
