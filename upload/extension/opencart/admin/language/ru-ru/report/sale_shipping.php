@@ -8,7 +8,7 @@ $_['text_edit']          = 'Редактирование отчета о дос�
 $_['text_success']       = 'Success: You have modified shipping report!';
 $_['text_filter']        = 'Фильтр';
 $_['text_year']          = 'Years';
-$_['text_month']         = 'Months';
+$_['text_month']         = 'Месяцы';
 $_['text_week']          = 'Weeks';
 $_['text_day']           = 'Дней';
 $_['text_all_status']    = 'Все статусы';
@@ -17,7 +17,7 @@ $_['text_all_status']    = 'Все статусы';
 $_['column_date_start']  = 'Дата начала';
 $_['column_date_end']    = 'Дата окончания';
 $_['column_title']       = 'Shipping Title';
-$_['column_orders']      = 'No. Orders';
+$_['column_orders']      = 'Кол-во заказов';
 $_['column_total']       = 'Total';
 
 // Entry
