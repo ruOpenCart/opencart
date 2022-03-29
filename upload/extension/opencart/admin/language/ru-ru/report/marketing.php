@@ -13,7 +13,7 @@ $_['text_all_status']    = 'Все статусы';
 $_['column_campaign']    = 'Название кампании';
 $_['column_code']        = 'Код';
 $_['column_clicks']      = 'Клики';
-$_['column_orders']      = 'No. Orders';
+$_['column_orders']      = 'Кол-во заказов';
 $_['column_total']       = 'Total';
 
 // Entry
