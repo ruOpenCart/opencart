@@ -23,7 +23,7 @@ $_['entry_customer']       = 'Покупатель';
 $_['entry_affiliate']      = 'Партнёр';
 $_['entry_product']        = 'Products';
 $_['entry_subject']        = 'Subject';
-$_['entry_message']        = 'Message';
+$_['entry_message']        = 'Сообщение';
 
 // Help
 $_['help_customer']        = '(Автодополнение)';
