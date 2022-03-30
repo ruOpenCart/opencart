@@ -14,7 +14,7 @@ $_['text_forgotten']               = 'Восстановить пароль';
 
 // Entry
 $_['entry_email']                  = 'Адрес электронной почты';
-$_['entry_password']               = 'Password';
+$_['entry_password']               = 'Пароль';
 
 // Error
 $_['error_token']                  = 'Warning: Login token invalid!';
