@@ -4,12 +4,12 @@ $_['heading_title']  = 'Администрирование';
 
 // Text
 $_['text_heading']   = 'Администрирование';
-$_['text_login']     = 'Please enter your login details.';
+$_['text_login']     = 'Пожалуйста, введите ваши данные для входа.';
 $_['text_forgotten'] = 'Восстановить пароль';
 
 // Entry
 $_['entry_username'] = 'Username';
-$_['entry_password'] = 'Password';
+$_['entry_password'] = 'Пароль';
 
 // Button
 $_['button_login']   = 'Войти';
