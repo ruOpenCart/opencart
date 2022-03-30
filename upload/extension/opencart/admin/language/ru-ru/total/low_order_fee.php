@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified low order fee total!';
 $_['text_edit']        = 'Редактирование общей суммы минимального заказа';
 
 // Entry
-$_['entry_total']      = 'Order Total';
+$_['entry_total']      = 'Сумма заказа';
 $_['entry_fee']        = 'Взнос';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_status']     = 'Статус';
