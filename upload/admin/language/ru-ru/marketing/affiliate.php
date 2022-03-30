@@ -8,8 +8,8 @@ $_['text_list']                 = 'Список партнеров';
 $_['text_add']                  = 'Добавить партнера';
 $_['text_edit']                 = 'Изменить партнера';
 $_['text_affiliate']            = 'Информация о партнере';
-$_['text_payment']              = 'Payment Details';
-$_['text_other']                = 'Other';
+$_['text_payment']              = 'Детали оплаты';
+$_['text_other']                = 'Другие';
 $_['text_balance']              = 'Баланс';
 $_['text_cheque']               = 'Чек';
 $_['text_paypal']               = 'PayPal';
@@ -45,9 +45,9 @@ $_['entry_tracking']            = 'Tracking Code';
 $_['entry_website']             = 'Web Site';
 $_['entry_commission']          = 'Комиссия (%)';
 $_['entry_tax']                 = 'Tax ID';
-$_['entry_payment']             = 'Payment Method';
+$_['entry_payment']             = 'Метод оплаты';
 $_['entry_cheque']              = 'Имя получателя чека';
-$_['entry_paypal']              = 'PayPal Email Account';
+$_['entry_paypal']              = 'Эл. почта учётной записи PayPal';
 $_['entry_bank_name']           = 'Наименование банка';
 $_['entry_bank_branch_number']  = 'ABA/BSB номер (номер отделения)';
 $_['entry_bank_swift_code']     = 'SWIFT Code';
@@ -60,7 +60,7 @@ $_['entry_date_added']          = 'Дата добавления';
 
 // Help
 $_['help_tracking']             = 'The tracking code that will be used to track referrals.';
-$_['help_commission']           = 'Percentage the affiliate receives on each order.';
+$_['help_commission']           = 'Процент, который партнер получает за каждый заказ.';
 
 // Error
 $_['error_warning']             = 'Warning: Please check the form carefully for errors!';
@@ -70,7 +70,7 @@ $_['error_already']             = 'Warning: Customer is already registered as an
 $_['error_tracking']            = 'Tracking Code required!';
 $_['error_exists']              = 'Tracking code is being used by another affiliate!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';
-$_['error_paypal']              = 'PayPal Email Address does not appear to be valid!';
+$_['error_paypal']              = 'Адрес электронной почты PayPal недействителен!';
 $_['error_bank_account_name']   = 'Имя счета обязательно!';
 $_['error_bank_account_number'] = 'Номер счета обязателен!';
 $_['error_custom_field']        = '%s обязательно к заполнению!';
