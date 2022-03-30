@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']     = 'Payments';
+$_['heading_title']     = 'Оплата';
 
 // Text
 $_['text_success']      = 'Success: You have modified payments!';
-$_['text_list']         = 'Payment List';
+$_['text_list']         = 'Список способов оплаты';
 
 // Column
-$_['column_name']       = 'Payment Method';
+$_['column_name']       = 'Метод оплаты';
 $_['column_vendor']     = 'Vendor';
 $_['column_status']     = 'Статус';
 $_['column_sort_order'] = 'Sort Order';
