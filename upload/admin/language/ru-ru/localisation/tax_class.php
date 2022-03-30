@@ -10,7 +10,7 @@ $_['text_edit']         = 'Редактирование налогового к�
 $_['text_tax_class']    = 'Tax Class';
 $_['text_tax_rate']     = 'Tax Rates';
 $_['text_shipping']     = 'Shipping Address';
-$_['text_payment']      = 'Payment Address';
+$_['text_payment']      = 'Платёжный адрес';
 $_['text_store']        = 'Store Address';
 
 // Column
