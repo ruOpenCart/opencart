@@ -18,11 +18,11 @@ $_['entry_response']     = 'Ответ процессора карты';
 $_['entry_response']     = 'Ответ процессора карты';
 
 
-$_['entry_order_status'] = 'Order Status';
-$_['entry_fraud_status'] = 'Order Status';
-$_['entry_complete_status'] = 'Order Status';
+$_['entry_order_status'] = 'Статус заказа';
+$_['entry_fraud_status'] = 'Статус заказа';
+$_['entry_complete_status'] = 'Статус заказа';
 
-$_['entry_subscription_status'] = 'Order Status';
+$_['entry_subscription_status'] = 'Статус заказа';
 
 $_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
