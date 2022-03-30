@@ -15,12 +15,12 @@ $_['text_success']       = 'Success: Your password has been successfully updated
 // Entry
 $_['entry_email']        = 'Адрес электронной почты';
 $_['entry_new_password'] = 'Новый пароль';
-$_['entry_password']     = 'Password';
+$_['entry_password']     = 'Пароль';
 $_['entry_confirm']      = 'Подтвердить';
 
 // Error
 $_['error_email']        = 'Адрес электронной почты недействителен!';
 $_['error_not_found']    = 'Warning: The E-Mail Address was not found in our records!';
-$_['error_password']     = 'Password must be between 4 and 20 characters!';
-$_['error_confirm']      = 'Password and password confirmation do not match!';
-$_['error_code']         = 'Password reset code is invalid or was used previously!';
+$_['error_password']     = 'Пароль должен быть от 4 до 20 символов!';
+$_['error_confirm']      = 'Пароль и подтверждение пароля не совпадают!';
+$_['error_code']         = 'Код сброса пароля недействителен или уже был использован ранее!';
