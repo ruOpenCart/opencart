@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']    = 'Notifications';
+$_['heading_title']    = 'Уведомления';
 
 // Text
 $_['text_success']     = 'Success: You have modified notifications!';
-$_['text_list']        = 'Notification List';
+$_['text_list']        = 'Список уведомлений';
 
 // Column
-$_['column_message']   = 'Message';
+$_['column_message']   = 'Сообщение';
 $_['column_action']    = 'Действие';
 
 // Error

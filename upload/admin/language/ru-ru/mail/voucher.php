@@ -6,5 +6,5 @@ $_['text_greeting'] = 'Поздравляем, вы получили подар�
 $_['text_from']     = 'This Gift Certificate has been sent to you by %s';
 $_['text_message']  = 'With a message saying';
 $_['text_redeem']   = 'To redeem this Gift Certificate, write down the redemption code which is <b>%s</b> then click on the link below and purchase the product you wish to use this gift certificate on. You can enter the gift certificate code on the shopping cart page before you click checkout.';
-$_['text_footer']   = 'Please reply to this email if you have any questions.';
+$_['text_footer']   = 'Пожалуйста, ответьте на это письмо, если у вас есть какие-либо вопросы.';
 $_['text_sent']     = 'Success: Gift Voucher e-mail has been sent!';

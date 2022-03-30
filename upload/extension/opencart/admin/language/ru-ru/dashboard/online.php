@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'People Online';
+$_['heading_title']    = 'Люди онлайн';
 
 // Text
 $_['text_extension']   = 'Расширения';

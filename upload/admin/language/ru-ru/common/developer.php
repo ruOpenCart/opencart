@@ -18,8 +18,8 @@ $_['entry_sass']       = 'SASS';
 $_['entry_cache']      = 'Кэш';
 
 // Button
-$_['button_on']        = 'On';
-$_['button_off']       = 'Off';
+$_['button_on']        = 'Вкл';
+$_['button_off']       = 'Откл';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify developer settings!';

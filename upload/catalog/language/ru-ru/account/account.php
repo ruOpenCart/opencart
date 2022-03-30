@@ -1,18 +1,18 @@
 <?php
 // Heading
-$_['heading_title']       = 'My Account';
+$_['heading_title']       = 'Моя учетная запись';
 
 // Text
 $_['text_account']        = 'Аккаунт';
-$_['text_my_account']     = 'My Account';
-$_['text_my_orders']      = 'My Orders';
-$_['text_my_affiliate']   = 'My Affiliate Account';
-$_['text_my_newsletter']  = 'Newsletter';
+$_['text_my_account']     = 'Моя учетная запись';
+$_['text_my_orders']      = 'Мои заказы';
+$_['text_my_affiliate']   = 'Мой аккаунт партнера';
+$_['text_my_newsletter']  = 'Рассылка';
 $_['text_edit']           = 'Редактирование информации о вашей учетной записи';
 $_['text_password']       = 'Изменить свой пароль';
-$_['text_address']        = 'Modify your address book entries';
-$_['text_payment_method'] = 'Payment Methods';
-$_['text_wishlist']       = 'Modify your wish list';
+$_['text_address']        = 'Изменить записи адресной книги';
+$_['text_payment_method'] = 'Методы оплаты';
+$_['text_wishlist']       = 'Изменить список закладок';
 $_['text_order']          = 'View your order history';
 $_['text_subscription']   = 'Subscriptions';
 $_['text_download']       = 'Загрузки';

@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Per Item';
+$_['heading_title']    = 'За единицу';
 
 // Text
 $_['text_extension']   = 'Расширения';

@@ -14,7 +14,7 @@ $_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_username']        = 'Username';
-$_['entry_password']        = 'Password';
+$_['entry_password']        = 'Пароль';
 $_['entry_confirm']         = 'Подтвердить';
 $_['entry_firstname']       = 'Имя';
 $_['entry_lastname']        = 'Фамилия';
@@ -25,8 +25,8 @@ $_['entry_image']           = 'Изображение';
 $_['error_permission']      = 'Warning: You do not have permission to modify your profile!';
 $_['error_username_exists'] = 'Warning: Username is already in use!';
 $_['error_username']        = 'Username must be between 3 and 20 characters!';
-$_['error_password']        = 'Password must be between 4 and 20 characters!';
-$_['error_confirm']         = 'Password and password confirmation do not match!';
+$_['error_password']        = 'Пароль должен быть от 4 до 20 символов!';
+$_['error_confirm']         = 'Пароль и подтверждение пароля не совпадают!';
 $_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']           = 'Адрес электронной почты недействителен!';

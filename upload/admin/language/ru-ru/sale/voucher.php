@@ -18,7 +18,7 @@ $_['column_to']         = 'To';
 $_['column_theme']      = 'Theme';
 $_['column_amount']     = 'Сумма';
 $_['column_status']     = 'Статус';
-$_['column_order_id']   = 'Order ID';
+$_['column_order_id']   = 'Номер заказа';
 $_['column_customer']   = 'Покупатель';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
@@ -30,7 +30,7 @@ $_['entry_from_email']  = 'Эл. почта отправителя';
 $_['entry_to_name']     = 'To Name';
 $_['entry_to_email']    = 'To E-Mail';
 $_['entry_theme']       = 'Theme';
-$_['entry_message']     = 'Message';
+$_['entry_message']     = 'Сообщение';
 $_['entry_amount']      = 'Сумма';
 $_['entry_status']      = 'Статус';
 

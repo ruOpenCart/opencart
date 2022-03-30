@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']   = 'My Wishlist';
+$_['heading_title']   = 'Мой список желаний';
 
 // Text
 $_['text_account']    = 'Аккаунт';

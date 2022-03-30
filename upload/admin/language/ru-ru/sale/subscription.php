@@ -8,14 +8,14 @@ $_['text_list']                  = 'Subscription List';
 $_['text_filter']                = 'Фильтр';
 $_['text_subscription']          = 'Subscription Details';
 $_['text_subscription_id']       = 'Subscription ID';
-$_['text_order_id']              = 'Order ID';
+$_['text_order_id']              = 'Номер заказа';
 $_['text_customer']              = 'Покупатель';
 $_['text_date_added']            = 'Дата добавления';
 $_['text_remaining']             = 'Remaining Payments';
-$_['text_date_next']             = 'Next Payment Date';
-$_['text_order_status']          = 'Order Status';
+$_['text_date_next']             = 'Дата следующего платежа';
+$_['text_order_status']          = 'Статус заказа';
 
-$_['text_payment_method']        = 'Payment Method';
+$_['text_payment_method']        = 'Метод оплаты';
 
 $_['text_cancel']                = 'Until Canceled';
 
@@ -30,7 +30,7 @@ $_['text_transaction_add']       = 'Добавить транзакцию';
 
 // Column
 $_['column_subscription_id']     = 'Subscription ID';
-$_['column_order_id']            = 'Order ID';
+$_['column_order_id']            = 'Номер заказа';
 $_['column_reference']           = 'Reference';
 $_['column_customer']            = 'Покупатель';
 $_['column_comment']             = 'Комментарий';
@@ -44,17 +44,17 @@ $_['column_quantity']            = 'Quantity';
 $_['column_action']              = 'Действие';
 
 // Entry
-$_['entry_order_id']             = 'Order ID';
+$_['entry_order_id']             = 'Номер заказа';
 $_['entry_subscription_id']      = 'Subscription ID';
 $_['entry_customer']             = 'Покупатель';
 $_['entry_subscription_plan']    = 'Subscription Plan';
-$_['entry_payment_method']       = 'Payment Method';
+$_['entry_payment_method']       = 'Метод оплаты';
 $_['entry_subscription_status']  = 'Subscription Status';
 $_['entry_comment']              = 'Комментарий';
 $_['entry_description']          = 'Описание';
 $_['entry_amount']               = 'Сумма';
-$_['entry_notify']               = 'Notify Customer';
-$_['entry_override']             = 'Override';
+$_['entry_notify']               = 'Уведомить покупателя';
+$_['entry_override']             = 'Переопределить';
 $_['entry_comment']              = 'Комментарий';
 $_['entry_date_added']           = 'Дата добавления';
 

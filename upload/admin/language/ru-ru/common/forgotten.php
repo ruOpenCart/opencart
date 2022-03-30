@@ -12,13 +12,13 @@ $_['text_password']  = 'Введите новый пароль, который �
 $_['text_success']   = 'Success: Your password has been successfully updated.';
 
 // Entry
-$_['entry_password'] = 'Password';
+$_['entry_password'] = 'Пароль';
 $_['entry_confirm']  = 'Подтвердить';
 $_['entry_email']    = 'Адрес электронной почты';
 
 // Error
 $_['error_email']    = 'Warning: The E-Mail Address was not found in our records!';
 $_['error_code']     = 'Reset code does not match!';
-$_['error_disabled'] = 'Password reset has been disabled!';
-$_['error_password'] = 'Password must be between 4 and 20 characters!';
-$_['error_confirm']  = 'Password and password confirmation do not match!';
+$_['error_disabled'] = 'Сброс пароля был отключен!';
+$_['error_password'] = 'Пароль должен быть от 4 до 20 символов!';
+$_['error_confirm']  = 'Пароль и подтверждение пароля не совпадают!';

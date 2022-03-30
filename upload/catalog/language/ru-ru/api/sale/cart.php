@@ -8,7 +8,7 @@ $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_day']                   = 'день';
 $_['text_week']                  = 'week';
 $_['text_semi_month']            = 'полмесяца';
-$_['text_month']                 = 'month';
+$_['text_month']                 = 'месяц';
 $_['text_year']                  = 'year';
 $_['text_for']                   = '%s подарочный сертификат для %s';
 
@@ -18,4 +18,4 @@ $_['error_minimum']              = 'Минимальная сумма заказ
 $_['error_store']                = 'Product can not be bought from the store you have chosen!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Warning: Product could not be found!';
-$_['error_subscription']         = 'Please select a subscription plan!';
+$_['error_subscription']         = 'Пожалуйста, выберите план подписки!';

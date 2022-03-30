@@ -7,7 +7,7 @@ $_['text_success']        = 'Success: You have modified coupons!';
 $_['text_list']           = 'Список купонов';
 $_['text_add']            = 'Добавить купон';
 $_['text_edit']           = 'Редактирование купона';
-$_['text_percent']        = 'Percentage';
+$_['text_percent']        = 'Проценты';
 $_['text_amount']         = 'Фиксированная сумма';
 $_['text_coupon']         = 'История';
 
@@ -18,7 +18,7 @@ $_['column_discount']     = 'Скидка';
 $_['column_date_start']   = 'Дата начала';
 $_['column_date_end']     = 'Дата окончания';
 $_['column_status']       = 'Статус';
-$_['column_order_id']     = 'Order ID';
+$_['column_order_id']     = 'Номер заказа';
 $_['column_customer']     = 'Покупатель';
 $_['column_amount']       = 'Сумма';
 $_['column_date_added']   = 'Дата добавления';
@@ -42,7 +42,7 @@ $_['entry_status']        = 'Статус';
 
 // Help
 $_['help_code']           = 'The code the customer enters to get the discount.';
-$_['help_type']           = 'Percentage or Fixed Amount.';
+$_['help_type']           = 'Процент или фиксированная сумма.';
 $_['help_logged']         = 'Покупатель должен войти в систему, чтобы использовать купон.';
 $_['help_total']          = 'The total amount that must be reached before the coupon is valid.';
 $_['help_category']       = 'Выберите все товары в выбранной категории.';

@@ -8,7 +8,7 @@ $_['text_edit']           = 'Редактирование отчета о воз
 $_['text_success']        = 'Success: You have modified returns report!';
 $_['text_filter']         = 'Фильтр';
 $_['text_year']           = 'Years';
-$_['text_month']          = 'Months';
+$_['text_month']          = 'Месяцы';
 $_['text_week']           = 'Weeks';
 $_['text_day']            = 'Дней';
 $_['text_all_status']     = 'Все статусы';
@@ -16,7 +16,7 @@ $_['text_all_status']     = 'Все статусы';
 // Column
 $_['column_date_start']   = 'Дата начала';
 $_['column_date_end']     = 'Дата окончания';
-$_['column_returns']      = 'No. Returns';
+$_['column_returns']      = 'Кол-во возвратов';
 
 // Entry
 $_['entry_date_start']    = 'Дата начала';

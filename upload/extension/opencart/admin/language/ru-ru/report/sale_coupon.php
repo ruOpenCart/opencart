@@ -11,7 +11,7 @@ $_['text_filter']      = 'Фильтр';
 // Column
 $_['column_name']      = 'Название купона';
 $_['column_code']      = 'Код';
-$_['column_orders']    = 'Orders';
+$_['column_orders']    = 'Заказы';
 $_['column_total']     = 'Total';
 $_['column_action']    = 'Действие';
 

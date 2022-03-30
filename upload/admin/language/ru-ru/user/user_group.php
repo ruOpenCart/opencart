@@ -8,7 +8,7 @@ $_['text_list']        = 'User Group';
 $_['text_add']         = 'Добавить группу пользователя';
 $_['text_edit']        = 'Редактирование группы пользователя';
 $_['text_access']      = 'Доступ';
-$_['text_modify']      = 'Modify';
+$_['text_modify']      = 'Изменить';
 
 // Column
 $_['column_name']      = 'User Group Name';
@@ -16,7 +16,7 @@ $_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'User Group Name';
-$_['entry_permission'] = 'Permissions';
+$_['entry_permission'] = 'Разрешения';
 $_['entry_extension']  = 'Расширения';
 
 // Error

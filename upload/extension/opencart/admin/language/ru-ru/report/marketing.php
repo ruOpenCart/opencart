@@ -13,13 +13,13 @@ $_['text_all_status']    = 'Все статусы';
 $_['column_campaign']    = 'Название кампании';
 $_['column_code']        = 'Код';
 $_['column_clicks']      = 'Клики';
-$_['column_orders']      = 'No. Orders';
+$_['column_orders']      = 'Кол-во заказов';
 $_['column_total']       = 'Total';
 
 // Entry
 $_['entry_date_start']   = 'Дата начала';
 $_['entry_date_end']     = 'Дата окончания';
-$_['entry_order_status'] = 'Order Status';
+$_['entry_order_status'] = 'Статус заказа';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
 

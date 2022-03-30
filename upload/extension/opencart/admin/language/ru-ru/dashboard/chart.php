@@ -6,11 +6,11 @@ $_['heading_title']    = 'Sales Analytics';
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified dashboard chart!';
 $_['text_edit']        = 'Редактирование диаграммы для панели';
-$_['text_order']       = 'Orders';
+$_['text_order']       = 'Заказы';
 $_['text_customer']    = 'Покупатели';
 $_['text_day']         = 'Today';
 $_['text_week']        = 'Week';
-$_['text_month']       = 'Month';
+$_['text_month']       = 'Месяц';
 $_['text_year']        = 'Year';
 
 // Entry

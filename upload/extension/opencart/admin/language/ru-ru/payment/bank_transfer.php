@@ -9,7 +9,7 @@ $_['text_edit']          = 'Редактирование банковского 
 
 // Entry
 $_['entry_bank']         = 'Инструкции по банковскому переводу';
-$_['entry_order_status'] = 'Order Status';
+$_['entry_order_status'] = 'Статус заказа';
 $_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';

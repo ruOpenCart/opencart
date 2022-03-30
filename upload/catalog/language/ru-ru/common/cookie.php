@@ -5,4 +5,4 @@ $_['text_cookie']  = 'This website uses cookies. For more information <a href="%
 
 // Button
 $_['button_agree']    = 'Yes, that\'s fine!';
-$_['button_disagree'] = 'No Thanks!';
+$_['button_disagree'] = 'Нет, спасибо!';

@@ -12,7 +12,7 @@ $_['text_trial']             = 'Trial';
 $_['text_day']               = 'День';
 $_['text_week']              = 'Week';
 $_['text_semi_month']        = 'Semi Month';
-$_['text_month']             = 'Month';
+$_['text_month']             = 'Месяц';
 $_['text_year']              = 'Year';
 
 // Entry

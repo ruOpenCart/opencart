@@ -5,17 +5,17 @@ $_['heading_title']        = 'Расчёт стоимости доставки �
 // Text
 $_['text_shipping_method'] = 'Shipping method options';
 $_['text_destination']     = 'Укажите ваш регион для расчета стоимости доставки.';
-$_['text_estimate']        = 'Please select the preferred shipping method to use on this order.';
+$_['text_estimate']        = 'Пожалуйста, выберите предпочтительный способ доставки для этого заказа.';
 $_['text_success']         = 'Success: Your shipping estimate has been applied!';
 
 // Entry
 $_['entry_country']        = 'Страна';
 $_['entry_zone']           = 'Region / State';
-$_['entry_postcode']       = 'Post Code';
+$_['entry_postcode']       = 'Почтовый индекс';
 
 // Error
-$_['error_postcode']       = 'Postcode must be between 2 and 10 characters!';
-$_['error_country']        = 'Please select a country!';
-$_['error_zone']           = 'Please select a region / state!';
+$_['error_postcode']       = 'Почтовый индекс должен быть от 2 до 10 символов!';
+$_['error_country']        = 'Пожалуйста, выберите страну!';
+$_['error_zone']           = 'Пожалуйста, выберите регион / область!';
 $_['error_shipping']       = 'Warning: Shipping method required!';
 $_['error_no_shipping']    = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';

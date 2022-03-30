@@ -18,7 +18,7 @@ $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_day']                   = 'день';
 $_['text_week']                  = 'week';
 $_['text_semi_month']            = 'полмесяца';
-$_['text_month']                 = 'month';
+$_['text_month']                 = 'месяц';
 $_['text_year']                  = 'year';
 
 // Column
@@ -34,4 +34,4 @@ $_['error_stock']                = 'Products marked with *** are not available i
 $_['error_minimum']              = 'Минимальная сумма заказа для %s из %s!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Warning: Product could not be found!';
-$_['error_subscription']         = 'Please select a subscription plan!';
+$_['error_subscription']         = 'Пожалуйста, выберите план подписки!';

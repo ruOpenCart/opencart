@@ -5,7 +5,7 @@ $_['heading_title']                = 'Вход в учетную запись';
 // Text
 $_['text_account']                 = 'Аккаунт';
 $_['text_login']                   = 'Войти';
-$_['text_new_customer']            = 'New Customer';
+$_['text_new_customer']            = 'Новый покупатель';
 $_['text_register']                = 'Register Account';
 $_['text_register_account']        = 'Создавая учетную запись Вы сможете совершать покупки быстрее, быть в курсе о статусе заказа, и отслеживайте заказы, которые вы делали ранее.';
 $_['text_returning_customer']      = 'Returning Customer';
@@ -14,7 +14,7 @@ $_['text_forgotten']               = 'Восстановить пароль';
 
 // Entry
 $_['entry_email']                  = 'Адрес электронной почты';
-$_['entry_password']               = 'Password';
+$_['entry_password']               = 'Пароль';
 
 // Error
 $_['error_token']                  = 'Warning: Login token invalid!';

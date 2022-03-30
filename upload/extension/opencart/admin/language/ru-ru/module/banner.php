@@ -10,7 +10,7 @@ $_['text_slide']       = 'Slide';
 $_['text_fade']        = 'Затухание';
 
 // Entry
-$_['entry_name']       = 'Module Name';
+$_['entry_name']       = 'Название модуля';
 $_['entry_banner']     = 'Баннер';
 $_['entry_effect']     = 'Эффект';
 $_['entry_items']      = 'Элементов на слайд';
@@ -26,6 +26,6 @@ $_['help_items']       = 'The number of items to show per slide.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify banner module!';
-$_['error_name']       = 'Module Name must be between 3 and 64 characters!';
+$_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_width']      = 'Width required!';
 $_['error_height']     = 'Необходимо указать высоту!';

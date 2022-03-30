@@ -14,8 +14,8 @@ $_['column_customer']       = 'Имя покупателя';
 $_['column_email']          = 'Эл. почта';
 $_['column_customer_group'] = 'Группа покупателя';
 $_['column_status']         = 'Статус';
-$_['column_orders']         = 'No. Orders';
-$_['column_products']       = 'No. Products';
+$_['column_orders']         = 'Кол-во заказов';
+$_['column_products']       = 'Кол-во товаров';
 $_['column_total']          = 'Total';
 $_['column_action']         = 'Действие';
 
@@ -23,7 +23,7 @@ $_['column_action']         = 'Действие';
 $_['entry_date_start']      = 'Дата начала';
 $_['entry_date_end']        = 'Дата окончания';
 $_['entry_customer']        = 'Покупатель';
-$_['entry_order_status']    = 'Order Status';
+$_['entry_order_status']    = 'Статус заказа';
 $_['entry_status']          = 'Статус';
 $_['entry_sort_order']      = 'Sort Order';
 

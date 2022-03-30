@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']     = 'Online Report';
+$_['heading_title']     = 'Отчёт по онлайну';
 
 // Text
 $_['text_extension']    = 'Расширения';
 $_['text_success']      = 'Success: You have modified customers online report!';
-$_['text_list']         = 'Online List';
+$_['text_list']         = 'Список онлайн';
 $_['text_filter']       = 'Фильтр';
 $_['text_guest']        = 'Гость';
 
