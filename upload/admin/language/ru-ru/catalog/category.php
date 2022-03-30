@@ -23,7 +23,7 @@ $_['entry_meta_keyword']     = 'Мета-тег Keywords';
 $_['entry_meta_description'] = 'Мета-тег Description';
 $_['entry_store']            = 'Stores';
 $_['entry_keyword']          = 'Ключевое слово';
-$_['entry_parent']           = 'Parent';
+$_['entry_parent']           = 'Родитель';
 $_['entry_filter']           = 'Фильтры';
 $_['entry_image']            = 'Изображение';
 $_['entry_top']              = 'Top';
@@ -36,7 +36,7 @@ $_['entry_layout']           = 'Переопределение макета';
 $_['help_parent']            = '(Автодополнение)';
 $_['help_filter']            = '(Автодополнение)';
 $_['help_top']               = 'Отображение в главном меню. Работает только для главных родительских категорий.';
-$_['help_column']            = 'Number of columns to use for the bottom 3 categories. Only works for the top parent categories.';
+$_['help_column']            = 'Количество столбцов, используемых для дочерних 3-х категорий. Работает только для главных родительских категорий.';
 
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';
