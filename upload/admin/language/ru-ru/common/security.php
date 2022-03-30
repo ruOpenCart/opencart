@@ -10,12 +10,12 @@ $_['text_storage']             = 'Storage path';
 $_['text_storage_description'] = 'Очень важно переместить каталог хранения вне веб-каталога (например, public_html, www или htdocs).';
 $_['text_storage_success']     = 'Success: Storage directory has been moved!';
 $_['text_admin']               = 'Rename admin directory';
-$_['text_admin_description']   = 'Please type in a new admin directory name in the field below.';
+$_['text_admin_description']   = 'Пожалуйста, введите новое имя каталога администратора в поле ниже.';
 $_['text_admin_success']       = 'Success: Storage directory has been renamed!';
-$_['text_path']                = 'Path';
+$_['text_path']                = 'Путь';
 
 // Entry
-$_['entry_path']               = 'Path';
+$_['entry_path']               = 'Путь';
 $_['entry_path_current']       = 'Текущий путь';
 $_['entry_path_new']           = 'Новый путь';
 $_['entry_name']               = 'Название каталога';
