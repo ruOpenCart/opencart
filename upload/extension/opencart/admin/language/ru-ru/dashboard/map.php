@@ -6,7 +6,7 @@ $_['heading_title']    = 'World Map';
 $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified dashboard map!';
 $_['text_edit']        = 'Редактирование карты на панели';
-$_['text_order']       = 'Orders';
+$_['text_order']       = 'Заказы';
 $_['text_sale']        = 'Sales';
 
 // Entry
