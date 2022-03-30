@@ -20,7 +20,7 @@ $_['entry_message']    = 'Сообщение';
 $_['entry_amount']     = 'Сумма';
 
 // Help
-$_['help_message']     = 'Optional';
+$_['help_message']     = 'Опционально';
 $_['help_amount']      = 'Value must be between %s and %s';
 
 // Error
