@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Pickup';
+$_['heading_title']    = 'Самовывоз';
 
 // Text
-$_['text_description'] = 'Pickup From Store';
+$_['text_description'] = 'Самовывоз из магазина';
