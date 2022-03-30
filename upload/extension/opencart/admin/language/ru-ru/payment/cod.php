@@ -8,7 +8,7 @@ $_['text_success']       = 'Success: You have modified cash on delivery payment 
 $_['text_edit']          = 'Редактирование Наличных при получении';
 
 // Entry
-$_['entry_order_status'] = 'Order Status';
+$_['entry_order_status'] = 'Статус заказа';
 $_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Sort Order';
