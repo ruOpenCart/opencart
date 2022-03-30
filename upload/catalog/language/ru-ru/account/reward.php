@@ -5,7 +5,7 @@ $_['heading_title']      = 'Your Reward Points';
 // Column
 $_['column_date_added']  = 'Дата добавления';
 $_['column_description'] = 'Описание';
-$_['column_points']      = 'Points';
+$_['column_points']      = 'Баллы';
 
 // Text
 $_['text_account']       = 'Аккаунт';
