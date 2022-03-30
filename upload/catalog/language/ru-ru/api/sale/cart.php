@@ -18,4 +18,4 @@ $_['error_minimum']              = 'Минимальная сумма заказ
 $_['error_store']                = 'Product can not be bought from the store you have chosen!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Warning: Product could not be found!';
-$_['error_subscription']         = 'Please select a subscription plan!';
+$_['error_subscription']         = 'Пожалуйста, выберите план подписки!';
