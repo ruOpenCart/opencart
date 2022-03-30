@@ -16,7 +16,7 @@ $_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'User Group Name';
-$_['entry_permission'] = 'Permissions';
+$_['entry_permission'] = 'Разрешения';
 $_['entry_extension']  = 'Расширения';
 
 // Error
