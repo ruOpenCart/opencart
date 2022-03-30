@@ -20,11 +20,11 @@ $_['entry_address']    = 'Адрес';
 $_['entry_geocode']    = 'Геокод';
 $_['entry_telephone']  = 'Telephone';
 $_['entry_image']      = 'Изображение';
-$_['entry_open']       = 'Opening Times';
+$_['entry_open']       = 'Время работы';
 $_['entry_comment']    = 'Комментарий';
 
 // Help
-$_['help_geocode']     = 'Please enter your store location geocode manually.';
+$_['help_geocode']     = 'Пожалуйста, введите геокод местоположения вашего магазина вручную.';
 $_['help_open']        = 'Заполните время работы вашего магазина.';
 $_['help_comment']     = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
 
