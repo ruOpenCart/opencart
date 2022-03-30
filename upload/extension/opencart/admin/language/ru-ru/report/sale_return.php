@@ -16,7 +16,7 @@ $_['text_all_status']     = 'Все статусы';
 // Column
 $_['column_date_start']   = 'Дата начала';
 $_['column_date_end']     = 'Дата окончания';
-$_['column_returns']      = 'No. Returns';
+$_['column_returns']      = 'Кол-во возвратов';
 
 // Entry
 $_['entry_date_start']    = 'Дата начала';
