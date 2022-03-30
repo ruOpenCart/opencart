@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']     = 'Order Totals';
+$_['heading_title']     = 'Сумма заказа';
 
 // Text
 $_['text_success']      = 'Success: You have modified totals!';
 
 // Column
-$_['column_name']       = 'Order Totals';
+$_['column_name']       = 'Сумма заказа';
 $_['column_status']     = 'Статус';
 $_['column_sort_order'] = 'Sort Order';
 $_['column_action']     = 'Действие';
