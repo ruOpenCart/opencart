@@ -3,12 +3,12 @@
 $_['heading_title']  = 'Связаться с нами';
 
 // Text
-$_['text_location']  = 'Our Locations';
-$_['text_store']     = 'Our Stores';
+$_['text_location']  = 'Наши локации';
+$_['text_store']     = 'Наши магазины';
 $_['text_contact']   = 'Форма обратной связи';
 $_['text_address']   = 'Адрес';
 $_['text_telephone'] = 'Telephone';
-$_['text_open']      = 'Opening Times';
+$_['text_open']      = 'Время работы';
 $_['text_comment']   = 'Комментарии';
 $_['text_message']   = '<p>Ваш запрос был успешно отправлен администрации магазина!</p>';
 
