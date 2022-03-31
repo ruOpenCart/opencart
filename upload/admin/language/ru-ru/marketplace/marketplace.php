@@ -17,25 +17,25 @@ $_['text_shipping']      = 'Shipping';
 $_['text_module']        = 'Модули';
 $_['text_total']         = 'Сумма заказа';
 $_['text_feed']          = 'Каналы';
-$_['text_report']        = 'Reports';
+$_['text_report']        = 'Отчеты';
 $_['text_other']         = 'Другие';
 $_['text_free']          = 'Бесплатно';
 $_['text_paid']          = 'Платно';
-$_['text_purchased']     = 'Purchased';
-$_['text_recommended']   = 'Recommended';
+$_['text_purchased']     = 'Приобретено';
+$_['text_recommended']   = 'Рекомендуемые';
 $_['text_date_modified'] = 'Дата изменения';
 $_['text_date_added']    = 'Дата добавления';
-$_['text_rating']        = 'Rating';
-$_['text_reviews']       = 'reviews';
+$_['text_rating']        = 'Рейтинг';
+$_['text_reviews']       = 'отзывы';
 $_['text_compatibility'] = 'Совместимость';
 $_['text_downloaded']    = 'Загружено';
 $_['text_member_since']  = 'Участник с:';
-$_['text_price']         = 'Price';
+$_['text_price']         = 'Цена';
 $_['text_featured']      = 'Рекомендуемые';
 $_['text_partner']       = 'Разработано партнером OpenCart';
 $_['text_support']       = '12 месяцев бесплатной поддержки';
 $_['text_documentation'] = 'Документация включена';
-$_['text_sales']         = 'Sales';
+$_['text_sales']         = 'Продажи';
 $_['text_comment']       = 'Комментарии';
 $_['text_download']      = 'Загрузка';
 $_['text_install']       = 'Install';
@@ -52,7 +52,7 @@ $_['text_uninstall']     = 'Uninstall';
 $_['text_delete']        = 'Удалить';
 $_['text_more']          = 'see more replies...';
 $_['text_leave']         = 'see more replies...';
-$_['text_refresh']		 = 'refresh';
+$_['text_refresh']		 = 'обновить';
 $_['text_featured']		 = 'Рекомендуемые';
 
 // Entry
@@ -66,11 +66,11 @@ $_['tab_comment']        = 'Комментарий';
 
 // Button
 $_['button_opencart']    = 'Маркетплейс API';
-$_['button_purchase']    = 'Purchase';
+$_['button_purchase']    = 'Купить';
 $_['button_view_all']    = 'View all extensions';
 $_['button_support']     = 'Получить поддержку';
 $_['button_comment']     = 'Комментарий';
-$_['button_reply']       = 'Reply';
+$_['button_reply']       = 'Ответить';
 $_['button_forgot_pin']  = 'Забыли PIN?';
 
 // Error
