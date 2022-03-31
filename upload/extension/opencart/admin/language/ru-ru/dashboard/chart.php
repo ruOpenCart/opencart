@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Sales Analytics';
+$_['heading_title']    = 'Аналитика продаж';
 
 // Text
 $_['text_extension']   = 'Расширения';
