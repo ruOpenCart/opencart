@@ -20,7 +20,7 @@ $_['entry_name']              = 'Название страны';
 $_['entry_iso_code_2']        = 'Код ISO (2)';
 $_['entry_iso_code_3']        = 'Код ISO (3)';
 $_['entry_address_format']    = 'Формат адреса';
-$_['entry_postcode_required'] = 'Postcode Required';
+$_['entry_postcode_required'] = 'Необходимо указать почтовый индекс';
 $_['entry_status']            = 'Статус';
 
 // Error
