@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']          = 'Products';
+$_['heading_title']          = 'Товары';
 
 // Text
 $_['text_success']           = 'Success: You have modified products!';
 $_['text_variant']           = 'Пожалуйста, обратите внимание, что это вариант товара, который вы должны переопределить <a href="%s" target="_blank" class="alert-link">основной товар</a>. В противном случае данные будут заменены на данные <a href="%s" target="_blank" class="alert-link">основного товара</a> при сохранении.';
-$_['text_list']              = 'Product List';
+$_['text_list']              = 'Список товаров';
 $_['text_add']               = 'Добавить товар';
 $_['text_edit']              = 'Редактирование товара';
 $_['text_variant_add']       = 'Добавить вариант';
 $_['text_model']             = 'Модель';
-$_['text_price']             = 'Price';
+$_['text_price']             = 'Цена';
 $_['text_stock']             = 'Stock';
 $_['text_specification']     = 'Specification';
 $_['text_filter']            = 'Фильтр';
@@ -19,7 +19,7 @@ $_['text_keyword']           = 'Не используйте пробелы, вм
 $_['text_option_add']        = 'Добавить опцию';
 $_['text_option_value']      = 'Значение опции';
 $_['text_select']            = 'Select';
-$_['text_radio']             = 'Radio';
+$_['text_radio']             = 'Радио';
 $_['text_checkbox']          = 'Флажок';
 $_['text_input']             = 'Ввод';
 $_['text_text']              = 'Text';
@@ -31,17 +31,17 @@ $_['text_time']              = 'Time';
 $_['text_image']             = 'Изображение';
 $_['text_image_additional']  = 'Дополнительные изображения';
 $_['text_reward']            = 'Купить баллы';
-$_['text_points']            = 'Reward Points';
+$_['text_points']            = 'Бонусные баллы';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда';
 $_['text_subscription_description'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']      = '%s каждые %d %s до отмены';
 
 // Column
-$_['column_name']            = 'Product Name';
+$_['column_name']            = 'Название товара';
 $_['column_model']           = 'Модель';
 $_['column_image']           = 'Изображение';
-$_['column_price']           = 'Price';
-$_['column_quantity']        = 'Quantity';
+$_['column_price']           = 'Цена';
+$_['column_quantity']        = 'Количество';
 $_['column_status']          = 'Статус';
 $_['column_ip']              = 'IP-адрес';
 $_['column_store']           = 'Store';
@@ -50,7 +50,7 @@ $_['column_date_added']      = 'Дата добавления';
 $_['column_action']          = 'Действие';
 
 // Entry
-$_['entry_name']             = 'Product Name';
+$_['entry_name']             = 'Название товара';
 $_['entry_description']      = 'Описание';
 $_['entry_meta_title']       = 'Мета-тег Title';
 $_['entry_meta_keyword']     = 'Мета-тег Keywords';
@@ -65,13 +65,13 @@ $_['entry_jan']              = 'JAN';
 $_['entry_isbn']             = 'ISBN';
 $_['entry_mpn']              = 'MPN';
 $_['entry_location']         = 'Местоположение';
-$_['entry_shipping']         = 'Requires Shipping';
+$_['entry_shipping']         = 'Необходима доставка';
 $_['entry_manufacturer']     = 'Производитель';
 $_['entry_date_available']   = 'Дата поступления';
-$_['entry_quantity']         = 'Quantity';
+$_['entry_quantity']         = 'Количество';
 $_['entry_minimum']          = 'Минимальное количество';
 $_['entry_stock_status']     = 'Статус отсутствия на складе';
-$_['entry_price']            = 'Price';
+$_['entry_price']            = 'Цена';
 $_['entry_tax_class']        = 'Tax Class';
 $_['entry_points']           = 'Баллы';
 $_['entry_subtract']         = 'Subtract Stock';
@@ -87,20 +87,20 @@ $_['entry_option_value']     = 'Значение опции';
 $_['entry_customer_group']   = 'Группа покупателя';
 $_['entry_date_start']       = 'Дата начала';
 $_['entry_date_end']         = 'Дата окончания';
-$_['entry_priority']         = 'Priority';
+$_['entry_priority']         = 'Приоритет';
 $_['entry_attribute']        = 'Атрибут';
 $_['entry_attribute_group']  = 'Группа атрибута';
 $_['entry_image']            = 'Изображение';
 $_['entry_text']             = 'Text';
-$_['entry_required']         = 'Required';
+$_['entry_required']         = 'Обязательно';
 $_['entry_status']           = 'Статус';
 $_['entry_sort_order']       = 'Sort Order';
 $_['entry_category']         = 'Категории';
 $_['entry_filter']           = 'Фильтры';
 $_['entry_download']         = 'Загрузки';
-$_['entry_related']          = 'Related Products';
-$_['entry_tag']              = 'Product Tags';
-$_['entry_reward']           = 'Reward Points';
+$_['entry_related']          = 'Сопутствующие товары';
+$_['entry_tag']              = 'Теги товара';
+$_['entry_reward']           = 'Бонусные баллы';
 $_['entry_layout']           = 'Переопределение макета';
 $_['entry_subscription']     = 'Subscription Plans';
 
@@ -125,9 +125,9 @@ $_['help_points']            = 'Количество баллов, необхо�
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']       = 'Warning: You do not have permission to modify products!';
-$_['error_name']             = 'Product Name must be greater than 1 and less than 255 characters!';
+$_['error_name']             = 'Название товара должно содержать от 1 до 255 символов!';
 $_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
-$_['error_model']            = 'Product Model must be greater than 1 and less than 64 characters!';
+$_['error_model']            = 'Модель продукта должна быть больше 1 и меньше, чем 64 символов!';
 $_['error_seo']              = 'SEO URL keyword required!';
 $_['error_keyword']          = 'SEO URL must be unique!';
 $_['error_required']         = '%s обязательно к заполнению!';
