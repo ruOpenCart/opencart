@@ -14,7 +14,7 @@ $_['text_language']    = 'Язык';
 // Column
 $_['column_store']     = 'Store';
 $_['column_language']  = 'Язык';
-$_['column_route']     = 'Route';
+$_['column_route']     = 'Маршрут';
 $_['column_key']       = 'Ключ';
 $_['column_value']     = 'Value';
 $_['column_action']    = 'Действие';
@@ -22,7 +22,7 @@ $_['column_action']    = 'Действие';
 // Entry
 $_['entry_store']      = 'Store';
 $_['entry_language']   = 'Язык';
-$_['entry_route']      = 'Route';
+$_['entry_route']      = 'Маршрут';
 $_['entry_key']        = 'Ключ';
 $_['entry_default']    = 'По умолчанию';
 $_['entry_value']      = 'Value';
