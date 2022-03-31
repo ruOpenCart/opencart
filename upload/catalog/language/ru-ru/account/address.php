@@ -21,7 +21,7 @@ $_['entry_address_2']    = 'Адрес 2';
 $_['entry_postcode']     = 'Почтовый индекс';
 $_['entry_city']         = 'Город';
 $_['entry_country']      = 'Страна';
-$_['entry_zone']         = 'Region / State';
+$_['entry_zone']         = 'Регион / Область';
 $_['entry_default']      = 'Адрес по умолчанию';
 
 // Error
