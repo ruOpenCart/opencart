@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']                = 'Recent Activity';
+$_['heading_title']                = 'Недавняя активность';
 
 // Text
 $_['text_extension']               = 'Расширения';
