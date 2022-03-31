@@ -8,7 +8,7 @@ $_['text_success']     = 'Success: You have modified weight based shipping!';
 $_['text_edit']        = 'Редактирование доставки на основе веса';
 
 // Entry
-$_['entry_rate']       = 'Rates';
+$_['entry_rate']       = 'Ставки';
 $_['entry_tax_class']  = 'Tax Class';
 $_['entry_geo_zone']   = 'Гео-зона';
 $_['entry_status']     = 'Статус';
