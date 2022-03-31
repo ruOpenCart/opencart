@@ -7,7 +7,7 @@ $_['text_success']        = 'Success: You have modified layouts!';
 $_['text_list']           = 'Список макетов';
 $_['text_add']            = 'Добавить макет';
 $_['text_edit']           = 'Редактирование макета';
-$_['text_remove']         = 'Remove';
+$_['text_remove']         = 'Убрать';
 $_['text_route']          = 'Выберите магазин и маршруты, которые будут использоваться с этим макетом';
 $_['text_module']         = 'Выберите расположение модулей';
 $_['text_default']        = 'По умолчанию';
@@ -23,7 +23,7 @@ $_['column_action']       = 'Действие';
 // Entry
 $_['entry_name']          = 'Название макета';
 $_['entry_store']         = 'Store';
-$_['entry_route']         = 'Route';
+$_['entry_route']         = 'Маршрут';
 $_['entry_module']        = 'Модуль';
 
 // Error
