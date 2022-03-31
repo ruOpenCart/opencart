@@ -23,7 +23,7 @@ $_['entry_description'] = 'Описание';
 $_['entry_rate']        = 'Tax Rate';
 $_['entry_based']       = 'На основе';
 $_['entry_geo_zone']    = 'Гео-зона';
-$_['entry_priority']    = 'Priority';
+$_['entry_priority']    = 'Приоритет';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify tax classes!';
