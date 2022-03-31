@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Products Viewed Report';
+$_['heading_title']    = 'Отчет о просмотренных товарах';
 
 // Text
 $_['text_extension']   = 'Расширения';
@@ -8,7 +8,7 @@ $_['text_edit']        = 'Редактирование отчета о прос�
 $_['text_success']     = 'Success: You have reset the products viewed report!';
 
 // Column
-$_['column_name']      = 'Product Name';
+$_['column_name']      = 'Название товара';
 $_['column_model']     = 'Модель';
 $_['column_viewed']    = 'Viewed';
 $_['column_percent']   = 'Процент';
