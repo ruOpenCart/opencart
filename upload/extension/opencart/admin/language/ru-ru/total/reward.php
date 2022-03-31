@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Reward Points';
+$_['heading_title']    = 'Бонусные баллы';
 
 // Text
 $_['text_extension']   = 'Расширения';
