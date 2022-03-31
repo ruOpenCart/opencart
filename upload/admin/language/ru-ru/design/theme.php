@@ -14,7 +14,7 @@ $_['text_twig']         = 'The theme editor uses the template language Twig. You
 
 // Column
 $_['column_store']      = 'Store';
-$_['column_route']      = 'Route';
+$_['column_route']      = 'Маршрут';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
