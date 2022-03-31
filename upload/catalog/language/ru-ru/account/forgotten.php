@@ -1,7 +1,7 @@
 <?php
 // Heading
 $_['heading_title']      = 'Забыли пароль?';
-$_['heading_reset']      = 'Reset your password';
+$_['heading_reset']      = 'Сброс пароля';
 
 // Text
 $_['text_account']       = 'Аккаунт';
