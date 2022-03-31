@@ -21,6 +21,6 @@ $_['text_return']         = 'View your return requests';
 $_['text_transaction']    = 'Your Transactions';
 $_['text_newsletter']     = 'Subscribe / unsubscribe to newsletter';
 $_['text_transactions']   = 'Transactions';
-$_['text_affiliate_add']  = 'Register for an affiliate account';
+$_['text_affiliate_add']  = 'Зарегистрировать учетную запись партнера';
 $_['text_affiliate_edit'] = 'Редактирование информации о партнере';
 $_['text_tracking']       = 'Код отслеживания партнера';
