@@ -11,7 +11,7 @@ $_['text_vertical']    = 'Vertical';
 
 // Entry
 $_['entry_name']       = 'Название модуля';
-$_['entry_product']    = 'Products';
+$_['entry_product']    = 'Товары';
 $_['entry_axis']       = 'Axis';
 $_['entry_width']      = 'Ширина изображения';
 $_['entry_height']     = 'Высота изображения';
