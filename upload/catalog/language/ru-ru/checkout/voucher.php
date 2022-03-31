@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Purchase a Gift Certificate';
+$_['heading_title']    = 'Купить подарочный сертификат';
 
 // Text
 $_['text_account']     = 'Аккаунт';
@@ -11,8 +11,8 @@ $_['text_message']     = '<p>Спасибо за покупку подарочн
 $_['text_for']         = '%s подарочный сертификат для %s';
 
 // Entry
-$_['entry_to_name']    = 'Recipient\'s Name';
-$_['entry_to_email']   = 'Recipient\'s e-mail';
+$_['entry_to_name']    = 'Имя получателя';
+$_['entry_to_email']   = 'Эл. почта получателя';
 $_['entry_from_name']  = 'Your Name';
 $_['entry_from_email'] = 'Your e-mail';
 $_['entry_theme']      = 'Тема подарочного сертификата';
@@ -26,7 +26,7 @@ $_['help_amount']      = 'Value must be between %s and %s';
 // Error
 $_['error_token']      = 'Warning: Voucher token invalid!';
 $_['error_voucher']    = 'Voucher could not be found!';
-$_['error_to_name']    = 'Recipient\'s Name must be between 1 and 64 characters!';
+$_['error_to_name']    = 'Имя получателя должно содержать от 1 до 64 символов!';
 $_['error_from_name']  = 'Your Name must be between 1 and 64 characters!';
 $_['error_email']      = 'Адрес электронной почты недействителен!';
 $_['error_theme']      = 'You must select a theme!';
