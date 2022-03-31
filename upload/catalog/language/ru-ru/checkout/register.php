@@ -4,7 +4,7 @@ $_['heading_title']           = 'Your Personal Details';
 
 // Text
 $_['text_login']              = 'Если у вас уже есть учетная запись, пожалуйста, войдите на <a href="%s"><strong>странице входа</strong></a>.';
-$_['text_register']           = 'Register Account';
+$_['text_register']           = 'Регистрация учетной записи';
 $_['text_guest']              = 'Оформление без регистрации';
 $_['text_your_password']      = 'Your Password';
 $_['text_agree']              = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
@@ -25,7 +25,7 @@ $_['entry_address_2']         = 'Адрес 2';
 $_['entry_postcode']          = 'Почтовый индекс';
 $_['entry_city']              = 'Город';
 $_['entry_country']           = 'Страна';
-$_['entry_zone']              = 'Region / State';
+$_['entry_zone']              = 'Регион / Область';
 $_['entry_match']             = 'Мой адрес доставки совпадает с адресом платежа.';
 $_['entry_newsletter']        = 'Я хочу подписаться на рассылку новостей %s.';
 
