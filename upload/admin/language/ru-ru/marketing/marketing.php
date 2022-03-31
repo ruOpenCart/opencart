@@ -10,7 +10,7 @@ $_['text_edit']         = 'Редактирование отслеживания
 $_['text_filter']       = 'Фильтр';
 $_['text_history']      = 'История';
 $_['text_history_add']  = 'Добавить историю';
-$_['text_report']       = 'Report';
+$_['text_report']       = 'Отчет';
 
 // Column
 $_['column_name']       = 'Название кампании';
