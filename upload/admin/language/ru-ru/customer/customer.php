@@ -19,7 +19,7 @@ $_['text_history']          = 'История';
 $_['text_history_add']      = 'Добавить историю';
 $_['text_transaction']      = 'Transactions';
 $_['text_transaction_add']  = 'Добавить транзакцию';
-$_['text_reward']           = 'Reward Points';
+$_['text_reward']           = 'Бонусные баллы';
 $_['text_reward_add']       = 'Добавить бонусные баллы';
 $_['text_ip']               = 'IP-адрес';
 $_['text_option']           = 'Опции';
@@ -56,7 +56,7 @@ $_['entry_email']           = 'Эл. почта';
 $_['entry_telephone']       = 'Telephone';
 $_['entry_newsletter']      = 'Рассылка';
 $_['entry_status']          = 'Статус';
-$_['entry_safe']            = 'Safe';
+$_['entry_safe']            = 'Безопасный';
 $_['entry_password']        = 'Пароль';
 $_['entry_confirm']         = 'Подтвердить';
 $_['entry_company']         = 'Компания';
@@ -65,7 +65,7 @@ $_['entry_address_2']       = 'Адрес 2';
 $_['entry_city']            = 'Город';
 $_['entry_postcode']        = 'Почтовый индекс';
 $_['entry_country']         = 'Страна';
-$_['entry_zone']            = 'Region / State';
+$_['entry_zone']            = 'Регион / Область';
 $_['entry_default']         = 'По умолчанию';
 $_['entry_comment']         = 'Комментарий';
 $_['entry_description']     = 'Описание';
@@ -79,7 +79,7 @@ $_['entry_date_added']      = 'Дата добавления';
 $_['button_order']          = 'Заказы';
 
 // Help
-$_['help_safe']             = 'Set to true to avoid this customer from being caught by the anti-fraud system';
+$_['help_safe']             = 'Включите, чтобы избежать попадания этого покупателя в систему по борьбе с мошенничеством';
 $_['help_points']           = 'Use minus to remove points';
 
 // Error
