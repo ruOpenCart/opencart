@@ -11,8 +11,8 @@ $_['text_date_added']                      = 'Дата добавления:';
 $_['text_status']                          = 'Status:';
 $_['text_payment_method']                  = 'Метод оплаты:';
 $_['text_order_id']                        = 'Номер заказа:';
-$_['text_product']                         = 'Product:';
-$_['text_quantity']                        = 'Quantity:';
+$_['text_product']                         = 'Товар:';
+$_['text_quantity']                        = 'Количество:';
 $_['text_description']                     = 'Описание';
 $_['text_reference']                       = 'Reference';
 $_['text_transaction']                     = 'Transactions';
@@ -43,7 +43,7 @@ $_['column_date_added']                    = 'Дата добавления';
 $_['column_type']                          = 'Type';
 $_['column_amount']                        = 'Сумма';
 $_['column_status']                        = 'Статус';
-$_['column_product']                       = 'Product';
+$_['column_product']                       = 'Товар';
 $_['column_order_recurring_id']            = 'Recurring ID';
 
 // Error
@@ -51,4 +51,4 @@ $_['error_not_cancelled']                  = 'Ошибка: %s';
 $_['error_not_found']                      = 'Не удалось отменить подписку';
 
 // Button
-$_['button_return']                        = 'Return';
+$_['button_return']                        = 'Вернуть';
