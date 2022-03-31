@@ -10,7 +10,7 @@ $_['text_success']         = 'Success: Your shipping estimate has been applied!'
 
 // Entry
 $_['entry_country']        = 'Страна';
-$_['entry_zone']           = 'Region / State';
+$_['entry_zone']           = 'Регион / Область';
 $_['entry_postcode']       = 'Почтовый индекс';
 
 // Error
