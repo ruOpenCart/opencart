@@ -11,7 +11,7 @@ $_['text_subscription_id']       = 'Subscription ID';
 $_['text_order_id']              = 'Номер заказа';
 $_['text_customer']              = 'Покупатель';
 $_['text_date_added']            = 'Дата добавления';
-$_['text_remaining']             = 'Remaining Payments';
+$_['text_remaining']             = 'Оставшиеся платежи';
 $_['text_date_next']             = 'Дата следующего платежа';
 $_['text_order_status']          = 'Статус заказа';
 
@@ -19,8 +19,8 @@ $_['text_payment_method']        = 'Метод оплаты';
 
 $_['text_cancel']                = 'Until Canceled';
 
-$_['text_product']               = 'Product Details';
-$_['text_quantity']              = 'Quantity';
+$_['text_product']               = 'Детали товара';
+$_['text_quantity']              = 'Количество';
 $_['text_amount']                = 'Сумма';
 
 $_['text_history']               = 'История';
@@ -39,8 +39,8 @@ $_['column_amount']              = 'Сумма';
 $_['column_notify']              = 'Покупатель уведомлен';
 $_['column_status']              = 'Статус';
 $_['column_date_added']          = 'Дата добавления';
-$_['column_product']             = 'Product Details';
-$_['column_quantity']            = 'Quantity';
+$_['column_product']             = 'Детали товара';
+$_['column_quantity']            = 'Количество';
 $_['column_action']              = 'Действие';
 
 // Entry
