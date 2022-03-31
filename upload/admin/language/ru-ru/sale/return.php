@@ -1,16 +1,16 @@
 <?php
 // Heading
-$_['heading_title']        = 'Product Returns';
+$_['heading_title']        = 'Возврат товара';
 
 // Text
 $_['text_success']         = 'Success: You have modified returns!';
-$_['text_list']            = 'Product Return List';
+$_['text_list']            = 'Список возвратов товара';
 $_['text_add']             = 'Добавить возврат товара';
 $_['text_edit']            = 'Редактирование возврата товара';
 $_['text_opened']          = 'Открыто';
 $_['text_unopened']        = 'Unopened';
 $_['text_order']           = 'Информация о заказе';
-$_['text_product']         = 'Product Information &amp; Reason for Return';
+$_['text_product']         = 'Информация о товаре и причина возврата';
 $_['text_history']         = 'История';
 $_['text_history_add']     = 'Добавить историю';
 $_['text_filter']          = 'Фильтр';
@@ -19,7 +19,7 @@ $_['text_filter']          = 'Фильтр';
 $_['column_return_id']     = 'Return ID';
 $_['column_order_id']      = 'Номер заказа';
 $_['column_customer']      = 'Покупатель';
-$_['column_product']       = 'Product';
+$_['column_product']       = 'Товар';
 $_['column_model']         = 'Модель';
 $_['column_status']        = 'Статус';
 $_['column_date_added']    = 'Дата добавления';
@@ -36,13 +36,13 @@ $_['entry_firstname']      = 'Имя';
 $_['entry_lastname']       = 'Фамилия';
 $_['entry_email']          = 'Эл. почта';
 $_['entry_telephone']      = 'Telephone';
-$_['entry_product']        = 'Product';
+$_['entry_product']        = 'Товар';
 $_['entry_model']          = 'Модель';
-$_['entry_quantity']       = 'Quantity';
+$_['entry_quantity']       = 'Количество';
 $_['entry_opened']         = 'Открыто';
 $_['entry_comment']        = 'Комментарий';
 $_['entry_return_reason']  = 'Return Reason';
-$_['entry_return_action']  = 'Return Action';
+$_['entry_return_action']  = 'Действие при возврате';
 $_['entry_return_status']  = 'Return Status';
 $_['entry_notify']         = 'Уведомить покупателя';
 $_['entry_return_id']      = 'Return ID';
@@ -61,5 +61,5 @@ $_['error_firstname']      = 'Имя должно содержать от 1 до
 $_['error_lastname']       = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']          = 'Адрес электронной почты недействителен!';
 $_['error_telephone']      = 'Telephone must be between 3 and 32 characters!';
-$_['error_product']        = 'Product Name must be greater than 3 and less than 255 characters!';
-$_['error_model']          = 'Product Model must be greater than 3 and less than 64 characters!';
+$_['error_product']        = 'Название товара должно содержать от 3 до 255 символов!';
+$_['error_model']          = 'Модель продукта должна быть больше 3 и меньше, чем 64 символов!';
