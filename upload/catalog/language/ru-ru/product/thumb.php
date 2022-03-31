@@ -1,4 +1,4 @@
 <?php
 // Text
-$_['text_price'] = 'Price:';
+$_['text_price'] = 'Цена:';
 $_['text_tax']   = 'Без налога:';
