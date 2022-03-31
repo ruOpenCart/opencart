@@ -10,7 +10,7 @@ $_['text_login']                 = 'Внимание: Вы должны <a href=
 $_['text_no_results']            = 'Your shopping cart is empty!';
 $_['text_next']                  = 'What would you like to do next?';
 $_['text_next_choice']           = 'Выберите, если у вас есть код скидки или бонусные баллы, которые вы хотите использовать, или хотите оценить стоимость доставки.';
-$_['text_points']                = 'Reward Points';
+$_['text_points']                = 'Бонусные баллы';
 $_['text_subscription']          = 'Subscription';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
@@ -23,14 +23,14 @@ $_['text_year']                  = 'year';
 
 // Column
 $_['column_image']               = 'Изображение';
-$_['column_name']                = 'Product Name';
+$_['column_name']                = 'Название товара';
 $_['column_model']               = 'Модель';
-$_['column_quantity']            = 'Quantity';
+$_['column_quantity']            = 'Количество';
 $_['column_price']               = 'Unit Price';
 $_['column_total']               = 'Total';
 
 // Error
-$_['error_stock']                = 'Products marked with *** are not available in the desired quantity or not in stock!';
+$_['error_stock']                = 'Товары отмеченные *** отсутствуют в нужном количестве или их нет на складе!';
 $_['error_minimum']              = 'Минимальная сумма заказа для %s из %s!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Warning: Product could not be found!';
