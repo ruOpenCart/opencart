@@ -18,7 +18,7 @@ $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_progress']    = 'Progress';
+$_['entry_progress']    = 'Прогресс';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify extensions!';
