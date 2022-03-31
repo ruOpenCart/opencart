@@ -8,7 +8,7 @@ $_['text_list']         = 'Список загрузок';
 $_['text_add']          = 'Добавить загрузку';
 $_['text_edit']         = 'Редактирование загрузки';
 $_['text_upload']       = 'Your file was successfully uploaded!';
-$_['text_report']       = 'Report';
+$_['text_report']       = 'Отчет';
 
 // Column
 $_['column_name']       = 'Название загрузки';
