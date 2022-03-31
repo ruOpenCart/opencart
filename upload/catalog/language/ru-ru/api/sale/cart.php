@@ -13,9 +13,9 @@ $_['text_year']                  = 'year';
 $_['text_for']                   = '%s подарочный сертификат для %s';
 
 // Error
-$_['error_stock']                = 'Products marked with *** are not available in the desired quantity or not in stock!';
+$_['error_stock']                = 'Товары отмеченные *** отсутствуют в нужном количестве или их нет на складе!';
 $_['error_minimum']              = 'Минимальная сумма заказа для %s из %s!';
-$_['error_store']                = 'Product can not be bought from the store you have chosen!';
+$_['error_store']                = 'Товар не может быть куплен в магазине, который вы выбрали!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Warning: Product could not be found!';
 $_['error_subscription']         = 'Пожалуйста, выберите план подписки!';
