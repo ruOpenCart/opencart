@@ -6,4 +6,4 @@ $_['text_change']   = 'To reset your password click on the link below:';
 $_['text_ip']       = 'The IP used to make this request was:';
 
 // Button
-$_['button_reset']  = 'Reset Password';
+$_['button_reset']  = 'Сбросить пароль';
