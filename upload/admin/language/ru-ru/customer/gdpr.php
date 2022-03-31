@@ -11,16 +11,16 @@ $_['text_deny']         = 'Отклонить';
 $_['text_delete']       = 'Удалить';
 $_['text_unverified']   = 'Unverified';
 $_['text_pending']      = 'В ожидании';
-$_['text_processing']   = 'Processing';
+$_['text_processing']   = 'Обработка';
 $_['text_complete']     = 'Завершено';
 $_['text_denied']       = 'Отказано';
 $_['text_export']       = 'Экспорт';
-$_['text_remove']       = 'Remove';
+$_['text_remove']       = 'Убрать';
 $_['text_filter']       = 'Фильтр';
 
 // Column
 $_['column_email']      = 'Эл. почта';
-$_['column_request']    = 'Request';
+$_['column_request']    = 'Запрос';
 $_['column_status']     = 'Статус';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
