@@ -7,7 +7,7 @@ $_['text_title']         = 'Пожалуйста, введите данные в
 $_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site.';
 $_['text_month']         = 'Месяцы';
 $_['text_year']          = 'Years';
-$_['text_store']         = 'Remember My Card';
+$_['text_store']         = 'Запомнить мою карту';
 
 // Entry
 $_['entry_card_name']    = 'Имя владельца карты';
