@@ -13,7 +13,7 @@ $_['text_no_results'] = 'Your wish list is empty.';
 
 // Column
 $_['column_image']    = 'Изображение';
-$_['column_name']     = 'Product Name';
+$_['column_name']     = 'Название товара';
 $_['column_model']    = 'Модель';
 $_['column_stock']    = 'Stock';
 $_['column_price']    = 'Unit Price';
