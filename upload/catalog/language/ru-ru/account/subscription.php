@@ -5,8 +5,8 @@ $_['heading_title']                        = 'Subscriptions';
 // Text
 $_['text_account']                         = 'Аккаунт';
 $_['text_recurring']                       = 'Recurring Payment Information';
-$_['text_recurring_detail']                = 'Recurring Payment Details';
-$_['text_order_recurring_id']              = 'Recurring ID:';
+$_['text_recurring_detail']                = 'Детали повторяющегося платежа';
+$_['text_order_recurring_id']              = 'Идентификатор подписки:';
 $_['text_date_added']                      = 'Дата добавления:';
 $_['text_status']                          = 'Status:';
 $_['text_payment_method']                  = 'Метод оплаты:';
@@ -36,7 +36,7 @@ $_['text_transaction_outstanding_failed']  = 'Неоплаченный плат�
 $_['text_transaction_expired']             = 'Истекло';
 $_['text_no_results']                      = 'Подписки не найдены!';
 $_['text_error']                           = 'The recurring order you requested could not be found!';
-$_['text_cancelled']                       = 'Recurring payment has been cancelled';
+$_['text_cancelled']                       = 'Повторяющийся платеж был отменен';
 
 // Column
 $_['column_date_added']                    = 'Дата добавления';
@@ -44,7 +44,7 @@ $_['column_type']                          = 'Type';
 $_['column_amount']                        = 'Сумма';
 $_['column_status']                        = 'Статус';
 $_['column_product']                       = 'Товар';
-$_['column_order_recurring_id']            = 'Recurring ID';
+$_['column_order_recurring_id']            = 'Идентификатор подписки';
 
 // Error
 $_['error_not_cancelled']                  = 'Ошибка: %s';
