@@ -13,7 +13,7 @@ $_['column_customer']       = 'Имя покупателя';
 $_['column_email']          = 'Эл. почта';
 $_['column_customer_group'] = 'Группа покупателя';
 $_['column_status']         = 'Статус';
-$_['column_total']          = 'Total';
+$_['column_total']          = 'Всего';
 $_['column_action']         = 'Действие';
 
 // Entry
@@ -21,7 +21,7 @@ $_['entry_date_start']      = 'Дата начала';
 $_['entry_date_end']        = 'Дата окончания';
 $_['entry_customer']        = 'Покупатель';
 $_['entry_status']          = 'Статус';
-$_['entry_sort_order']      = 'Sort Order';
+$_['entry_sort_order']      = 'Порядок сортировки';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify customer credit report!';
