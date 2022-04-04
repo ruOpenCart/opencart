@@ -7,7 +7,7 @@ $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Success: You have modified featured module!';
 $_['text_edit']        = 'Редактирование модуля рекомендуемые';
 $_['text_horizontal']  = 'Горизонтально';
-$_['text_vertical']    = 'Vertical';
+$_['text_vertical']    = 'Вертикально';
 
 // Entry
 $_['entry_name']       = 'Название модуля';
@@ -23,5 +23,5 @@ $_['help_product']     = '(Автодополнение)';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify featured module!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
-$_['error_width']      = 'Width required!';
+$_['error_width']      = 'Необходимо указать ширину!';
 $_['error_height']     = 'Необходимо указать высоту!';
