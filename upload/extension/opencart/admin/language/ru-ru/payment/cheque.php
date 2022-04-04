@@ -12,7 +12,7 @@ $_['entry_payable']      = 'Получатель';
 $_['entry_order_status'] = 'Статус заказа';
 $_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
-$_['entry_sort_order']   = 'Sort Order';
+$_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment cheque / money order!';
