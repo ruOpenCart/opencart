@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']          = 'Shipping Method';
+$_['heading_title']          = 'Способ доставки';
 
 // Text
 $_['text_success']           = 'Success: You have changed shipping method!';
