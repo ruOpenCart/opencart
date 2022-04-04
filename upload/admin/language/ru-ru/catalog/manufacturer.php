@@ -12,21 +12,21 @@ $_['text_keyword']      = 'Не используйте пробелы, вмес�
 
 // Column
 $_['column_name']       = 'Имя производителя';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Имя производителя';
-$_['entry_store']       = 'Stores';
+$_['entry_store']       = 'Магазины';
 $_['entry_keyword']     = 'Ключевое слово';
 $_['entry_image']       = 'Изображение';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Порядок сортировки';
 $_['entry_layout']      = 'Переопределение макета';
 
 // Error
 $_['error_warning']     = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']  = 'Warning: You do not have permission to modify manufacturers!';
 $_['error_name']        = 'Имя производителя должно быть от 2 до 64 символов!';
-$_['error_seo']         = 'SEO URL keyword required!';
-$_['error_keyword']     = 'SEO URL must be unique!';
+$_['error_seo']         = 'Требуется keyword SEO URL-адреса!';
+$_['error_keyword']     = 'Семантический URL-адрес должен быть уникальным!';
 $_['error_product']     = 'Warning: This manufacturer cannot be deleted as it is currently assigned to %s products!';
