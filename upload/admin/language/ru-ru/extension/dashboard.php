@@ -8,9 +8,9 @@ $_['text_list']         = 'Список панелей';
 
 // Column
 $_['column_name']       = 'Название Панели';
-$_['column_width']      = 'Width';
+$_['column_width']      = 'Ширина';
 $_['column_status']     = 'Статус';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Error
