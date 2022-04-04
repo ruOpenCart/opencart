@@ -8,7 +8,7 @@ $_['text_success']      = 'Success: You have modified totals!';
 // Column
 $_['column_name']       = 'Сумма заказа';
 $_['column_status']     = 'Статус';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Error
