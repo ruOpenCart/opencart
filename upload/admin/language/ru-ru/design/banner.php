@@ -16,11 +16,11 @@ $_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_name']       = 'Название баннера';
-$_['entry_title']      = 'Title';
+$_['entry_title']      = 'Заголовок';
 $_['entry_link']       = 'Ссылка';
 $_['entry_image']      = 'Изображение';
 $_['entry_status']     = 'Статус';
-$_['entry_sort_order'] = 'Sort Order';
+$_['entry_sort_order'] = 'Порядок сортировки';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify banners!';
