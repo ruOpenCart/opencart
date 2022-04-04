@@ -13,7 +13,7 @@ $_['text_guest']        = 'Гость';
 $_['column_ip']         = 'IP-адрес';
 $_['column_customer']   = 'Покупатель';
 $_['column_url']        = 'Последняя посещенная страница';
-$_['column_referer']    = 'Referer';
+$_['column_referer']    = 'Реферал';
 $_['column_date_added'] = 'Последний клик';
 $_['column_action']     = 'Действие';
 
