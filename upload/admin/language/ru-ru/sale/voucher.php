@@ -11,11 +11,11 @@ $_['text_sent']         = 'Success: Gift Voucher e-mail has been sent!';
 $_['text_history']      = 'История';
 
 // Column
-$_['column_name']       = 'Voucher Name';
+$_['column_name']       = 'Название сертификата';
 $_['column_code']       = 'Код';
 $_['column_from']       = 'От';
-$_['column_to']         = 'To';
-$_['column_theme']      = 'Theme';
+$_['column_to']         = 'Кому';
+$_['column_theme']      = 'Тема';
 $_['column_amount']     = 'Сумма';
 $_['column_status']     = 'Статус';
 $_['column_order_id']   = 'Номер заказа';
@@ -27,9 +27,9 @@ $_['column_action']     = 'Действие';
 $_['entry_code']        = 'Код';
 $_['entry_from_name']   = 'Имя отправителя';
 $_['entry_from_email']  = 'Эл. почта отправителя';
-$_['entry_to_name']     = 'To Name';
-$_['entry_to_email']    = 'To E-Mail';
-$_['entry_theme']       = 'Theme';
+$_['entry_to_name']     = 'Имя получателя';
+$_['entry_to_email']    = 'Эл. почта получателя';
+$_['entry_theme']       = 'Тема';
 $_['entry_message']     = 'Сообщение';
 $_['entry_amount']      = 'Сумма';
 $_['entry_status']      = 'Статус';
@@ -42,7 +42,7 @@ $_['error_permission']  = 'Warning: You do not have permission to modify voucher
 $_['error_exists']      = 'Warning: Voucher code is already in use!';
 $_['error_code']        = 'Код должен содержать от 3-х до 10-и знаков!';
 $_['error_to_name']     = 'Имя получателя должно содержать от 1 до 64 символов!';
-$_['error_from_name']   = 'Your Name must be between 1 and 64 characters!';
+$_['error_from_name']   = 'Ваше имя должно содержать от 1 до 64 символов!';
 $_['error_email']       = 'Адрес электронной почты недействителен!';
 $_['error_amount']      = 'Сумма должна быть больше или равна 1!';
 $_['error_order']       = 'Warning: This voucher cannot be deleted as it is part of an <a href="%s">order</a>!';
