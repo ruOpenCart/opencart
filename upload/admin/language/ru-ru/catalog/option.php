@@ -8,30 +8,30 @@ $_['text_list']          = 'Список опций';
 $_['text_add']           = 'Добавить опцию';
 $_['text_edit']          = 'Редактирование опции';
 $_['text_choose']        = 'Выберите';
-$_['text_select']        = 'Select';
+$_['text_select']        = 'Выбрать';
 $_['text_radio']         = 'Радио';
 $_['text_checkbox']      = 'Флажок';
 $_['text_input']         = 'Ввод';
-$_['text_text']          = 'Text';
-$_['text_textarea']      = 'Textarea';
+$_['text_text']          = 'Текст';
+$_['text_textarea']      = 'Текстовая область';
 $_['text_file']          = 'Файл';
 $_['text_date']          = 'Дата';
 $_['text_datetime']      = 'Дата и время';
-$_['text_time']          = 'Time';
+$_['text_time']          = 'Время';
 $_['text_option']        = 'Опция';
 $_['text_value']         = 'Значение опции';
 
 // Column
 $_['column_name']        = 'Название опции';
-$_['column_sort_order']  = 'Sort Order';
+$_['column_sort_order']  = 'Порядок сортировки';
 $_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_name']         = 'Название опции';
-$_['entry_type']         = 'Type';
+$_['entry_type']         = 'Тип';
 $_['entry_option_value'] = 'Название значения опции';
 $_['entry_image']        = 'Изображение';
-$_['entry_sort_order']   = 'Sort Order';
+$_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
 $_['error_warning']      = 'Warning: Please check the form carefully for errors!';
