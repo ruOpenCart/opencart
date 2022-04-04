@@ -11,13 +11,13 @@ $_['text_edit']        = 'Редактирование класса длины';
 // Column
 $_['column_title']     = 'Заголовок длины';
 $_['column_unit']      = 'Единица длины';
-$_['column_value']     = 'Value';
+$_['column_value']     = 'Значение';
 $_['column_action']    = 'Действие';
 
 // Entry
 $_['entry_title']      = 'Заголовок длины';
 $_['entry_unit']       = 'Единица длины';
-$_['entry_value']      = 'Value';
+$_['entry_value']      = 'Значение';
 
 // Help
 $_['help_value']       = 'The value of your default length in the current length unit. Set to 1 for your default length.';
