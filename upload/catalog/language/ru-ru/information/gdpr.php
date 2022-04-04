@@ -22,4 +22,4 @@ $_['entry_email']       = 'Эл. почта';
 
 // Error
 $_['error_email']       = 'Адрес электронной почты недействителен!';
-$_['error_action']      = 'You must select a valid GDPR action!';
+$_['error_action']      = 'Вы должны выбрать допустимое действие GDPR!';
