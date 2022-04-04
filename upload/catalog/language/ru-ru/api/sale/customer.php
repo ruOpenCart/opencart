@@ -8,6 +8,6 @@ $_['error_customer_group'] = 'Группа покупателей недейст
 $_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']       = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']          = 'Адрес электронной почты недействителен!';
-$_['error_telephone']      = 'Telephone must be between 3 and 32 characters!';
+$_['error_telephone']      = 'Телефон должен быть от 3 до 32 символов!';
 $_['error_custom_field']   = '%s обязательно к заполнению!';
 $_['error_regex']          = '%s не является допустимым вводом!';
