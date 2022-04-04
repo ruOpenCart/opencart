@@ -6,5 +6,5 @@ $_['text_order_id']     = 'Номер заказа:';
 $_['text_date_added']   = 'Дата добавления:';
 $_['text_order_status'] = 'Статус заказа:';
 $_['text_product']      = 'Товары:';
-$_['text_total']        = 'Totals:';
+$_['text_total']        = 'Всего:';
 $_['text_comment']      = 'The comments for your order are:';
