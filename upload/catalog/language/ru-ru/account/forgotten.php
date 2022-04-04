@@ -6,7 +6,7 @@ $_['heading_reset']      = 'Сброс пароля';
 // Text
 $_['text_account']       = 'Аккаунт';
 $_['text_forgotten']     = 'Восстановить пароль';
-$_['text_your_email']    = 'Your E-Mail Address';
+$_['text_your_email']    = 'Ваш адрес эл. почты';
 $_['text_email']         = 'Введите адрес электронной почты вашей учетной записи. Нажмите кнопку Продолжить, чтобы получить ссылку для сброса пароля по электронной почте.';
 $_['text_success']       = 'Success: Your password has been successfully updated.';
 $_['text_password']      = 'Введите новый пароль, который вы хотите использовать.';
