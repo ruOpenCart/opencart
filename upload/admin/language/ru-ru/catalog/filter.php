@@ -12,13 +12,13 @@ $_['text_value']        = 'Значение фильтра';
 
 // Column
 $_['column_group']      = 'Группа фильтра';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_group']       = 'Название группы фильтра';
 $_['entry_name']        = 'Название фильтра';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
 $_['error_warning']     = 'Warning: Please check the form carefully for errors!';
