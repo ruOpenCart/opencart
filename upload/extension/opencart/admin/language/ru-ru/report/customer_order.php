@@ -16,7 +16,7 @@ $_['column_customer_group'] = 'Группа покупателя';
 $_['column_status']         = 'Статус';
 $_['column_orders']         = 'Кол-во заказов';
 $_['column_products']       = 'Кол-во товаров';
-$_['column_total']          = 'Total';
+$_['column_total']          = 'Всего';
 $_['column_action']         = 'Действие';
 
 // Entry
@@ -25,7 +25,7 @@ $_['entry_date_end']        = 'Дата окончания';
 $_['entry_customer']        = 'Покупатель';
 $_['entry_order_status']    = 'Статус заказа';
 $_['entry_status']          = 'Статус';
-$_['entry_sort_order']      = 'Sort Order';
+$_['entry_sort_order']      = 'Порядок сортировки';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify customer orders report!';
