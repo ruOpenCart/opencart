@@ -11,7 +11,7 @@ $_['text_edit']         = 'Редактирование языка';
 // Column
 $_['column_name']       = 'Название языка';
 $_['column_code']       = 'Код';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Entry
@@ -19,7 +19,7 @@ $_['entry_name']        = 'Название языка';
 $_['entry_code']        = 'Код';
 $_['entry_locale']      = 'Локаль';
 $_['entry_status']      = 'Статус';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Порядок сортировки';
 
 // Help
 $_['help_locale']       = 'Пример: ru_RU.UTF-8,ru_RU,ru-ru,ru_ru,russian';
