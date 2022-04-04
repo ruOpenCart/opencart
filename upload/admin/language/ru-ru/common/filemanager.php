@@ -8,7 +8,7 @@ $_['text_directory']   = 'Success: Directory created!';
 $_['text_delete']      = 'Success: Your file or directory has been deleted!';
 
 // Entry
-$_['entry_search']     = 'Search..';
+$_['entry_search']     = 'Поиск...';
 $_['entry_folder']     = 'Имя папки';
 
 // Error
