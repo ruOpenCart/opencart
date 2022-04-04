@@ -21,10 +21,10 @@ $_['entry_image_product']              = 'Размер изображения в
 $_['entry_image_additional']           = 'Размер дополнительных изображений товара (Ш х В)';
 $_['entry_image_related']              = 'Размер изображения сопутствующего товара (Ш x В)';
 $_['entry_image_compare']              = 'Размер изображения сравнения (Ш х В)';
-$_['entry_image_wishlist']             = 'Wish List Image Size (W x H)';
+$_['entry_image_wishlist']             = 'Размер изображения списка желаний (Ш х В)';
 $_['entry_image_cart']                 = 'Размер изображения в корзине (Ш х В)';
-$_['entry_image_location']             = 'Store Image Size (W x H)';
-$_['entry_width']                      = 'Width';
+$_['entry_image_location']             = 'Размер изображения магазина (Ш х В)';
+$_['entry_width']                      = 'Ширина';
 $_['entry_height']                     = 'Высота';
 
 // Help
@@ -41,6 +41,6 @@ $_['error_image_category']             = 'Необходимо указать р
 $_['error_image_additional']           = 'Требуется указать размер дополнительных изображений товара!';
 $_['error_image_related']              = 'Необходимо установить размер изображения сопутствующих товаров!';
 $_['error_image_compare']              = 'Укажите размер изображения для сравнения!';
-$_['error_image_wishlist']             = 'Wish List Image Size dimensions required!';
+$_['error_image_wishlist']             = 'Требуется указать размер изображения списка желаний!';
 $_['error_image_cart']                 = 'Требуется указать размер изображения в корзине!';
-$_['error_image_location']             = 'Store Image Size dimensions required!';
+$_['error_image_location']             = 'Укажите размер изображений магазина!';
