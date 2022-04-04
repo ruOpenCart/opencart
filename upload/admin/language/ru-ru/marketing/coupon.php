@@ -27,17 +27,17 @@ $_['column_action']       = 'Действие';
 // Entry
 $_['entry_name']          = 'Название купона';
 $_['entry_code']          = 'Код';
-$_['entry_type']          = 'Type';
+$_['entry_type']          = 'Тип';
 $_['entry_discount']      = 'Скидка';
 $_['entry_logged']        = 'Авторизация покупателя';
 $_['entry_shipping']      = 'Бесплатная доставка';
-$_['entry_total']         = 'Total Amount';
+$_['entry_total']         = 'Общая сумма';
 $_['entry_category']      = 'Категория';
 $_['entry_product']       = 'Товары';
 $_['entry_date_start']    = 'Дата начала';
 $_['entry_date_end']      = 'Дата окончания';
-$_['entry_uses_total']    = 'Uses Per Coupon';
-$_['entry_uses_customer'] = 'Uses Per Customer';
+$_['entry_uses_total']    = 'Использований на купон';
+$_['entry_uses_customer'] = 'Использований на покупателя';
 $_['entry_status']        = 'Статус';
 
 // Help
