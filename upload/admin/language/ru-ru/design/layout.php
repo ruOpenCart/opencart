@@ -22,7 +22,7 @@ $_['column_action']       = 'Действие';
 
 // Entry
 $_['entry_name']          = 'Название макета';
-$_['entry_store']         = 'Store';
+$_['entry_store']         = 'Магазин';
 $_['entry_route']         = 'Маршрут';
 $_['entry_module']        = 'Модуль';
 
