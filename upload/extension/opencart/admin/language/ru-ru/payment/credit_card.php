@@ -26,7 +26,7 @@ $_['entry_subscription_status'] = 'Статус заказа';
 
 $_['entry_geo_zone']     = 'Гео-зона';
 $_['entry_status']       = 'Статус';
-$_['entry_sort_order']   = 'Sort Order';
+$_['entry_sort_order']   = 'Порядок сортировки';
 
 // Help
 $_['help_response']      = 'Выбор одобрения или отказа в возврате кредитной карты при выполнении тестовых заказов';
