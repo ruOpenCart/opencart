@@ -12,7 +12,7 @@ $_['text_ip']              = 'Ниже вы можете создать спис
 // Column
 $_['column_username']      = 'Имя пользователя API';
 $_['column_status']        = 'Статус';
-$_['column_token']         = 'Token';
+$_['column_token']         = 'Токен';
 $_['column_ip']            = 'IP-адрес';
 $_['column_date_added']    = 'Дата добавления';
 $_['column_date_modified'] = 'Дата изменения';
