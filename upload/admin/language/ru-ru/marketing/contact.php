@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Почта';
 
 // Text
-$_['text_mail']            = 'Send e-mail\'s to customers';
+$_['text_mail']            = 'Отправить e-mail покупателям';
 $_['text_success']         = 'Your message has been successfully sent!';
 $_['text_sent']            = 'Your message has been successfully sent to %s - %s recipients!';
 $_['text_default']         = 'По умолчанию';
@@ -17,18 +17,18 @@ $_['text_product']         = 'Товары';
 
 // Entry
 $_['entry_store']          = 'От';
-$_['entry_to']             = 'To';
+$_['entry_to']             = 'Кому';
 $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_customer']       = 'Покупатель';
 $_['entry_affiliate']      = 'Партнёр';
 $_['entry_product']        = 'Товары';
-$_['entry_subject']        = 'Subject';
+$_['entry_subject']        = 'Тема';
 $_['entry_message']        = 'Сообщение';
 
 // Help
 $_['help_customer']        = '(Автодополнение)';
 $_['help_affiliate']       = '(Автодополнение)';
-$_['help_product']         = 'Send only to customers who have ordered products in the list. (Autocomplete)';
+$_['help_product']         = 'Отправить покупателям, которые уже заказали товары из списка. (Автодополнение)';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to send E-Mails!';
