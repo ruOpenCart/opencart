@@ -4,9 +4,9 @@ $_['text_subject']   = '%s - GDPR запрос отклонен!';
 $_['text_export']    = 'Запрос экспорта данных учетной записи';
 $_['text_remove']    = 'Запрос на удаление учетной записи';
 $_['text_hello']     = 'Привет <strong>%s</strong>,';
-$_['text_user']      = 'User';
-$_['text_contact']   = 'Unfortunately your request has been denied. For more information you can contact the store here:';
-$_['text_thanks']    = 'Thanks,';
+$_['text_user']      = 'Пользователь';
+$_['text_contact']   = 'К сожалению, ваш запрос был отклонен. Для получения дополнительной информации вы можете связаться с магазином здесь:';
+$_['text_thanks']    = 'Спасибо,';
 
 // Button
 $_['button_contact'] = 'Связаться с нами';
