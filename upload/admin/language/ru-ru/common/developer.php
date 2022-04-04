@@ -4,7 +4,7 @@ $_['heading_title']    = 'Настройки разработчика';
 
 // Text
 $_['text_success']     = 'Success: You have modified developer settings!';
-$_['text_theme']       = 'Theme';
+$_['text_theme']       = 'Тема';
 $_['text_sass']        = 'SASS';
 $_['text_cache']       = 'Success: You have cleared the %s cache!';
 
@@ -13,7 +13,7 @@ $_['column_component'] = 'Компонент';
 $_['column_action']    = 'Действие';
 
 // Entry
-$_['entry_theme']      = 'Theme';
+$_['entry_theme']      = 'Тема';
 $_['entry_sass']       = 'SASS';
 $_['entry_cache']      = 'Кэш';
 
