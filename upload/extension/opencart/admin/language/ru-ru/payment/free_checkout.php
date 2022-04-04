@@ -10,7 +10,7 @@ $_['text_edit']          = 'Редактирование бесплатного 
 // Entry
 $_['entry_order_status'] = 'Статус заказа';
 $_['entry_status']       = 'Статус';
-$_['entry_sort_order']   = 'Sort Order';
+$_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment free checkout!';
