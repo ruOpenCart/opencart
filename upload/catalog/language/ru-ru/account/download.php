@@ -10,7 +10,7 @@ $_['text_no_results']   = 'You have not made any previous downloadable orders!';
 // Column
 $_['column_order_id']   = 'Номер заказа';
 $_['column_name']       = 'Название';
-$_['column_size']       = 'Size';
+$_['column_size']       = 'Размер';
 $_['column_date_added'] = 'Дата добавления';
 
 // Error
