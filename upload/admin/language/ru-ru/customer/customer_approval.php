@@ -14,7 +14,7 @@ $_['text_filter']           = 'Фильтр';
 $_['column_customer']       = 'Покупатель';
 $_['column_email']          = 'Эл. почта';
 $_['column_customer_group'] = 'Группа покупателя';
-$_['column_type']           = 'Type';
+$_['column_type']           = 'Тип';
 $_['column_date_added']     = 'Дата добавления';
 $_['column_action']         = 'Действие';
 
@@ -22,7 +22,7 @@ $_['column_action']         = 'Действие';
 $_['entry_customer']        = 'Покупатель';
 $_['entry_email']           = 'Эл. почта';
 $_['entry_customer_group']  = 'Группа покупателя';
-$_['entry_type']            = 'Type';
+$_['entry_type']            = 'Тип';
 $_['entry_date_added']      = 'Дата добавления';
 
 // Error
