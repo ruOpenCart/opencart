@@ -6,4 +6,4 @@ $_['text_captcha']  = 'Капча';
 $_['entry_captcha'] = 'Введите код в поле ниже';
 
 // Error
-$_['error_captcha'] = 'Verification code does not match the image!';
+$_['error_captcha'] = 'Проверочный код не совпадает с изображением!';

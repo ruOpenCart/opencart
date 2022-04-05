@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']       = 'Returns Report';
+$_['heading_title']       = 'Отчет по возвратам';
 
 // Text
 $_['text_extension']      = 'Расширения';
 $_['text_edit']           = 'Редактирование отчета о возвратах';
 $_['text_success']        = 'Success: You have modified returns report!';
 $_['text_filter']         = 'Фильтр';
-$_['text_year']           = 'Years';
+$_['text_year']           = 'Годы';
 $_['text_month']          = 'Месяцы';
-$_['text_week']           = 'Weeks';
+$_['text_week']           = 'Недели';
 $_['text_day']            = 'Дней';
 $_['text_all_status']     = 'Все статусы';
 
@@ -22,9 +22,9 @@ $_['column_returns']      = 'Кол-во возвратов';
 $_['entry_date_start']    = 'Дата начала';
 $_['entry_date_end']      = 'Дата окончания';
 $_['entry_group']         = 'Группировать по';
-$_['entry_return_status'] = 'Return Status';
+$_['entry_return_status'] = 'Статус возврата';
 $_['entry_status']        = 'Статус';
-$_['entry_sort_order']    = 'Sort Order';
+$_['entry_sort_order']    = 'Порядок сортировки';
 
 // Error
 $_['error_permission']    = 'Warning: You do not have permission to modify returns report!';

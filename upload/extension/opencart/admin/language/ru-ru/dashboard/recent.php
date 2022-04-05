@@ -11,14 +11,14 @@ $_['text_edit']         = 'Редактирование последних за�
 $_['column_order_id']   = 'Номер заказа';
 $_['column_customer']   = 'Покупатель';
 $_['column_status']     = 'Статус';
-$_['column_total']      = 'Total';
+$_['column_total']      = 'Всего';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_status']      = 'Статус';
-$_['entry_sort_order']  = 'Sort Order';
-$_['entry_width']       = 'Width';
+$_['entry_sort_order']  = 'Порядок сортировки';
+$_['entry_width']       = 'Ширина';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify dashboard recent orders!';

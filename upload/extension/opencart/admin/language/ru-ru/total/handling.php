@@ -10,9 +10,9 @@ $_['text_edit']        = 'Редактирование общей суммы з�
 // Entry
 $_['entry_total']      = 'Сумма заказа';
 $_['entry_fee']        = 'Взнос';
-$_['entry_tax_class']  = 'Tax Class';
+$_['entry_tax_class']  = 'Класс налога';
 $_['entry_status']     = 'Статус';
-$_['entry_sort_order'] = 'Sort Order';
+$_['entry_sort_order'] = 'Порядок сортировки';
 
 // Help
 $_['help_total']       = 'The checkout total the order must reach before this order total becomes active.';

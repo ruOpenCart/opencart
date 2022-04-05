@@ -4,12 +4,12 @@ $_['heading_title']    = 'Отслеживание партнера';
 
 // Text
 $_['text_account']     = 'Аккаунт';
-$_['text_description'] = 'To make sure you get paid for referrals you send to us we need to track the referral by placing a tracking code in the URL\'s linking to us. You can use the tools below to generate links to the %s web site.';
+$_['text_description'] = 'Чтобы удостовериться, что вы получаете оплату за рефералов, которые вы отправляете нам, нам нужно отслеживать реферал, размещая код отслеживания в URL, связанный с нами. Вы можете использовать инструменты ниже для генерации ссылок на веб-сайт %s.';
 
 // Entry
-$_['entry_code']       = 'Your Tracking Code';
-$_['entry_generator']  = 'Tracking Link Generator';
-$_['entry_link']       = 'Tracking Link';
+$_['entry_code']       = 'Ваш код отслеживания';
+$_['entry_generator']  = 'Генератор ссылок отслеживания';
+$_['entry_link']       = 'Ссылка отслеживания';
 
 // Help
-$_['help_generator']   = 'Type in the name of a product you would like to link to';
+$_['help_generator']   = 'Введите название товара, на который вы хотите ссылаться';

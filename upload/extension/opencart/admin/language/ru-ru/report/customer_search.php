@@ -25,7 +25,7 @@ $_['entry_keyword']     = 'Ключевое слово';
 $_['entry_customer']    = 'Покупатель';
 $_['entry_ip']          = 'IP-адрес';
 $_['entry_status']      = 'Статус';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify customer searches report!';

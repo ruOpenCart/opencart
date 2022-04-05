@@ -7,14 +7,14 @@ $_['text_success']      = 'Success: You have modified downloads!';
 $_['text_list']         = 'Список загрузок';
 $_['text_add']          = 'Добавить загрузку';
 $_['text_edit']         = 'Редактирование загрузки';
-$_['text_upload']       = 'Your file was successfully uploaded!';
-$_['text_report']       = 'Report';
+$_['text_upload']       = 'Ваш файл был успешно загружен!';
+$_['text_report']       = 'Отчет';
 
 // Column
 $_['column_name']       = 'Название загрузки';
 $_['column_ip']         = 'IP-адрес';
 $_['column_account']    = 'Учётные записи';
-$_['column_store']      = 'Store';
+$_['column_store']      = 'Магазин';
 $_['column_country']    = 'Страна';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';

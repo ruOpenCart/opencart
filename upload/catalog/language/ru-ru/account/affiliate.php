@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']             = 'Your Affiliate Information';
+$_['heading_title']             = 'Ваша партнерская информация';
 
 // Text
 $_['text_account']              = 'Аккаунт';
@@ -15,14 +15,14 @@ $_['text_agree']                = 'Я прочитал и согласен с <a
 
 // Entry
 $_['entry_company']             = 'Компания';
-$_['entry_website']             = 'Web Site';
-$_['entry_tax']                 = 'Tax ID';
+$_['entry_website']             = 'Веб-сайт';
+$_['entry_tax']                 = 'Идентификатор налога';
 $_['entry_payment']             = 'Метод оплаты';
 $_['entry_cheque']              = 'Имя получателя чека';
 $_['entry_paypal']              = 'Эл. почта учётной записи PayPal';
 $_['entry_bank_name']           = 'Наименование банка';
 $_['entry_bank_branch_number']  = 'ABA/BSB номер (номер отделения)';
-$_['entry_bank_swift_code']     = 'SWIFT Code';
+$_['entry_bank_swift_code']     = 'БИК';
 $_['entry_bank_account_name']   = 'Название счёта';
 $_['entry_bank_account_number'] = 'Номер счета';
 

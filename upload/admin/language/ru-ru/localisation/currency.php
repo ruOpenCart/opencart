@@ -12,7 +12,7 @@ $_['text_iso']             = 'You can find a full list of ISO currency codes and
 // Column
 $_['column_title']         = 'Заголовок валюты';
 $_['column_code']          = 'Код';
-$_['column_value']         = 'Value';
+$_['column_value']         = 'Значение';
 $_['column_status']        = 'Статус';
 $_['column_date_modified'] = 'Последнее обновление';
 $_['column_action']        = 'Действие';
@@ -20,9 +20,9 @@ $_['column_action']        = 'Действие';
 // Entry
 $_['entry_title']          = 'Заголовок валюты';
 $_['entry_code']           = 'Код';
-$_['entry_value']          = 'Value';
-$_['entry_symbol_left']    = 'Symbol Left';
-$_['entry_symbol_right']   = 'Symbol Right';
+$_['entry_value']          = 'Значение';
+$_['entry_symbol_left']    = 'Символ слева';
+$_['entry_symbol_right']   = 'Символ справа';
 $_['entry_decimal_place']  = 'Количество знаков после запятой';
 $_['entry_status']         = 'Статус';
 

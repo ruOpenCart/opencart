@@ -12,7 +12,7 @@ $_['text_keyword']           = 'Не используйте пробелы, вм
 
 // Column
 $_['column_name']            = 'Название категории';
-$_['column_sort_order']      = 'Sort Order';
+$_['column_sort_order']      = 'Порядок сортировки';
 $_['column_action']          = 'Действие';
 
 // Entry
@@ -21,14 +21,14 @@ $_['entry_description']      = 'Описание';
 $_['entry_meta_title']       = 'Мета-тег Title';
 $_['entry_meta_keyword']     = 'Мета-тег Keywords';
 $_['entry_meta_description'] = 'Мета-тег Description';
-$_['entry_store']            = 'Stores';
+$_['entry_store']            = 'Магазины';
 $_['entry_keyword']          = 'Ключевое слово';
 $_['entry_parent']           = 'Родитель';
 $_['entry_filter']           = 'Фильтры';
 $_['entry_image']            = 'Изображение';
-$_['entry_top']              = 'Top';
+$_['entry_top']              = 'Меню';
 $_['entry_column']           = 'Колонки';
-$_['entry_sort_order']       = 'Sort Order';
+$_['entry_sort_order']       = 'Порядок сортировки';
 $_['entry_status']           = 'Статус';
 $_['entry_layout']           = 'Переопределение макета';
 
@@ -44,5 +44,5 @@ $_['error_permission']       = 'Warning: You do not have permission to modify ca
 $_['error_name']             = 'Название категории должно быть от 1 до 255 символов!';
 $_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
 $_['error_parent']           = 'The parent category you have chosen is a child of the current one!';
-$_['error_seo']              = 'SEO URL keyword required!';
-$_['error_keyword']          = 'SEO URL must be unique!';
+$_['error_seo']              = 'Требуется keyword SEO URL-адреса!';
+$_['error_keyword']          = 'Семантический URL-адрес должен быть уникальным!';

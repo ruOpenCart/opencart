@@ -9,7 +9,7 @@ $_['text_edit']        = 'Редактирование общей суммы п�
 
 // Entry
 $_['entry_status']     = 'Статус';
-$_['entry_sort_order'] = 'Sort Order';
+$_['entry_sort_order'] = 'Порядок сортировки';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify gift voucher total!';

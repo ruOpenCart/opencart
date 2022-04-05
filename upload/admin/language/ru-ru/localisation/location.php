@@ -1,24 +1,24 @@
 <?php
 // Heading
-$_['heading_title']    = 'Store Locations';
+$_['heading_title']    = 'Расположения магазина';
 
 // Text
 $_['text_success']     = 'Success: You have modified store locations!';
-$_['text_list']        = 'Store Location List';
+$_['text_list']        = 'Список расположений магазинов';
 $_['text_add']         = 'Добавить расположение магазина';
 $_['text_edit']        = 'Редактирование расположения магазина';
 $_['text_geocode']     = 'Геокод не был назначен по следующим причинам:';
 
 // Column
-$_['column_name']      = 'Store Name';
+$_['column_name']      = 'Название магазина';
 $_['column_address']   = 'Адрес';
 $_['column_action']    = 'Действие';
 
 // Entry
-$_['entry_name']       = 'Store Name';
+$_['entry_name']       = 'Название магазина';
 $_['entry_address']    = 'Адрес';
 $_['entry_geocode']    = 'Геокод';
-$_['entry_telephone']  = 'Telephone';
+$_['entry_telephone']  = 'Телефон';
 $_['entry_image']      = 'Изображение';
 $_['entry_open']       = 'Время работы';
 $_['entry_comment']    = 'Комментарий';
@@ -30,6 +30,6 @@ $_['help_comment']     = 'This field is for any special notes you would like to 
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify store locations!';
-$_['error_name']       = 'Store name must be between 3 and 32 characters!';
+$_['error_name']       = 'Название магазина должно быть от 3 до 32 символов!';
 $_['error_address']    = 'Адрес должен быть от 3 до 128 символов!';
-$_['error_telephone']  = 'Telephone must be between 3 and 32 characters!';
+$_['error_telephone']  = 'Телефон должен быть от 3 до 32 символов!';

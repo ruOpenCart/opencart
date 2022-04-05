@@ -6,10 +6,10 @@ $_['heading_title']            = 'Важное уведомление безоп
 $_['text_install']             = 'Каталог установки';
 $_['text_install_description'] = 'Your installation directory needs deleting!';
 $_['text_install_success']     = 'Success: Install directory has been deleted!';
-$_['text_storage']             = 'Storage path';
+$_['text_storage']             = 'Путь хранилища';
 $_['text_storage_description'] = 'Очень важно переместить каталог хранения вне веб-каталога (например, public_html, www или htdocs).';
 $_['text_storage_success']     = 'Success: Storage directory has been moved!';
-$_['text_admin']               = 'Rename admin directory';
+$_['text_admin']               = 'Переименовать директорию администратора';
 $_['text_admin_description']   = 'Пожалуйста, введите новое имя каталога администратора в поле ниже.';
 $_['text_admin_success']       = 'Success: Storage directory has been renamed!';
 $_['text_path']                = 'Путь';
@@ -22,7 +22,7 @@ $_['entry_name']               = 'Название каталога';
 
 // Button
 $_['button_move']              = 'Переместить';
-$_['button_rename']            = 'Rename';
+$_['button_rename']            = 'Переименовать';
 
 // Error
 $_['error_permission']         = 'Warning: You do not have permission to modify security!';

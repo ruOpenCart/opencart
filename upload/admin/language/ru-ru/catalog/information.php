@@ -12,7 +12,7 @@ $_['text_keyword']           = 'Не используйте пробелы, вм
 
 // Column
 $_['column_title']           = 'Заголовок информации';
-$_['column_sort_order']      = 'Sort Order';
+$_['column_sort_order']      = 'Порядок сортировки';
 $_['column_action']          = 'Действие';
 
 // Entry
@@ -21,11 +21,11 @@ $_['entry_description']      = 'Описание';
 $_['entry_meta_title']       = 'Мета-тег Title';
 $_['entry_meta_keyword']     = 'Мета-тег Keywords';
 $_['entry_meta_description'] = 'Мета-тег Description';
-$_['entry_store']            = 'Stores';
+$_['entry_store']            = 'Магазины';
 $_['entry_keyword']          = 'Ключевое слово';
 $_['entry_bottom']           = 'Низ';
 $_['entry_status']           = 'Статус';
-$_['entry_sort_order']       = 'Sort Order';
+$_['entry_sort_order']       = 'Порядок сортировки';
 $_['entry_layout']           = 'Переопределение макета';
 
 // Help
@@ -37,8 +37,8 @@ $_['error_permission']       = 'Warning: You do not have permission to modify in
 $_['error_title']            = 'Заголовок информации должен быть от 3 до 64 символов!';
 $_['error_description']      = 'Описание должно быть более 3 символов!';
 $_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
-$_['error_seo']              = 'SEO URL keyword required!';
-$_['error_keyword']          = 'SEO URL must be unique!';
+$_['error_seo']              = 'Требуется keyword SEO URL-адреса!';
+$_['error_keyword']          = 'Семантический URL-адрес должен быть уникальным!';
 $_['error_account']          = 'Warning: This information page cannot be deleted as it is currently assigned as the store account terms!';
 $_['error_checkout']         = 'Warning: This information page cannot be deleted as it is currently assigned as the store checkout terms!';
 $_['error_affiliate']        = 'Warning: This information page cannot be deleted as it is currently assigned as the store affiliate terms!';

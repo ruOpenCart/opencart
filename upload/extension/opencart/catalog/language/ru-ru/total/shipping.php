@@ -3,14 +3,14 @@
 $_['heading_title']        = 'Расчёт стоимости доставки и налогов';
 
 // Text
-$_['text_shipping_method'] = 'Shipping method options';
+$_['text_shipping_method'] = 'Параметры способа доставки';
 $_['text_destination']     = 'Укажите ваш регион для расчета стоимости доставки.';
 $_['text_estimate']        = 'Пожалуйста, выберите предпочтительный способ доставки для этого заказа.';
 $_['text_success']         = 'Success: Your shipping estimate has been applied!';
 
 // Entry
 $_['entry_country']        = 'Страна';
-$_['entry_zone']           = 'Region / State';
+$_['entry_zone']           = 'Регион / Область';
 $_['entry_postcode']       = 'Почтовый индекс';
 
 // Error

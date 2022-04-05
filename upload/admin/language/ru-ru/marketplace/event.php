@@ -10,12 +10,12 @@ $_['text_info']         = 'Информация о событии';
 
 // Column
 $_['column_code']       = 'Код события';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['text_description']  = 'Описание';
-$_['text_trigger']      = 'Trigger';
+$_['text_trigger']      = 'Триггер';
 $_['text_action']       = 'Действие';
 
 // Error

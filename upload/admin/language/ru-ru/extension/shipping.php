@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']     = 'Shipping';
+$_['heading_title']     = 'Доставка';
 
 // Text
 $_['text_success']      = 'Success: You have modified shipping!';
-$_['text_list']         = 'Shipping List';
+$_['text_list']         = 'Список доставки';
 
 // Column
-$_['column_name']       = 'Shipping Method';
+$_['column_name']       = 'Способ доставки';
 $_['column_status']     = 'Статус';
-$_['column_sort_order'] = 'Sort Order';
+$_['column_sort_order'] = 'Порядок сортировки';
 $_['column_action']     = 'Действие';
 
 // Error

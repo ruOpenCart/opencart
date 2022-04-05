@@ -13,12 +13,12 @@ $_['text_installed']    = 'Установленные расширения';
 // Column
 $_['column_image']      = 'Изображение';
 $_['column_name']       = 'Название расширения';
-$_['column_version']    = 'Version';
+$_['column_version']    = 'Версия';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_progress']    = 'Progress';
+$_['entry_progress']    = 'Прогресс';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify extensions!';
@@ -26,6 +26,6 @@ $_['error_install']     = 'Запись установки не найдена!'
 $_['error_file']        = 'Файл установки %s не найден!';
 $_['error_directory']   = 'Каталог установки %s не найден!';
 $_['error_exists']      = 'Путь %s уже существует!';
-$_['error_unzip']       = 'Zip file could not be opened!';
+$_['error_unzip']       = 'Zip-файл не может быть открыт!';
 $_['error_upload']      = 'Файл не может быть загружен!';
 $_['error_filetype']    = 'Недопустимый тип файла!';

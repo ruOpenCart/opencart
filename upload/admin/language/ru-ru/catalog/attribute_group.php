@@ -15,7 +15,7 @@ $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Название группы атрибутов';
-$_['entry_sort_order']  = 'Sort Order';
+$_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
 $_['error_warning']     = 'Warning: Please check the form carefully for errors!';

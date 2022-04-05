@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']                = 'Recent Activity';
+$_['heading_title']                = 'Недавняя активность';
 
 // Text
 $_['text_extension']               = 'Расширения';
@@ -25,8 +25,8 @@ $_['text_activity_transaction']    = '<a href="customer_id=%d">%s</a> получ
 
 // Entry
 $_['entry_status']                 = 'Статус';
-$_['entry_sort_order']             = 'Sort Order';
-$_['entry_width']                  = 'Width';
+$_['entry_sort_order']             = 'Порядок сортировки';
+$_['entry_width']                  = 'Ширина';
 
 // Error
 $_['error_permission']             = 'Warning: You do not have permission to modify dashboard activity!';

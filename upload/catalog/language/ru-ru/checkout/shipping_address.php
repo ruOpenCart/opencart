@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']         = 'Shipping Address';
+$_['heading_title']         = 'Адрес доставки';
 
 // Text
 $_['text_address_new']      = 'Я хочу использовать новый адрес';
@@ -17,7 +17,7 @@ $_['entry_address_2']       = 'Адрес 2';
 $_['entry_postcode']        = 'Почтовый индекс';
 $_['entry_city']            = 'Город';
 $_['entry_country']         = 'Страна';
-$_['entry_zone']            = 'Region / State';
+$_['entry_zone']            = 'Регион / Область';
 
 // Error
 $_['error_address']         = 'Warning: Shipping address could not be found!';

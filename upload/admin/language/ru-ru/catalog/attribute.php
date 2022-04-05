@@ -11,7 +11,7 @@ $_['text_edit']              = 'Редактирование атрибута';
 // Column
 $_['column_name']            = 'Название атрибута';
 $_['column_attribute_group'] = 'Группа атрибута';
-$_['column_sort_order']      = 'Sort Order';
+$_['column_sort_order']      = 'Порядок сортировки';
 $_['column_action']          = 'Действие';
 
 // Entry

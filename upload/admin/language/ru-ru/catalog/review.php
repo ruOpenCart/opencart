@@ -1,28 +1,28 @@
 <?php
 // Heading
-$_['heading_title']     = 'Reviews';
+$_['heading_title']     = 'Отзывы';
 
 // Text
 $_['text_success']      = 'Success: You have modified reviews!';
-$_['text_list']         = 'Review List';
+$_['text_list']         = 'Список отзывов';
 $_['text_add']          = 'Добавить отзыв';
 $_['text_edit']         = 'Редактирование отзыва';
 $_['text_filter']       = 'Фильтр';
 
 // Column
-$_['column_product']    = 'Product';
+$_['column_product']    = 'Товар';
 $_['column_author']     = 'Автор';
-$_['column_rating']     = 'Rating';
+$_['column_rating']     = 'Рейтинг';
 $_['column_status']     = 'Статус';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_product']     = 'Product';
+$_['entry_product']     = 'Товар';
 $_['entry_author']      = 'Автор';
-$_['entry_rating']      = 'Rating';
+$_['entry_rating']      = 'Рейтинг';
 $_['entry_status']      = 'Статус';
-$_['entry_text']        = 'Text';
+$_['entry_text']        = 'Текст';
 $_['entry_date_added']  = 'Дата добавления';
 
 // Help
@@ -31,7 +31,7 @@ $_['help_product']      = '(Автодополнение)';
 // Error
 $_['error_warning']     = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']  = 'Warning: You do not have permission to modify reviews!';
-$_['error_product']     = 'Product required!';
+$_['error_product']     = 'Необходим товар!';
 $_['error_author']      = 'Автор должен содержать от 3 до 64 символов!';
-$_['error_text']        = 'Review Text must be at least 1 character!';
-$_['error_rating']      = 'Review rating required!';
+$_['error_text']        = 'Текст отзыва должен содержать не менее 1 символа!';
+$_['error_rating']      = 'Рейтинг отзыва обязателен!';

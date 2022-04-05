@@ -7,7 +7,7 @@ $_['text_success']     = 'Success: You have modified feeds!';
 $_['text_list']        = 'Список каналов';
 
 // Column
-$_['column_name']      = 'Product Feed Name';
+$_['column_name']      = 'Название канала товара';
 $_['column_status']    = 'Статус';
 $_['column_action']    = 'Действие';
 

@@ -3,4 +3,4 @@
 $_['heading_title'] = 'Оформить заказ';
 
 // Text
-$_['text_cart']     = 'Shopping Cart';
+$_['text_cart']     = 'Корзина';

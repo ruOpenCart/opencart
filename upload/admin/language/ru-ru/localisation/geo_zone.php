@@ -18,7 +18,7 @@ $_['column_action']      = 'Действие';
 $_['entry_name']         = 'Название географической зоны';
 $_['entry_description']  = 'Описание';
 $_['entry_country']      = 'Страна';
-$_['entry_zone']         = 'Zone';
+$_['entry_zone']         = 'Регион';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify geo zones!';

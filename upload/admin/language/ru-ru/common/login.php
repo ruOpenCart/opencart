@@ -8,7 +8,7 @@ $_['text_login']     = 'Пожалуйста, введите ваши данны
 $_['text_forgotten'] = 'Восстановить пароль';
 
 // Entry
-$_['entry_username'] = 'Username';
+$_['entry_username'] = 'Имя пользователя';
 $_['entry_password'] = 'Пароль';
 
 // Button
