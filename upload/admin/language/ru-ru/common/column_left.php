@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_address_format']      = 'Формат адреса';
-$_['text_affiliate']           = 'Партнёр';
+$_['text_affiliate']           = 'Партнерская программа';
 $_['text_api']                 = 'API';
 $_['text_attribute']           = 'Атрибуты';
 $_['text_attribute_group']     = 'Группы атрибутов';
