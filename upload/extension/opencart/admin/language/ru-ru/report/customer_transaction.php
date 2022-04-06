@@ -5,7 +5,7 @@ $_['heading_title']         = 'Отчет по транзакциям покуп
 // Text
 $_['text_extension']        = 'Расширения';
 $_['text_edit']             = 'Редактирование отчета по транзакциям покупателя';
-$_['text_success']          = 'Success: You have modified customer credit report!';
+$_['text_success']          = 'Успех: Вы изменили отчет по транзакциям покупателя!';
 $_['text_filter']           = 'Фильтр';
 
 // Column
