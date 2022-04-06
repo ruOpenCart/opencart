@@ -4,7 +4,7 @@ $_['heading_title']     = 'HTML-контент';
 
 // Text
 $_['text_extension']    = 'Расширения';
-$_['text_success']      = 'Success: You have modified HTML Content module!';
+$_['text_success']      = 'Успех: Вы изменили модуль HTML-контента!';
 $_['text_edit']         = 'Редактирование модуля HTML-содержимого';
 
 // Entry
