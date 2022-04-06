@@ -4,9 +4,9 @@ $_['heading_title']    = 'Конвертер валют Европейского
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified European Central Bank Currency Converter!';
+$_['text_success']     = 'Успех: Вы изменили конвертер валют Европейского Центрального Банка!';
 $_['text_edit']        = 'Редактирование Европейского Центрального Банка';
-$_['text_support']     = 'This extension requires at EUR currency to be available currency option.';
+$_['text_support']     = 'Это расширение требует, чтобы валюта EUR была доступной валютой.';
 
 // Entry
 $_['entry_status']     = 'Статус';
