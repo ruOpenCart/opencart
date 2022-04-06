@@ -4,7 +4,7 @@ $_['heading_title']      = 'Оплата при доставке';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified cash on delivery payment module!';
+$_['text_success']       = 'Успех: Вы изменили модуль оплата при доставке!';
 $_['text_edit']          = 'Редактирование Наличных при получении';
 
 // Entry
