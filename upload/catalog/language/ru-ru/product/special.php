@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Специальные предложения';
 
 // Text
-$_['text_no_results']  = 'There are no special offer products to list.';
+$_['text_no_results']  = 'Нет специальных предложений товаров для списка.';
 $_['text_compare']     = 'Сравнение товаров (%s)';
 $_['text_sort']        = 'Сортировать по';
 $_['text_default']     = 'По умолчанию';
