@@ -3,10 +3,10 @@
 $_['heading_title']          = 'Регионы';
 
 // Text
-$_['text_success']           = 'Success: You have modified zones!';
+$_['text_success']           = 'Успех: Вы изменили регионы!';
 $_['text_list']              = 'Список регионов';
-$_['text_add']               = 'Добавить зону';
-$_['text_edit']              = 'Редактирование зоны';
+$_['text_add']               = 'Добавить регион';
+$_['text_edit']              = 'Редактирование региона';
 $_['text_filter']            = 'Фильтр';
 
 // Column
