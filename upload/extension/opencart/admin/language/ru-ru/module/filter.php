@@ -4,7 +4,7 @@ $_['heading_title']    = 'Фильтр';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified filter module!';
+$_['text_success']     = 'Успех: Вы изменили модуль фильтра!';
 $_['text_edit']        = 'Редактирование модуля фильтра';
 
 // Entry
