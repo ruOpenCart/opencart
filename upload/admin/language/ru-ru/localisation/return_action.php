@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Действия по возвратам';
 
 // Text
-$_['text_success']     = 'Success: You have modified return actions!';
+$_['text_success']     = 'Успех: Вы изменили действия по возврату!';
 $_['text_list']        = 'Список действий по возврату';
 $_['text_add']         = 'Добавить действие возврата';
 $_['text_edit']        = 'Редактирование действия возврата';
