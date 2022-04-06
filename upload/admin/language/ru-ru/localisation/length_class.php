@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Классы длины';
 
 // Text
-$_['text_success']     = 'Success: You have modified length classes!';
+$_['text_success']     = 'Успех: Вы изменили классы длины!';
 $_['text_list']        = 'Список классов длины';
 $_['text_add']         = 'Добавить класс длины';
 $_['text_edit']        = 'Редактирование класса длины';
@@ -20,7 +20,7 @@ $_['entry_unit']       = 'Единица длины';
 $_['entry_value']      = 'Значение';
 
 // Help
-$_['help_value']       = 'The value of your default length in the current length unit. Set to 1 for your default length.';
+$_['help_value']       = 'Значение длины по умолчанию в единице текущей длины. Установите значение 1 для длины по умолчанию.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify length classes!';
