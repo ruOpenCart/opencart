@@ -3,7 +3,7 @@
 $_['heading_title']      = 'Магазин расширений';
 
 // Text
-$_['text_success']       = 'Success: You have modified extensions!';
+$_['text_success']       = 'Успех: Вы изменили расширения!';
 $_['text_list']          = 'Список расширений';
 $_['text_filter']        = 'Фильтр';
 $_['text_search']        = 'Поиск расширений и шаблонов';
