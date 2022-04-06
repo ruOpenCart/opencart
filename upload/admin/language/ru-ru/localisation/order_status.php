@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Статусы заказа';
 
 // Text
-$_['text_success']     = 'Success: You have modified order statuses!';
+$_['text_success']     = 'Успех: Вы изменили статусы заказа!';
 $_['text_list']        = 'Список статусов заказа';
 $_['text_add']         = 'Добавить статус заказа';
 $_['text_edit']        = 'Редактирование статуса заказа';
