@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Информация';
 
 // Text
-$_['text_success']           = 'Success: You have modified information!';
+$_['text_success']           = 'Успех: Вы изменили информацию!';
 $_['text_list']              = 'Список информации';
 $_['text_add']               = 'Добавить информацию';
 $_['text_edit']              = 'Редактирование информации';
