@@ -3,9 +3,9 @@
 $_['heading_title']      = 'Кредитная карта';
 
 // Text
-$_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site. This extension is here for developers that need to create a payment gateway integration.';
+$_['text_description']   = 'Этот способ оплаты является фиктивным и не хранит информацию о кредитной карте, а также не должен использоваться на действующем сайте. Это расширение предназначено для разработчиков, которым необходимо создать интеграцию платежного шлюза.';
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified credit card payment module!';
+$_['text_success']       = 'Успех: Вы изменили модуль оплаты кредитной картой!';
 $_['text_edit']          = 'Редактирование кредитной карты';
 $_['text_approve']       = 'Одобрить';
 $_['text_deny']          = 'Отклонить';
