@@ -3,7 +3,7 @@
 $_['heading_title']           = 'Страны';
 
 // Text
-$_['text_success']            = 'Success: You have modified countries!';
+$_['text_success']            = 'Успех: Вы изменили страны!';
 $_['text_list']               = 'Список стран';
 $_['text_add']                = 'Добавить страну';
 $_['text_edit']               = 'Редактирование страны';
