@@ -3,7 +3,7 @@
 $_['heading_title']              = 'Подписки';
 
 // Text
-$_['text_success']               = 'Success: You have modified subscriptions!';
+$_['text_success']               = 'Успех: Вы изменили подписки!';
 $_['text_list']                  = 'Список подписок';
 $_['text_filter']                = 'Фильтр';
 $_['text_subscription']          = 'Детали подписки';
