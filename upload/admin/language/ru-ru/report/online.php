@@ -4,7 +4,7 @@ $_['heading_title']     = 'Отчёт по онлайну';
 
 // Text
 $_['text_extension']    = 'Расширения';
-$_['text_success']      = 'Success: You have modified customers online report!';
+$_['text_success']      = 'Успех: Вы изменили отчет по онлайну покупателей!';
 $_['text_list']         = 'Список онлайн';
 $_['text_filter']       = 'Фильтр';
 $_['text_guest']        = 'Гость';
