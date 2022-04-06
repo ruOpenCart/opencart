@@ -51,7 +51,7 @@ $_['entry_opened']       = 'Товар распакован';
 $_['entry_fault_detail'] = 'Неисправный или другие данные';
 
 // Error
-$_['text_error']         = 'The returns you requested could not be found!';
+$_['text_error']         = 'Запрошенные возвраты не найдены!';
 $_['error_token']        = 'Warning: Reset token invalid!';
 $_['error_order_id']     = 'Необходимо указать номер заказа!';
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
