@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Возврат товара';
 
 // Text
-$_['text_success']         = 'Success: You have modified returns!';
+$_['text_success']         = 'Успех: Вы изменили возвраты!';
 $_['text_list']            = 'Список возвратов товара';
 $_['text_add']             = 'Добавить возврат товара';
 $_['text_edit']            = 'Редактирование возврата товара';
