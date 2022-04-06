@@ -3,9 +3,9 @@
 $_['heading_title']              = 'Корзина';
 
 // Text
-$_['text_success']               = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
-$_['text_edit']                  = 'Success: You have modified your shopping cart!';
-$_['text_remove']                = 'Success: You have removed an item from your shopping cart!';
+$_['text_success']               = 'Успех: Вы добавили <a href="%s">%s</a> в вашу <a href="%s">корзину покупок</a>!';
+$_['text_edit']                  = 'Успех: Вы изменили свою корзину покупок!';
+$_['text_remove']                = 'Успех: Вы удалили товар из корзины покупок!';
 $_['text_login']                 = 'Внимание: Вы должны <a href="%s">войти</a> или <a href="%s">создать учетную запись</a> для просмотра цен!';
 $_['text_no_results']            = 'Ваша корзина пуста!';
 $_['text_next']                  = 'Что бы вы хотели сделать дальше?';
