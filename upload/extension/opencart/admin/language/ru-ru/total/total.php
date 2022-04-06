@@ -4,7 +4,7 @@ $_['heading_title']    = 'Всего';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified total totals!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму всего!';
 $_['text_edit']        = 'Редактирование общей суммы';
 
 // Entry
