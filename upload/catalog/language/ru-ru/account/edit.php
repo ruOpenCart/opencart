@@ -6,7 +6,7 @@ $_['heading_title']      = 'Информация о моей учетной за
 $_['text_account']       = 'Аккаунт';
 $_['text_edit']          = 'Редактирование информации';
 $_['text_your_details']  = 'Ваши персональные данные';
-$_['text_success']       = 'Success: Your account has been successfully updated.';
+$_['text_success']       = 'Успех: Ваша учетная запись успешно обновлена!';
 
 // Entry
 $_['entry_firstname']    = 'Имя';
