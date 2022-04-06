@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Группы пользователя';
 
 // Text
-$_['text_success']     = 'Success: You have modified user groups!';
+$_['text_success']     = 'Успех: Вы изменили группы пользователя!';
 $_['text_list']        = 'Группа пользователя';
 $_['text_add']         = 'Добавить группу пользователя';
 $_['text_edit']        = 'Редактирование группы пользователя';
