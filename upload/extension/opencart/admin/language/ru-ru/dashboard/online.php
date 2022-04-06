@@ -4,7 +4,7 @@ $_['heading_title']    = 'Люди онлайн';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified dashboard online!';
+$_['text_success']     = 'Успех: Вы изменили онлайн панели!';
 $_['text_edit']        = 'Редактирование онлайна на панели';
 $_['text_view']        = 'Смотреть подробнее...';
 
