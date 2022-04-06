@@ -15,9 +15,9 @@ $_['text_payment_address']  = 'Платёжный адрес';
 $_['text_payment_method']   = 'Метод оплаты:';
 $_['text_comment']          = 'Комментарии к заказу';
 $_['text_history']          = 'История заказа';
-$_['text_success']          = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
+$_['text_success']          = 'Успех: Вы добавили <a href="%s">%s</a> в вашу <a href="%s">корзину покупок</a>!';
 $_['text_no_results']       = 'You have not made any previous orders!';
-$_['text_error']            = 'The order you requested could not be found!';
+$_['text_error']            = 'Запрошенный заказ не найден!';
 
 // Column
 $_['column_order_id']       = 'Номер заказа';
