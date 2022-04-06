@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Семантический URL-адрес';
 
 // Text
-$_['text_success']         = 'Success: You have modified SEO URL!';
+$_['text_success']         = 'Успех: Вы изменили семантический URL-адрес!';
 $_['text_list']            = 'Список семантический URL-адресов';
 $_['text_add']             = 'Добавить SEO URL-адрес';
 $_['text_edit']            = 'Редактирование семантического URL-адреса';
@@ -28,7 +28,7 @@ $_['entry_sort_order']     = 'Порядок сортировки';
 
 // Help
 $_['help_keyword']         = 'Убедитесь, что вы используете только символы a-z или 0-9 и - или _ для пробелов. Оставьте пустым, если вы просто хотите удалить периметр.';
-$_['help_sort_order']      = 'The sort order of the keywords in the URL.';
+$_['help_sort_order']      = 'Порядок сортировки ключевых слов в URL-адресе.';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modify SEO URL!';
