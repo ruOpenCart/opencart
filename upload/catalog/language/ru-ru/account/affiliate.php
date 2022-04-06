@@ -10,7 +10,7 @@ $_['text_payment']              = 'Информация об оплате';
 $_['text_cheque']               = 'Чек';
 $_['text_paypal']               = 'PayPal';
 $_['text_bank']                 = 'Банковский перевод';
-$_['text_success']              = 'Success: Your affiliate account has been successfully updated.';
+$_['text_success']              = 'Успех: Ваша учетная запись партнера была успешно обновлена!';
 $_['text_agree']                = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
 
 // Entry
