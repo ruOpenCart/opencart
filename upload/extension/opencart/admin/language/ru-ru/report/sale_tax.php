@@ -5,7 +5,7 @@ $_['heading_title']      = 'Отчет по налогам';
 // Text
 $_['text_extension']     = 'Расширения';
 $_['text_edit']          = 'Редактирование отчета по налогам';
-$_['text_success']       = 'Success: You have modified tax report!';
+$_['text_success']       = 'Успех: Вы изменили отчет по налогам!';
 $_['text_filter']        = 'Фильтр';
 $_['text_year']          = 'Годы';
 $_['text_month']         = 'Месяцы';
