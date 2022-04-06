@@ -4,7 +4,7 @@ $_['heading_title']      = 'Бесплатный заказ';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified free checkout payment module!';
+$_['text_success']       = 'Успех: Вы изменили модуль оплаты бесплатный заказ!';
 $_['text_edit']          = 'Редактирование бесплатного заказа';
 
 // Entry
