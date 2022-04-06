@@ -3,7 +3,7 @@
 $_['heading_title']           = 'Заказы';
 
 // Text
-$_['text_success']            = 'Success: You have modified orders!';
+$_['text_success']            = 'Успех: Вы изменили заказы!';
 $_['text_list']               = 'Список заказов';
 $_['text_add']                = 'Добавить заказ';
 $_['text_edit']               = 'Заказ (#%s)';
@@ -16,13 +16,13 @@ $_['text_product_add']        = 'Добавить товар';
 $_['text_voucher_add']        = 'Добавить подарочный сертификат';
 $_['text_points']             = 'Баллы';
 $_['text_reward']             = 'Бонусные баллы';
-$_['text_reward_add']         = 'Success: Reward points added!';
-$_['text_reward_remove']      = 'Success: Reward points removed!';
+$_['text_reward_add']         = 'Успех: Бонусные баллы добавлены!';
+$_['text_reward_remove']      = 'Успех: Бонусные баллы удалены!';
 $_['text_affiliate']          = 'Партнерская программа';
 $_['text_commission']         = 'Комиссия';
-$_['text_commission_add']     = 'Success: Commission added!';
-$_['text_commission_remove']  = 'Success: Commission removed!';
-$_['text_restock']            = 'Success: Products have been restocked!';
+$_['text_commission_add']     = 'Успех: Комиссия добавлена!';
+$_['text_commission_remove']  = 'Успех: Комиссия удалена!';
+$_['text_restock']            = 'Успех: Товары были пополнены!';
 $_['text_upload']             = 'Ваш файл был успешно загружен!';
 $_['text_subscription']       = 'Подписка';
 $_['text_more']               = 'Еще...';
@@ -37,7 +37,7 @@ $_['text_history_add']        = 'Добавить историю';
 $_['text_browser']            = 'Браузер';
 $_['text_ip']                 = 'IP-адрес';
 $_['text_forwarded_ip']       = 'Переадресованный IP-адрес';
-$_['text_user_agent']         = 'User Agent';
+$_['text_user_agent']         = 'Пользовательский Агент';
 $_['text_accept_language']    = 'Используемый язык';
 $_['text_order_id']           = 'Номер заказа';
 $_['text_website']            = 'Веб-сайт';
