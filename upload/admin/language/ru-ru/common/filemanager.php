@@ -3,9 +3,9 @@
 $_['heading_title']    = 'Менеджер изображений';
 
 // Text
-$_['text_uploaded']    = 'Success: Your file has been uploaded!';
-$_['text_directory']   = 'Success: Directory created!';
-$_['text_delete']      = 'Success: Your file or directory has been deleted!';
+$_['text_uploaded']    = 'Успешно: Ваш файл был загружен!';
+$_['text_directory']   = 'Успех: Каталог создан!';
+$_['text_delete']      = 'Успех: Ваш файл или каталог был удален!';
 
 // Entry
 $_['entry_search']     = 'Поиск...';
