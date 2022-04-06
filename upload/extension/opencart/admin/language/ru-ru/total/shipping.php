@@ -4,7 +4,7 @@ $_['heading_title']    = 'Доставка';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified shipping total!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму доставки!';
 $_['text_edit']        = 'Редактирование общей суммы доставки';
 
 // Entry
