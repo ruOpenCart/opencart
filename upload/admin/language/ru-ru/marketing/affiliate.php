@@ -3,7 +3,7 @@
 $_['heading_title']             = 'Партнеры';
 
 // Text
-$_['text_success']              = 'Success: You have modified affiliates!';
+$_['text_success']              = 'Успех: Вы изменили партнеров!';
 $_['text_list']                 = 'Список партнеров';
 $_['text_add']                  = 'Добавить партнера';
 $_['text_edit']                 = 'Изменить партнера';
@@ -59,7 +59,7 @@ $_['entry_amount']              = 'Сумма';
 $_['entry_date_added']          = 'Дата добавления';
 
 // Help
-$_['help_tracking']             = 'The tracking code that will be used to track referrals.';
+$_['help_tracking']             = 'Код отслеживания, который будет использован для отслеживания рефералов.';
 $_['help_commission']           = 'Процент, который партнер получает за каждый заказ.';
 
 // Error
