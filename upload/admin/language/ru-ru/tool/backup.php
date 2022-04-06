@@ -3,7 +3,7 @@
 $_['heading_title']      = 'Резервное копирование и Восстановление';
 
 // Text
-$_['text_success']       = 'Success: You have successfully modified your database!';
+$_['text_success']       = 'Успех: Вы успешно изменили базу данных!';
 
 $_['text_backup']        = 'Резервное копирование таблицы %s записей %s на %s записей';
 $_['text_restore']       = 'Восстановление %s из %s';
