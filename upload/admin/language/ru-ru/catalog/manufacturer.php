@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Производители';
 
 // Text
-$_['text_success']      = 'Success: You have modified manufacturers!';
+$_['text_success']      = 'Успех: Вы изменили производителей!';
 $_['text_list']         = 'Список производителей';
 $_['text_add']          = 'Добавить производителя';
 $_['text_edit']         = 'Редактирование производителя';
