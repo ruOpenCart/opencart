@@ -3,7 +3,7 @@
 $_['heading_title']       = 'Макеты';
 
 // Text
-$_['text_success']        = 'Success: You have modified layouts!';
+$_['text_success']        = 'Успех: Вы изменили макеты!';
 $_['text_list']           = 'Список макетов';
 $_['text_add']            = 'Добавить макет';
 $_['text_edit']           = 'Редактирование макета';
