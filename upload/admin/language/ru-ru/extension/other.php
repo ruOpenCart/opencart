@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Другие';
 
 // Text
-$_['text_success']     = 'Success: You have modified other extension!';
+$_['text_success']     = 'Успешно: Вы изменили другое расширение!';
 $_['text_list']        = 'Другой список';
 
 // Column
