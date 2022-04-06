@@ -4,7 +4,7 @@ $_['heading_title']    = 'Бесплатная доставка';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified free shipping!';
+$_['text_success']     = 'Успех: Вы изменили бесплатную доставку!';
 $_['text_edit']        = 'Редактирование бесплатной доставки';
 
 // Entry
