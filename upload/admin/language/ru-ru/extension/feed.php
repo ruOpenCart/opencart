@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Каналы';
 
 // Text
-$_['text_success']     = 'Success: You have modified feeds!';
+$_['text_success']     = 'Успех: Вы изменили каналы!';
 $_['text_list']        = 'Список каналов';
 
 // Column
