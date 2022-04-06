@@ -1,7 +1,7 @@
 <?php
 // Text
-$_['text_success']    = 'Success: Affiliate commission will be appliyed to this order!';
-$_['text_remove']     = 'Success: Your coupon discount has been removed!';
+$_['text_success']    = 'Успех: Партнерская комиссия будет применяться к этому заказу!';
+$_['text_remove']     = 'Успех: Ваш купон на скидку был удален!';
 
 // Error
 $_['error_affiliate'] = 'Warning: Affiliate could not be found!';
