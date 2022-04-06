@@ -3,7 +3,7 @@
 $_['heading_title']      = 'Географические зоны';
 
 // Text
-$_['text_success']       = 'Success: You have modified geo zones!';
+$_['text_success']       = 'Успех: Вы изменили гео-зоны!';
 $_['text_list']          = 'Список географических зон';
 $_['text_add']           = 'Добавить геозону';
 $_['text_edit']          = 'Редактирование географической зоны';
