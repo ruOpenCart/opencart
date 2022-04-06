@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Пользователи';
 
 // Text
-$_['text_success']          = 'Success: You have modified users!';
+$_['text_success']          = 'Успех: Вы изменили пользователей!';
 $_['text_list']             = 'Список пользователей';
 $_['text_add']              = 'Добавить пользователя';
 $_['text_edit']             = 'Редактирование пользователя';
