@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Настраиваемые поля';
 
 // Text
-$_['text_success']         = 'Success: You have modified custom fields!';
+$_['text_success']         = 'Успех: Вы изменили настраиваемые поля!';
 $_['text_list']            = 'Список настраиваемых полей';
 $_['text_add']             = 'Добавить настраиваемое поле';
 $_['text_edit']            = 'Редактирование настраиваемого поля';
@@ -20,7 +20,7 @@ $_['text_datetime']        = 'Дата и время';
 $_['text_time']            = 'Время';
 $_['text_account']         = 'Аккаунт';
 $_['text_address']         = 'Адрес';
-$_['text_affiliate']       = 'Партнёр';
+$_['text_affiliate']       = 'Партнерская программа';
 $_['text_regex']           = 'Регулярное выражение';
 $_['text_custom_field']    = 'Настраиваемое поле';
 $_['text_value']           = 'Значение настраиваемого поля';
