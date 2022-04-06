@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title']     = 'Темы сертификата';
+$_['heading_title']     = 'Темы сертификатов';
 
 // Text
-$_['text_success']      = 'Success: You have modified voucher themes!';
+$_['text_success']      = 'Успех: Вы изменили темы сертификата!';
 $_['text_list']         = 'Список тем сертификатов';
 $_['text_add']          = 'Добавить тему купона';
 $_['text_edit']         = 'Редактирование темы купона';
