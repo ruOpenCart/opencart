@@ -1,9 +1,9 @@
 <?php
 // Text
-$_['text_cart']       = 'Success: You have modified your shopping cart!';
+$_['text_cart']       = 'Успех: Вы изменили свою корзину покупок!';
 $_['text_for']        = '%s подарочный сертификат для %s';
-$_['text_success']    = 'Success: Your gift voucher discount has been applied!';
-$_['text_remove']     = 'Success: Your gift voucher discount has been removed!';
+$_['text_success']    = 'Успех: Ваш подарочный сертификат был применен!';
+$_['text_remove']     = 'Успех: Ваш подарочный сертификат был удален!';
 
 // Error
 $_['error_voucher']   = 'Warning: Gift voucher is either invalid or the balance has been used up!';
