@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']           = 'Success: Shipping method has been set!';
+$_['text_success']           = 'Успех: Способ доставки был установлен!';
 
 // Error
 $_['error_shipping_address'] = 'Warning: Shipping address required!';
