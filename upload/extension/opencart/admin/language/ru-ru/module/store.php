@@ -4,7 +4,7 @@ $_['heading_title']    = 'Магазин';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified store module!';
+$_['text_success']     = 'Успех: Вы изменили модуль магазин!';
 $_['text_edit']        = 'Редактирование модуля магазина';
 
 // Entry
