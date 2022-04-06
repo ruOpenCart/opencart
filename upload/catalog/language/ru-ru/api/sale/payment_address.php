@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']       = 'Success: Payment address has been set!';
+$_['text_success']       = 'Успех: Установлен платёжный адрес!';
 
 // Error
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
