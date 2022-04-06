@@ -3,7 +3,7 @@
 $_['heading_title']      = 'Опции';
 
 // Text
-$_['text_success']       = 'Success: You have modified options!';
+$_['text_success']       = 'Успех: Вы изменили опции!';
 $_['text_list']          = 'Список опций';
 $_['text_add']           = 'Добавить опцию';
 $_['text_edit']          = 'Редактирование опции';
