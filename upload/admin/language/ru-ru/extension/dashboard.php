@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Панель';
 
 // Text
-$_['text_success']      = 'Success: You have modified dashboards!';
+$_['text_success']      = 'Успех: Вы изменили панели!';
 $_['text_list']         = 'Список панелей';
 
 // Column
