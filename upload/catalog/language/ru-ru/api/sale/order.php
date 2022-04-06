@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']           = 'Success: You have modified orders!';
+$_['text_success']           = 'Успех: Вы изменили заказы!';
 
 // Error
 $_['error_order']            = 'Warning: Order could not be found!';
