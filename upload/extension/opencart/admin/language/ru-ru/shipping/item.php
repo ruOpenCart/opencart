@@ -4,7 +4,7 @@ $_['heading_title']    = 'За единицу';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified shipping per item rates!';
+$_['text_success']     = 'Успех: Вы изменили доставку за единицу!';
 $_['text_edit']        = 'Редактирование доставки за единицу';
 
 // Entry
