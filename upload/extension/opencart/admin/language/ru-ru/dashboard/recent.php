@@ -4,7 +4,7 @@ $_['heading_title']     = 'Последние заказы';
 
 // Text
 $_['text_extension']    = 'Расширения';
-$_['text_success']      = 'Success: You have modified dashboard recent orders!';
+$_['text_success']      = 'Успех: Вы изменили последние заказы панели!';
 $_['text_edit']         = 'Редактирование последних заказов на панели';
 
 // Column
