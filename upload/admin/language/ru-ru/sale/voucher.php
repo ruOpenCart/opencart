@@ -3,11 +3,11 @@
 $_['heading_title']     = 'Подарочные сертификаты';
 
 // Text
-$_['text_success']      = 'Success: You have modified vouchers!';
+$_['text_success']      = 'Успех: Вы изменили сертификаты!';
 $_['text_list']         = 'Список подарочных сертификатов';
 $_['text_add']          = 'Добавить подарочный сертификат';
 $_['text_edit']         = 'Редактирование подарочного сертификата';
-$_['text_sent']         = 'Success: Gift Voucher e-mail has been sent!';
+$_['text_sent']         = 'Успех: Подарочный сертификат успешно отправлен на указанный e-mail адрес!';
 $_['text_history']      = 'История';
 
 // Column
@@ -35,7 +35,7 @@ $_['entry_amount']      = 'Сумма';
 $_['entry_status']      = 'Статус';
 
 // Help
-$_['help_code']         = 'The code the customer enters to activate the voucher.';
+$_['help_code']         = 'Код, который клиент вводит для активации сертификата.';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify vouchers!';
