@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Сумма заказа';
 
 // Text
-$_['text_success']      = 'Success: You have modified totals!';
+$_['text_success']      = 'Успех: Вы изменили всего!';
 
 // Column
 $_['column_name']       = 'Сумма заказа';
