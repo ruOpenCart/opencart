@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Обновить';
 
 // Text
-$_['text_success']         = 'Success: You are using the latest version %s!';
+$_['text_success']         = 'Успех: Вы используете последнюю версию %s!';
 $_['text_upgrade']         = 'Проверить последнюю версию';
 $_['text_information']     = 'Информация о версии';
 $_['text_current_version'] = 'Текущая версия';
