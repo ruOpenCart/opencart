@@ -4,7 +4,7 @@ $_['heading_title']    = 'Налоги';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified taxes total!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму налогов!';
 $_['text_edit']        = 'Редактирование общей суммы налога';
 
 // Entry
