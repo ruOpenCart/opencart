@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Отчеты';
 
 // Text
-$_['text_success']      = 'Success: You have modified reports!';
+$_['text_success']      = 'Успех: Вы изменили отчеты!';
 $_['text_list']         = 'Список отчетов';
 
 // Column
