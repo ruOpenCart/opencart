@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Загрузки';
 
 // Text
-$_['text_success']      = 'Success: You have modified downloads!';
+$_['text_success']      = 'Успех: Вы изменили загрузки!';
 $_['text_list']         = 'Список загрузок';
 $_['text_add']          = 'Добавить загрузку';
 $_['text_edit']         = 'Редактирование загрузки';
