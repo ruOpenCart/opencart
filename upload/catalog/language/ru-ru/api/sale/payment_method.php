@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']          = 'Success: Payment method has been set!';
+$_['text_success']          = 'Успех: Способ оплаты был установлен!';
 
 // Error
 $_['error_payment_address'] = 'Warning: Payment address required!';
