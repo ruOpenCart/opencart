@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Классы веса';
 
 // Text
-$_['text_success']     = 'Success: You have modified weight classes!';
+$_['text_success']     = 'Успех: Вы изменили классы веса!';
 $_['text_list']        = 'Список классов веса';
 $_['text_add']         = 'Добавить класс веса';
 $_['text_edit']        = 'Редактирование класса веса';
@@ -20,7 +20,7 @@ $_['entry_unit']       = 'Единицы веса';
 $_['entry_value']      = 'Значение';
 
 // Help
-$_['help_value']       = 'The value of your default weight in the current weight unit. Set to 1 for your default weight.';
+$_['help_value']       = 'Значение веса по умолчанию в текущей единице веса. Установите значение 1 для вашего веса по умолчанию.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify weight classes!';
