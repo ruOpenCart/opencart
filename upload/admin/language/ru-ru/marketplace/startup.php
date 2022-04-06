@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Автозагрузка';
 
 // Text
-$_['text_success']      = 'Success: You have modified startup!';
+$_['text_success']      = 'Успех: Вы изменили автозагрузку!';
 $_['text_list']         = 'Список автозагрузки';
 
 // Column
