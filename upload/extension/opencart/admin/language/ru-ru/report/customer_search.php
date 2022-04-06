@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']     = 'Отчет по поиску покупателей';
+$_['heading_title']     = 'Отчет о поисковых запросах покупателя';
 
 // Text
 $_['text_extension']    = 'Расширения';
-$_['text_edit']         = 'Редактирование отчета о поиске покупателей';
-$_['text_success']      = 'Success: You have modified customer searches report!';
+$_['text_edit']         = 'Редактирование отчета о поисковых запросах покупателя';
+$_['text_success']      = 'Успех: Вы изменили отчет о поисковых запросах покупателей!';
 $_['text_filter']       = 'Фильтр';
 $_['text_guest']        = 'Гость';
 $_['text_customer']     = '<a href="%s">%s</a>';
