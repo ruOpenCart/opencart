@@ -4,7 +4,7 @@ $_['heading_title']    = 'Подарочный сертификат';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified gift voucher total!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму подарочного сертификата!';
 $_['text_edit']        = 'Редактирование общей суммы подарочного сертификата';
 
 // Entry
