@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Одобрение клиентов';
 
 // Text
-$_['text_success']          = 'Success: You have modified customer approvals!';
+$_['text_success']          = 'Успех: Вы изменили одобрения покупателя!';
 $_['text_list']             = 'Список одобрения покупателей';
 $_['text_default']          = 'По умолчанию';
 $_['text_customer']         = 'Покупатель';
