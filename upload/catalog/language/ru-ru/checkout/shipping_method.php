@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Способ доставки';
 
 // Text
-$_['text_success']           = 'Success: You have changed shipping method!';
+$_['text_success']           = 'Успех: Вы изменили способ доставки!';
 
 // Error
 $_['error_shipping_address'] = 'Warning: Shipping address required!';
