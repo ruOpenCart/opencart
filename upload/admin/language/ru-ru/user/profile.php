@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Профиль';
 
 // Text
-$_['text_success']          = 'Success: You have modified your profile!';
+$_['text_success']          = 'Успех: Вы изменили свой профиль!';
 $_['text_edit']             = 'Редактирование вашего профиля';
 
 // Column
