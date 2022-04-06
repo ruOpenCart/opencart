@@ -4,7 +4,7 @@ $_['heading_title']    = 'Самовывоз из магазина';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified pickup from store!';
+$_['text_success']     = 'Успех: Вы изменили самовывоз из магазина!';
 $_['text_edit']        = 'Редактирование доставки самовывоза из магазина';
 
 // Entry
