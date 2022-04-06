@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']     = 'Success: API session successfully started!';
+$_['text_success']     = 'Успех: API сессия успешно начата!';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to access the API!';
