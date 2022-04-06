@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Темы';
 
 // Text
-$_['text_success']     = 'Success: You have modified themes!';
+$_['text_success']     = 'Успех: Вы изменили темы!';
 
 // Column
 $_['column_name']      = 'Название темы';
