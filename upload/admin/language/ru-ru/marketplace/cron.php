@@ -3,7 +3,7 @@
 $_['heading_title']        = 'Задания Cron';
 
 // Text
-$_['text_success']         = 'Success: You have modified cron jobs!';
+$_['text_success']         = 'Успех: Вы изменили задания крона!';
 $_['text_instruction']     = 'Инструкции по Крону';
 $_['text_list']            = 'Список задач';
 $_['text_cron_1']          = 'Cron Job — это запланированные задачи, которые запускаются периодически. Чтобы настроить серверы для использования задания cron, вы можете прочитать страницу <a href="http://docs.opencart.com/extension/cron/" target="_blank" class="alert-link">документации опенкарт</a>.';
