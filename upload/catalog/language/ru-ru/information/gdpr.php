@@ -14,7 +14,7 @@ $_['text_warning']      = 'Warning you will lose access to your account!';
 $_['text_access']       = 'You will no longer have access to your %s account.';
 $_['text_history']      = 'You will no longer have access to your order history, invoices, wishlists or downloads.';
 $_['text_limit']        = 'Запросы на удаление учетной записи будут обработаны через <strong>%s дней</strong> и могут быть обработаны при обнаружении мошенничества, возврате платежей или возврате средств.';
-$_['text_success']      = 'Success: An email has been sent to your email address!';
+$_['text_success']      = 'Успех: На ваш адрес электронной почты было отправлено письмо!';
 $_['text_cancel']		= 'Отменить';
 
 // Entry
