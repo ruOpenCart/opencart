@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Модули';
 
 // Text
-$_['text_success']     = 'Success: You have modified modules!';
+$_['text_success']     = 'Успех: Вы изменили модули!';
 $_['text_layout']      = 'После установки и настройки модуля его можно добавить в макет <a href="%s" class="alert-link">здесь</a>!';
 $_['text_add']         = 'Добавить модуль';
 $_['text_list']        = 'Список модулей';
