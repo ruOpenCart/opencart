@@ -8,8 +8,8 @@ $_['text_register']           = 'Регистрация учетной запи�
 $_['text_guest']              = 'Оформление без регистрации';
 $_['text_your_password']      = 'Ваш пароль';
 $_['text_agree']              = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
-$_['text_success_add']        = 'Success: Your account has been created!';
-$_['text_success_edit']       = 'Success: Your account has been successfully updated.';
+$_['text_success_add']        = 'Успех: Ваша учетная запись создана!';
+$_['text_success_edit']       = 'Успех: Ваша учетная запись успешно обновлена!';
 
 // Entry
 $_['entry_customer_group']    = 'Тип счёта';
