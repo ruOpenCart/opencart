@@ -16,7 +16,7 @@ $_['text_payment_method']   = 'Метод оплаты:';
 $_['text_comment']          = 'Комментарии к заказу';
 $_['text_history']          = 'История заказа';
 $_['text_success']          = 'Успех: Вы добавили <a href="%s">%s</a> в вашу <a href="%s">корзину покупок</a>!';
-$_['text_no_results']       = 'You have not made any previous orders!';
+$_['text_no_results']       = 'Вы не делали ранее заказов!';
 $_['text_error']            = 'Запрошенный заказ не найден!';
 
 // Column
