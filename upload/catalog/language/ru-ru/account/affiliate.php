@@ -27,7 +27,7 @@ $_['entry_bank_account_name']   = 'Название счёта';
 $_['entry_bank_account_number'] = 'Номер счета';
 
 // Error
-$_['error_token']               = 'Warning: Affiliate token invalid!';
+$_['error_token']               = 'Внимание: Недопустимый токен партнера!';
 $_['error_agree']               = 'Warning: You must agree to the %s!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';
 $_['error_paypal']              = 'Адрес электронной почты PayPal недействителен!';
