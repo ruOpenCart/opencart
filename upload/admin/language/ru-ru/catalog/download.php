@@ -25,7 +25,7 @@ $_['entry_filename']    = 'Имя файла';
 $_['entry_mask']        = 'Маска';
 
 // Help
-$_['help_filename']     = 'You can upload via the upload button or use FTP to upload to the download directory and enter the details below.';
+$_['help_filename']     = 'Вы можете загрузить через кнопку загрузки или использовать FTP для загрузки в директорию загрузки и ввести детали ниже.';
 $_['help_mask']         = 'Рекомендуем, чтобы имя файла и маска были различны, это предотвратит прямой доступ к файлам.';
 
 // Error
