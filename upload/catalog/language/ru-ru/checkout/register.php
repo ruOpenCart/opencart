@@ -8,8 +8,8 @@ $_['text_register']           = 'Регистрация учетной запи�
 $_['text_guest']              = 'Оформление без регистрации';
 $_['text_your_password']      = 'Ваш пароль';
 $_['text_agree']              = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
-$_['text_success_add']        = 'Success: Your account has been created!';
-$_['text_success_edit']       = 'Success: Your account has been successfully updated.';
+$_['text_success_add']        = 'Успех: Ваша учетная запись создана!';
+$_['text_success_edit']       = 'Успех: Ваша учетная запись успешно обновлена!';
 
 // Entry
 $_['entry_customer_group']    = 'Тип счёта';
@@ -36,7 +36,7 @@ $_['error_lastname']          = 'Фамилия должна быть от 1 д�
 $_['error_customer_group']    = 'Группа покупателей недействительна!';
 $_['error_customer_approval'] = 'Warning: Your this customer group requires approval and can not be used with guest account.';
 $_['error_email']             = 'Адрес электронной почты недействителен!';
-$_['error_exists']            = 'Warning: E-Mail Address is already registered!';
+$_['error_exists']            = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_telephone']         = 'Телефон должен быть от 3 до 32 символов!';
 $_['error_password']          = 'Пароль должен быть от 4 до 20 символов!';
 $_['error_confirm']           = 'Подтверждение пароля не совпадает с паролем!';

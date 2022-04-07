@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Категории';
 
 // Text
-$_['text_success']           = 'Success: You have modified categories!';
+$_['text_success']           = 'Успех: Вы изменили категории!';
 $_['text_list']              = 'Список категорий';
 $_['text_add']               = 'Добавить категорию';
 $_['text_edit']              = 'Редактирование категории';
@@ -43,6 +43,6 @@ $_['error_warning']          = 'Warning: Please check the form carefully for err
 $_['error_permission']       = 'Warning: You do not have permission to modify categories!';
 $_['error_name']             = 'Название категории должно быть от 1 до 255 символов!';
 $_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
-$_['error_parent']           = 'The parent category you have chosen is a child of the current one!';
+$_['error_parent']           = 'Выбранная вами родительская категория является дочерней по отношению к текущей!';
 $_['error_seo']              = 'Требуется keyword SEO URL-адреса!';
 $_['error_keyword']          = 'Семантический URL-адрес должен быть уникальным!';

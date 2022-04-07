@@ -4,7 +4,7 @@ $_['heading_title']      = 'Оплата кредитной картой';
 
 // Text
 $_['text_title']         = 'Пожалуйста, введите данные вашей карты ниже';
-$_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site.';
+$_['text_description']   = 'Этот способ оплаты является фиктивным и не хранит информацию о кредитной карте, а также не должен использоваться на действующем сайте.';
 $_['text_month']         = 'Месяцы';
 $_['text_year']          = 'Годы';
 $_['text_store']         = 'Запомнить мою карту';

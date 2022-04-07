@@ -5,7 +5,7 @@ $_['heading_title']         = 'Отчет по заказам покупател
 // Text
 $_['text_extension']        = 'Расширения';
 $_['text_edit']             = 'Редактирование отчета о заказах покупателя';
-$_['text_success']          = 'Success: You have modified customer orders report!';
+$_['text_success']          = 'Успех: Вы изменили отчет о заказах покупателя!';
 $_['text_filter']           = 'Фильтр';
 $_['text_all_status']       = 'Все статусы';
 

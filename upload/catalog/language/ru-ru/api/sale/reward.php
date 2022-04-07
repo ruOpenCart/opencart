@@ -1,7 +1,7 @@
 <?php
 // Text
-$_['text_success']  = 'Success: Your reward points discount has been applied!';
-$_['text_remove']   = 'Success: Your reward points discount has been removed!';
+$_['text_success']  = 'Успех: Ваша скидка за бонусные баллы была применена!';
+$_['text_remove']   = 'Успех: Ваша скидка за бонусные баллы была удалена!';
 
 // Error
 $_['error_reward']  = 'Warning: Please enter the amount of reward points to use!';

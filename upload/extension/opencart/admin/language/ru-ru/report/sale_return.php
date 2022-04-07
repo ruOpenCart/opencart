@@ -5,7 +5,7 @@ $_['heading_title']       = 'Отчет по возвратам';
 // Text
 $_['text_extension']      = 'Расширения';
 $_['text_edit']           = 'Редактирование отчета о возвратах';
-$_['text_success']        = 'Success: You have modified returns report!';
+$_['text_success']        = 'Успех: Вы изменили отчет о возвратах!';
 $_['text_filter']         = 'Фильтр';
 $_['text_year']           = 'Годы';
 $_['text_month']          = 'Месяцы';

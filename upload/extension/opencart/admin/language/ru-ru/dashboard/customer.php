@@ -4,7 +4,7 @@ $_['heading_title']    = 'Всего покупателей';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified dashboard customer!';
+$_['text_success']     = 'Успех: Вы изменили покупателя панели!';
 $_['text_edit']        = 'Редактирование покупателя для панели';
 $_['text_view']        = 'Смотреть подробнее...';
 

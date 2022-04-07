@@ -3,7 +3,7 @@
 $_['heading_title']        = 'API';
 
 // Text
-$_['text_success']         = 'Success: You have modified APIs!';
+$_['text_success']         = 'Успех: Вы изменили API!';
 $_['text_list']            = 'Список API';
 $_['text_add']             = 'Добавить API';
 $_['text_edit']            = 'Редактирование API';
@@ -28,4 +28,4 @@ $_['entry_ip']             = 'IP-адрес';
 $_['error_permission']     = 'Warning: You do not have permission to modified APIs!';
 $_['error_username']       = 'Имя пользователя API должно содержать от 3 до 20 символов!';
 $_['error_key']            = 'Ключ API должен быть от 3 до 256 символов!';
-$_['error_ip']             = 'You must have at least one IP added to the allowed list!';
+$_['error_ip']             = 'Вы должны добавить хотя бы один IP-адрес в разрешенный список!';

@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Товары';
 
 // Text
-$_['text_success']           = 'Success: You have modified products!';
+$_['text_success']           = 'Успех: Вы изменили товары!';
 $_['text_variant']           = 'Пожалуйста, обратите внимание, что это вариант товара, который вы должны переопределить <a href="%s" target="_blank" class="alert-link">основной товар</a>. В противном случае данные будут заменены на данные <a href="%s" target="_blank" class="alert-link">основного товара</a> при сохранении.';
 $_['text_list']              = 'Список товаров';
 $_['text_add']               = 'Добавить товар';

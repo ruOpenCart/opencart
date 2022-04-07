@@ -3,10 +3,10 @@
 $_['heading_title']    = 'Настройки разработчика';
 
 // Text
-$_['text_success']     = 'Success: You have modified developer settings!';
+$_['text_success']     = 'Успех: Вы изменили настройки разработчика!';
 $_['text_theme']       = 'Тема';
 $_['text_sass']        = 'SASS';
-$_['text_cache']       = 'Success: You have cleared the %s cache!';
+$_['text_cache']       = 'Успех: Вы очистили кэш %s!';
 
 // Column
 $_['column_component'] = 'Компонент';

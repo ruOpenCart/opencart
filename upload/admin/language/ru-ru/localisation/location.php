@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Расположения магазина';
 
 // Text
-$_['text_success']     = 'Success: You have modified store locations!';
+$_['text_success']     = 'Успех: Вы изменили местоположение магазина!';
 $_['text_list']        = 'Список расположений магазинов';
 $_['text_add']         = 'Добавить расположение магазина';
 $_['text_edit']        = 'Редактирование расположения магазина';
@@ -26,7 +26,7 @@ $_['entry_comment']    = 'Комментарий';
 // Help
 $_['help_geocode']     = 'Пожалуйста, введите геокод местоположения вашего магазина вручную.';
 $_['help_open']        = 'Заполните время работы вашего магазина.';
-$_['help_comment']     = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
+$_['help_comment']     = 'Это поле для любых специальных заметок, которые вы хотели бы сообщить клиенту, т. е. Магазин не принимает чеки.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify store locations!';

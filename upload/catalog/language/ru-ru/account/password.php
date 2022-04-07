@@ -5,7 +5,7 @@ $_['heading_title']  = 'Изменение пароля';
 // Text
 $_['text_account']   = 'Аккаунт';
 $_['text_password']  = 'Ваш пароль';
-$_['text_success']   = 'Success: Your password has been successfully updated.';
+$_['text_success']   = 'Успех: Ваш пароль был успешно обновлен!';
 
 // Entry
 $_['entry_password'] = 'Пароль';

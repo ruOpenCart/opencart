@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Пользователи';
 
 // Text
-$_['text_success']          = 'Success: You have modified users!';
+$_['text_success']          = 'Успех: Вы изменили пользователей!';
 $_['text_list']             = 'Список пользователей';
 $_['text_add']              = 'Добавить пользователя';
 $_['text_edit']             = 'Редактирование пользователя';
@@ -35,4 +35,4 @@ $_['error_confirm']         = 'Пароль и подтверждение пар
 $_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']           = 'Адрес электронной почты недействителен!';
-$_['error_exists_email']    = 'Warning: E-Mail Address is already registered!';
+$_['error_exists_email']    = 'Внимание: Адрес эл. почты уже зарегистрирован!';

@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Статусы склада';
 
 // Text
-$_['text_success']     = 'Success: You have modified stock statuses!';
+$_['text_success']     = 'Успех: Вы изменили статусы склада!';
 $_['text_list']        = 'Список статусов склада';
 $_['text_add']         = 'Добавить статус склада';
 $_['text_edit']        = 'Редактирование статуса склада';

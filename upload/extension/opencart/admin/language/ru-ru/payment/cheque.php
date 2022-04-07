@@ -4,7 +4,7 @@ $_['heading_title']      = 'Чек / Денежный перевод';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified cheque / money order account details!';
+$_['text_success']       = 'Успех: Вы изменили чек / денежный перевод!';
 $_['text_edit']          = 'Редактирование чека / денежного перевода';
 
 // Entry

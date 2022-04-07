@@ -4,7 +4,7 @@ $_['heading_title']    = 'Хиты продаж';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified bestsellers module!';
+$_['text_success']     = 'Успех: Вы изменили модуль хиты продаж!';
 $_['text_edit']        = 'Редактирование модуля хиты продаж';
 $_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Вертикально';

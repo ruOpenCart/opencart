@@ -3,7 +3,7 @@
 $_['heading_title']             = 'Партнеры';
 
 // Text
-$_['text_success']              = 'Success: You have modified affiliates!';
+$_['text_success']              = 'Успех: Вы изменили партнеров!';
 $_['text_list']                 = 'Список партнеров';
 $_['text_add']                  = 'Добавить партнера';
 $_['text_edit']                 = 'Изменить партнера';
@@ -59,14 +59,14 @@ $_['entry_amount']              = 'Сумма';
 $_['entry_date_added']          = 'Дата добавления';
 
 // Help
-$_['help_tracking']             = 'The tracking code that will be used to track referrals.';
+$_['help_tracking']             = 'Код отслеживания, который будет использован для отслеживания рефералов.';
 $_['help_commission']           = 'Процент, который партнер получает за каждый заказ.';
 
 // Error
 $_['error_warning']             = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']          = 'Warning: You do not have permission to modify affiliates!';
-$_['error_customer']            = 'Warning: Customer required!';
-$_['error_already']             = 'Warning: Customer is already registered as an affiliate!';
+$_['error_customer']            = 'Внимание: Покупатель обязателен!';
+$_['error_already']             = 'Внимание: Покупатель уже зарегистрирован в качестве партнера!';
 $_['error_tracking']            = 'Требуется код отслеживания!';
 $_['error_exists']              = 'Код отслеживания уже используется другим партнером!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';

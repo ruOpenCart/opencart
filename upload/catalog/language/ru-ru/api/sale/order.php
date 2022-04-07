@@ -1,10 +1,10 @@
 <?php
 // Text
-$_['text_success']           = 'Success: You have modified orders!';
+$_['text_success']           = 'Успех: Вы изменили заказы!';
 
 // Error
 $_['error_order']            = 'Warning: Order could not be found!';
-$_['error_customer']         = 'Warning: Customer details required!';
+$_['error_customer']         = 'Внимание: Детали о покупателе обязательны!';
 $_['error_payment_address']  = 'Warning: Payment address required!';
 $_['error_payment_method']   = 'Warning: Payment method required!';
 $_['error_no_payment']       = 'Warning: No Payment options are available!';
@@ -14,4 +14,4 @@ $_['error_no_shipping']      = 'Warning: No Shipping options are available!';
 $_['error_stock']            = 'Warning: Products marked with *** are not available in the desired quantity or not in stock!';
 $_['error_minimum']          = 'Warning: Minimum order amount for %s is %s!';
 $_['error_product']          = 'Warning: Products required!';
-$_['error_comment']          = 'Warning: Comment required!';
+$_['error_comment']          = 'Внимание: Требуется комментарий!';

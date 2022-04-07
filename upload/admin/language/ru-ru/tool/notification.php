@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Уведомления';
 
 // Text
-$_['text_success']     = 'Success: You have modified notifications!';
+$_['text_success']     = 'Успех: Вы изменили уведомления!';
 $_['text_list']        = 'Список уведомлений';
 
 // Column

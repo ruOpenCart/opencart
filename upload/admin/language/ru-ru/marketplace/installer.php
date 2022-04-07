@@ -3,10 +3,10 @@
 $_['heading_title']     = 'Установщик расширений';
 
 // Text
-$_['text_upload']       = 'Success: The extension has been uploaded!';
-$_['text_install']      = 'Success: The extension has been installed!';
-$_['text_uninstall']    = 'Success: The extension has been uninstalled!';
-$_['text_delete']       = 'Success: The extension has been deleted!';
+$_['text_upload']       = 'Успех: Расширение было загружено!';
+$_['text_install']      = 'Успех: Расширение было установлено!';
+$_['text_uninstall']    = 'Успех: Расширение было деинсталлировано!';
+$_['text_delete']       = 'Успех: Расширение было удалено!';
 $_['text_progress']     = 'Прогресс установки';
 $_['text_installed']    = 'Установленные расширения';
 

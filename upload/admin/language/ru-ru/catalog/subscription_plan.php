@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Планы подписки';
 
 // Text
-$_['text_success']           = 'Success: You have modified subscription plans!';
+$_['text_success']           = 'Успех: Вы изменили планы подписки!';
 $_['text_list']              = 'Список планов подписки';
 $_['text_add']               = 'Добавить план подписки';
 $_['text_edit']              = 'Редактирование плана подписки';
@@ -35,7 +35,7 @@ $_['column_sort_order']     = 'Порядок сортировки';
 $_['column_action']         = 'Действие';
 
 // Help
-$_['help_duration']         = 'The duration is the number of times the user will make a payment, set this to 0 if you want payments until they are cancelled.';
+$_['help_duration']         = 'Продолжительность - это количество раз, которое пользователь будет совершать платеж; установите значение 0, если вы хотите, чтобы платежи осуществлялись до тех пор, пока они не будут отменены.';
 $_['help_cycle']            = 'Сумма подписки рассчитывается по частоте и циклам.';
 $_['help_frequency']        = 'Если вы используете частоту "неделя" и цикл "2", то пользователю будет выставляться счет каждые 2 недели.';
 

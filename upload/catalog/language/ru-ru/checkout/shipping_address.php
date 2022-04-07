@@ -5,7 +5,7 @@ $_['heading_title']         = 'Адрес доставки';
 // Text
 $_['text_address_new']      = 'Я хочу использовать новый адрес';
 $_['text_address_existing'] = 'Я хочу использовать существующий адрес';
-$_['text_success']          = 'Success: You have changed shipping address!';
+$_['text_success']          = 'Успех: Вы изменили адрес доставки!';
 
 // Entry
 $_['entry_address']         = 'Выбрать адрес';

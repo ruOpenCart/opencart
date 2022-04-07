@@ -3,11 +3,11 @@
 $_['heading_title']        = 'Валюты';
 
 // Text
-$_['text_success']         = 'Success: You have modified currencies!';
+$_['text_success']         = 'Успех: Вы изменили валюты!';
 $_['text_list']            = 'Список валют';
 $_['text_add']             = 'Добавить валюту';
 $_['text_edit']            = 'Редактирование валюты';
-$_['text_iso']             = 'You can find a full list of ISO currency codes and settings <a href="http://www.xe.com/iso4217.php" target="_blank" class="alert-link">here</a>.';
+$_['text_iso']             = 'Полный список кодов валют ISO и настроек можно найти <a href="http://www.xe.com/iso4217.php" target="_blank" class="alert-link">здесь</a>.';
 
 // Column
 $_['column_title']         = 'Заголовок валюты';
@@ -28,7 +28,7 @@ $_['entry_status']         = 'Статус';
 
 // Help
 $_['help_code']            = 'Не изменяется, если валюта установлена по умолчанию.';
-$_['help_value']           = 'The value of your default currency in the current currency unit. Set to 1 for your default currency.';
+$_['help_value']           = 'Значение валюты по умолчанию в текущей валюте. Установите значение 1 для валюты по умолчанию.';
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modify currencies!';

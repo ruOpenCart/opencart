@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']       = 'Success: Shipping address has been set!';
+$_['text_success']       = 'Успех: Адрес доставки был установлен!';
 
 // Error
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';

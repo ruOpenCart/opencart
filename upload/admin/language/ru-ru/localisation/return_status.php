@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Статусы возврата';
 
 // Text
-$_['text_success']     = 'Success: You have modified return statuses!';
+$_['text_success']     = 'Успех: Вы изменили статусы возврата!';
 $_['text_list']        = 'Список статусов возврата';
 $_['text_add']         = 'Добавить статус возврата';
 $_['text_edit']        = 'Редактирование статуса возврата';

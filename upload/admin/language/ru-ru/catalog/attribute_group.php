@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Группы атрибутов';
 
 // Text
-$_['text_success']      = 'Success: You have modified attribute groups!';
+$_['text_success']      = 'Успех: Вы изменили группы атрибута!';
 $_['text_list']         = 'Список групп атрибутов';
 $_['text_add']          = 'Добавить группу атрибутов';
 $_['text_edit']         = 'Редактирование группы атрибутов';

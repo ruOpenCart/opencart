@@ -3,7 +3,7 @@
 $_['text_refine']      = 'Уточнить поиск';
 $_['text_product']     = 'Товары';
 $_['text_error']       = 'Категория не найдена!';
-$_['text_no_results']  = 'There are no products to list in this category.';
+$_['text_no_results']  = 'В этой категории нет товаров.';
 $_['text_compare']     = 'Сравнение товаров (%s)';
 $_['text_sort']        = 'Сортировать по';
 $_['text_default']     = 'По умолчанию';

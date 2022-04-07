@@ -4,7 +4,7 @@ $_['heading_title']      = 'Банковский перевод';
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified bank transfer details!';
+$_['text_success']       = 'Успех: Вы изменили реквизиты банковского перевода!';
 $_['text_edit']          = 'Редактирование банковского перевода';
 
 // Entry

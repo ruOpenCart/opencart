@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Защиты от ботов';
 
 // Text
-$_['text_success']     = 'Success: You have modified captchas!';
+$_['text_success']     = 'Успех: Вы изменили капчи!';
 $_['text_list']        = 'Список защит от ботов';
 
 // Column

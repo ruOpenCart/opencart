@@ -4,7 +4,7 @@ $_['heading_title']    = 'Информация';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified information module!';
+$_['text_success']     = 'Успех: Вы изменили модуль информация!';
 $_['text_edit']        = 'Редактирование модуля информации';
 
 // Entry

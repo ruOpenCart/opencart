@@ -4,7 +4,7 @@ $_['heading_title']    = 'Аналитика продаж';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified dashboard chart!';
+$_['text_success']     = 'Успех: Вы изменили диаграмму панели!';
 $_['text_edit']        = 'Редактирование диаграммы для панели';
 $_['text_order']       = 'Заказы';
 $_['text_customer']    = 'Покупатели';

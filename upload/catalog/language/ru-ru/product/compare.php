@@ -17,9 +17,9 @@ $_['text_summary']      = 'Краткое описание';
 $_['text_weight']       = 'Вес';
 $_['text_dimension']    = 'Габаритные размеры (Д x Ш x В)';
 $_['text_compare']      = 'Сравнение товаров (%s)';
-$_['text_success']      = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">product comparison</a>!';
-$_['text_remove']       = 'Success: You have modified your product comparison!';
-$_['text_no_results']   = 'You have not chosen any products to compare.';
+$_['text_success']      = 'Успех: Вы добавили <a href="%s">%s</a> в ваше <a href="%s">сравнение товаров</a>!';
+$_['text_remove']       = 'Успех: Вы изменили сравнение товаров!';
+$_['text_no_results']   = 'Вы не выбрали ни одного товара для сравнения.';
 
 // Error
 $_['error_product']     = 'Warning: Product could not be found!';

@@ -4,7 +4,7 @@ $_['heading_title']    = 'Доставка на основе веса';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified weight based shipping!';
+$_['text_success']     = 'Успех: Вы изменили доставку на основе веса!';
 $_['text_edit']        = 'Редактирование доставки на основе веса';
 
 // Entry

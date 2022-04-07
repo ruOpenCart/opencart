@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_address_format']      = 'Формат адреса';
-$_['text_affiliate']           = 'Партнёр';
+$_['text_affiliate']           = 'Партнерская программа';
 $_['text_api']                 = 'API';
 $_['text_attribute']           = 'Атрибуты';
 $_['text_attribute_group']     = 'Группы атрибутов';
@@ -74,7 +74,7 @@ $_['text_upload']              = 'Загрузки';
 $_['text_users']               = 'Пользователи';
 $_['text_user_group']          = 'Группы пользователя';
 $_['text_voucher']             = 'Подарочные сертификаты';
-$_['text_voucher_theme']       = 'Темы сертификата';
+$_['text_voucher_theme']       = 'Темы сертификатов';
 $_['text_weight_class']        = 'Классы веса';
 $_['text_zone']                = 'Регионы';
 $_['text_complete_status']     = 'Выполненные заказы';

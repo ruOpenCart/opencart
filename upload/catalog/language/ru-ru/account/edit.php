@@ -6,7 +6,7 @@ $_['heading_title']      = 'Информация о моей учетной за
 $_['text_account']       = 'Аккаунт';
 $_['text_edit']          = 'Редактирование информации';
 $_['text_your_details']  = 'Ваши персональные данные';
-$_['text_success']       = 'Success: Your account has been successfully updated.';
+$_['text_success']       = 'Успех: Ваша учетная запись успешно обновлена!';
 
 // Entry
 $_['entry_firstname']    = 'Имя';
@@ -16,7 +16,7 @@ $_['entry_telephone']    = 'Телефон';
 
 // Error
 $_['error_token']        = 'Warning: Edit token invalid!';
-$_['error_exists']       = 'Warning: E-Mail address is already registered!';
+$_['error_exists']       = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']     = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']        = 'Адрес электронной почты недействителен!';

@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Баннеры';
 
 // Text
-$_['text_success']     = 'Success: You have modified banners!';
+$_['text_success']     = 'Успех: Вы изменили баннеры!';
 $_['text_list']        = 'Список баннеров';
 $_['text_add']         = 'Добавить баннер';
 $_['text_edit']        = 'Редактирование банера';

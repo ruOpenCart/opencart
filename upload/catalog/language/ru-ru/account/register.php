@@ -23,7 +23,7 @@ $_['entry_confirm']        = 'Подтверждение пароля';
 
 // Error
 $_['error_token']          = 'Warning: Register token invalid!';
-$_['error_exists']         = 'Warning: E-Mail Address is already registered!';
+$_['error_exists']         = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_customer_group'] = 'Группа покупателей недействительна!';
 $_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']       = 'Фамилия должна быть от 1 до 32 символов!';

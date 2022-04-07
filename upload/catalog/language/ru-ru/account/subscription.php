@@ -35,7 +35,7 @@ $_['text_transaction_suspended_failed']    = 'Приостановлен из-з
 $_['text_transaction_outstanding_failed']  = 'Неоплаченный платеж не удалось';
 $_['text_transaction_expired']             = 'Истекло';
 $_['text_no_results']                      = 'Подписки не найдены!';
-$_['text_error']                           = 'The recurring order you requested could not be found!';
+$_['text_error']                           = 'Запрошенный вами заказ подписки не найден!';
 $_['text_cancelled']                       = 'Повторяющийся платеж был отменен';
 
 // Column

@@ -4,8 +4,8 @@ $_['heading_title']        = 'Почта';
 
 // Text
 $_['text_mail']            = 'Отправить e-mail покупателям';
-$_['text_success']         = 'Your message has been successfully sent!';
-$_['text_sent']            = 'Your message has been successfully sent to %s - %s recipients!';
+$_['text_success']         = 'Ваше сообщение было успешно отправлено!';
+$_['text_sent']            = 'Ваше сообщение было успешно отправлено %s - %s получателям!';
 $_['text_default']         = 'По умолчанию';
 $_['text_newsletter']      = 'Все подписчики на рассылку';
 $_['text_customer_all']    = 'Все покупатели';
@@ -20,7 +20,7 @@ $_['entry_store']          = 'От';
 $_['entry_to']             = 'Кому';
 $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_customer']       = 'Покупатель';
-$_['entry_affiliate']      = 'Партнёр';
+$_['entry_affiliate']      = 'Партнерская программа';
 $_['entry_product']        = 'Товары';
 $_['entry_subject']        = 'Тема';
 $_['entry_message']        = 'Сообщение';

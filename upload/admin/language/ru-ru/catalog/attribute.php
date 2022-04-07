@@ -3,7 +3,7 @@
 $_['heading_title']          = 'Атрибуты';
 
 // Text
-$_['text_success']           = 'Success: You have modified attributes!';
+$_['text_success']           = 'Успех: Вы изменили атрибуты!';
 $_['text_list']              = 'Список атрибутов';
 $_['text_add']               = 'Добавить атрибут';
 $_['text_edit']              = 'Редактирование атрибута';

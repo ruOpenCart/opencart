@@ -4,7 +4,7 @@ $_['heading_title']    = 'Кредит магазина';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified store credit total!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму кредита магазина!';
 $_['text_edit']        = 'Редактирование общей суммы кредита магазина';
 
 // Entry

@@ -4,7 +4,7 @@ $_['heading_title']    = 'Аккаунт';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified account module!';
+$_['text_success']     = 'Успех: Вы изменили модуль учетной записи!';
 $_['text_edit']        = 'Изменить модуль учетной записи';
 
 // Entry

@@ -3,7 +3,7 @@
 $_['heading_title']      = 'Статусы подписки';
 
 // Text
-$_['text_success']       = 'Success: You have modified subscription statuses!';
+$_['text_success']       = 'Успех: Вы изменили статусы подписки!';
 $_['text_list']          = 'Список статусов подписки';
 $_['text_add']           = 'Добавить статус подписки';
 $_['text_edit']          = 'Редактирование статуса подписки';

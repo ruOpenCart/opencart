@@ -4,7 +4,7 @@ $_['heading_title']    = 'Фиксированная ставка';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified flat rate shipping!';
+$_['text_success']     = 'Успех: Вы изменили фиксированную стоимость доставки!';
 $_['text_edit']        = 'Редактирование фиксированной стоимости доставки';
 
 // Entry

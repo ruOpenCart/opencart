@@ -4,7 +4,7 @@ $_['heading_title']    = 'Плата за низкую стоимость зак
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified low order fee total!';
+$_['text_success']     = 'Успех: Вы изменили общую сумму оплаты за минимальный заказ!';
 $_['text_edit']        = 'Редактирование общей суммы минимального заказа';
 
 // Entry

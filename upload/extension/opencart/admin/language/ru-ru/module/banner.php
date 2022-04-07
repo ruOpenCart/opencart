@@ -4,7 +4,7 @@ $_['heading_title']    = 'Баннер';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified banner module!';
+$_['text_success']     = 'Успех: Вы изменили модуль банер!';
 $_['text_edit']        = 'Редактирование модуля баннера';
 $_['text_slide']       = 'Слайд';
 $_['text_fade']        = 'Затухание';
@@ -22,7 +22,7 @@ $_['entry_height']     = 'Высота';
 $_['entry_status']     = 'Статус';
 
 // Help
-$_['help_items']       = 'The number of items to show per slide.';
+$_['help_items']       = 'Количество элементов для показа на слайде.';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify banner module!';

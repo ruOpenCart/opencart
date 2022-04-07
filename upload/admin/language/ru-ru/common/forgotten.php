@@ -9,7 +9,7 @@ $_['text_success']  = 'Success: Your password has been successfully updated.';
 
 // Text
 $_['text_password']  = 'Введите новый пароль, который вы хотите использовать.';
-$_['text_success']   = 'Success: Your password has been successfully updated.';
+$_['text_success']   = 'Успех: Ваш пароль был успешно обновлен!';
 
 // Entry
 $_['entry_password'] = 'Пароль';

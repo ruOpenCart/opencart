@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Защита от мошенничества';
 
 // Text
-$_['text_success']     = 'Success: You have modified anti-fraud!';
+$_['text_success']     = 'Успех: Вы изменили защиту от мошенничества!';
 $_['text_list']        = 'Список защит от мошенничества';
 
 // Column

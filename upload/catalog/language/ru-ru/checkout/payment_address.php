@@ -5,7 +5,7 @@ $_['heading_title']         = 'Платёжный адрес';
 // Text
 $_['text_address_new']      = 'Я хочу использовать новый адрес';
 $_['text_address_existing'] = 'Я хочу использовать существующий адрес';
-$_['text_success']          = 'Success: You have changed payment address!';
+$_['text_success']          = 'Успех: Вы изменили платежный адрес!';
 
 // Entry
 $_['entry_address']         = 'Выбрать адрес';

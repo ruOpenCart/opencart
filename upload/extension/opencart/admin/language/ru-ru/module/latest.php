@@ -4,7 +4,7 @@ $_['heading_title']    = 'Последние';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified latest module!';
+$_['text_success']     = 'Успех: Вы изменили модуль последние!';
 $_['text_edit']        = 'Редактирование модуля новинки';
 $_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Вертикально';

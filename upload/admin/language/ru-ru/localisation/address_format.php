@@ -3,7 +3,7 @@
 $_['heading_title']           = 'Формат адреса';
 
 // Text
-$_['text_success']            = 'Success: You have modified address formats!';
+$_['text_success']            = 'Успех: Вы изменили форматы адреса!';
 $_['text_list']               = 'Список форматов адресов';
 $_['text_add']                = 'Добавить формат адреса';
 $_['text_edit']               = 'Изменить формат адреса';

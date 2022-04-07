@@ -5,7 +5,7 @@ $_['heading_title']     = 'Загрузки';
 // Text
 $_['text_account']      = 'Аккаунт';
 $_['text_downloads']    = 'Загрузки';
-$_['text_no_results']   = 'You have not made any previous downloadable orders!';
+$_['text_no_results']   = 'У вас не было заказов с файлами для скачивания!';
 
 // Column
 $_['column_order_id']   = 'Номер заказа';

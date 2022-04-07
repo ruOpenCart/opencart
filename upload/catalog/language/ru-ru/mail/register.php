@@ -2,8 +2,8 @@
 // Text
 $_['text_subject']        = '%s - Благодарим за регистрацию';
 $_['text_welcome']        = 'Добро пожаловать и спасибо за регистрацию в %s!';
-$_['text_login']          = 'Your account has now been created and you can log in by using your email address and password by visiting our website or at the following URL:';
-$_['text_approval']       = 'Your account must be approved before you can login. Once approved you can log in by using your email address and password by visiting our website or at the following URL:';
+$_['text_login']          = 'Ваша учетная запись была создана, и вы можете войти, используя свой адрес электронной почты и пароль, посетив наш веб-сайт по следующему URL:';
+$_['text_approval']       = 'Ваша учетная запись должна быть одобрена, прежде чем вы сможете войти. После одобрения вы можете войти используя свой адрес электронной почты и пароль, посетив наш веб-сайт или по следующему URL:';
 $_['text_service']        = 'После входа в систему вы сможете получить доступ к другим услугам, включая просмотр прошлых заказов, печать счетов-фактур и редактирование информации о вашей учетной записи.';
 $_['text_thanks']         = 'Спасибо,';
 $_['text_new_customer']   = 'Новый покупатель';

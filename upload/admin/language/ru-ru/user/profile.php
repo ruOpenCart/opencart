@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Профиль';
 
 // Text
-$_['text_success']          = 'Success: You have modified your profile!';
+$_['text_success']          = 'Успех: Вы изменили свой профиль!';
 $_['text_edit']             = 'Редактирование вашего профиля';
 
 // Column
@@ -30,4 +30,4 @@ $_['error_confirm']         = 'Пароль и подтверждение пар
 $_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']           = 'Адрес электронной почты недействителен!';
-$_['error_email_exists']    = 'Warning: E-Mail Address is already registered!';
+$_['error_email_exists']    = 'Внимание: Адрес эл. почты уже зарегистрирован!';

@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Редактор языка';
 
 // Text
-$_['text_success']     = 'Success: You have modified language editor!';
+$_['text_success']     = 'Успех: Вы изменили редактор языка!';
 $_['text_list']        = 'Список переводов';
 $_['text_add']         = 'Добавить перевод';
 $_['text_edit']        = 'Редактирование перевода';

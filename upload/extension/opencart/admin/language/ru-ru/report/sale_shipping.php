@@ -5,7 +5,7 @@ $_['heading_title']      = 'Отчет о доставке';
 // Text
 $_['text_extension']     = 'Расширения';
 $_['text_edit']          = 'Редактирование отчета о доставке';
-$_['text_success']       = 'Success: You have modified shipping report!';
+$_['text_success']       = 'Успех: Вы изменили отчет о доставке!';
 $_['text_filter']        = 'Фильтр';
 $_['text_year']          = 'Годы';
 $_['text_month']         = 'Месяцы';

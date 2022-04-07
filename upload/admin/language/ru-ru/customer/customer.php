@@ -3,7 +3,7 @@
 $_['heading_title']         = 'Покупатели';
 
 // Text
-$_['text_success']          = 'Success: You have modified customers!';
+$_['text_success']          = 'Успех: Вы изменили покупателей!';
 $_['text_list']             = 'Список покупателей';
 $_['text_add']              = 'Добавить клиента';
 $_['text_edit']             = 'Редактирование покупателя';
@@ -85,9 +85,9 @@ $_['help_points']           = 'Используйте минус для удал
 // Error
 $_['error_warning']         = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']      = 'Warning: You do not have permission to modify customers!';
-$_['error_customer']        = 'Warning: Customer does not exist!';
-$_['error_exists']          = 'Warning: E-Mail Address is already registered!';
-$_['error_address']         = 'Warning: Address does not exist!';
+$_['error_customer']        = 'Внимание: Покупатель не существует!';
+$_['error_exists']          = 'Внимание: Адрес эл. почты уже зарегистрирован!';
+$_['error_address']         = 'Внимание: Адрес не существует!';
 $_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']           = 'Адрес электронной почты недействителен!';

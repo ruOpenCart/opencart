@@ -4,7 +4,7 @@ $_['heading_title']    = 'Скидки';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified module specials!';
+$_['text_success']     = 'Успех: Вы изменили модуль скидки!';
 $_['text_edit']        = 'Редактирование модуля специальных предложений';
 $_['text_horizontal']  = 'Горизонтально';
 $_['text_vertical']    = 'Вертикально';

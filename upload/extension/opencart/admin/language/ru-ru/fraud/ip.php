@@ -4,7 +4,7 @@ $_['heading_title']      = 'Защита от мошенничества по IP
 
 // Text
 $_['text_extension']     = 'Расширения';
-$_['text_success']       = 'Success: You have modified Anti-Fraud IP!';
+$_['text_success']       = 'Успех: Вы изменили IP-адрес защиты от мошенничества!';
 $_['text_edit']          = 'Редактирование IP-адреса анти-мошенничества';
 $_['text_ip_add']        = 'Добавить IP-адрес';
 $_['text_ip_list']       = 'Список мошеннических IP-адресов';
