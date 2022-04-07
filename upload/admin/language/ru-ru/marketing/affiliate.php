@@ -65,8 +65,8 @@ $_['help_commission']           = 'Процент, который партнер
 // Error
 $_['error_warning']             = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']          = 'Warning: You do not have permission to modify affiliates!';
-$_['error_customer']            = 'Warning: Customer required!';
-$_['error_already']             = 'Warning: Customer is already registered as an affiliate!';
+$_['error_customer']            = 'Внимание: Покупатель обязателен!';
+$_['error_already']             = 'Внимание: Покупатель уже зарегистрирован в качестве партнера!';
 $_['error_tracking']            = 'Требуется код отслеживания!';
 $_['error_exists']              = 'Код отслеживания уже используется другим партнером!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';
