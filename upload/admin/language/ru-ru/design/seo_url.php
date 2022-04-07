@@ -32,7 +32,7 @@ $_['help_sort_order']      = 'Порядок сортировки ключевы
 
 // Error
 $_['error_permission']     = 'Warning: You do not have permission to modify SEO URL!';
-$_['error_exists']         = 'Warning: Combination of store, language key, value, keyword already exists!';
+$_['error_exists']         = 'Внимание: Комбинация магазина, ключа языка, значения, ключевого слова уже существует!';
 $_['error_key']            = 'Ключ должен быть от 1 до 64 символов!';
 $_['error_value']          = 'Значение должно быть от 1 до 255 символов!';
 $_['error_value_exists']   = 'Значение уже используется!';
