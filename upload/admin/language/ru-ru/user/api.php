@@ -28,4 +28,4 @@ $_['entry_ip']             = 'IP-адрес';
 $_['error_permission']     = 'Warning: You do not have permission to modified APIs!';
 $_['error_username']       = 'Имя пользователя API должно содержать от 3 до 20 символов!';
 $_['error_key']            = 'Ключ API должен быть от 3 до 256 символов!';
-$_['error_ip']             = 'You must have at least one IP added to the allowed list!';
+$_['error_ip']             = 'Вы должны добавить хотя бы один IP-адрес в разрешенный список!';
