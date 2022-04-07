@@ -11,4 +11,4 @@ $_['column_points']      = 'Баллы';
 $_['text_account']       = 'Аккаунт';
 $_['text_reward']        = 'Бонусные баллы';
 $_['text_total']         = 'Ваше общее количество баллов:';
-$_['text_no_results']    = 'You do not have any reward points!';
+$_['text_no_results']    = 'У вас нет бонусных баллов!';
