@@ -16,7 +16,7 @@ $_['entry_telephone']    = 'Телефон';
 
 // Error
 $_['error_token']        = 'Warning: Edit token invalid!';
-$_['error_exists']       = 'Warning: E-Mail address is already registered!';
+$_['error_exists']       = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']     = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_email']        = 'Адрес электронной почты недействителен!';
