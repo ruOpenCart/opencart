@@ -3,4 +3,4 @@
 $_['text_success']   = 'Успех: Ваша валюта была изменена!';
 
 // Error
-$_['error_currency'] = 'Warning: Currency could not be found!';
+$_['error_currency'] = 'Внимание: Валюта не найдена!';
