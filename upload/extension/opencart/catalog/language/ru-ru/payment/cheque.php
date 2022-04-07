@@ -6,4 +6,4 @@ $_['heading_title']     = 'Чек / Денежный перевод';
 $_['text_instruction'] = 'Инструкции по оплате чеком / денежным переводом';
 $_['text_payable']     = 'Получатель платежа: ';
 $_['text_address']     = 'Отправить для: ';
-$_['text_payment']     = 'Your order will not ship until we receive payment.';
+$_['text_payment']     = 'Ваш заказ не будет отправлен, пока мы не получим оплату.';
