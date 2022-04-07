@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_success']  = 'Успех: Вы изменили сертификаты!';
-$_['text_subject']  = 'You have been sent a gift certificate from %s';
+$_['text_subject']  = 'Вы получили подарочный сертификат от %s';
 $_['text_greeting'] = 'Поздравляем, вы получили подарочный сертификат на сумму %s';
 $_['text_from']     = 'Этот подарочный сертификат отправлен вам от %s';
 $_['text_message']  = 'С сообщением';
