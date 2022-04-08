@@ -15,4 +15,4 @@ $_['column_date_expire']    = 'Дата истечения';
 $_['column_action']         = 'Действие';
 
 // Error
-$_['error_payment_method']  = 'Warning: Payment method could not be found!';
+$_['error_payment_method']  = 'Внимание: Способ оплаты не найден!';
