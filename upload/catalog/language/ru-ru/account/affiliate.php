@@ -27,8 +27,8 @@ $_['entry_bank_account_name']   = 'Название счёта';
 $_['entry_bank_account_number'] = 'Номер счета';
 
 // Error
-$_['error_token']               = 'Внимание: Недопустимый токен партнера!';
-$_['error_agree']               = 'Warning: You must agree to the %s!';
+$_['error_token']               = 'Внимание: Токен партнера недействителен!';
+$_['error_agree']               = 'Внимание: Вы должны согласиться с %s!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';
 $_['error_paypal']              = 'Адрес электронной почты PayPal недействителен!';
 $_['error_bank_account_name']   = 'Имя счета обязательно!';
