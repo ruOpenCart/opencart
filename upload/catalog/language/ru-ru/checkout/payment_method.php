@@ -10,6 +10,6 @@ $_['text_success']          = 'Успех: Вы изменили способ о
 $_['text_comment']          = 'Успех: Комментарий добавлен!';
 
 // Error
-$_['error_payment_address'] = 'Warning: Payment address required!';
-$_['error_payment_method']  = 'Warning: Payment method required!';
-$_['error_no_payment']      = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
+$_['error_payment_address'] = 'Внимание: Платежный адрес обязателен!';
+$_['error_payment_method']  = 'Внимание: Требуется способ оплаты!';
+$_['error_no_payment']      = 'Внимание: Нет доступных вариантов оплаты. Пожалуйста, <a href="%s">свяжитесь с нами</a> для помощи!';
