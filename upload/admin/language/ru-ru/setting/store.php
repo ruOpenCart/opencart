@@ -99,7 +99,7 @@ $_['help_stock_display']               = 'Показывать остаток н
 $_['help_stock_checkout']              = 'Разрешить покупателям оформлять заказ, если заказываемые товары отсутствуют на складе.';
 
 // Error
-$_['error_warning']                    = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']                    = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']                 = 'Warning: You do not have permission to modify stores!';
 $_['error_url']                        = 'Требуется URL-адрес магазина!';
 $_['error_meta_title']                 = 'Заголовок должен быть от 3 до 32 символов!';
@@ -112,8 +112,8 @@ $_['error_product_description_length'] = 'Необходимая длина оп
 $_['error_pagination']                 = 'Пагинация обязательна!';
 $_['help_product_count']               = 'Показывать количество товаров в подкатегориях в меню категорий в шапке магазина. Будьте внимательны, это приведет к резкому снижению производительности для магазинов с большим количеством подкатегорий!';
 $_['error_customer_group_display']     = 'Вы должны включить группу клиентов по умолчанию, если вы собираетесь использовать эту возможность!';
-$_['error_default']                    = 'Warning: You can not delete your default store!';
-$_['error_store']                      = 'Warning: This Store cannot be deleted as it is currently assigned to %s orders!';
+$_['error_default']                    = 'Внимание: Вы не можете удалить магазин по умолчанию!';
+$_['error_store']                      = 'Внимание: Этот магазин не может быть удален, поскольку он в настоящее время назначен для %s заказов!';
 $_['error_image_thumb']                = 'Необходимо установить размер большого изображения товара!';
 $_['error_image_popup']                = 'Необходимо установить размер всплывающего изображения товара!';
 $_['error_image_product']              = 'Необходимо установить размер изображения списка товаров!';
