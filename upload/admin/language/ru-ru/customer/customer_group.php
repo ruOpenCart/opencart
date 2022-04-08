@@ -25,6 +25,6 @@ $_['help_approval']     = 'Клиенты должны быть одобрены
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify customer groups!';
 $_['error_name']        = 'Название группы покупателей должно быть от 3 до 32 символов!';
-$_['error_default']     = 'Warning: This customer group cannot be deleted as it is currently assigned as the default store customer group!';
-$_['error_store']       = 'Warning: This customer group cannot be deleted as it is currently assigned to %s stores!';
-$_['error_customer']    = 'Warning: This customer group cannot be deleted as it is currently assigned to %s customers!';
+$_['error_default']     = 'Внимание: Эта группа покупателей не может быть удалена, поскольку в настоящее время она назначена как группа покупателей по умолчанию!';
+$_['error_store']       = 'Внимание: Эта группа покупателей не может быть удалена, поскольку она в настоящее время назначена %s магазинам!';
+$_['error_customer']    = 'Внимание: Эта группа покупателей не может быть удалена, поскольку в настоящее время она назначена %s покупателям!';
