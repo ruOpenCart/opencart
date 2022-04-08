@@ -24,4 +24,4 @@ $_['entry_zone']         = 'Регион';
 $_['error_permission']   = 'Warning: You do not have permission to modify geo zones!';
 $_['error_name']         = 'Название географической зоны должно быть от 3 до 32 символов!';
 $_['error_description']  = 'Название описания должно быть от 3 до 255 символов!';
-$_['error_tax_rate']     = 'Warning: This geo zone cannot be deleted as it is currently assigned to one or more tax rates!';
+$_['error_tax_rate']     = 'Внимание: Эта гео-зона не может быть удалена, поскольку она в настоящее время назначена одному или нескольким налоговым ставкам!';
