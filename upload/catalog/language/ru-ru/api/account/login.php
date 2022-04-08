@@ -4,5 +4,5 @@ $_['text_success']     = 'Успех: API сессия успешно начат
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to access the API!';
-$_['error_key']        = 'Warning: Incorrect API Key!';
-$_['error_ip']         = 'Warning: Your IP %s is not allowed to access this API!';
+$_['error_key']        = 'Внимание: Неверный ключ API!';
+$_['error_ip']         = 'Внимание: Ваш IP адрес %s не разрешен для доступа к этому API!';
