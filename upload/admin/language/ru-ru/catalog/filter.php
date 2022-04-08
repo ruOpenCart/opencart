@@ -21,8 +21,8 @@ $_['entry_name']        = 'Название фильтра';
 $_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Warning: You do not have permission to modify filters!';
 $_['error_group']       = 'Название группы фильтра должно быть от 1 до 64 символов!';
 $_['error_name']        = 'Название фильтра должно быть от 1 до 64 символов!';
-$_['error_values']      = 'Warning: Filter Values required!';
+$_['error_values']      = 'Внимание: Требуются значения фильтров!';
