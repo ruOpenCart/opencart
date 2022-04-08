@@ -12,4 +12,4 @@ $_['error_country']      = 'Пожалуйста, выберите страну!
 $_['error_zone']         = 'Пожалуйста, выберите регион / область!';
 $_['error_custom_field'] = '%s обязательно к заполнению!';
 $_['error_regex']        = '%s не является допустимым вводом!';
-$_['error_shipping']     = 'Warning: There are no products that require shipping';
+$_['error_shipping']     = 'Внимание: Нет товаров, требующих доставки!';
