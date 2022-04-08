@@ -34,10 +34,10 @@ $_['entry_image']        = 'Изображение';
 $_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
-$_['error_warning']      = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']      = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']   = 'Warning: You do not have permission to modify options!';
 $_['error_name']         = 'Название опции должно быть от 1 до 128 символов!';
-$_['error_type']         = 'Warning: Option Values required!';
+$_['error_type']         = 'Внимание: Значение опции обязательно!';
 $_['error_option_value'] = 'Название значения опции должно быть от 1 до 128 символов!';
-$_['error_value']        = 'Warning: This option value cannot be deleted as it is currently assigned to %s products!';
-$_['error_product']      = 'Warning: This option cannot be deleted as it is currently assigned to %s products!';
+$_['error_value']        = 'Внимание: Это значение опции не может быть удалено, поскольку оно в настоящее время назначено %s товарам!';
+$_['error_product']      = 'Внимание: Эта опция не может быть удалена, поскольку она в настоящее время назначена для %s товаров!';
