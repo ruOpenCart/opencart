@@ -29,7 +29,7 @@ $_['entry_date_added']  = 'Дата добавления';
 $_['help_product']      = '(Автодополнение)';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Warning: You do not have permission to modify reviews!';
 $_['error_product']     = 'Необходим товар!';
 $_['error_author']      = 'Автор должен содержать от 3 до 64 символов!';
