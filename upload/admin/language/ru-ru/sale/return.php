@@ -53,7 +53,7 @@ $_['entry_date_modified']  = 'Дата изменения';
 $_['help_product']         = '(Автодополнение)';
 
 // Error
-$_['error_warning']        = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']        = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']     = 'Warning: You do not have permission to modify returns!';
 $_['error_return']         = 'Внимание: Не удалось найти выбранный возврат!';
 $_['error_order_id']       = 'Необходимо указать номер заказа!';
