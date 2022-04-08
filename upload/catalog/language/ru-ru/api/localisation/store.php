@@ -3,4 +3,4 @@
 $_['text_success'] = 'Успех: Магазин был изменен!';
 
 // Error
-$_['error_store']  = 'Warning: Store could not be found!';
+$_['error_store']  = 'Внимание: Магазин не найден!';
