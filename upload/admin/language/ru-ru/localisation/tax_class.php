@@ -29,4 +29,4 @@ $_['entry_priority']    = 'Приоритет';
 $_['error_permission']  = 'Warning: You do not have permission to modify tax classes!';
 $_['error_title']       = 'Заголовок налогового класса должен быть от 3 до 32 символов!';
 $_['error_description'] = 'Описание должно быть от 3 до 255 символов!';
-$_['error_product']     = 'Warning: This tax class cannot be deleted as it is currently assigned to %s products!';
+$_['error_product']     = 'Внимание: Этот налоговый класс не может быть удален, поскольку он в настоящее время назначен %s товарам!';
