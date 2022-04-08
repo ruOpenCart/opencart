@@ -12,12 +12,12 @@ $_['entry_search']     = 'Поиск...';
 $_['entry_folder']     = 'Имя папки';
 
 // Error
-$_['error_permission'] = 'Warning: Permission Denied!';
-$_['error_filename']   = 'Warning: Filename must be between 3 and 255!';
-$_['error_folder']     = 'Warning: Folder name must be between 3 and 255!';
+$_['error_permission'] = 'Внимание: Отказано в доступе!';
+$_['error_filename']   = 'Внимание: Имя файла должно быть от 3 до 255!';
+$_['error_folder']     = 'Внимание! Имя папки должно быть от 3 до 255 символов!';
 $_['error_exists']     = 'Внимание: Файл или каталог с таким же именем уже существует!';
 $_['error_directory']  = 'Внимание: Папка не существует!';
-$_['error_filesize']   = 'Warning: Incorrect file size!';
-$_['error_filetype']   = 'Warning: Incorrect file type!';
-$_['error_upload']     = 'Warning: File could not be uploaded for an unknown reason!';
-$_['error_delete']     = 'Warning: You can not delete this directory!';
+$_['error_filesize']   = 'Внимание: Неправильный размер файла!';
+$_['error_filetype']   = 'Внимание: Неправильный тип файла!';
+$_['error_upload']     = 'Внимание: Файл не может быть загружен по неизвестной причине!';
+$_['error_delete']     = 'Внимание: Вы не можете удалить эту директорию!';
