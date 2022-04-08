@@ -25,9 +25,9 @@ $_['entry_zone']         = 'Регион / Область';
 $_['entry_default']      = 'Адрес по умолчанию';
 
 // Error
-$_['error_token']        = 'Внимание: Недопустимый токен адреса!';
-$_['error_delete']       = 'Warning: You must have at least one address!';
-$_['error_default']      = 'Warning: You can not delete your default address!';
+$_['error_token']        = 'Внимание: Токен адреса недействителен!';
+$_['error_delete']       = 'Внимание: Вы должны иметь хотя бы один адрес!';
+$_['error_default']      = 'Внимание: Вы не можете удалить адрес по умолчанию!';
 $_['error_firstname']    = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']     = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_address_1']    = 'Адрес должен быть от 3 до 128 символов!';
