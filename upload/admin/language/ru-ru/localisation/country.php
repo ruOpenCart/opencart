@@ -26,8 +26,8 @@ $_['entry_status']            = 'Статус';
 // Error
 $_['error_permission']        = 'Warning: You do not have permission to modify countries!';
 $_['error_name']              = 'Название страны должно быть от 1 до 128 символов!';
-$_['error_default']           = 'Warning: This country cannot be deleted as it is currently assigned as the default store country!';
-$_['error_store']             = 'Warning: This country cannot be deleted as it is currently assigned to %s stores!';
-$_['error_address']           = 'Warning: This country cannot be deleted as it is currently assigned to %s address book entries!';
-$_['error_zone']              = 'Warning: This country cannot be deleted as it is currently assigned to %s zones!';
-$_['error_zone_to_geo_zone']  = 'Warning: This country cannot be deleted as it is currently assigned to %s zones to geo zones!';
+$_['error_default']           = 'Внимание: Эту страну нельзя удалить, поскольку она в настоящее время назначена в качестве страны магазина по умолчанию!';
+$_['error_store']             = 'Внимание: Эту страну нельзя удалить, поскольку она в настоящее время назначена для %s магазинов!';
+$_['error_address']           = 'Внимание: Эта страна не может быть удалена, потому что назначена в адресной книге %s!';
+$_['error_zone']              = 'Внимание: Эту страну нельзя удалить, поскольку она в настоящее время назначена в %s регионах!';
+$_['error_zone_to_geo_zone']  = 'Внимание: Эту страну нельзя удалить, поскольку она в настоящее время назначена для %s регионов в геозонах!';
