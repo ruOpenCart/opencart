@@ -18,5 +18,5 @@ $_['entry_name']         = 'Название статуса подписки';
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify subscription statuses!';
 $_['error_name']         = 'Название статуса подписки должно быть от 3 до 32 символов!';
-$_['error_default']      = 'Warning: This subscription status cannot be deleted as it is currently assigned as the default store subscription status!';
-$_['error_subscription'] = 'Warning: This subscription status cannot be deleted as it is currently assigned to %s subscriptions!';
+$_['error_default']      = 'Внимание: Этот статус подписки не может быть удален, поскольку он в настоящее время назначен в качестве статуса подписки по умолчанию магазина!';
+$_['error_subscription'] = 'Внимание: Этот статус подписки не может быть удален, поскольку он в настоящее время назначен для %s подписок!';
