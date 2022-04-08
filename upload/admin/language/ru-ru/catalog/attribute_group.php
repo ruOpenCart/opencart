@@ -18,8 +18,8 @@ $_['entry_name']        = 'Название группы атрибутов';
 $_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Warning: You do not have permission to modify attribute groups!';
 $_['error_name']        = 'Название группы атрибутов должно быть от 1 до 64 символов!';
-$_['error_attribute']   = 'Warning: This attribute group cannot be deleted as it is currently assigned to %s attributes!';
-$_['error_product']     = 'Warning: This attribute group cannot be deleted as it is currently assigned to %s products!';
+$_['error_attribute']   = 'Внимание: Эта группа атрибутов не может быть удалена, поскольку она в настоящее время назначена %s атрибутам!';
+$_['error_product']     = 'Внимание: Эта группа атрибутов не может быть удалена, поскольку она в настоящее время назначена %s товарам!';
