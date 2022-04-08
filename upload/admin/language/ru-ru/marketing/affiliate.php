@@ -63,7 +63,7 @@ $_['help_tracking']             = 'Код отслеживания, которы
 $_['help_commission']           = 'Процент, который партнер получает за каждый заказ.';
 
 // Error
-$_['error_warning']             = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']             = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']          = 'Warning: You do not have permission to modify affiliates!';
 $_['error_customer']            = 'Внимание: Покупатель обязателен!';
 $_['error_already']             = 'Внимание: Покупатель уже зарегистрирован в качестве партнера!';
