@@ -123,7 +123,7 @@ $_['help_option']            = '(Автодополнение)';
 $_['help_points']            = 'Количество баллов, необходимых для покупки этого товара. Если вы не хотите, чтобы этот продукт был куплен за баллы оставьте как 0.';
 
 // Error
-$_['error_warning']          = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']          = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']       = 'Warning: You do not have permission to modify products!';
 $_['error_name']             = 'Название товара должно содержать от 1 до 255 символов!';
 $_['error_meta_title']       = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
