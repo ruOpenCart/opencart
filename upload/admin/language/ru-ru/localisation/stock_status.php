@@ -18,4 +18,4 @@ $_['entry_name']       = 'Название статуса склада';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify stock statuses!';
 $_['error_name']       = 'Название статуса склада должно быть от 3 до 32 символов!';
-$_['error_product']    = 'Warning: This stock status cannot be deleted as it is currently assigned to %s products!';
+$_['error_product']    = 'Внимание: Этот статус склада не может быть удален, поскольку он в настоящее время назначен %s товарам!';
