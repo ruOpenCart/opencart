@@ -18,4 +18,4 @@ $_['entry_name']       = 'Название причины возврата';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify return reasons!';
 $_['error_name']       = 'Название причины возврата должно быть от 3 до 128 символов!';
-$_['error_return']     = 'Warning: This return reason cannot be deleted as it is currently assigned to %s returned products!';
+$_['error_return']     = 'Внимание: Причина возврата не может быть удалена, поскольку в настоящее время она назначена %s возвращенным товарам!';
