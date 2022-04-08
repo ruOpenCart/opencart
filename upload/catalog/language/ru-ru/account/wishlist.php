@@ -20,4 +20,4 @@ $_['column_price']    = 'Цена за единицу';
 $_['column_action']   = 'Действие';
 
 // Error
-$_['error_product']   = 'Warning: Product could not be found!';
+$_['error_product']   = 'Внимание: Товар не может быть найден!';
