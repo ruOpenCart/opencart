@@ -18,4 +18,4 @@ $_['entry_name']       = 'Название действия по возврат�
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify return actions!';
 $_['error_name']       = 'Название действия по возврату должно быть от 3 до 64 символов!';
-$_['error_return']     = 'Warning: This return action cannot be deleted as it is currently assigned to %s returned products!';
+$_['error_return']     = 'Внимание: Это действие возврата не может быть удалено, поскольку оно назначено %s возвращенным товарам!';
