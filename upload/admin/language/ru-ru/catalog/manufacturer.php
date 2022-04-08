@@ -24,9 +24,9 @@ $_['entry_sort_order']  = 'Порядок сортировки';
 $_['entry_layout']      = 'Переопределение макета';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Warning: You do not have permission to modify manufacturers!';
 $_['error_name']        = 'Имя производителя должно быть от 2 до 64 символов!';
 $_['error_seo']         = 'Требуется keyword SEO URL-адреса!';
 $_['error_keyword']     = 'Семантический URL-адрес должен быть уникальным!';
-$_['error_product']     = 'Warning: This manufacturer cannot be deleted as it is currently assigned to %s products!';
+$_['error_product']     = 'Внимание: Этот производитель не может быть удален, поскольку он в настоящее время назначен %s товарам!';
