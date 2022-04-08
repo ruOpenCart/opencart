@@ -3,15 +3,15 @@
 $_['text_success']           = 'Успех: Вы изменили заказы!';
 
 // Error
-$_['error_order']            = 'Warning: Order could not be found!';
+$_['error_order']            = 'Внимание: Заказ не найден!';
 $_['error_customer']         = 'Внимание: Детали о покупателе обязательны!';
-$_['error_payment_address']  = 'Warning: Payment address required!';
-$_['error_payment_method']   = 'Warning: Payment method required!';
-$_['error_no_payment']       = 'Warning: No Payment options are available!';
-$_['error_shipping_address'] = 'Warning: Shipping address required!';
-$_['error_shipping_method']  = 'Warning: Shipping method required!';
-$_['error_no_shipping']      = 'Warning: No Shipping options are available!';
-$_['error_stock']            = 'Warning: Products marked with *** are not available in the desired quantity or not in stock!';
-$_['error_minimum']          = 'Warning: Minimum order amount for %s is %s!';
-$_['error_product']          = 'Warning: Products required!';
+$_['error_payment_address']  = 'Внимание: Платежный адрес обязателен!';
+$_['error_payment_method']   = 'Внимание: Требуется способ оплаты!';
+$_['error_no_payment']       = 'Внимание: Нет доступных вариантов оплаты!';
+$_['error_shipping_address'] = 'Внимание: Адрес доставки обязателен!';
+$_['error_shipping_method']  = 'Внимание: Способ доставки обязателен!';
+$_['error_no_shipping']      = 'Внимание: Нет доступных способов доставки!';
+$_['error_stock']            = 'Внимание: Товары, отмеченные *** не доступны в желаемом количестве или нет на складе!';
+$_['error_minimum']          = 'Внимание: Минимальная сумма заказа %s из %s!';
+$_['error_product']          = 'Внимание: Товар обязателен!';
 $_['error_comment']          = 'Внимание: Требуется комментарий!';
