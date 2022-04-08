@@ -20,4 +20,4 @@ $_['column_action']     = 'Действие';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify the theme editor!';
-$_['error_twig']        = 'Warning: You can only save .twig files!';
+$_['error_twig']        = 'Внимание: Вы можете сохранить только .twig файлы!';
