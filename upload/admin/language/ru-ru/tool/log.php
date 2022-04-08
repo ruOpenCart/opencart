@@ -7,5 +7,5 @@ $_['text_success']     = 'Успех: Вы успешно очистили жу�
 $_['text_list']        = 'Список ошибок';
 
 // Error
-$_['error_warning']    = 'Warning: Your error log file %s is %s!';
+$_['error_warning']    = 'Внимание: Ваш файл ошибок %s имеет размер %s!';
 $_['error_permission'] = 'Warning: You do not have permission to clear error log!';
