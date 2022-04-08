@@ -30,11 +30,11 @@ $_['entry_match']             = 'Мой адрес доставки совпад
 $_['entry_newsletter']        = 'Я хочу подписаться на рассылку новостей %s.';
 
 // Error
-$_['error_guest']             = 'Warning: Items in your shopping cart require you to register for an account!';
+$_['error_guest']             = 'Внимание: Товары в вашей корзине требуют регистрации учетной записи!';
 $_['error_firstname']         = 'Имя должно содержать от 1 до 32 символов!';
 $_['error_lastname']          = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_customer_group']    = 'Группа покупателей недействительна!';
-$_['error_customer_approval'] = 'Warning: Your this customer group requires approval and can not be used with guest account.';
+$_['error_customer_approval'] = 'Внимание: Эта группа покупателей требует одобрения и не может быть использована в гостевой учетной записи.';
 $_['error_email']             = 'Адрес электронной почты недействителен!';
 $_['error_exists']            = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_telephone']         = 'Телефон должен быть от 3 до 32 символов!';
@@ -45,6 +45,6 @@ $_['error_city']              = 'Город должен быть от 2 до 12
 $_['error_postcode']          = 'Почтовый индекс должен быть от 2 до 10 символов!';
 $_['error_country']           = 'Пожалуйста, выберите страну!';
 $_['error_zone']              = 'Пожалуйста, выберите регион / область!';
-$_['error_agree']             = 'Warning: You must agree to the %s!';
+$_['error_agree']             = 'Внимание: Вы должны согласиться с %s!';
 $_['error_custom_field']      = '%s обязательно к заполнению!';
 $_['error_regex']             = '%s не является допустимым вводом!';
