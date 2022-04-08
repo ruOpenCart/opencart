@@ -22,4 +22,4 @@ $_['entry_extension']  = 'Расширения';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify user groups!';
 $_['error_name']       = 'Название группы пользователя должно быть от 3 до 64 символов!';
-$_['error_user']       = 'Warning: This user group cannot be deleted as it is currently assigned to %s users!';
+$_['error_user']       = 'Внимание: Эта группа пользователей не может быть удалена, поскольку она в настоящее время назначена %s пользователям!';
