@@ -18,5 +18,5 @@ $_['entry_name']       = 'Название статуса возврата';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify return statuses!';
 $_['error_name']       = 'Название статуса возврата должно быть от 3 до 32 символов!';
-$_['error_default']    = 'Warning: This return status cannot be deleted as it is currently assigned as the default return status!';
-$_['error_return']     = 'Warning: This return status cannot be deleted as it is currently assigned to %s returns!';
+$_['error_default']    = 'Внимание: Этот статус возврата не может быть удален, поскольку он в настоящее время назначен как статус возврата по умолчанию!';
+$_['error_return']     = 'Внимание: Этот статус возврата не может быть удален, поскольку в настоящее время назначен %s возвратам!';
