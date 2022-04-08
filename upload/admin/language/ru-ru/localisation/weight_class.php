@@ -26,5 +26,5 @@ $_['help_value']       = 'Значение веса по умолчанию в �
 $_['error_permission'] = 'Warning: You do not have permission to modify weight classes!';
 $_['error_title']      = 'Название единицы веса должно быть от 3 до 32 символов!';
 $_['error_unit']       = 'Единица веса должна быть от 1 до 4 символов!';
-$_['error_default']    = 'Warning: This weight class cannot be deleted as it is currently assigned as the default store weight class!';
-$_['error_product']    = 'Warning: This weight class cannot be deleted as it is currently assigned to %s products!';
+$_['error_default']    = 'Внимание: Этот весовой класс не может быть удален, поскольку он в настоящее время назначен как класс веса по умолчанию!';
+$_['error_product']    = 'Внимание: Этот весовой класс нельзя удалить, поскольку он в настоящее время назначен %s товарам!';
