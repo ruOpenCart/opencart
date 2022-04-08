@@ -118,10 +118,10 @@ $_['entry_date_modified']    = 'Дата изменения';
 $_['help_override']          = 'Если в связи с расширением для борьбы с мошенничеством покупатель не сможет изменять статус заказа, то включите переопределение.';
 
 // Error
-$_['error_warning']          = 'Warning: Please check the form carefully for errors!';
+$_['error_warning']          = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']       = 'Warning: You do not have permission to modify orders!';
-$_['error_invoice_no']       = 'Warning: Invoice No. has already been created!';
-$_['error_order']            = 'Warning: Order does not exist!';
+$_['error_invoice_no']       = 'Внимание: Счёт-фактура № уже создана!';
+$_['error_order']            = 'Внимание: Заказ не существует!';
 $_['error_affiliate']        = 'Внимание: Партнер не существует!';
-$_['error_reward_add']       = 'Warning: Reward points for this order has already been added!';
+$_['error_reward_add']       = 'Внимание: Бонусные баллы для этого заказа уже добавлены!';
 $_['error_commission_add']   = 'Внимание: Партнерская комиссия для этого заказа уже добавлена!';
