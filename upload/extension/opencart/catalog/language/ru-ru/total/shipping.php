@@ -17,5 +17,5 @@ $_['entry_postcode']       = 'Почтовый индекс';
 $_['error_postcode']       = 'Почтовый индекс должен быть от 2 до 10 символов!';
 $_['error_country']        = 'Пожалуйста, выберите страну!';
 $_['error_zone']           = 'Пожалуйста, выберите регион / область!';
-$_['error_shipping']       = 'Warning: Shipping method required!';
-$_['error_no_shipping']    = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';
+$_['error_shipping']       = 'Внимание: Способ доставки обязателен!';
+$_['error_no_shipping']    = 'Внимание: Нет доступных способов доставки. Пожалуйста, <a href="%s"> свяжитесь с нами</a> для помощи!';
