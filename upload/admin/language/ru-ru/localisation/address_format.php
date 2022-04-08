@@ -23,5 +23,5 @@ $_['help_address_format']     = 'Имя = {firstname}<br />Фамилия = {las
 // Error
 $_['error_permission']        = 'Warning: You do not have permission to modify address formats!';
 $_['error_name']              = 'Название формата адреса должно быть от 1 до 128 символов!';
-$_['error_default']           = 'Warning: This address format cannot be deleted as it is currently assigned as the default address format!';
-$_['error_country']           = 'Warning: This address format cannot be deleted as it is currently assigned to %s countries!';
+$_['error_default']           = 'Внимание: Этот формат адреса не может быть удален, поскольку он в настоящее время назначен как формат адреса по умолчанию!';
+$_['error_country']           = 'Внимание: Этот формат адреса не может быть удален, поскольку он в настоящее время назначен для %s стран!';
