@@ -45,8 +45,8 @@ $_['tab_attribute']              = 'Спецификация';
 $_['tab_review']                 = 'Отзывов (%s)';
 
 // Error
-$_['error_product']              = 'Warning: Product could not be found!';
-$_['error_subscription']         = 'Warning: Subscription plan could not be found!';
+$_['error_product']              = 'Внимание: Товар не может быть найден!';
+$_['error_subscription']         = 'Внимание: План подписки не найден!';
 $_['error_name']                 = 'Название должно быть от 3 до 25 символов!';
 $_['error_text']                 = 'Текст отзыва должен быть от 25 до 1000 символов!';
 $_['error_rating']               = 'Пожалуйста, выберите оценку отзыва!';
