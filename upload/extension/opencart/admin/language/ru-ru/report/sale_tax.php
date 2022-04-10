@@ -29,4 +29,4 @@ $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify tax report!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение налогового отчета!';
