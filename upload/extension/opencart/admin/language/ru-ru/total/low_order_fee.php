@@ -18,4 +18,4 @@ $_['entry_sort_order'] = 'Порядок сортировки';
 $_['help_total']       = 'Общая сумма заказа, которую должен достичь заказ, прежде чем эта общая сумма заказа будет деактивирована.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify low order fee total!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение общей суммы оплаты за низкую стоимость заказа!';
