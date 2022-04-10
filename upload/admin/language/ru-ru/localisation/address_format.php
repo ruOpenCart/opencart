@@ -21,7 +21,7 @@ $_['entry_address_format']    = 'Формат адреса';
 $_['help_address_format']     = 'Имя = {firstname}<br />Фамилия = {lastname}<br />Компания = {company}<br />Адрес 1 = {address_1}<br />Адрес 2 = {address_2}<br />Город = {city}<br />Почтовый индекс = {postcode}<br />Регион = {zone}<br />Код региона = {zone_code}<br />Страна = {country}';
 
 // Error
-$_['error_permission']        = 'Warning: You do not have permission to modify address formats!';
+$_['error_permission']        = 'Внимание: У вас нет прав на изменение форматов адреса!';
 $_['error_name']              = 'Название формата адреса должно быть от 1 до 128 символов!';
 $_['error_default']           = 'Внимание: Этот формат адреса не может быть удален, поскольку он в настоящее время назначен как формат адреса по умолчанию!';
 $_['error_country']           = 'Внимание: Этот формат адреса не может быть удален, поскольку он в настоящее время назначен для %s стран!';
