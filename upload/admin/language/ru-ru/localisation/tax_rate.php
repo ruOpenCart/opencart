@@ -27,7 +27,7 @@ $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_geo_zone']       = 'Гео-зона';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify tax rates!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение налоговых ставок!';
 $_['error_tax_rule']       = 'Внимание: Эта налоговая ставка не может быть удалена, потому что назначена %s налоговым классам!';
 $_['error_name']           = 'Название должно быть от 3 до 32 символов!';
 $_['error_rate']           = 'Необходимо указать налоговую ставку!';
