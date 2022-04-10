@@ -24,6 +24,6 @@ $_['entry_order_status'] = 'Статус заказа';
 $_['help_order_status']  = 'Клиентам, у которых заблокирован IP-адрес в своих учетных записях, будет присвоен этот статус заказа, и они не смогут автоматически получить статус выполнено.';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify Anti-Fraud IP!';
+$_['error_permission']   = 'Внимание: У вас нет разрешения на изменение антимошенничества по IP!';
 $_['error_required']     = 'Требуется указать IP-адрес!';
 $_['error_invalid']      = 'Недопустимый IP-адрес!';
