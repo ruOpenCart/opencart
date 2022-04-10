@@ -30,9 +30,9 @@ $_['text_year']                  = 'год';
 
 
 $_['text_history']               = 'История';
-$_['text_history_add']           = 'Добавить историю';
+$_['text_history_add']           = 'Добавление истории';
 $_['text_transaction']           = 'Транзакции';
-$_['text_transaction_add']       = 'Добавить транзакцию';
+$_['text_transaction_add']       = 'Добавление транзакции';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
