@@ -54,7 +54,7 @@ $_['help_product']         = '(Автодополнение)';
 
 // Error
 $_['error_warning']        = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']     = 'Warning: You do not have permission to modify returns!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение возвратов!';
 $_['error_return']         = 'Внимание: Не удалось найти выбранный возврат!';
 $_['error_order_id']       = 'Необходимо указать номер заказа!';
 $_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';
