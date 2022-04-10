@@ -119,7 +119,7 @@ $_['help_override']          = 'Если в связи с расширением
 
 // Error
 $_['error_warning']          = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']       = 'Warning: You do not have permission to modify orders!';
+$_['error_permission']       = 'Внимание: У вас нет прав на изменение заказов!';
 $_['error_invoice_no']       = 'Внимание: Счёт-фактура № уже создана!';
 $_['error_order']            = 'Внимание: Заказ не существует!';
 $_['error_affiliate']        = 'Внимание: Партнер не существует!';
