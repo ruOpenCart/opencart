@@ -14,14 +14,20 @@ $_['text_date_added']            = 'Дата добавления';
 $_['text_remaining']             = 'Оставшиеся платежи';
 $_['text_date_next']             = 'Дата следующего платежа';
 $_['text_order_status']          = 'Статус заказа';
-
-$_['text_payment_method']        = 'Метод оплаты';
-
 $_['text_cancel']                = 'До отмены';
-
 $_['text_product']               = 'Детали товара';
 $_['text_quantity']              = 'Количество';
 $_['text_amount']                = 'Сумма';
+$_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
+$_['text_day']                   = 'день';
+$_['text_week']                  = 'неделя';
+$_['text_semi_month']            = 'полмесяца';
+$_['text_month']                 = 'месяц';
+$_['text_year']                  = 'год';
+
+
 
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавить историю';
