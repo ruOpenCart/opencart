@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']         = 'Одобрение клиентов';
+$_['heading_title']         = 'Одобрение покупателей';
 
 // Text
 $_['text_success']          = 'Успех: Вы изменили одобрения покупателя!';
 $_['text_list']             = 'Список одобрения покупателей';
 $_['text_default']          = 'По умолчанию';
 $_['text_customer']         = 'Покупатель';
-$_['text_affiliate']        = 'Партнерская программа';
+$_['text_affiliate']        = 'Партнер';
 $_['text_filter']           = 'Фильтр';
 
 // Column
