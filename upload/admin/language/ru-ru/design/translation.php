@@ -28,5 +28,5 @@ $_['entry_default']    = 'По умолчанию';
 $_['entry_value']      = 'Значение';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify language editor!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение редактора языка!';
 $_['error_key']        = 'Ключ должен быть от 3 до 64 символов!';
