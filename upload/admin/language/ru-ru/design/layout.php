@@ -27,7 +27,7 @@ $_['entry_route']         = 'Маршрут';
 $_['entry_module']        = 'Модуль';
 
 // Error
-$_['error_permission']    = 'Warning: You do not have permission to modify layouts!';
+$_['error_permission']    = 'Внимание: У вас нет прав на изменение макетов!';
 $_['error_name']          = 'Название макета должно быть от 3 до 64 символов!';
 $_['error_module']        = 'Требуется модуль!';
 $_['error_default']       = 'Внимание: Этот макет нельзя удалить, поскольку он в настоящее время назначен в качестве макета магазина по умолчанию!';
