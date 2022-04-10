@@ -18,7 +18,7 @@ $_['entry_height']     = 'Высота изображения';
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify specials module!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение модуля скидок!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_width']      = 'Необходимо указать ширину!';
 $_['error_height']     = 'Необходимо указать высоту!';
