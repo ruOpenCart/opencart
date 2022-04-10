@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Отчет о просмотренных товарах';
+$_['heading_title']    = 'Отчет по просмотренным товарам';
 
 // Text
 $_['text_extension']   = 'Расширения';
