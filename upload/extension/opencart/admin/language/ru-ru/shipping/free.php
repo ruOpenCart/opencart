@@ -17,4 +17,4 @@ $_['entry_sort_order'] = 'Порядок сортировки';
 $_['help_total']       = 'Минимальная сумма, необходимая для того, чтобы бесплатная доставка стала доступна.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify free shipping!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения бесплатной доставки!';
