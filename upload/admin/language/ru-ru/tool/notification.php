@@ -11,4 +11,4 @@ $_['column_message']   = 'Сообщение';
 $_['column_action']    = 'Действие';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify notifications!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение уведомлений!';

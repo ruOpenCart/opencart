@@ -21,7 +21,8 @@ $_['column_action']     = 'Действие';
 $_['entry_progress']    = 'Прогресс';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify extensions!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение расширений!';
+
 $_['error_install']     = 'Запись установки не найдена!';
 $_['error_file']        = 'Файл установки %s не найден!';
 $_['error_directory']   = 'Каталог установки %s не найден!';

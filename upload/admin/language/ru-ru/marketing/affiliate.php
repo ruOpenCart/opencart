@@ -5,7 +5,7 @@ $_['heading_title']             = 'Партнеры';
 // Text
 $_['text_success']              = 'Успех: Вы изменили партнеров!';
 $_['text_list']                 = 'Список партнеров';
-$_['text_add']                  = 'Добавить партнера';
+$_['text_add']                  = 'Добавление партнера';
 $_['text_edit']                 = 'Изменить партнера';
 $_['text_affiliate']            = 'Информация о партнере';
 $_['text_payment']              = 'Детали оплаты';
@@ -15,9 +15,9 @@ $_['text_cheque']               = 'Чек';
 $_['text_paypal']               = 'PayPal';
 $_['text_bank']                 = 'Банковский перевод';
 $_['text_history']              = 'История';
-$_['text_history_add']          = 'Добавить историю';
+$_['text_history_add']          = 'Добавление истории';
 $_['text_transaction']          = 'Транзакции';
-$_['text_transaction_add']      = 'Добавить транзакцию';
+$_['text_transaction_add']      = 'Добавление транзакции';
 $_['text_report']               = 'Отчет';
 $_['text_filter']               = 'Фильтр';
 
@@ -63,8 +63,8 @@ $_['help_tracking']             = 'Код отслеживания, которы
 $_['help_commission']           = 'Процент, который партнер получает за каждый заказ.';
 
 // Error
-$_['error_warning']             = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']          = 'Warning: You do not have permission to modify affiliates!';
+$_['error_warning']             = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
+$_['error_permission']          = 'Внимание: У вас нет прав на изменение партнеров!';
 $_['error_customer']            = 'Внимание: Покупатель обязателен!';
 $_['error_already']             = 'Внимание: Покупатель уже зарегистрирован в качестве партнера!';
 $_['error_tracking']            = 'Требуется код отслеживания!';

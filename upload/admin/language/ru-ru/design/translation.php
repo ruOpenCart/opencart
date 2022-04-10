@@ -5,7 +5,7 @@ $_['heading_title']    = 'Редактор языка';
 // Text
 $_['text_success']     = 'Успех: Вы изменили редактор языка!';
 $_['text_list']        = 'Список переводов';
-$_['text_add']         = 'Добавить перевод';
+$_['text_add']         = 'Добавление перевода';
 $_['text_edit']        = 'Редактирование перевода';
 $_['text_default']     = 'По умолчанию';
 $_['text_store']       = 'Магазин';
@@ -28,5 +28,5 @@ $_['entry_default']    = 'По умолчанию';
 $_['entry_value']      = 'Значение';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify language editor!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение редактора языка!';
 $_['error_key']        = 'Ключ должен быть от 3 до 64 символов!';

@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']      = 'Маркетинговый отчет';
+$_['heading_title']      = 'Отчет по маркетингу';
 
 // Text
 $_['text_extension']     = 'Расширения';
 $_['text_edit']          = 'Редактирование отчета по маркетингу';
-$_['text_success']       = 'Успех: Вы изменили маркетинговый отчет!';
+$_['text_success']       = 'Успех: Вы изменили отчет по маркетингу!';
 $_['text_filter']        = 'Фильтр';
 $_['text_all_status']    = 'Все статусы';
 
@@ -24,4 +24,4 @@ $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify marketing report!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение отчета о маркетинге!';

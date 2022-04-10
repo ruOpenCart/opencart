@@ -22,8 +22,8 @@ $_['entry_email']           = 'Эл. почта';
 $_['entry_image']           = 'Изображение';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify your profile!';
-$_['error_username_exists'] = 'Warning: Username is already in use!';
+$_['error_permission']      = 'Внимание: У вас нет прав на изменение вашего профиля!';
+$_['error_username_exists'] = 'Внимание: Имя пользователя уже используется!';
 $_['error_username']        = 'Имя пользователя должно содержать от 3 до 20 символов!';
 $_['error_password']        = 'Пароль должен быть от 4 до 20 символов!';
 $_['error_confirm']         = 'Пароль и подтверждение пароля не совпадают!';

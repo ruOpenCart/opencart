@@ -22,4 +22,4 @@ $_['text_remove']       = 'Успех: Вы изменили сравнение 
 $_['text_no_results']   = 'Вы не выбрали ни одного товара для сравнения.';
 
 // Error
-$_['error_product']     = 'Warning: Product could not be found!';
+$_['error_product']     = 'Внимание: Товар не может быть найден!';

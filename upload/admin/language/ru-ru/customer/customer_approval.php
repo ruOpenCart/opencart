@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']         = 'Одобрение клиентов';
+$_['heading_title']         = 'Одобрение покупателей';
 
 // Text
 $_['text_success']          = 'Успех: Вы изменили одобрения покупателя!';
 $_['text_list']             = 'Список одобрения покупателей';
 $_['text_default']          = 'По умолчанию';
 $_['text_customer']         = 'Покупатель';
-$_['text_affiliate']        = 'Партнерская программа';
+$_['text_affiliate']        = 'Партнер';
 $_['text_filter']           = 'Фильтр';
 
 // Column
@@ -26,4 +26,4 @@ $_['entry_type']            = 'Тип';
 $_['entry_date_added']      = 'Дата добавления';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify customer approvals!';
+$_['error_permission']      = 'Внимание: У вас нет прав на изменение одобрений покупателя!';

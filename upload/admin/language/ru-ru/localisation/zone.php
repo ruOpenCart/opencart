@@ -5,7 +5,7 @@ $_['heading_title']          = 'Регионы';
 // Text
 $_['text_success']           = 'Успех: Вы изменили регионы!';
 $_['text_list']              = 'Список регионов';
-$_['text_add']               = 'Добавить регион';
+$_['text_add']               = 'Добавление региона';
 $_['text_edit']              = 'Редактирование региона';
 $_['text_filter']            = 'Фильтр';
 
@@ -22,9 +22,9 @@ $_['entry_country']          = 'Страна';
 $_['entry_status']           = 'Статус';
 
 // Error
-$_['error_permission']       = 'Warning: You do not have permission to modify zones!';
+$_['error_permission']       = 'Внимание: У вас нет прав на изменение регионов!';
 $_['error_name']             = 'Название региона должно быть от 3 до 128 символов!';
-$_['error_default']          = 'Warning: This zone cannot be deleted as it is currently assigned as the default store zone!';
-$_['error_store']            = 'Warning: This zone cannot be deleted as it is currently assigned to %s stores!';
-$_['error_address']          = 'Warning: This zone cannot be deleted as it is currently assigned to %s address book entries!';
-$_['error_zone_to_geo_zone'] = 'Warning: This zone cannot be deleted as it is currently assigned to %s zones to geo zones!';
+$_['error_default']          = 'Внимание: Этот регион нельзя удалить, поскольку он в настоящее время назначен как регион магазина по умолчанию!';
+$_['error_store']            = 'Внимание: Этот регион нельзя удалить, поскольку он в настоящее время назначен для %s магазинов!';
+$_['error_address']          = 'Внимание: Этот регион нельзя удалить, поскольку он в настоящее время назначен %s адресным книгам!';
+$_['error_zone_to_geo_zone'] = 'Внимание: Этот регион нельзя удалить, поскольку он в настоящее время назначен %s регионам в геозонах!';

@@ -20,7 +20,7 @@ $_['entry_store']          = 'От';
 $_['entry_to']             = 'Кому';
 $_['entry_customer_group'] = 'Группа покупателя';
 $_['entry_customer']       = 'Покупатель';
-$_['entry_affiliate']      = 'Партнерская программа';
+$_['entry_affiliate']      = 'Партнер';
 $_['entry_product']        = 'Товары';
 $_['entry_subject']        = 'Тема';
 $_['entry_message']        = 'Сообщение';
@@ -31,7 +31,7 @@ $_['help_affiliate']       = '(Автодополнение)';
 $_['help_product']         = 'Отправить покупателям, которые уже заказали товары из списка. (Автодополнение)';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to send E-Mails!';
+$_['error_permission']     = 'Внимание: У вас нет прав для отправки электронных писем!';
 $_['error_subject']        = 'Необходимо указать тему письма!';
 $_['error_message']        = 'Необходимо ввести текст сообщения электронной почты!';
 $_['error_email']          = 'Адрес эл. почты обязателен!';

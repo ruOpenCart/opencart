@@ -5,7 +5,7 @@ $_['heading_title']    = 'Баннеры';
 // Text
 $_['text_success']     = 'Успех: Вы изменили баннеры!';
 $_['text_list']        = 'Список баннеров';
-$_['text_add']         = 'Добавить баннер';
+$_['text_add']         = 'Добавление баннера';
 $_['text_edit']        = 'Редактирование банера';
 $_['text_default']     = 'По умолчанию';
 
@@ -23,6 +23,6 @@ $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Порядок сортировки';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify banners!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения баннеров!';
 $_['error_name']       = 'Название баннера должно быть от 3 до 64 символов!';
 $_['error_title']      = 'Заголовок баннера должен быть от 2 до 64 символов!';

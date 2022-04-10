@@ -12,4 +12,4 @@ $_['text_support']     = 'Это расширение требует, чтобы
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify European Central Bank Currency Converter!';
+$_['error_permission'] = 'Внимание: У вас нет разрешения на изменение валюты Европейского Центрального Банка!';

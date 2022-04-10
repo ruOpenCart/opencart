@@ -5,14 +5,14 @@ $_['heading_title']        = 'Возврат товара';
 // Text
 $_['text_success']         = 'Успех: Вы изменили возвраты!';
 $_['text_list']            = 'Список возвратов товара';
-$_['text_add']             = 'Добавить возврат товара';
+$_['text_add']             = 'Добавление возврата товара';
 $_['text_edit']            = 'Редактирование возврата товара';
 $_['text_opened']          = 'Открыто';
 $_['text_unopened']        = 'Не открыто';
 $_['text_order']           = 'Информация о заказе';
 $_['text_product']         = 'Информация о товаре и причина возврата';
 $_['text_history']         = 'История';
-$_['text_history_add']     = 'Добавить историю';
+$_['text_history_add']     = 'Добавление истории';
 $_['text_filter']          = 'Фильтр';
 
 // Column
@@ -53,8 +53,8 @@ $_['entry_date_modified']  = 'Дата изменения';
 $_['help_product']         = '(Автодополнение)';
 
 // Error
-$_['error_warning']        = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']     = 'Warning: You do not have permission to modify returns!';
+$_['error_warning']        = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение возвратов!';
 $_['error_return']         = 'Внимание: Не удалось найти выбранный возврат!';
 $_['error_order_id']       = 'Необходимо указать номер заказа!';
 $_['error_firstname']      = 'Имя должно содержать от 1 до 32 символов!';

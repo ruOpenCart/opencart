@@ -17,7 +17,7 @@ $_['entry_email']                  = 'Адрес электронной почт
 $_['entry_password']               = 'Пароль';
 
 // Error
-$_['error_token']                  = 'Warning: Login token invalid!';
-$_['error_login']                  = 'Warning: No match for E-Mail Address and/or Password.';
-$_['error_attempts']               = 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.';
-$_['error_approved']               = 'Warning: Your account requires approval before you can login.';
+$_['error_token']                  = 'Внимание: Токен входа недействителен!';
+$_['error_login']                  = 'Внимание: Адрес электронной почты и/или пароль не совпадают.';
+$_['error_attempts']               = 'Внимание: Ваш аккаунт превысил допустимое количество попыток входа в систему. Пожалуйста, попробуйте снова через час.';
+$_['error_approved']               = 'Внимание: Ваша учетная запись требует подтверждения, прежде чем Вы сможете войти.';

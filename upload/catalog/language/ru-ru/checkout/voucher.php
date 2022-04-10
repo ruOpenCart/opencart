@@ -24,11 +24,11 @@ $_['help_message']     = 'Опционально';
 $_['help_amount']      = 'Значение должно быть между %s и %s';
 
 // Error
-$_['error_token']      = 'Warning: Voucher token invalid!';
+$_['error_token']      = 'Внимание: Токен купона недействителен!';
 $_['error_voucher']    = 'Сертификат не найден!';
 $_['error_to_name']    = 'Имя получателя должно содержать от 1 до 64 символов!';
 $_['error_from_name']  = 'Ваше имя должно содержать от 1 до 64 символов!';
 $_['error_email']      = 'Адрес электронной почты недействителен!';
 $_['error_theme']      = 'Вы должны выбрать тему!';
 $_['error_amount']     = 'Сумма должна быть больше %s и меньше %s!';
-$_['error_agree']      = 'Warning: You must agree that the gift certificates are non-refundable!';
+$_['error_agree']      = 'Внимание: Вы должны согласиться с тем, что подарочные сертификаты не подлежат возврату!';

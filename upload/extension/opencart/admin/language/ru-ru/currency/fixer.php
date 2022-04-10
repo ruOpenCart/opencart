@@ -14,5 +14,5 @@ $_['entry_api']        = 'Ключ доступа к API';
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify fixer currency rates!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения валютных курсов fixer!';
 $_['error_api']        = 'Требуется ключ доступа к API!';

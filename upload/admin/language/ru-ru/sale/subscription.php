@@ -14,19 +14,25 @@ $_['text_date_added']            = 'Дата добавления';
 $_['text_remaining']             = 'Оставшиеся платежи';
 $_['text_date_next']             = 'Дата следующего платежа';
 $_['text_order_status']          = 'Статус заказа';
-
-$_['text_payment_method']        = 'Метод оплаты';
-
 $_['text_cancel']                = 'До отмены';
-
 $_['text_product']               = 'Детали товара';
 $_['text_quantity']              = 'Количество';
 $_['text_amount']                = 'Сумма';
+$_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
+$_['text_day']                   = 'день';
+$_['text_week']                  = 'неделя';
+$_['text_semi_month']            = 'полмесяца';
+$_['text_month']                 = 'месяц';
+$_['text_year']                  = 'год';
+
+
 
 $_['text_history']               = 'История';
-$_['text_history_add']           = 'Добавить историю';
+$_['text_history_add']           = 'Добавление истории';
 $_['text_transaction']           = 'Транзакции';
-$_['text_transaction_add']       = 'Добавить транзакцию';
+$_['text_transaction_add']       = 'Добавление транзакции';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
@@ -59,6 +65,6 @@ $_['entry_comment']              = 'Комментарий';
 $_['entry_date_added']           = 'Дата добавления';
 
 // Error
-$_['error_subscription']         = 'Warning: Subscription does not exist!';
-$_['error_subscription_plan']    = 'Warning: Subscription plan does not exist!';
-$_['error_payment_method']       = 'Warning: Payment method does not exist!';
+$_['error_subscription']         = 'Внимание! Подписка не существует!';
+$_['error_subscription_plan']    = 'Внимание: План подписки не существует!';
+$_['error_payment_method']       = 'Внимание: Способ оплаты не существует!';

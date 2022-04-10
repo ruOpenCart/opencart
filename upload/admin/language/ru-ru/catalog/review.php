@@ -5,7 +5,7 @@ $_['heading_title']     = 'Отзывы';
 // Text
 $_['text_success']      = 'Успех: Вы изменили отзывы!';
 $_['text_list']         = 'Список отзывов';
-$_['text_add']          = 'Добавить отзыв';
+$_['text_add']          = 'Добавление отзыва';
 $_['text_edit']         = 'Редактирование отзыва';
 $_['text_filter']       = 'Фильтр';
 
@@ -29,8 +29,8 @@ $_['entry_date_added']  = 'Дата добавления';
 $_['help_product']      = '(Автодополнение)';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']  = 'Warning: You do not have permission to modify reviews!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение отзывов!';
 $_['error_product']     = 'Необходим товар!';
 $_['error_author']      = 'Автор должен содержать от 3 до 64 символов!';
 $_['error_text']        = 'Текст отзыва должен содержать не менее 1 символа!';

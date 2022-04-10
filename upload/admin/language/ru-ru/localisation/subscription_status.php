@@ -5,7 +5,7 @@ $_['heading_title']      = 'Статусы подписки';
 // Text
 $_['text_success']       = 'Успех: Вы изменили статусы подписки!';
 $_['text_list']          = 'Список статусов подписки';
-$_['text_add']           = 'Добавить статус подписки';
+$_['text_add']           = 'Добавление статуса подписки';
 $_['text_edit']          = 'Редактирование статуса подписки';
 
 // Column
@@ -16,7 +16,7 @@ $_['column_action']      = 'Действие';
 $_['entry_name']         = 'Название статуса подписки';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify subscription statuses!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение статусов подписки!';
 $_['error_name']         = 'Название статуса подписки должно быть от 3 до 32 символов!';
-$_['error_default']      = 'Warning: This subscription status cannot be deleted as it is currently assigned as the default store subscription status!';
-$_['error_subscription'] = 'Warning: This subscription status cannot be deleted as it is currently assigned to %s subscriptions!';
+$_['error_default']      = 'Внимание: Этот статус подписки не может быть удален, поскольку он в настоящее время назначен в качестве статуса подписки по умолчанию магазина!';
+$_['error_subscription'] = 'Внимание: Этот статус подписки не может быть удален, поскольку он в настоящее время назначен для %s подписок!';

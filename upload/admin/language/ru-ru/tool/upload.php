@@ -19,7 +19,7 @@ $_['entry_filename']     = 'Имя файла';
 $_['entry_date_added']   = 'Дата добавления';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify uploads!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение загрузок!';
 $_['error_not_found']    = 'Ошибка: Не удалось найти файл %s!';
 $_['error_headers_sent'] = 'Ошибка: Заголовки уже отправлен!';
 $_['error_upload']       = 'Файл не может быть загружен!';

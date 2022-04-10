@@ -5,7 +5,7 @@ $_['heading_title']         = 'Пользователи';
 // Text
 $_['text_success']          = 'Успех: Вы изменили пользователей!';
 $_['text_list']             = 'Список пользователей';
-$_['text_add']              = 'Добавить пользователя';
+$_['text_add']              = 'Добавление пользователя';
 $_['text_edit']             = 'Редактирование пользователя';
 
 // Column
@@ -26,10 +26,10 @@ $_['entry_image']           = 'Изображение';
 $_['entry_status']          = 'Статус';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify users!';
-$_['error_account']         = 'Warning: You can not delete your own account!';
+$_['error_permission']      = 'Внимание: У вас нет разрешения на изменение пользователей!';
+$_['error_account']         = 'Внимание: Вы не можете удалить свой собственный аккаунт!';
 $_['error_username']        = 'Имя пользователя должно содержать от 3 до 20 символов!';
-$_['error_username_exists'] = 'Warning: Username is already in use!';
+$_['error_username_exists'] = 'Внимание: Имя пользователя уже используется!';
 $_['error_password']        = 'Пароль должен быть от 4 до 20 символов!';
 $_['error_confirm']         = 'Пароль и подтверждение пароля не совпадают!';
 $_['error_firstname']       = 'Имя должно содержать от 1 до 32 символов!';

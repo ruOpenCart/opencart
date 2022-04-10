@@ -5,7 +5,7 @@ $_['heading_title']     = 'Фильтры';
 // Text
 $_['text_success']      = 'Успех: Вы изменили фильтры!';
 $_['text_list']         = 'Список фильтров';
-$_['text_add']          = 'Добавить фильтр';
+$_['text_add']          = 'Добавление фильтра';
 $_['text_edit']         = 'Редактирование фильтра';
 $_['text_group']        = 'Группа фильтра';
 $_['text_value']        = 'Значение фильтра';
@@ -21,8 +21,8 @@ $_['entry_name']        = 'Название фильтра';
 $_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error
-$_['error_warning']     = 'Warning: Please check the form carefully for errors!';
-$_['error_permission']  = 'Warning: You do not have permission to modify filters!';
+$_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение фильтров!';
 $_['error_group']       = 'Название группы фильтра должно быть от 1 до 64 символов!';
 $_['error_name']        = 'Название фильтра должно быть от 1 до 64 символов!';
-$_['error_values']      = 'Warning: Filter Values required!';
+$_['error_values']      = 'Внимание: Требуются значения фильтров!';

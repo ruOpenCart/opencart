@@ -23,8 +23,8 @@ $_['entry_progress']     = 'Прогресс';
 $_['entry_export']       = 'Экспорт';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify Backup &amp; Restore!';
-$_['error_export']       = 'Warning: You must select at least one table to export!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение резервного копирования и восстановления!';
+$_['error_export']       = 'Внимание: Вы должны выбрать по крайней мере одну таблицу для экспорта!';
 $_['error_table']        = 'Таблица %s не находится в списке разрешенных!';
 $_['error_file']         = 'Файл не найден!';
 $_['error_directory']    = 'Каталог не найден!';

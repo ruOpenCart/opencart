@@ -5,7 +5,7 @@ $_['heading_title']     = 'Группы покупателя';
 // Text
 $_['text_success']      = 'Успех: Вы изменили группы покупателя!';
 $_['text_list']         = 'Список групп покупателей';
-$_['text_add']          = 'Добавить группу покупателей';
+$_['text_add']          = 'Добавление группы покупателя';
 $_['text_edit']         = 'Редактирование группы покупателей';
 
 // Column
@@ -23,8 +23,8 @@ $_['entry_sort_order']  = 'Порядок сортировки';
 $_['help_approval']     = 'Клиенты должны быть одобрены администратором, прежде чем они смогут войти.';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify customer groups!';
+$_['error_permission']  = 'Внимание: У вас нет прав для изменения групп покупателей!';
 $_['error_name']        = 'Название группы покупателей должно быть от 3 до 32 символов!';
-$_['error_default']     = 'Warning: This customer group cannot be deleted as it is currently assigned as the default store customer group!';
-$_['error_store']       = 'Warning: This customer group cannot be deleted as it is currently assigned to %s stores!';
-$_['error_customer']    = 'Warning: This customer group cannot be deleted as it is currently assigned to %s customers!';
+$_['error_default']     = 'Внимание: Эта группа покупателей не может быть удалена, поскольку в настоящее время она назначена как группа покупателей по умолчанию!';
+$_['error_store']       = 'Внимание: Эта группа покупателей не может быть удалена, поскольку она в настоящее время назначена %s магазинам!';
+$_['error_customer']    = 'Внимание: Эта группа покупателей не может быть удалена, поскольку в настоящее время она назначена %s покупателям!';

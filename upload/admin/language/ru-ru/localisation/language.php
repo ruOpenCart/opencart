@@ -5,7 +5,7 @@ $_['heading_title']     = 'Языки';
 // Text
 $_['text_success']      = 'Успех: Вы изменили языки!';
 $_['text_list']         = 'Список языков';
-$_['text_add']          = 'Добавить язык';
+$_['text_add']          = 'Добавление языка';
 $_['text_edit']         = 'Редактирование языка';
 
 // Column
@@ -26,12 +26,12 @@ $_['help_locale']       = 'Пример: ru_RU.UTF-8,ru_RU,ru-ru,ru_ru,russian';
 $_['help_status']       = 'Скрыть/показать его в раскрывающемся списке языков';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify languages!';
-$_['error_exists']      = 'Warning: You have already added this language!';
+$_['error_permission']  = 'Внимание: У вас нет прав для изменения языков!';
+$_['error_exists']      = 'Внимание: Вы уже добавили этот язык!';
 $_['error_name']        = 'Название языка должно быть от 1 до 32 символов!';
 $_['error_code']        = 'Код языка должен быть от 2 до 5 символов!';
 $_['error_locale']      = 'Локаль обязательна!';
-$_['error_default']     = 'Warning: This language cannot be deleted as it is currently assigned as the default store language!';
-$_['error_admin']       = 'Warning: This Language cannot be deleted as it is currently assigned as the administration language!';
-$_['error_store']       = 'Warning: This language cannot be deleted as it is currently assigned to %s stores!';
-$_['error_order']       = 'Warning: This language cannot be deleted as it is currently assigned to %s orders!';
+$_['error_default']     = 'Внимание: Этот язык нельзя удалить, потому что он назначен языком магазина по умолчанию!';
+$_['error_admin']       = 'Внимание: Этот язык нельзя удалить, поскольку он в настоящее время назначен как язык администрирования!';
+$_['error_store']       = 'Внимание: Этот язык нельзя удалить, поскольку он в настоящее время назначен для %s магазинов!';
+$_['error_order']       = 'Внимание: Этот язык нельзя удалить, поскольку он в настоящее время назначен для %s заказов!';

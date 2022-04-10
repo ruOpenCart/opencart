@@ -5,7 +5,7 @@ $_['heading_title']    = 'Причины возврата';
 // Text
 $_['text_success']     = 'Успех: Вы изменили причины возврата!';
 $_['text_list']        = 'Список причин возврата';
-$_['text_add']         = 'Добавить причину возврата';
+$_['text_add']         = 'Добавление причины возврата';
 $_['text_edit']        = 'Редактирование причины возврата';
 
 // Column
@@ -16,6 +16,6 @@ $_['column_action']    = 'Действие';
 $_['entry_name']       = 'Название причины возврата';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify return reasons!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение причин возврата!';
 $_['error_name']       = 'Название причины возврата должно быть от 3 до 128 символов!';
-$_['error_return']     = 'Warning: This return reason cannot be deleted as it is currently assigned to %s returned products!';
+$_['error_return']     = 'Внимание: Причина возврата не может быть удалена, поскольку в настоящее время она назначена %s возвращенным товарам!';

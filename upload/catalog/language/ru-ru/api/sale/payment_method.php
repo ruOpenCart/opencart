@@ -3,7 +3,7 @@
 $_['text_success']          = 'Успех: Способ оплаты был установлен!';
 
 // Error
-$_['error_payment_address'] = 'Warning: Payment address required!';
-$_['error_payment_method']  = 'Warning: Payment method required!';
-$_['error_no_payment']      = 'Warning: No payment options are available!';
-$_['error_product']         = 'Warning: Products required!';
+$_['error_payment_address'] = 'Внимание: Платежный адрес обязателен!';
+$_['error_payment_method']  = 'Внимание: Требуется способ оплаты!';
+$_['error_no_payment']      = 'Внимание: Нет доступных вариантов оплаты!';
+$_['error_product']         = 'Внимание: Товар обязателен!';

@@ -18,4 +18,4 @@ $_['entry_sort_order'] = 'Порядок сортировки';
 $_['help_total']       = 'Сумма заказа, которую должен достичь заказ, прежде чем эта общая сумма заказа станет активной.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify handling fee total!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение общей суммы платы за обработку!';

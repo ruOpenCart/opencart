@@ -5,7 +5,7 @@ $_['heading_title']    = 'Статусы заказа';
 // Text
 $_['text_success']     = 'Успех: Вы изменили статусы заказа!';
 $_['text_list']        = 'Список статусов заказа';
-$_['text_add']         = 'Добавить статус заказа';
+$_['text_add']         = 'Добавление статуса заказа';
 $_['text_edit']        = 'Редактирование статуса заказа';
 
 // Column
@@ -16,8 +16,8 @@ $_['column_action']    = 'Действие';
 $_['entry_name']       = 'Название статуса заказа';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify order statuses!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения статусов заказа!';
 $_['error_name']       = 'Название статуса заказа должно быть от 3 до 32 символов!';
-$_['error_default']    = 'Warning: This order status cannot be deleted as it is currently assigned as the default store order status!';
-$_['error_download']   = 'Warning: This order status cannot be deleted as it is currently assigned as the default download status!';
-$_['error_order']      = 'Warning: This order status cannot be deleted as it is currently assigned to %s orders!';
+$_['error_default']    = 'Внимание: Этот статус заказа не может быть удален, поскольку он в настоящее время назначен как статус заказа по умолчанию в магазине!';
+$_['error_download']   = 'Внимание: Этот статус заказа не может быть удален, поскольку он в настоящее время назначен как статус загрузки по умолчанию!';
+$_['error_order']      = 'Внимание: Этот статус заказа не может быть удален, поскольку он в настоящее время назначен для %s заказов!';

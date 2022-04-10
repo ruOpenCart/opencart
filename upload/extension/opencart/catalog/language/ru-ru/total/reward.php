@@ -12,7 +12,7 @@ $_['text_remove']   = 'Успех: Ваша скидка за бонусные �
 $_['entry_reward']  = 'Баллы для использования (Макс. %s)';
 
 // Error
-$_['error_reward']  = 'Warning: Please enter the amount of reward points to use!';
-$_['error_points']  = 'Warning: You don\'t have %s reward points!';
-$_['error_maximum'] = 'Warning: The maximum number of points that can be applied is %s!';
-$_['error_status']  = 'Warning: Reward points are not enabled on this store!';
+$_['error_reward']  = 'Внимание: Пожалуйста, введите количество бонусных баллов для использования!';
+$_['error_points']  = 'Внимание: У вас нет %s бонусных баллов!';
+$_['error_maximum'] = 'Внимание: Максимальное количество баллов, которое может быть применено %s!';
+$_['error_status']  = 'Внимание: В этом магазине не действуют бонусные баллы!';

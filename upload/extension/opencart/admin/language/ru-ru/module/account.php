@@ -11,4 +11,4 @@ $_['text_edit']        = 'Изменить модуль учетной запи�
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify account module!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения модуля учетной записи!';

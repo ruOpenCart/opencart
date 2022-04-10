@@ -61,7 +61,7 @@ $_['entry_pin']          = 'PIN';
 // Tab
 $_['tab_description']    = 'Описание';
 $_['tab_documentation']  = 'Документация';
-$_['tab_download']       = 'Загрузки';
+$_['tab_download']       = 'Скачать';
 $_['tab_comment']        = 'Комментарий';
 
 // Button
@@ -74,7 +74,7 @@ $_['button_reply']       = 'Ответить';
 $_['button_forgot_pin']  = 'Забыли PIN?';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify extensions!';
-$_['error_opencart']     = 'Warning: You must enter your OpenCart API information before you can make any purchases!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение расширений!';
+$_['error_opencart']     = 'Внимание: Вы должны ввести информацию об OpenCart API, прежде чем совершать покупки!';
 $_['error_purchase']     = 'Расширение не может быть куплено!';
 $_['error_download']     = 'Расширение не может быть загружено!';

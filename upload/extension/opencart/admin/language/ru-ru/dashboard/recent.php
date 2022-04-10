@@ -21,4 +21,4 @@ $_['entry_sort_order']  = 'Порядок сортировки';
 $_['entry_width']       = 'Ширина';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify dashboard recent orders!';
+$_['error_permission']  = 'Внимание: У вас нет прав для изменения последних заказов панели!';
