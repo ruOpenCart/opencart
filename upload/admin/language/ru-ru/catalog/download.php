@@ -30,7 +30,7 @@ $_['help_mask']         = 'Рекомендуем, чтобы имя файла 
 
 // Error
 $_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']  = 'Warning: You do not have permission to modify downloads!';
+$_['error_permission']  = 'Внимание: У вас нет разрешения на изменение загрузок!';
 $_['error_name']        = 'Имя загрузки должно быть от 3 до 64 символов!';
 $_['error_filename']    = 'Имя файла должно быть от 3 до 128 символов!';
 $_['error_directory']   = 'Загрузки должны находиться в папке storage/download!';
