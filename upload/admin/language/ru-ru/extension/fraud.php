@@ -12,4 +12,4 @@ $_['column_status']    = 'Статус';
 $_['column_action']    = 'Действие';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify anti-fraud!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение анти-мошенничества!';
