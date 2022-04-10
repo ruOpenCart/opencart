@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']        = 'Обновить';
+$_['heading_title']        = 'Обновление';
 
 // Text
 $_['text_success']         = 'Успех: Вы используете последнюю версию %s!';
