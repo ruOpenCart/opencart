@@ -25,7 +25,7 @@ $_['entry_status']     = 'Статус';
 $_['help_items']       = 'Количество элементов для показа на слайде.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify banner module!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения модуля баннера!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_width']      = 'Необходимо указать ширину!';
 $_['error_height']     = 'Необходимо указать высоту!';
