@@ -229,7 +229,7 @@ $_['help_compression']                    = 'GZIP для более эффект
 
 // Error
 $_['error_warning']                       = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']                    = 'Warning: You do not have permission to modify settings!';
+$_['error_permission']                    = 'Внимание: У вас нет прав на изменение настроек!';
 $_['error_meta_title']                    = 'Заголовок должен быть от 3 до 32 символов!';
 $_['error_name']                          = 'Название магазина должно быть от 3 до 32 символов!';
 $_['error_owner']                         = 'Владелец магазина должен быть от 3 до 64 символов!';
