@@ -25,4 +25,4 @@ $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify products purchased report!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение отчета о купленных товарах!';
