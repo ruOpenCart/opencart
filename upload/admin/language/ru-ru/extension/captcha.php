@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']    = 'Защиты от ботов';
+$_['heading_title']    = 'Защита от ботов';
 
 // Text
 $_['text_success']     = 'Успех: Вы изменили капчи!';
