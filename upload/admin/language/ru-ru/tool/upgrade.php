@@ -20,7 +20,7 @@ $_['text_patch']           = 'Применение исправлений...';
 $_['button_upgrade']       = 'Обновить';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify upgrades!';
+$_['error_permission']     = 'Внимание: У вас нет прав для изменения обновлений!';
 $_['error_connection']     = 'Не удалось подключиться к серверу обновлений!';
 $_['error_version']        = 'Версия ниже текущей версии!';
 $_['error_download']       = 'Обновление не может быть загружено!';
