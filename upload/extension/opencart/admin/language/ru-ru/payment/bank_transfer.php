@@ -15,5 +15,5 @@ $_['entry_status']       = 'Статус';
 $_['entry_sort_order']   = 'Порядок сортировки';
 
 // Error
-$_['error_permission']   = 'Warning: You do not have permission to modify payment bank transfer!';
+$_['error_permission']   = 'Внимание: У вас нет прав на изменение оплаты банковским переводом!';
 $_['error_bank']         = 'Необходимо указать инструкции по банковскому переводу!';
