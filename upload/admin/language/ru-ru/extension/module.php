@@ -18,6 +18,6 @@ $_['entry_code']       = 'Модуль';
 $_['entry_name']       = 'Название модуля';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify modules!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения модулей!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_code']       = 'Расширение обязательно!';
