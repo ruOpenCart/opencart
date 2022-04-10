@@ -19,4 +19,4 @@ $_['entry_sort_order'] = 'Порядок сортировки';
 $_['entry_width']      = 'Ширина';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify dashboard chart!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения диаграммы панели!';
