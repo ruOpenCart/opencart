@@ -61,7 +61,7 @@ $_['entry_pin']          = 'PIN';
 // Tab
 $_['tab_description']    = 'Описание';
 $_['tab_documentation']  = 'Документация';
-$_['tab_download']       = 'Загрузки';
+$_['tab_download']       = 'Скачать';
 $_['tab_comment']        = 'Комментарий';
 
 // Button
