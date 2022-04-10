@@ -1,3 +1,3 @@
 <?php
 // Heading
-$_['heading_title'] = 'Последние';
+$_['heading_title'] = 'Новинки';
