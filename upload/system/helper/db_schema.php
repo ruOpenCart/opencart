@@ -5338,11 +5338,6 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'reference',
-				'type' => 'varchar(100)',
-				'not_null' => true
-			],
-			[
 				'name' => 'subscription_plan_id',
 				'type' => 'int(11)',
 				'not_null' => true
@@ -5418,13 +5413,13 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_status_id',
-				'type' => 'int(11)',
+				'name' => 'date_next',
+				'type' => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_next',
-				'type' => 'datetime',
+				'name' => 'subscription_status_id',
+				'type' => 'int(11)',
 				'not_null' => true
 			],
 			[
@@ -5659,11 +5654,6 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_method',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
 				'name' => 'description',
 				'type' => 'text',
 				'not_null' => true
@@ -5671,6 +5661,16 @@ function db_schema() {
 			[
 				'name' => 'amount',
 				'type' => 'decimal(10,4)',
+				'not_null' => true
+			],
+			[
+				'name' => 'payment_method',
+				'type' => 'varchar(128)',
+				'not_null' => true
+			],
+			[
+				'name' => 'payment_code',
+				'type' => 'varchar(128)',
 				'not_null' => true
 			],
 			[
@@ -6136,6 +6136,44 @@ function db_schema() {
 		],
 		'primary' => [
 			'user_group_id'
+		],
+		'engine' => 'InnoDB',
+		'charset' => 'utf8',
+		'collate' => 'utf8_general_ci'
+	];
+
+	$tables[] = [
+		'name' => 'vendor',
+		'field' => [
+			[
+				'name' => 'vendor_id',
+				'type' => 'int(11)',
+				'not_null' => true,
+				'auto_increment' => true
+			],
+			[
+				'name' => 'name',
+				'type' => 'varchar(64)',
+				'not_null' => true
+			],
+			[
+				'name' => 'code',
+				'type' => 'text',
+				'not_null' => true
+			],
+			[
+				'name' => 'version',
+				'type' => 'text',
+				'not_null' => true
+			],
+			[
+				'name' => 'date_added',
+				'type' => 'text',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'vendor_id'
 		],
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',
