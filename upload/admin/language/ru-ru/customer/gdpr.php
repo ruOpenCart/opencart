@@ -32,4 +32,4 @@ $_['entry_status']      = 'Статус';
 $_['entry_date_added']  = 'Дата добавления';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify GDPR approvals!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение одобрений GDPR!';
