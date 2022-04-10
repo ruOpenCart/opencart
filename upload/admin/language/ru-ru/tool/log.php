@@ -8,6 +8,6 @@ $_['text_list']        = 'Список ошибок';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав на очистку журнала ошибок!';
-$_['error_file']       = 'Warning: %s file could not be found!';
-$_['error_size']       = 'Warning: Error log file %s is %s!';
-$_['error_empty']      = 'Warning: Log file %s is empty!';
+$_['error_file']       = 'Внимание: Файл %s не найден!';
+$_['error_size']       = 'Внимание: Файл журнала ошибок %s размером %s!';
+$_['error_empty']      = 'Внимание: Файл журнала %s пуст!';
