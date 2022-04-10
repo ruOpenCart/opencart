@@ -26,7 +26,7 @@ $_['entry_geo_zone']    = 'Гео-зона';
 $_['entry_priority']    = 'Приоритет';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify tax classes!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение налоговых классов!';
 $_['error_title']       = 'Заголовок налогового класса должен быть от 3 до 32 символов!';
 $_['error_description'] = 'Описание должно быть от 3 до 255 символов!';
 $_['error_product']     = 'Внимание: Этот налоговый класс не может быть удален, поскольку он в настоящее время назначен %s товарам!';
