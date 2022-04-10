@@ -22,4 +22,4 @@ $_['entry_ip']          = 'IP-адрес';
 $_['entry_customer']    = 'Покупатель';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify customers online report!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение отчета онлайна покупателей!';
