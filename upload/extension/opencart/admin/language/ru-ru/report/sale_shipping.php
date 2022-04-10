@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']      = 'Отчет о доставке';
+$_['heading_title']      = 'Отчет по доставке';
 
 // Text
 $_['text_extension']     = 'Расширения';
