@@ -22,4 +22,4 @@ $_['button_on']        = 'Вкл';
 $_['button_off']       = 'Откл';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify developer settings!';
+$_['error_permission'] = 'Внимание: У вас нет прав на изменение настроек разработчика!';
