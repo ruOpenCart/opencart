@@ -41,6 +41,7 @@ $_['help_frequency']        = 'Если вы используете частот
 
 // Error
 $_['error_warning']         = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']      = 'Warning: You do not have permission to modify subscription plans!';
+$_['error_permission']      = 'Внимание: У вас нет прав на изменение планов подписки!';
 $_['error_name']            = 'Название плана подписки должно быть от 3 до 255 символов!';
+$_['error_trial_duration']  = 'Trial duration must be greater than 0!';
 $_['error_product']         = 'Внимание: Этот план подписки не может быть удален, поскольку он в настоящее время назначен %s товарам!';
