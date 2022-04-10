@@ -25,7 +25,7 @@ $_['entry_layout']      = 'Переопределение макета';
 
 // Error
 $_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']  = 'Warning: You do not have permission to modify manufacturers!';
+$_['error_permission']  = 'Внимание: У вас нет прав на изменение производителей!';
 $_['error_name']        = 'Имя производителя должно быть от 2 до 64 символов!';
 $_['error_seo']         = 'Требуется keyword SEO URL-адреса!';
 $_['error_keyword']     = 'Семантический URL-адрес должен быть уникальным!';
