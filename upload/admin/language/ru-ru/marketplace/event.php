@@ -15,7 +15,7 @@ $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_description'] = 'Описание';
-$_['entry_trigger']     = 'Trigger';
+$_['entry_trigger']     = 'Триггер';
 $_['entry_action']      = 'Действие';
 
 // Error
