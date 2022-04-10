@@ -1,3 +1,3 @@
 <?php
 // Heading
-$_['heading_title'] = 'Скидки';
+$_['heading_title'] = 'Специальные предложения';
