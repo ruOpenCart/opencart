@@ -84,7 +84,7 @@ $_['help_points']           = 'Используйте минус для удал
 
 // Error
 $_['error_warning']         = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']      = 'Warning: You do not have permission to modify customers!';
+$_['error_permission']      = 'Внимание: У вас нет прав для изменения покупателей!';
 $_['error_customer']        = 'Внимание: Покупатель не существует!';
 $_['error_exists']          = 'Внимание: Адрес эл. почты уже зарегистрирован!';
 $_['error_address']         = 'Внимание: Адрес не существует!';
