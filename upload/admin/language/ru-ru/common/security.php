@@ -25,7 +25,7 @@ $_['button_move']              = 'Переместить';
 $_['button_rename']            = 'Переименовать';
 
 // Error
-$_['error_permission']         = 'Warning: You do not have permission to modify security!';
+$_['error_permission']         = 'Внимание: У вас нет прав для изменений безопасности!';
 $_['error_install']            = 'Внимание: Каталог установки не существует!';
 $_['error_storage']            = 'Внимание: Папка storage не существует!';
 $_['error_storage_exists']     = 'Внимание: Папка с именем storage уже существует!';
