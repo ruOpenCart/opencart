@@ -23,6 +23,6 @@ $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Порядок сортировки';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify banners!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения баннеров!';
 $_['error_name']       = 'Название баннера должно быть от 3 до 64 символов!';
 $_['error_title']      = 'Заголовок баннера должен быть от 2 до 64 символов!';
