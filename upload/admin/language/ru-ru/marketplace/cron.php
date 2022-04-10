@@ -25,4 +25,4 @@ $_['entry_cron']           = 'URL-адрес крона';
 $_['entry_description']    = 'Описание';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify cron jobs!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение заданий cron!';
