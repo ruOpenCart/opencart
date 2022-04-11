@@ -19,7 +19,7 @@ $_['entry_cache']      = 'Кэш';
 
 // Button
 $_['button_on']        = 'Вкл';
-$_['button_off']       = 'Откл';
+$_['button_off']       = 'Выкл';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав на изменение настроек разработчика!';

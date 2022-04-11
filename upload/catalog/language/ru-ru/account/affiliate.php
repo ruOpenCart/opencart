@@ -19,11 +19,11 @@ $_['entry_website']             = 'Веб-сайт';
 $_['entry_tax']                 = 'Идентификатор налога';
 $_['entry_payment']             = 'Метод оплаты';
 $_['entry_cheque']              = 'Имя получателя чека';
-$_['entry_paypal']              = 'Эл. почта учётной записи PayPal';
+$_['entry_paypal']              = 'Эл. почта учетной записи PayPal';
 $_['entry_bank_name']           = 'Наименование банка';
 $_['entry_bank_branch_number']  = 'ABA/BSB номер (номер отделения)';
 $_['entry_bank_swift_code']     = 'БИК';
-$_['entry_bank_account_name']   = 'Название счёта';
+$_['entry_bank_account_name']   = 'Название счета';
 $_['entry_bank_account_number'] = 'Номер счета';
 
 // Error

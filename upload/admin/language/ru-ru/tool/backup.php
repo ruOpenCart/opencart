@@ -20,7 +20,7 @@ $_['column_action']      = 'Действие';
 
 // Entry
 $_['entry_progress']     = 'Прогресс';
-$_['entry_export']       = 'Экспорт';
+$_['entry_export']       = 'Export';
 
 // Error
 $_['error_permission']   = 'Внимание: У вас нет прав на изменение резервного копирования и восстановления!';
