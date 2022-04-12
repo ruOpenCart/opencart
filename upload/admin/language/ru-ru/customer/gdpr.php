@@ -14,7 +14,7 @@ $_['text_pending']      = 'В ожидании';
 $_['text_processing']   = 'Обработка';
 $_['text_complete']     = 'Завершено';
 $_['text_denied']       = 'Отказано';
-$_['text_export']       = 'Export';
+$_['text_export']       = 'Экспорт';
 $_['text_remove']       = 'Убрать';
 $_['text_filter']       = 'Фильтр';
 
