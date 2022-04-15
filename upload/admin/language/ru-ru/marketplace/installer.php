@@ -23,7 +23,7 @@ $_['entry_progress']    = 'Прогресс';
 // Error
 $_['error_permission']  = 'Внимание: У вас нет прав на изменение расширений!';
 
-$_['error_install']     = 'Install could not be found!';
+$_['error_install']     = 'Установка не найдена!';
 
 $_['error_filename']    = 'Имя файла должно быть от 3 до 128 символов!';
 
@@ -31,7 +31,7 @@ $_['error_file']        = 'Файл установки %s не найден!';
 $_['error_file_exists'] = 'Файл не существует!';
 
 $_['error_directory']        = 'Каталог установки %s не найден!';
-$_['error_directory_exists'] = 'Path %s already exists!';
+$_['error_directory_exists'] = 'Путь %s уже существует!';
 
 $_['error_unzip']            = 'Zip-файл не может быть открыт!';
 $_['error_upload']           = 'Файл не может быть загружен!';
