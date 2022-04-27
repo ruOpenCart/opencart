@@ -274,10 +274,8 @@ $(document).on('click', 'button[data-oc-toggle=\'upload\']', function () {
 
         $('#form-upload input[name=\'file\']').trigger('click');
 
-        var size = $(element).attr('data-oc-size-max');
-
         $('#form-upload input[name=\'file\']').on('change', function (e) {
-            if (this.files[0].size > size) {
+            if ((this.files[0].size / 1024) > $(element).attr('data-oc-size-max')) {
                 alert($(element).attr('data-oc-size-error'));
 
                 $(this).val('');
@@ -301,7 +299,7 @@ $(document).on('click', 'button[data-oc-toggle=\'upload\']', function () {
                     contentType: false,
                     processData: false,
                     beforeSend: function () {
-                        $(element).button('loading');
+                        $(element).prop('disabled', true).addClass('loading');
                     },
                     complete: function () {
                         $(element).prop('disabled', false).removeClass('loading');
