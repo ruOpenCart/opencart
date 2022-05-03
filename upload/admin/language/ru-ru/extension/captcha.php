@@ -13,3 +13,4 @@ $_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения капч!';
+$_['error_directory']  = 'Warning: Extension directory does not exist!';
