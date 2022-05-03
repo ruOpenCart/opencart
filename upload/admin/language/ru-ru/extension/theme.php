@@ -12,3 +12,4 @@ $_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав на изменение тем!';
+$_['error_directory']  = 'Warning: Extension directory does not exist!';
