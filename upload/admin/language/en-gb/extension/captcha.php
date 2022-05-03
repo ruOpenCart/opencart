@@ -13,4 +13,3 @@ $_['column_action']    = 'Action';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify captchas!';
-$_['error_directory']  = 'Warning: Extension directory does not exist!';
