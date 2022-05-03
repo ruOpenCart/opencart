@@ -19,5 +19,6 @@ $_['entry_name']       = 'Название модуля';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения модулей!';
+$_['error_directory']  = 'Warning: Extension directory does not exist!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_code']       = 'Расширение обязательно!';
