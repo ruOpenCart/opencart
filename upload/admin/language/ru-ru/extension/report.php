@@ -14,3 +14,4 @@ $_['column_action']     = 'Действие';
 
 // Error
 $_['error_permission']  = 'Внимание: У вас нет прав на изменение отчетов!';
+$_['error_directory']   = 'Warning: Extension directory does not exist!';
