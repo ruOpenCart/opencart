@@ -1,69 +1,56 @@
-# Upgrading from version 2.x.x
+# Обновление с версии 2.x.x
 
-* For existing installs only
-* Don't use with previous versions
+* Только для существующих установок
+* Не используйте с предыдущими версиями
 
-## For previous versions
+## Для предыдущих версий
 
-If you have __1.5.x__ and want to upgrade __to 3.0.x__, You may try to [contact our dedicated support](https://dedicated.opencart.com/)
+Если у Вас __1.5.x__ и Вы хотите обновить __до 3.0.x__, Вы можете попробовать [обратиться в нашу специализированную службу поддержки](https://dedicated.opencart.com/)
 
+## Шаг за шагом
 
-## Step by step
+1. **РЕЗЕРВНОЕ КОПИРОВАНИЕ СУЩЕСТВУЮЩИХ ФАЙЛОВ МАГАЗИНА И БАЗЫ ДАННЫХ!!!**.
+    * Сделайте резервную копию Вашей __базы данных__ через Ваш магазин
+    `Администрирование -> Система -> Резервное копирование`.
+    * Сделайте резервную копию Ваших __файлов__ с помощью FTP-копирования файлов или используйте файловый менеджер в cPanel для создания zip-архива всех существующих файлов и папок opencart.
+2. Загрузите __последнюю версию__ OpenCart и __загрузите все__ новые файлы поверх текущей установки, __кроме__ Ваших `config.php` и `admin/config.php`.
+    1. Сделайте резервную копию и удалите все файлы представлений 2.x.x. Поскольку OpenCart 3 начинает использовать `TWIG` для замены формата `TPL`.
+    2. Посмотрите это видео, чтобы понять, как правильно загружать папку с помощью FTP: http://docs.opencart.name/ru-ru/upgrading/
+    3. Перед обновлением последней версии Вам следует дважды проверить, совместимы ли существующие расширения (в Вашем магазине) с последней версией. Пожалуйста, свяжитесь с разработчиком для запроса перед обновлением.
+    4. Не только расширения, все темы в OpenCart 2 не могут использоваться в OpenCart 3. Вы должны установить тему Вашего магазина по умолчанию и сначала отключить все расширения.
+3. Перейдите к `http://<yourstore.com>/install` Заменив `<yourstore.com>` своим фактическим сайтом (и подкаталогом, если применимо).
+4. Вы должны увидеть скрипт обновления OpenCart.
+    * Если Вы видите страницу установки OpenCart, это означает, что Вы перезаписали файлы `config.php`. Сначала восстановите их из резервной копии. Затем попробуйте еще раз.
+5. Кликните "Обновить". Через несколько секунд Вы должны увидеть страницу успешного обновления.
+    * Если Вы видите какие-либо ошибки, немедленно сообщите о них на форуме, прежде чем продолжить.
+6. Удалите все файлы cookie в своем браузере.
+7. Перейдите в админку Вашего магазина и несколько раз нажмите `Ctrl+F5` или `Ctrl+Shift+R`, чтобы обновить кеш браузера. Это предотвратит странное смещение элементов из-за изменений таблицы стилей. Войдите в систему как главный администратор.
+8. Перейдите к `Администрирование -> Пользователи -> Группы пользователей` и отредактируйте группу главного администратора. Установите все флажки.
+    * Это гарантирует, что у Вас есть разрешения для всех новых файлов.
+9. Перейдите в `Администрирование -> Расширения -> Расширения -> Темы` и снова сохраните тему по умолчанию.
+10. Перейдите в `Администрирование -> Настройки системы`
+    * Обновите все пустые поля и нажмите "Сохранить".
+    * Даже если Вы не видите никаких новых полей, все равно нажмите кнопку «Сохранить», чтобы обновить базу данных, добавив новые имена полей.
+11. Другие корректировки, которые могут потребоваться, в зависимости от версии, с которой Вы выполняете обновление. Они разбиты по версии, в которой они были добавлены. Поэтому, если Вы в настоящее время не используете эту версию, Вам может потребоваться внести изменения.
+12. Загрузите витрину магазина и снова нажмите `CTRL+F5` 3 раза, чтобы обновить кеш браузера. Это предотвратит странное смещение элементов из-за таблицы стилей. (Если Вы пропустите шаг 9, Вы получите сообщение об ошибке.)
+13. Если Вы используете vQmod (к настоящему моменту должны использовать все), Вам следует сначала проверить наличие новой версии на http://vQmod.com. Обязательно скачивайте версию, помеченную как «opencart».
+    Вам также потребуется повторно запустить установщик vQmod, даже если у Вас установлена последняя версия. У Вас уже должен быть установщик на Вашем сайте, так как он не предназначен для удаления при первом запуске. Просто перейдите к: `http://yoursite.com/vqmod/install` , и Вы должны увидеть сообщение об успешном завершении. Если Вы не видите сообщение об успешном выполнении, следуйте полному руководству по установке с сайта http://vQmod.com.
 
-1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
-    * Backup your __database__ via your store
-    `Admin -> System -> Backup`
-    * Backup your __files__ using FTP file copy or use cPanel filemanager to create a zip of all the existing opencart files and folders
-2. Download the __latest version__ of OpenCart and __upload all__ new files on top of your current install __except__ your `config.php` and `admin/config.php`.
-    1. Backup and Remove all of 2.x.x views files. Because OpenCart 3 is start to use TWIG to replace the TPL format.
-    2. Watch this video to understand how to properly upload folder using FTP: http://docs.opencart.com/en-gb/upgrading/
-    3. Before upgrade the latest version, you should double check the existing extensions (in your store) are compatibility with latest version or not. Please contact the developer for enquiry before you upgrade.
-    4. Not only the extensions, all the themes in OpenCart 2 cannot use in OpenCart 3. You should set your store theme to default theme and disabled all of the extensions first.
+Обратите внимание, что некоторые из Ваших сценариев vQmod могут нуждаться в обновлении с учетом новых основных изменений.
 
-3. Browse to `http://<yourstore.com>/install` Replacing `<yourstore.com>` with your actual site (and subdirectory if applicable).
+Так что пробежитесь по каталогу Вашего сайта и в административных областях и проверьте FTP на наличие файла vqmod/vqmod.log.
 
-4. You should see the OpenCart Upgrade script.
-    * If you see the OpenCart Install page, then that means you overwrote your `config.php` files. Restore them from your backup first. Then try again.
+Если Вы видите ошибки, Вам необходимо их устранить.
 
-5. Click "Upgrade". After a few seconds you should see the upgrade success page.
-    * If you see any errors, report them immediately in the forum before continuing.
+## Поиск и устранение неисправностей
 
-6. Clear any cookies in your browser
+1. Если у Вас есть ошибки скрипта обновления, опубликуйте их на форуме.
+2. Если у Вас есть ошибки сторонних аддонов, свяжитесь с автором мода для обновления.
+3. Если Вы обнаружите ошибки, проверьте "официальную" ветку ошибок для этой версии Opencart.
 
-7. Goto the admin side of your store and press `Ctrl+F5` or `Ctrl+Shift+R` for several times to refresh your browser cache. That will prevent oddly shifted elements due to stylesheet changes. Login to your admin as the main administrator.
+О многих ошибках, возможно, уже сообщалось, и исправления будут предложены в первом сообщении этой ветки.
+Вы всегда должны посещать эту ветку сразу после нового обновления, чтобы увидеть, есть ли какие-либо немедленные исправления ошибок.
 
-8. Goto `Admin -> Users -> User Groups` and Edit the Top Adminstrator group. Check All boxes.
-    * This will ensure you have permissions for all the new files
+Если никто не сообщил о Вашей ошибке, сообщите об этом.
 
-9. Goto `Admin -> Extensions -> Extensions -> Theme` enabled and save the default theme again.
-
-10. Goto `Admin -> System Settings`
-    * Update any blank fields and click save. 
-    * Even if you do not see any new fields, click save anyway to update the database with any new field names.
-
-11. Other Adjustments that may need to be made, depending on which version you are upgrading from and to. These are broken down by which version they were added in. So if you are not currently at that version, you may need to make changes
-
-12. Load the store front and again press CTRL+F5 3x times to refresh your browser cache. That will prevent oddly shifted elements due to stylesheet. (If you skip step 9, you will get the error message.)
-
-13. If you use vQmod (by now everyone should be) you should first check for a new version at http://vQmod.com. Be sure to download the version that is marked for "opencart".
-    You will also need to re-run the vQmod installer, even if you have the latest version. You should already have the installer on your site as it isn't meant to be deleted from the first time you run it. Simply browse to:
-http://yoursite.com/vqmod/install and you should see a success message. If you do not see a success message, follow the full install guide from the http://vQmod.com site.
-
-Note that some of your vQmod scripts may need to be updated for the new core changes.
-So run through your site catalog and admin areas and check in FTP for the vqmod/vqmod.log file.
-If you see errors, then you will need to address them.
-
-
-## Troubleshooting:
-
-1. If you have any upgrade script errors, post them in the forum
-2. If you have 3rd party addon errors, contact the mod author for an update.
-3. If you find bugs, check the "official" bug thread for this version of Opencart
-
-
-Many bugs may have already been reported and fixes will be offered in the first post of this thread.
-You should always visit this thread immediately after a fresh upgrade to see if there are any immediate bug fixes
-If nobody has reported your bug, then please report it.
-
-An online version of this file can be found here:
-http://www.opencart.com/index.php?route=documentation/documentation&path=98
+Онлайн-версию этого файла можно найти здесь: http://docs.opencart.name/ru-ru/introduction/

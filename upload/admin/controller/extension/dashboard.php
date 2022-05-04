@@ -87,8 +87,8 @@ class Dashboard extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		if (!is_dir(DIR_EXTENSION . 'extension/' . $extension . '/analytics/' . $code)) {
-			$json['error'] = $this->language->get('error_directory');
+		if (!is_file(DIR_EXTENSION . $extension . '/admin/controller/dashboard/' . $code . '.php')) {
+			$json['error'] = $this->language->get('error_file');
 		}
 
 		if (!$json) {
@@ -101,10 +101,12 @@ class Dashboard extends \Opencart\System\Engine\Controller {
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/' . $extension . '/dashboard/' . $code);
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/' .$extension . '/dashboard/' . $code);
 
+			$namespace = str_replace(['_', '/'], ['', '\\'], ucwords($extension, '_/'));
+
 			// Register controllers, models and system extension folders
-			$this->autoloader->register('Opencart\Admin\Controller\Extension\\' . $extension, DIR_EXTENSION . $extension . '/admin/controller/');
-			$this->autoloader->register('Opencart\Admin\Model\Extension\\' . $extension, DIR_EXTENSION . $extension . '/admin/model/');
-			$this->autoloader->register('Opencart\System\Extension\\' . $extension, DIR_EXTENSION . $extension . '/system/');
+			$this->autoloader->register('Opencart\Admin\Controller\Extension\\' . $namespace, DIR_EXTENSION . $extension . '/admin/controller/');
+			$this->autoloader->register('Opencart\Admin\Model\Extension\\' . $namespace, DIR_EXTENSION . $extension . '/admin/model/');
+			$this->autoloader->register('Opencart\System\Extension\\' . $namespace, DIR_EXTENSION . $extension . '/system/');
 
 			// Template directory
 			$this->template->addPath('extension/' . $extension, DIR_EXTENSION . $extension . '/admin/view/template/');
