@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="button" data-oc-action="{{ save }}" data-oc-form="#form-layout" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <button type="submit" form="form-layout" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
         <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
@@ -17,13 +17,14 @@
     <div class="card">
       <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
       <div class="card-body">
-        <form id="form-layout">
+        <form id="form-layout" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <fieldset>
             <legend>{{ text_route }}</legend>
             <div class="row mb-3 required">
               <label for="input-name" class="col-sm-2 col-form-label">{{ entry_name }}</label>
               <div class="col-sm-10">
                 <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+                <div id="error-name" class="invalid-feedback"></div>
               </div>
             </div>
             <br/>
@@ -244,7 +245,7 @@ function addRoute() {
     html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
   {% endfor %}
     html += '  </select></td>';
-    html += '  <td class="text-start"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control" /></td>';
+    html += '  <td class="text-start"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control"/></td>';
     html += '  <td class="text-end"><button type="button" onclick="$(\'#route-row-' + route_row + '\').remove();" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></td>';
     html += '</tr>';
 

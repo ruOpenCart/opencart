@@ -19,7 +19,7 @@
           <div class="card bg-light">
             <div class="card-body">
               <div class="input-group">
-                <select name="type" class="form-select">
+                <select name="type" id="input-type" class="form-select">
                   {% for category in categories %}
                     <option value="{{ category.href }}"{% if type == category.code %} selected{% endif %}>{{ category.text }}</option>
                   {% endfor %}
@@ -35,25 +35,25 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name=\'type\']').on('change', function() {
+$('#input-type').on('change', function() {
     $.ajax({
         url: $(this).val(),
         dataType: 'html',
         beforeSend: function() {
             $('.fa-filter').addClass('fa-circle-notch fa-spin');
             $('.fa-filter').removeClass('fa-filter');
-            $('select[name=\'type\']').prop('disabled', true);
+            $('#input-type').prop('disabled', true);
         },
         complete: function() {
             $('.fa-circle-notch').addClass('fa-filter');
             $('.fa-circle-notch').removeClass('fa-circle-notch fa-spin');
-            $('select[name=\'type\']').prop('disabled', false);
+            $('#input-type').prop('disabled', false);
         },
         success: function(html) {
             $('#extension').html(html);
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
@@ -68,10 +68,10 @@ $('#extension').on('click', '#recommended .btn-primary', function(e) {
         url: $(element).attr('value'),
         dataType: 'json',
         beforeSend: function() {
-            $(element).button('loading');
+            $(element).prop('disabled', true).addClass('loading');
         },
         complete: function() {
-            $(element).button('reset');
+            $(element).prop('disabled', false).removeClass('loading');
         },
         success: function(json) {
             $('.alert-dismissible').remove();
@@ -93,7 +93,7 @@ $('#extension').on('click', '#recommended .btn-primary', function(e) {
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
@@ -117,11 +117,11 @@ $('#extension').on('click', '.dropdown-item', function(e) {
             if (json['success']) {
                 $('#extension').before('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                $('#extension').load($('select[name=\'type\']').val());
+                $('#extension').load($('#input-type').val());
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
@@ -136,26 +136,26 @@ $('#extension').on('click', '.btn-success', function(e) {
         url: $(element).attr('href'),
         dataType: 'json',
         beforeSend: function() {
-            $(element).button('loading');
+            $(element).prop('disabled', true).addClass('loading');
         },
         complete: function() {
-            $(element).button('reset');
+            $(element).prop('disabled', false).removeClass('loading');
         },
         success: function(json) {
             $('.alert-dismissible').remove();
 
             if (json['error']) {
-                $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
             }
 
             if (json['success']) {
-                $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                $('select[name=\'type\']').trigger('change');
+                $('#input-type').trigger('change');
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
@@ -171,10 +171,10 @@ $('#extension').on('click', '.btn-danger, .btn-outline-danger', function(e) {
             url: $(element).attr('href'),
             dataType: 'json',
             beforeSend: function() {
-                $(element).button('loading');
+                $(element).prop('disabled', true).addClass('loading');
             },
             complete: function() {
-                $(element).button('reset');
+                $(element).prop('disabled', false).removeClass('loading');
             },
             success: function(json) {
                 console.log(json);
@@ -182,17 +182,17 @@ $('#extension').on('click', '.btn-danger, .btn-outline-danger', function(e) {
                 $('.alert-dismissible').remove();
 
                 if (json['error']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
                 }
 
                 if (json['success']) {
-                    $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                    $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                    $('select[name=\'type\']').trigger('change');
+                    $('#input-type').trigger('change');
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
         });
     }

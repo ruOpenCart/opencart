@@ -6,7 +6,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
 
-		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
+		$data['config_file_max_size'] = ((int)$this->config->get('config_file_max_size') * 1024 * 1024);
 
 		// Return the target ID for the file manager to set the value
 		if (isset($this->request->get['target'])) {
@@ -50,7 +50,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 		}
 
 		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
+			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
 		}
@@ -316,7 +316,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 					];
 
 					if (!in_array(substr($filename, strrpos($filename, '.') + 1), $allowed)) {
-						$json['error'] = $this->language->get('error_filetype');
+						$json['error'] = $this->language->get('error_file_type');
 					}
 
 					// Allowed file mime types
@@ -331,7 +331,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 					];
 
 					if (!in_array($file['type'], $allowed)) {
-						$json['error'] = $this->language->get('error_filetype');
+						$json['error'] = $this->language->get('error_file_type');
 					}
 
 					// Return any upload error
@@ -456,10 +456,10 @@ class FileManager extends \Opencart\System\Engine\Controller {
 					while (count($path) != 0) {
 						$next = array_shift($path);
 
-						foreach (glob($next) as $file) {
+						foreach (glob($next . '/*') as $file) {
 							// If directory add to path array
 							if (is_dir($file)) {
-								$path[] = $file . '/*';
+								$path[] = $file;
 							}
 
 							// Add the file to the files to be deleted array

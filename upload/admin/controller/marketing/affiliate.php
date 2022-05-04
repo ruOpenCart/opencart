@@ -53,10 +53,10 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 	}
 
 	protected function getList(): string {
-		if (isset($this->request->get['filter_name'])) {
-			$filter_name = $this->request->get['filter_name'];
+		if (isset($this->request->get['filter_customer'])) {
+			$filter_customer = $this->request->get['filter_customer'];
 		} else {
-			$filter_name = '';
+			$filter_customer = '';
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -103,8 +103,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -142,7 +142,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		$data['affiliates'] = [];
 
 		$filter_data = [
-			'filter_name'       => $filter_name,
+			'filter_name'       => $filter_customer,
 			'filter_tracking'   => $filter_tracking,
 			'filter_commission' => $filter_commission,
 			'filter_status'     => $filter_status,
@@ -175,8 +175,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -213,8 +213,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -250,7 +250,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($affiliate_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($affiliate_total - $this->config->get('config_pagination_admin'))) ? $affiliate_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $affiliate_total, ceil($affiliate_total / $this->config->get('config_pagination_admin')));
 
-		$data['filter_name'] = $filter_name;
+		$data['filter_customer'] = $filter_customer;
 		$data['filter_tracking'] = $filter_tracking;
 		$data['filter_commission'] = $filter_commission;
 		$data['filter_status'] = $filter_status;
@@ -271,12 +271,12 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
 
-		$data['config_file_max_size'] = $this->config->get('config_file_max_size');
+		$data['config_file_max_size'] = ((int)$this->config->get('config_file_max_size') * 1024 * 1024);
 
 		$url = '';
 
-		if (isset($this->request->get['filter_name'])) {
-			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_customer'])) {
+			$url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_tracking'])) {
@@ -319,20 +319,15 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('marketing/affiliate|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('marketing/affiliate|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['upload'] = $this->url->link('tool/upload|upload', 'user_token=' . $this->session->data['user_token']);
 
 		// Affiliate
 		if (isset($this->request->get['customer_id'])) {
 			$this->load->model('marketing/affiliate');
 
 			$affiliate_info = $this->model_marketing_affiliate->getAffiliate($this->request->get['customer_id']);
-		}
-
-		if (isset($this->request->get['customer_id'])) {
-			$data['customer_id'] = (int)$this->request->get['customer_id'];
-		} else {
-			$data['customer_id'] = 0;
 		}
 
 		if (isset($this->request->get['customer_id'])) {
@@ -450,15 +445,17 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
-			$data['custom_fields'][] = [
-				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
-			];
+			if ($custom_field['status']) {
+				$data['custom_fields'][] = [
+					'custom_field_id'    => $custom_field['custom_field_id'],
+					'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
+					'name'               => $custom_field['name'],
+					'value'              => $custom_field['value'],
+					'type'               => $custom_field['type'],
+					'location'           => $custom_field['location'],
+					'sort_order'         => $custom_field['sort_order']
+				];
+			}
 		}
 
 		if (!empty($affiliate_info)) {
@@ -466,6 +463,10 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['affiliate_custom_field'] = [];
 		}
+
+		$data['history'] = $this->load->controller('customer/customer|getHistory');
+		$data['transaction'] = $this->load->controller('customer/customer|getTransaction');
+		$data['report'] = $this->getReport();
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -487,7 +488,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('customer/customer');
 
-		$customer_info = $this->model_customer_customer->getCustomer($this->request->post['customer_id']);
+		$customer_info = $this->model_customer_customer->getCustomer((int)$this->request->post['customer_id']);
 
 		if (!$customer_info) {
 			$json['error']['customer'] = $this->language->get('error_customer');
@@ -496,7 +497,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		// Check to see if customer is already a affiliate
 		$this->load->model('marketing/affiliate');
 
-		$affiliate_info = $this->model_marketing_affiliate->getAffiliate($this->request->post['customer_id']);
+		$affiliate_info = $this->model_marketing_affiliate->getAffiliate((int)$this->request->post['customer_id']);
 
 		if ($affiliate_info && (!isset($this->request->post['customer_id']) || ($this->request->post['customer_id'] != $affiliate_info['customer_id']))) {
 			$json['error']['warning'] = $this->language->get('error_already');
@@ -534,10 +535,12 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 			$custom_fields = $this->model_customer_custom_field->getCustomFields(['filter_customer_group_id' => $customer_info['customer_group_id']]);
 
 			foreach ($custom_fields as $custom_field) {
-				if (($custom_field['location'] == 'affiliate') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
-					$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['location'] == 'affiliate') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
-					$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
+				if ($custom_field['status']) {
+					if (($custom_field['location'] == 'affiliate') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+					} elseif (($custom_field['location'] == 'affiliate') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
+					}
 				}
 			}
 		}
@@ -547,7 +550,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			if (!$this->request->post['customer_id']) {
+			// Use affiliate
+			if (!$affiliate_info) {
 				$json['customer_id'] = $this->model_marketing_affiliate->addAffiliate($this->request->post);
 			} else {
 				$this->model_marketing_affiliate->editAffiliate($this->request->post['customer_id'], $this->request->post);
@@ -592,6 +596,10 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 	public function report(): void {
 		$this->load->language('marketing/affiliate');
 
+		$this->response->setOutput($this->getReport());
+	}
+
+	private function getReport(): string {
 		if (isset($this->request->get['customer_id'])) {
 			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
@@ -599,7 +607,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
+			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
 		}
@@ -644,6 +652,6 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($report_total - 10)) ? $report_total : ((($page - 1) * 10) + 10), $report_total, ceil($report_total / 10));
 
-		$this->response->setOutput($this->load->view('marketing/affiliate_report', $data));
+		return $this->load->view('marketing/affiliate_report', $data);
 	}
 }

@@ -11,16 +11,10 @@ class Checkout extends \Opencart\System\Engine\Controller {
 		$products = $this->cart->getProducts();
 
 		foreach ($products as $product) {
-			$product_total = 0;
+			if (!$product['minimum']) {
+				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 
-			foreach ($products as $product_2) {
-				if ($product_2['product_id'] == $product['product_id']) {
-					$product_total += $product_2['quantity'];
-				}
-			}
-
-			if ($product['minimum'] > $product_total) {
-				$this->response->redirect($this->url->link('checkout/cart', 'language=' . $this->config->get('config_language')));
+				break;
 			}
 		}
 
@@ -28,10 +22,10 @@ class Checkout extends \Opencart\System\Engine\Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.min.js');
+		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment-with-locales.min.js');
+		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/daterangepicker.js');
+		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/daterangepicker.css');
 
 		$data['breadcrumbs'] = [];
 
@@ -50,27 +44,32 @@ class Checkout extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'))
 		];
 
-		if (isset($this->session->data['error'])) {
-			$data['error_warning'] = $this->session->data['error'];
-
-			unset($this->session->data['error']);
+		if (!$this->customer->isLogged()) {
+			$data['register'] = $this->load->controller('checkout/register');
 		} else {
-			$data['error_warning'] = '';
+			$data['register'] = '';
 		}
 
-		$data['logged'] = $this->customer->isLogged();
-		$data['shipping_required'] = $this->cart->hasShipping();
-		$data['config_checkout_address'] = $this->config->get('config_checkout_address');
+		if ($this->customer->isLogged() && $this->config->get('config_checkout_address')) {
+			$data['payment_address'] = $this->load->controller('checkout/payment_address');
+		} else {
+			$data['payment_address'] = '';
+		}
 
-		$data['login'] = $this->load->controller('checkout/login');
-		$data['register'] = $this->load->controller('checkout/register');
+		if ($this->customer->isLogged() && $this->cart->hasShipping()) {
+			$data['shipping_address'] = $this->load->controller('checkout/shipping_address');
+		}  else {
+			$data['shipping_address'] = '';
+		}
 
-		//$data['payment_address'] = $this->load->controller('checkout/payment_address');
+		if ($this->cart->hasShipping()) {
+			$data['shipping_method'] = $this->load->controller('checkout/shipping_method');
+		}  else {
+			$data['shipping_method'] = '';
+		}
 
-		$data['shipping_address'] = $this->load->controller('checkout/shipping_address');
-		//$data['shipping_method'] = $this->load->controller('checkout/shipping_method');
 		$data['payment_method'] = $this->load->controller('checkout/payment_method');
-		//$data['confirm'] = $this->load->controller('checkout/confirm');
+		$data['confirm'] = $this->load->controller('checkout/confirm');
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -80,30 +79,5 @@ class Checkout extends \Opencart\System\Engine\Controller {
 		$data['header'] = $this->load->controller('common/header');
 
 		$this->response->setOutput($this->load->view('checkout/checkout', $data));
-	}
-
-	public function customfield(): void {
-		$json = [];
-
-		$this->load->model('account/custom_field');
-
-		// Customer Group
-		if (isset($this->request->get['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->get['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-			$customer_group_id = (int)$this->request->get['customer_group_id'];
-		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
-		}
-
-		$custom_fields = $this->model_account_custom_field->getCustomFields((int)$customer_group_id);
-
-		foreach ($custom_fields as $custom_field) {
-			$json[] = [
-				'custom_field_id' => $custom_field['custom_field_id'],
-				'required'        => $custom_field['required']
-			];
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
 	}
 }

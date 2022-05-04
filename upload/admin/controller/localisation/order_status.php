@@ -182,7 +182,7 @@ class OrderStatus extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('localisation/order_status', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('localisation/order_status|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('localisation/order_status|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/order_status', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['order_status_id'])) {
@@ -264,12 +264,6 @@ class OrderStatus extends \Opencart\System\Engine\Controller {
 		foreach ($selected as $order_status_id) {
 			if ($this->config->get('config_order_status_id') == $order_status_id) {
 				$json['error'] = $this->language->get('error_default');
-			}
-
-			$store_total = $this->model_setting_store->getTotalStoresByOrderStatusId($order_status_id);
-
-			if ($store_total) {
-				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
 			$order_total = $this->model_sale_order->getTotalOrdersByOrderStatusId($order_status_id);

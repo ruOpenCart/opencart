@@ -203,7 +203,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('localisation/currency|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('localisation/currency|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['currency_id'])) {
@@ -311,8 +311,16 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		$this->load->model('setting/extension');
+
+		$extension_info = $this->model_setting_extension->getExtensionByCode('currency', $this->config->get('config_currency_engine'));
+
+		if (!$extension_info) {
+			$json['error'] = $this->language->get('error_extension');
+		}
+
 		if (!$json) {
-			$this->load->controller('extension/currency/' . $this->config->get('config_currency_engine') . '|currency', $this->config->get('config_currency'));
+			$this->load->controller('extension/' . $extension_info['extension'] . '/currency/' . $extension_info['code'] . '|currency', $this->config->get('config_currency'));
 
 			$json['success'] = $this->language->get('text_success');
 		}

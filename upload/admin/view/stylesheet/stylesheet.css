@@ -24,6 +24,16 @@ legend {
 a {
     text-decoration: none;
 }
+
+.loading i {
+    -webkit-animation: fa-spin 2s linear infinite;
+    animation: fa-spin 2s linear infinite;
+}
+
+.loading i:before {
+    content: "\f1ce";
+}
+
 #container {
     min-height: 100%;
     width: 100%;
@@ -423,11 +433,6 @@ a {
     }
 }
 
-.row.mb-3 {
-    margin-left: -20px;
-    margin-right: -20px;
-}
-
 .row.mb-3 + .row.mb-3 {
     padding-top: 1rem;
     border-top: 1px solid #ededed;
@@ -492,10 +497,10 @@ div.required .col-form-label:not(span):before, td.required:before {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-
 .card-body {
 
 }
+
 .bootstrap-datetimepicker-widget {
     position: absolute;
     float: right;
@@ -833,12 +838,4 @@ div.required .col-form-label:not(span):before, td.required:before {
 
 td {
     position: relative;
-}
-
-.invalid-tooltip {
-    position: relative;
-    left: auto;
-    top: 5px;
-    margin-top: 10px;
-    clear: both;
 }

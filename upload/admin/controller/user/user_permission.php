@@ -183,7 +183,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('user/user_permission|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('user/user_permission|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['user_group_id'])) {
@@ -227,10 +227,10 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		while (count($path) != 0) {
 			$next = array_shift($path);
 
-			foreach (glob($next) as $file) {
+			foreach (glob($next . '/*') as $file) {
 				// If directory add to path array
 				if (is_dir($file)) {
-					$path[] = $file . '/*';
+					$path[] = $file;
 				}
 
 				// Add the file to the files to be deleted array

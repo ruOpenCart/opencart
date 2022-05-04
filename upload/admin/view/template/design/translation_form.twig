@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="button" data-oc-action="{{ save }}" data-oc-form="#form-translation" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <button type="submit" form="form-translation" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
         <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
@@ -17,7 +17,7 @@
     <div class="card">
       <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
       <div class="card-body">
-        <form id="form-translation">
+        <form id="form-translation" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <div class="row mb-3">
             <label for="input-store" class="col-sm-2 col-form-label">{{ entry_store }}</label>
             <div class="col-sm-10">
@@ -49,6 +49,7 @@
             <label for="input-key" class="col-sm-2 col-form-label">{{ entry_key }}</label>
             <div class="col-sm-10">
               <select id="input-key" class="form-select"></select> <input type="text" name="key" value="{{ key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
+              <div id="error-key" class="invalid-feedback"></div>
             </div>
           </div>
           <div class="row mb-3">
@@ -70,18 +71,18 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name=\'language_id\']').on('change', function() {
+$('#input-language').on('change', function() {
     $.ajax({
-        url: 'index.php?route=design/translation|path&user_token={{ user_token }}&language_id=' + $('select[name=\'language_id\']').val(),
+        url: 'index.php?route=design/translation|path&user_token={{ user_token }}&language_id=' + $('#input-language').val(),
         dataType: 'json',
         beforeSend: function() {
-            $('select[name=\'language_id\']').prop('disabled', true);
-            $('select[name=\'route\']').prop('disabled', true);
+            $('#input-language').prop('disabled', true);
+            $('#input-route').prop('disabled', true);
             $('#input-key').prop('disabled', true);
         },
         complete: function() {
-            $('select[name=\'language_id\']').prop('disabled', false);
-            $('select[name=\'route\']').prop('disabled', false);
+            $('#input-language').prop('disabled', false);
+            $('#input-route').prop('disabled', false);
             $('#input-key').prop('disabled', false);
         },
         success: function(json) {
@@ -97,28 +98,28 @@ $('select[name=\'language_id\']').on('change', function() {
                 }
             }
 
-            $('select[name=\'route\']').html(html);
+            $('#input-route').html(html);
 
-            $('select[name=\'route\']').trigger('change');
+            $('#input-route').trigger('change');
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
 
-$('select[name=\'route\']').on('change', function() {
+$('#input-route').on('change', function() {
     $.ajax({
-        url: 'index.php?route=design/translation|translation&user_token={{ user_token }}&language_id=' + $('select[name=\'language_id\']').val() + '&path=' + $('select[name=\'route\']').val(),
+        url: 'index.php?route=design/translation|translation&user_token={{ user_token }}&language_id=' + $('#input-language').val() + '&path=' + $('#input-route').val(),
         dataType: 'json',
         beforeSend: function() {
-            $('select[name=\'language_id\']').prop('disabled', true);
-            $('select[name=\'route\']').prop('disabled', true);
+            $('#input-language').prop('disabled', true);
+            $('#input-route').prop('disabled', true);
             $('#input-key').prop('disabled', true);
         },
         complete: function() {
-            $('select[name=\'language_id\']').prop('disabled', false);
-            $('select[name=\'route\']').prop('disabled', false);
+            $('#input-language').prop('disabled', false);
+            $('#input-route').prop('disabled', false);
             $('#input-key').prop('disabled', false);
         },
         success: function(json) {
@@ -128,7 +129,7 @@ $('select[name=\'route\']').on('change', function() {
 
             if (json) {
                 for (i = 0; i < json.length; i++) {
-                    if (json[i]['key'] == $('input[name=\'key\']').val()) {
+                    if (json[i]['key'] == $('#input-key').val()) {
                         html += '<option value="' + json[i]['key'] + '" selected="selected">' + json[i]['key'] + '</option>';
                     } else {
                         html += '<option value="' + json[i]['key'] + '">' + json[i]['key'] + '</option>';
@@ -143,21 +144,21 @@ $('select[name=\'route\']').on('change', function() {
             $('#input-key').trigger('change');
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
 
 $('#input-key').on('change', function() {
     if (translation[$('#input-key').val()]) {
-        $('textarea[name=\'default\']').val(translation[$('#input-key').val()]);
+        $('#input-default').val(translation[$('#input-key').val()]);
 
-        $('input[name=\'key\']').val($('#input-key').val());
+        $('#input-key').val($('#input-key').val());
     } else {
-        $('textarea[name=\'default\']').val('');
+        $('#input-default').val('');
     }
 });
 
-$('select[name=\'language_id\']').trigger('change');
+$('#input-language').trigger('change');
 //--></script>
 {{ footer }}

@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="submit" data-oc-action="{{ save }}" data-oc-form="#form-api" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <button type="submit" form="form-api" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
         <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
@@ -17,7 +17,7 @@
     <div class="card">
       <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
       <div class="card-body">
-        <form id="form-api">
+        <form id="form-api" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <ul class="nav nav-tabs">
             <li class="nav-item"><a href="#tab-general" data-bs-toggle="tab" class="nav-link active">{{ tab_general }}</a></li>
             <li class="nav-item"><a href="#tab-ip" data-bs-toggle="tab" class="nav-link">{{ tab_ip }}</a></li>
@@ -29,14 +29,15 @@
                 <label for="input-username" class="col-sm-2 col-form-label">{{ entry_username }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="username" value="{{ username }}" placeholder="{{ entry_username }}" id="input-username" class="form-control"/>
+                  <div id="error-username" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="row mb-3 required">
                 <label for="input-key" class="col-sm-2 col-form-label">{{ entry_key }}</label>
                 <div class="col-sm-10">
-                  <textarea name="key" placeholder="{{ entry_key }}" rows="5" id="input-key" class="form-control">{{ key }}</textarea>
-                  <br/>
+                  <textarea name="key" placeholder="{{ entry_key }}" rows="5" id="input-key" class="form-control mb-1">{{ key }}</textarea>
                   <button type="button" id="button-generate" class="btn btn-primary"><i class="fas fa-sync"></i> {{ button_generate }}</button>
+                  <div id="error-key" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="row mb-3">
@@ -111,7 +112,7 @@
               </div>
             </div>
           </div>
-
+          <input type="hidden" name="api_id" value="{{ api_id }}" id="input-api-id"/>
         </form>
       </div>
     </div>
@@ -135,7 +136,7 @@ var ip_row = {{ ip_row }};
 
 $('#button-ip').on('click', function() {
     html = '<tr id="ip-row-' + ip_row + '">';
-    html += '  <td class="text-end"><input type="text" name="api_ip[]" value="" placeholder="{{ entry_ip }}" class="form-control" /></td>';
+    html += '  <td class="text-end"><input type="text" name="api_ip[]" value="" placeholder="{{ entry_ip }}" class="form-control"/></td>';
     html += '  <td class="text-end"><button type="button" onclick="$(\'#ip-row-' + ip_row + '\').remove();" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></td>';
     html += '</tr>';
 
@@ -155,10 +156,10 @@ $('#session button').on('click', function(e) {
         type: 'post',
         dataType: 'json',
         beforeSend: function() {
-            $(element).button('loading');
+            $(element).prop('disabled', true).addClass('loading');
         },
         complete: function() {
-            $(element).button('reset');
+            $(element).prop('disabled', false).removeClass('loading');
         },
         success: function(json) {
             $('.alert-dismissible').remove();
@@ -174,7 +175,7 @@ $('#session button').on('click', function(e) {
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });

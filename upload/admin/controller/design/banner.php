@@ -184,7 +184,7 @@ class Banner extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('design/banner|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('design/banner|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['banner_id'])) {
@@ -265,7 +265,7 @@ class Banner extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['name'])) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
 			$json['error']['name'] = $this->language->get('error_name');
 		}
 

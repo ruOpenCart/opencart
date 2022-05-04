@@ -96,7 +96,6 @@ class Contact extends \Opencart\System\Engine\Controller {
 		$keys = [
 			'name',
 			'email',
-			'telephone',
 			'enquiry'
 		];
 
@@ -106,15 +105,15 @@ class Contact extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if (!isset($this->request->post['name']) || (utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
+		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
 			$json['error']['name'] = $this->language->get('error_name');
 		}
 
-		if (!isset($this->request->post['email']) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$json['error']['email'] = $this->language->get('error_email');
 		}
 
-		if (!isset($this->request->post['enquiry']) || (utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
+		if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
 			$json['error']['enquiry'] = $this->language->get('error_enquiry');
 		}
 
@@ -148,7 +147,7 @@ class Contact extends \Opencart\System\Engine\Controller {
 			$mail->setText($this->request->post['enquiry']);
 			$mail->send();
 
-			$json['redirect'] = $this->url->link('information/contact|success', 'language=' . $this->config->get('config_language'));
+			$json['redirect'] = $this->url->link('information/contact|success', 'language=' . $this->config->get('config_language'), true);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -303,7 +303,7 @@ class Review extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('catalog/review|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('catalog/review|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['review_id'])) {
@@ -380,15 +380,15 @@ class Review extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
+		if ((utf8_strlen($this->request->post['author']) < 3) || (utf8_strlen($this->request->post['author']) > 64)) {
+			$json['error']['author'] = $this->language->get('error_author');
+		}
+
 		if (!$this->request->post['product_id']) {
 			$json['error']['product'] = $this->language->get('error_product');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['author'])) < 3) || (utf8_strlen($this->request->post['author']) > 64)) {
-			$json['error']['author'] = $this->language->get('error_author');
-		}
-
-		if (utf8_strlen(trim($this->request->post['text'])) < 1) {
+		if (utf8_strlen($this->request->post['text']) < 1) {
 			$json['error']['text'] = $this->language->get('error_text');
 		}
 

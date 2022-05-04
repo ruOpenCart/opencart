@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="button" data-oc-action="{{ save }}" data-oc-form="#form-custom-field" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <button type="submit" form="form-custom-field" formaction="{{ save }}" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
         <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
@@ -17,7 +17,7 @@
     <div class="card">
       <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
       <div class="card-body">
-        <form id="form-custom-field">
+        <form id="form-custom-field" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <fieldset>
             <legend>{{ text_custom_field }}</legend>
             <div class="row mb-3 required">
@@ -28,6 +28,7 @@
                     <div class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></div>
                     <input type="text" name="custom_field_description[{{ language.language_id }}][name]" value="{{ custom_field_description[language.language_id] ? custom_field_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name-{{ language.language_id }}" class="form-control"/>
                   </div>
+                  <div id="error-name-{{ language.language_id }}" class="invalid-feedback"></div>
                 {% endfor %}
               </div>
             </div>
@@ -75,7 +76,7 @@
               <label for="input-validation" class="col-sm-2 col-form-label">{{ entry_validation }}</label>
               <div class="col-sm-10">
                 <input type="text" name="validation" id="input-validation" value="{{ validation }}" placeholder="{{ text_regex }}" class="form-control"/>
-                <div class="form-text text-muted">{{ help_regex }}</div>
+                <div class="form-text">{{ help_regex }}</div>
               </div>
             </div>
             <div class="row mb-3">
@@ -85,8 +86,7 @@
                   {% set customer_group_row = 0 %}
                   {% for customer_group in customer_groups %}
                     <div class="form-check">
-                      <input type="checkbox" name="custom_field_customer_group[{{ customer_group_row }}][customer_group_id]" value="{{ customer_group.customer_group_id }}" id="input-customer-group-{{ customer_group.customer_group_id }}" class="form-check-input"{% if customer_group.customer_group_id in custom_field_customer_group %} checked{% endif %}/>
-                      <label for="input-customer-group-{{ customer_group.customer_group_id }}" class="form-check-label">{{ customer_group.name }}</label>
+                      <input type="checkbox" name="custom_field_customer_group[{{ customer_group_row }}][customer_group_id]" value="{{ customer_group.customer_group_id }}" id="input-customer-group-{{ customer_group.customer_group_id }}" class="form-check-input"{% if customer_group.customer_group_id in custom_field_customer_group %} checked{% endif %}/> <label for="input-customer-group-{{ customer_group.customer_group_id }}" class="form-check-label">{{ customer_group.name }}</label>
                     </div>
                     {% set customer_group_row = customer_group_row + 1 %}
                   {% endfor %}</div>
@@ -99,8 +99,7 @@
                   {% set customer_group_row = 0 %}
                   {% for customer_group in customer_groups %}
                     <div class="form-check">
-                      <input type="checkbox" name="custom_field_customer_group[{{ customer_group_row }}][required]" value="{{ customer_group.customer_group_id }}" id="input-required-{{ customer_group.customer_group_id }}" class="form-check-input"{% if customer_group.customer_group_id in custom_field_required %} checked{% endif %}/>
-                      <label for="input-required-{{ customer_group.customer_group_id }}" class="form-check-label">{{ customer_group.name }}</label>
+                      <input type="checkbox" name="custom_field_customer_group[{{ customer_group_row }}][required]" value="{{ customer_group.customer_group_id }}" id="input-required-{{ customer_group.customer_group_id }}" class="form-check-input"{% if customer_group.customer_group_id in custom_field_required %} checked{% endif %}/> <label for="input-required-{{ customer_group.customer_group_id }}" class="form-check-label">{{ customer_group.name }}</label>
                     </div>
                     {% set customer_group_row = customer_group_row + 1 %}
                   {% endfor %}
@@ -120,7 +119,7 @@
               <label for="input-sort-order" class="col-sm-2 col-form-label">{{ entry_sort_order }}</label>
               <div class="col-sm-10">
                 <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
-                <div class="form-text text-muted">{{ help_sort_order }}</div>
+                <div class="form-text">{{ help_sort_order }}</div>
               </div>
             </div>
           </fieldset>
@@ -146,6 +145,7 @@
                             <div class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></div>
                             <input type="text" name="custom_field_value[{{ custom_field_value_row }}][custom_field_value_description][{{ language.language_id }}][name]" value="{{ custom_field_value.custom_field_value_description[language.language_id] ? custom_field_value.custom_field_value_description[language.language_id].name }}" id="input-custom-field-{{ custom_field_value_row }}-{{ language.language_id }}" placeholder="{{ entry_custom_value }}" class="form-control"/>
                           </div>
+                          <div id="error-custom-field-{{ custom_field_value_row }}-{{ language.language_id }}" class="invalid-feedback"></div>
                         {% endfor %}</td>
                       <td class="text-end"><input type="text" name="custom_field_value[{{ custom_field_value_row }}][sort_order]" value="{{ custom_field_value.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control"/></td>
                       <td class="text-end"><button type="button" onclick="$('#custom-field-value-row-{{ custom_field_value_row }}').remove();" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></td>
@@ -169,7 +169,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name=\'type\']').on('change', function() {
+$('#input-type').on('change', function() {
     if (this.value == 'select' || this.value == 'radio' || this.value == 'checkbox') {
         $('#custom-field-value').show();
         $('#display-value, #display-validation').hide();
@@ -179,37 +179,19 @@ $('select[name=\'type\']').on('change', function() {
     }
 
     if (this.value == 'date') {
-        $('#display-value > div').html('<div class="input-group date"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control" /><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
+        $('#display-value > div').html('<div class="input-group"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control date"/><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
     } else if (this.value == 'time') {
-        $('#display-value > div').html('<div class="input-group time"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control" /><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
+        $('#display-value > div').html('<div class="input-group"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control time"/><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
     } else if (this.value == 'datetime') {
-        $('#display-value > div').html('<div class="input-group datetime"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control" /><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
+        $('#display-value > div').html('<div class="input-group"><input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control datetime"/><div class="input-group-text"><i class="fas fa-calendar"></i></div></div>');
     } else if (this.value == 'textarea') {
         $('#display-value > div').html('<textarea name="value" placeholder="{{ entry_value }}" id="input-value" class="form-control">' + $('#input-value').val() + '</textarea>');
     } else {
-        $('#display-value > div').html('<input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control" />');
+        $('#display-value > div').html('<input type="text" name="value" value="' + $('#input-value').val() + '" placeholder="{{ entry_value }}" id="input-value" class="form-control"/>');
     }
-
-    $('.date').datetimepicker({
-        'format': 'YYYY-MM-DD',
-        'locale': '{{ datepicker }}',
-        'allowInputToggle': true
-    });
-
-    $('.time').datetimepicker({
-        'format': 'HH:mm',
-        'locale': '{{ datepicker }}',
-        'allowInputToggle': true
-    });
-
-    $('.datetime').datetimepicker({
-        'format': 'YYYY-MM-DD HH:mm',
-        'locale': '{{ datepicker }}',
-        'allowInputToggle': true
-    });
 });
 
-$('select[name=\'type\']').trigger('change');
+$('#input-type').trigger('change');
 
 var custom_field_value_row = {{ custom_field_value_row }};
 
@@ -219,11 +201,12 @@ function addCustomFieldValue() {
   {% for language in languages %}
     html += '    <div class="input-group">';
     html += '      <div class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></div>';
-    html += '      <input type="text" name="custom_field_value[' + custom_field_value_row + '][custom_field_value_description][{{ language.language_id }}][name]" value="" placeholder="{{ entry_custom_value }}" id="input-custom-field-{{ custom_field_value_row }}-{{ language.language_id }}" class="form-control" />';
+    html += '      <input type="text" name="custom_field_value[' + custom_field_value_row + '][custom_field_value_description][{{ language.language_id }}][name]" value="" placeholder="{{ entry_custom_value }}" id="input-custom-field-{{ custom_field_value_row }}-{{ language.language_id }}" class="form-control"/>';
     html += '    </div>';
+    html += '    <div id="error-custom-field-value-{{ custom_field_value_row }}-{{ language.language_id }}" class="invalid-feedback"></div>';
   {% endfor %}
     html += '  </td>';
-    html += '  <td class="text-end"><input type="text" name="custom_field_value[' + custom_field_value_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control" /></td>';
+    html += '  <td class="text-end"><input type="text" name="custom_field_value[' + custom_field_value_row + '][sort_order]" value="" placeholder="{{ entry_sort_order }}" class="form-control"/></td>';
     html += '  <td class="text-end"><button type="button" onclick="$(\'#custom-field-value-row-' + custom_field_value_row + '\').remove();" data-bs-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></td>';
     html += '</tr>';
 
@@ -231,6 +214,5 @@ function addCustomFieldValue() {
 
     custom_field_value_row++;
 }
-
 //--></script>
 {{ footer }} 

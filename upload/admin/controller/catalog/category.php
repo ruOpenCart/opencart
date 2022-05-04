@@ -188,7 +188,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('catalog/category|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('catalog/category|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['category_id'])) {
@@ -310,21 +310,35 @@ class Category extends \Opencart\System\Engine\Controller {
 			$data['status'] = true;
 		}
 
+		$data['category_seo_url'] = [];
+
 		if (isset($this->request->get['category_id'])) {
-			$data['category_seo_url'] = $this->model_catalog_category->getSeoUrls($this->request->get['category_id']);
-		} else {
-			$data['category_seo_url'] = [];
+			$results = $this->model_catalog_category->getSeoUrls($this->request->get['category_id']);
+
+			foreach ($results as $store_id => $languages) {
+				foreach ($languages as $language_id => $keyword) {
+					$pos = strrpos($keyword, '/');
+
+					if ($pos !== false) {
+						$keyword = substr($keyword, $pos + 1);
+					} else {
+						$keyword = $keyword;
+					}
+
+					$data['category_seo_url'][$store_id][$language_id] = $keyword;
+				}
+			}
 		}
+
+		$this->load->model('design/layout');
+
+		$data['layouts'] = $this->model_design_layout->getLayouts();
 
 		if (isset($this->request->get['category_id'])) {
 			$data['category_layout'] = $this->model_catalog_category->getLayouts($this->request->get['category_id']);
 		} else {
 			$data['category_layout'] = [];
 		}
-
-		$this->load->model('design/layout');
-
-		$data['layouts'] = $this->model_design_layout->getLayouts();
 
 		$data['user_token'] = $this->session->data['user_token'];
 

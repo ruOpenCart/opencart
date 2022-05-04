@@ -344,7 +344,7 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('design/seo_url|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('design/seo_url|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['seo_url_id'])) {
@@ -411,6 +411,12 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 			$data['keyword'] = '';
 		}
 
+		if (!empty($seo_profile_info)) {
+			$data['sort_order'] = $seo_profile_info['sort_order'];
+		} else {
+			$data['sort_order'] = '';
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -427,11 +433,11 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['key'])) < 1) || (utf8_strlen($this->request->post['key']) > 64)) {
+		if ((utf8_strlen($this->request->post['key']) < 1) || (utf8_strlen($this->request->post['key']) > 64)) {
 			$json['error']['key'] = $this->language->get('error_key');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['value'])) < 1) || (utf8_strlen($this->request->post['value']) > 255)) {
+		if ((utf8_strlen($this->request->post['value']) < 1) || (utf8_strlen($this->request->post['value']) > 255)) {
 			$json['error']['value'] = $this->language->get('error_value');
 		}
 

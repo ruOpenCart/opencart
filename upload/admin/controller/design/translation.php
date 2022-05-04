@@ -190,7 +190,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['save'] = $this->url->link('design/translation|save', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['save'] = $this->url->link('design/translation|save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		if (isset($this->request->get['translation_id'])) {
@@ -261,7 +261,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['key'])) < 3) || (utf8_strlen($this->request->post['key']) > 64)) {
+		if ((utf8_strlen($this->request->post['key']) < 3) || (utf8_strlen($this->request->post['key']) > 64)) {
 			$json['error']['key'] = $this->language->get('error_key');
 		}
 
@@ -331,9 +331,9 @@ class Translation extends \Opencart\System\Engine\Controller {
 			while (count($path) != 0) {
 				$next = array_shift($path);
 
-				foreach ((array)glob($next) as $file) {
+				foreach ((array)glob($next . '/*') as $file) {
 					if (is_dir($file)) {
-						$path[] = $file . '/*';
+						$path[] = $file;
 					}
 
 					if (substr($file, -4) == '.php') {
@@ -347,9 +347,9 @@ class Translation extends \Opencart\System\Engine\Controller {
 			while (count($path) != 0) {
 				$next = array_shift($path);
 
-				foreach ((array)glob($next) as $file) {
+				foreach ((array)glob($next . '/*') as $file) {
 					if (is_dir($file)) {
-						$path[] = $file . '/*';
+						$path[] = $file;
 					}
 
 					if (substr($file, -4) == '.php') {
@@ -406,6 +406,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 			$directory = DIR_EXTENSION . $part[1] . '/catalog/language/';
 
 			array_shift($part);
+			// Don't remove. Required for extension route.
 			array_shift($part);
 
 			$route = implode('/', $part);

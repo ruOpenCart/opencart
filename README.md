@@ -2,8 +2,8 @@
 
 ## Обзор
 
-[![Минимальная версия PHP](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg?style=flat-square)](https://php.net/)
-[![Релизы на GitHub](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart/releases)
+[![Минимальная версия PHP](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/)
+[![Релизы на GitHub](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart)
 
 OpenCart - это бесплатная платформа электронной коммерции с открытым исходным кодом для онлайн-продавцов. OpenCart обеспечивает профессиональную и надежную основу для создания успешного интернет-магазина.
 
