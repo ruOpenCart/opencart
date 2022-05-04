@@ -13,4 +13,4 @@ $_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав на изменение другого расширения!';
-$_['error_directory']  = 'Warning: Extension directory does not exist!';
+$_['error_directory']  = 'Внимание: Каталог расширения не существует!';
