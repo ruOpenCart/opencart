@@ -65,6 +65,6 @@ $_['entry_comment']              = 'Комментарий';
 $_['entry_date_added']           = 'Дата добавления';
 
 // Error
-$_['error_subscription']         = 'Внимание! Подписка не существует!';
+$_['error_subscription']         = 'Внимание: Подписка не существует!';
 $_['error_subscription_plan']    = 'Внимание: План подписки не существует!';
 $_['error_payment_method']       = 'Внимание: Способ оплаты не существует!';

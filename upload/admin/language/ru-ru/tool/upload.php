@@ -9,7 +9,7 @@ $_['text_filter']        = 'Фильтр';
 
 // Column
 $_['column_name']        = 'Название загрузки';
-$_['column_filename']    = 'Имя файла';
+$_['column_code']        = 'Код';
 $_['column_date_added']  = 'Дата добавления';
 $_['column_action']      = 'Действие';
 
