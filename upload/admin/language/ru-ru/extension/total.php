@@ -13,4 +13,4 @@ $_['column_action']     = 'Действие';
 
 // Error
 $_['error_permission']  = 'Внимание: У вас нет прав для изменения общей суммы!';
-$_['error_extension']   = 'Warning: Extension does not exist!';
+$_['error_directory']   = 'Внимание: Каталог расширения не существует!';
