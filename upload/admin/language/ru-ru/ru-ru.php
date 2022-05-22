@@ -166,6 +166,10 @@ $_['error_upload_8']                = 'Предупреждение: Запре�
 $_['error_upload_999']              = 'Предупреждение: Код ошибки отсутствует!';
 $_['error_upload_size']             = 'Предупреждение: Загруженный файл превышает максимальный размер файла %sмб!';
 $_['error_curl']                    = 'CURL: Код ошибки(%s): %s';
+$_['error_format_b']				= 'Warning: The uploaded file exceeds the max file size: %s bytes!';
+$_['error_format_kb']				= 'Warning: The uploaded file exceeds the max file size: %s kilobytes!';
+$_['error_format_mb']				= 'Warning: The uploaded file exceeds the max file size: %s megabytes!';
+$_['error_format_gb']				= 'Warning: The uploaded file exceeds the max file size: %s gigabytes!';
 
 /* When doing translations only include the matching language code */
 
