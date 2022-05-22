@@ -2173,6 +2173,11 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
+				'name' => 'package_name',
+				'type' => 'varchar(64)',
+				'not_null' => true
+			],
+			[
 				'name' => 'code',
 				'type' => 'varchar(255)',
 				'not_null' => true
@@ -6173,7 +6178,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'text',
+				'type' => 'datetime',
 				'not_null' => true
 			]
 		],
