@@ -2173,12 +2173,12 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(255)',
+				'name' => 'package_name',
+				'type' => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'filename',
+				'name' => 'code',
 				'type' => 'varchar(255)',
 				'not_null' => true
 			],
@@ -5369,7 +5369,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'trial_frequency',
-				'type' => 'varchar(25)',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
@@ -5399,7 +5399,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'frequency',
-				'type' => 'varchar(25)',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
@@ -6173,7 +6173,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'date_added',
-				'type' => 'text',
+				'type' => 'datetime',
 				'not_null' => true
 			]
 		],

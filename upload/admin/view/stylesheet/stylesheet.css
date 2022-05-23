@@ -427,6 +427,12 @@ a {
     font-weight: bold;
 }
 
+.form-switch-lg {
+    font-size: 26px;
+    min-height: 36px;
+    line-height: 36px;
+}
+
 @media (min-width: 992px) {
     .col-form-label {
         text-align: right;
@@ -590,6 +596,9 @@ div.required .col-form-label:not(span):before, td.required:before {
     z-index: 999;
 }
 
+.card-body .jqvmap-zoomin, .jqvmap-zoomout {
+    padding: 0px;
+}
 /* Filemanager Folder Size */
 #filemanager .fa-folder.fa-5x {
     font-size: 10.5em;

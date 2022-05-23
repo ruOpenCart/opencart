@@ -55,8 +55,8 @@
           </div>
           <div class="col-lg-1 d-none d-lg-block">
             <div class="btn-group">
-              <button type="button" id="list-view" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}"><i class="fas fa-th-list"></i></button>
-              <button type="button" id="grid-view" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}"><i class="fas fa-th"></i></button>
+              <button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}"><i class="fas fa-th-list"></i></button>
+              <button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}"><i class="fas fa-th"></i></button>
             </div>
           </div>
           <div class="col-lg-4 offset-lg-1 col-6">
@@ -82,18 +82,15 @@
             </div>
           </div>
         </div>
-
-        <div class="row row-cols-2">
+        <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
           {% for product in products %}
             <div class="col">{{ product }}</div>
           {% endfor %}
         </div>
-
         <div class="row">
           <div class="col-sm-6 text-start">{{ pagination }}</div>
           <div class="col-sm-6 text-end">{{ results }}</div>
         </div>
-
       {% endif %}
       {% if not categories and not products %}
         <p>{{ text_no_results }}</p>

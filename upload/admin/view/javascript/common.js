@@ -87,6 +87,7 @@ var tooltip = function () {
 }
 
 $(document).ready(tooltip);
+// Makes tooltips work on ajax generated content
 $(document).on('click', 'button', tooltip);
 
 // Daterangepicker
@@ -126,6 +127,18 @@ var datetimepicker = function () {
 $(document).ready(datetimepicker);
 $(document).on('click', 'button', datetimepicker);
 
+// Alert Fade
+var alert = function () {
+    window.setTimeout(function() {
+        $('.alert-dismissible').fadeTo(1000, 0, function() {
+            $(this).remove();
+        });
+    }, 7000);
+}
+
+$(document).ready(alert);
+$(document).on('click', 'button', alert);
+
 // Forms
 $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
     e.preventDefault();
@@ -136,7 +149,13 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
 
     var action = $(form).attr('action');
 
-    var button = e.originalEvent.submitter;
+    console.log();
+
+    if (e.originalEvent.submitter !== undefined) {
+        var button = e.originalEvent.submitter;
+    } else {
+        var button = '';
+    }
 
     var formaction = $(button).attr('formaction');
 
@@ -152,7 +171,7 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
 
     var enctype = $(element).attr('enctype');
 
-    if (typeof enctype === undefined) {
+    if (enctype === undefined) {
         enctype = 'application/x-www-form-urlencoded';
     }
 
@@ -325,15 +344,15 @@ $(document).on('click', '[data-oc-toggle=\'clear\']', function () {
 
 // Image Manager
 $(document).on('click', '[data-oc-toggle=\'image\']', function (e) {
-    e.preventDefault();
-
     var element = this;
 
+    $('#modal-image').remove();
+
     $.ajax({
-        url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token') + '&target=' + encodeURIComponent($(this).attr('data-oc-target')) + '&thumb=' + encodeURIComponent($(this).attr('data-oc-thumb')),
+        url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token') + '&target=' + encodeURIComponent($(element).attr('data-oc-target')) + '&thumb=' + encodeURIComponent($(element).attr('data-oc-thumb')),
         dataType: 'html',
         beforeSend: function () {
-            $(element).button('loading');
+            $(element).prop('disabled', true).addClass('loading');
         },
         complete: function () {
             $(element).prop('disabled', false).removeClass('loading');
