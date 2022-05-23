@@ -87,6 +87,7 @@ var tooltip = function () {
 }
 
 $(document).ready(tooltip);
+// Makes tooltips work on ajax generated content
 $(document).on('click', 'button', tooltip);
 
 // Daterangepicker
@@ -126,6 +127,15 @@ var datetimepicker = function () {
 $(document).ready(datetimepicker);
 $(document).on('click', 'button', datetimepicker);
 
+// Alert Fade
+$(document).ready(function () {
+    window.setTimeout(function() {
+        $('.alert-dismissible').fadeTo(1000, 0).slideUp(1000, function(){
+            $(this).remove();
+        });
+    }, 5000);
+});
+
 // Forms
 $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
     e.preventDefault();
@@ -136,7 +146,13 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
 
     var action = $(form).attr('action');
 
-    var button = e.originalEvent.submitter;
+    console.log();
+
+    if (e.originalEvent.submitter !== undefined) {
+        var button = e.originalEvent.submitter;
+    } else {
+        var button = '';
+    }
 
     var formaction = $(button).attr('formaction');
 
@@ -152,7 +168,7 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
 
     var enctype = $(element).attr('enctype');
 
-    if (typeof enctype === undefined) {
+    if (enctype === undefined) {
         enctype = 'application/x-www-form-urlencoded';
     }
 

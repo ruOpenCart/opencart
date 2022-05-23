@@ -28,12 +28,12 @@
             <div id="tab-general" class="tab-pane active">
               <ul class="nav nav-tabs" id="language">
                 {% for language in languages %}
-                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if languages.index == 0 %} active{% endif %}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if loop.first %} active{% endif %}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
                 {% endfor %}
               </ul>
               <div class="tab-content">
                 {% for language in languages %}
-                  <div id="language-{{ language.language_id }}" class="tab-pane{% if languages.index == 0 %} active{% endif %}">
+                  <div id="language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
                     <div class="row mb-3 required">
                       <label for="input-title-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_title }}</label>
                       <div class="col-sm-10">
@@ -88,8 +88,8 @@
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">{{ entry_bottom }}</label>
                 <div class="col-sm-10">
-                  <div class="btn-group">
-                    <input type="radio" name="bottom" value="1" id="input-bottom-yes" class="btn-check"{% if bottom %} checked{% endif %}/> <label for="input-bottom-yes" class="btn btn-outline-secondary">{{ text_yes }}</label> <input type="radio" name="bottom" value="0" id="input-bottom-no" class="btn-check"{% if not bottom %} checked{% endif %}/> <label for="input-bottom-no" class="btn btn-outline-secondary">{{ text_no }}</label>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" name="bottom" value="1" id="input-bottom" class="form-check-input"{% if bottom %} checked{% endif %}/>
                   </div>
                   <div class="form-text">{{ help_bottom }}</div>
                 </div>

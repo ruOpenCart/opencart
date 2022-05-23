@@ -2183,11 +2183,6 @@ function db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'filename',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
 				'name' => 'version',
 				'type' => 'varchar(255)',
 				'not_null' => true
@@ -5374,7 +5369,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'trial_frequency',
-				'type' => 'varchar(25)',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
@@ -5404,7 +5399,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'frequency',
-				'type' => 'varchar(25)',
+				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
