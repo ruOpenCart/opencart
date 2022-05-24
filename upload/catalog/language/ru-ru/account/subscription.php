@@ -6,7 +6,6 @@ $_['heading_title']                        = 'Подписки';
 $_['text_account']                         = 'Аккаунт';
 $_['text_recurring']                       = 'Информация о повторяющемся платеже';
 $_['text_recurring_detail']                = 'Детали повторяющегося платежа';
-$_['text_order_recurring_id']              = 'Идентификатор подписки:';
 $_['text_date_added']                      = 'Дата добавления:';
 $_['text_status']                          = 'Статус:';
 $_['text_payment_method']                  = 'Метод оплаты:';
