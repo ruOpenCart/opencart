@@ -13,11 +13,6 @@ $_['text_deny']          = 'Отклонить';
 // Entry
 $_['entry_response']     = 'Ответ процессора карты';
 
-$_['entry_response']     = 'Ответ процессора карты';
-$_['entry_response']     = 'Ответ процессора карты';
-$_['entry_response']     = 'Ответ процессора карты';
-
-
 $_['entry_order_status'] = 'Статус заказа';
 $_['entry_fraud_status'] = 'Статус заказа';
 $_['entry_complete_status'] = 'Статус заказа';
