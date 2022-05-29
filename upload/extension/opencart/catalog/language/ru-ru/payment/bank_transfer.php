@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']     = 'Банковский перевод';
+$_['heading_title']    = 'Банковский перевод';
 
 // Text
 $_['text_instruction'] = 'Инструкции по банковскому переводу';
