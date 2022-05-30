@@ -9,10 +9,6 @@ function token(int $length = 32) {
 		$token = bin2hex(random_bytes($length));
 	}
 
-	if (function_exists('openssl_random_pseudo_bytes')) {
-		$token = bin2hex(openssl_random_pseudo_bytes($length));
-	}
-
 	return substr($token, -$length, $length);
 }
 
