@@ -84,7 +84,7 @@ $_['error_upload_8']        = 'Предупреждение: Запрещено 
 $_['error_upload_999']      = 'Предупреждение: Код ошибки отсутствует!';
 $_['error_upload_size']     = 'Предупреждение: Загруженный файл превышает максимальный размер файла %sмб!';
 $_['error_curl']            = 'CURL: Код ошибки(%s): %s';
-$_['error_session']         = 'Warning: Session has expired please submit the form again!';
+$_['error_session']         = 'Внимание: Сессия истекла, пожалуйста, отправьте форму снова!';
 
 /* When doing translations only include the matching language code */
 // Datepicker
