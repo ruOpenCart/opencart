@@ -6,12 +6,6 @@ $_['heading_title']         = 'Профиль';
 $_['text_success']          = 'Успех: Вы изменили свой профиль!';
 $_['text_edit']             = 'Редактирование вашего профиля';
 
-// Column
-$_['column_username']       = 'Имя пользователя';
-$_['column_status']         = 'Статус';
-$_['column_date_added']     = 'Дата добавления';
-$_['column_action']         = 'Действие';
-
 // Entry
 $_['entry_username']        = 'Имя пользователя';
 $_['entry_password']        = 'Пароль';

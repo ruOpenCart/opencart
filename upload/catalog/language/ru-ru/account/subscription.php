@@ -38,12 +38,12 @@ $_['text_error']                           = 'Запрошенный вами з
 $_['text_cancelled']                       = 'Повторяющийся платеж был отменен';
 
 // Column
+$_['column_subscription_id']               = 'Идентификатор подписки';
+$_['column_product']                       = 'Товар';
+$_['column_status']                        = 'Статус';
 $_['column_date_added']                    = 'Дата добавления';
 $_['column_type']                          = 'Тип';
 $_['column_amount']                        = 'Сумма';
-$_['column_status']                        = 'Статус';
-$_['column_product']                       = 'Товар';
-$_['column_order_recurring_id']            = 'Идентификатор подписки';
 
 // Error
 $_['error_not_cancelled']                  = 'Ошибка: %s';

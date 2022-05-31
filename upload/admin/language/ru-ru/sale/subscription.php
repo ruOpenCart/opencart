@@ -26,9 +26,6 @@ $_['text_week']                  = 'неделя';
 $_['text_semi_month']            = 'полмесяца';
 $_['text_month']                 = 'месяц';
 $_['text_year']                  = 'год';
-
-
-
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавление истории';
 $_['text_transaction']           = 'Транзакции';
@@ -61,7 +58,6 @@ $_['entry_description']          = 'Описание';
 $_['entry_amount']               = 'Сумма';
 $_['entry_notify']               = 'Уведомить покупателя';
 $_['entry_override']             = 'Переопределить';
-$_['entry_comment']              = 'Комментарий';
 $_['entry_date_added']           = 'Дата добавления';
 
 // Error

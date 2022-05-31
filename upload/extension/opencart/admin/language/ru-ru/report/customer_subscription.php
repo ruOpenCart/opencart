@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']         = 'Отчет по транзакциям покупателей';
+$_['heading_title']         = 'Customer Subscription Report';
 
 // Text
 $_['text_extension']        = 'Расширения';
-$_['text_edit']             = 'Редактирование отчета по транзакциям покупателя';
-$_['text_success']          = 'Success: You have modified customer transaction report!';
+$_['text_edit']             = 'Edit Customer Subscription Report';
+$_['text_success']          = 'Success: You have modified customer subscription report!';
 $_['text_filter']           = 'Фильтр';
 
 // Column
@@ -24,4 +24,4 @@ $_['entry_status']          = 'Статус';
 $_['entry_sort_order']      = 'Порядок сортировки';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify customer transaction report!';
+$_['error_permission']      = 'Warning: You do not have permission to modify customer subscription report!';

@@ -52,8 +52,7 @@ $_['text_uninstall']     = 'Деинсталляция';
 $_['text_delete']        = 'Удалить';
 $_['text_more']          = 'посмотреть больше ответов...';
 $_['text_leave']         = 'посмотреть больше ответов...';
-$_['text_refresh']		 = 'обновить';
-$_['text_featured']		 = 'Рекомендуемые';
+$_['text_refresh']       = 'обновить';
 
 // Entry
 $_['entry_pin']          = 'PIN';
