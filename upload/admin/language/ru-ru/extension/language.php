@@ -13,4 +13,4 @@ $_['column_action']    = 'Действие';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения языков!';
-$_['error_extension']  = 'Warning: Extension does not exist!';
+$_['error_extension']  = 'Внимание: Расширение не существует!';
