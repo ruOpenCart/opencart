@@ -23,18 +23,20 @@
       <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
       <div class="card-body">
 
-        <ul class="nav nav-tabs">
-          <li class="nav-item"><a href="#tab-general" data-bs-toggle="tab" class="nav-link active">{{ tab_general }}</a></li>
-          <li class="nav-item"><a href="#tab-address" data-bs-toggle="tab" class="nav-link">{{ tab_address }}</a></li>
-          <li class="nav-item"><a href="#tab-payment" data-bs-toggle="tab" class="nav-link">{{ tab_payment_method }}</a></li>
-          <li class="nav-item"><a href="#tab-history" data-bs-toggle="tab" class="nav-link">{{ tab_history }}</a></li>
-          <li class="nav-item"><a href="#tab-transaction" data-bs-toggle="tab" class="nav-link">{{ tab_transaction }}</a></li>
-          <li class="nav-item"><a href="#tab-reward" data-bs-toggle="tab" class="nav-link">{{ tab_reward }}</a></li>
-          <li class="nav-item"><a href="#tab-ip" data-bs-toggle="tab" class="nav-link">{{ tab_ip }}</a></li>
-        </ul>
-        <div class="tab-content">
-          <div id="tab-general" class="tab-pane active">
-            <form id="form-customer" action="{{ save }}" method="post" data-oc-toggle="ajax">
+        <form id="form-customer" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"><a href="#tab-general" data-bs-toggle="tab" class="nav-link active">{{ tab_general }}</a></li>
+            <li class="nav-item"><a href="#tab-address" data-bs-toggle="tab" class="nav-link">{{ tab_address }}</a></li>
+            <li class="nav-item"><a href="#tab-payment" data-bs-toggle="tab" class="nav-link">{{ tab_payment_method }}</a></li>
+            <li class="nav-item"><a href="#tab-history" data-bs-toggle="tab" class="nav-link">{{ tab_history }}</a></li>
+            <li class="nav-item"><a href="#tab-transaction" data-bs-toggle="tab" class="nav-link">{{ tab_transaction }}</a></li>
+            <li class="nav-item"><a href="#tab-reward" data-bs-toggle="tab" class="nav-link">{{ tab_reward }}</a></li>
+            <li class="nav-item"><a href="#tab-ip" data-bs-toggle="tab" class="nav-link">{{ tab_ip }}</a></li>
+          </ul>
+
+          <div class="tab-content">
+
+            <div id="tab-general" class="tab-pane active">
               <fieldset>
                 <legend>{{ text_account }}</legend>
                 <div class="row mb-3">
@@ -260,11 +262,8 @@
                   </div>
                 </div>
               </fieldset>
-            </form>
-          </div>
-
-          <div id="tab-address" class="tab-pane">
-            <form id="form-address" action="{{ save }}" method="post">
+            </div>
+            <div id="tab-address" class="tab-pane">
               {% set address_row = 0 %}
               {% for address in addresses %}
                 <fieldset id="address-row-{{ address_row }}">
@@ -482,94 +481,95 @@
                 <button type="button" id="button-address" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_address_add }}</button>
               </div>
               <input type="hidden" name="customer_id" value="{{ customer_id }}" id="input-customer-id"/>
-            </form>
-          </div>
-          <div id="tab-payment" class="tab-pane">
-            <fieldset>
-              <legend>{{ text_payment_method }}</legend>
-              <div id="payment-method">{{ payment_method }}</div>
-            </fieldset>
-          </div>
-          <div id="tab-history" class="tab-pane">
-            <fieldset>
-              <legend>{{ text_history }}</legend>
-              <div id="history">{{ history }}</div>
-            </fieldset>
-            <form id="form-history">
+            </div>
+
+            <div id="tab-payment" class="tab-pane">
               <fieldset>
-                <legend>{{ text_history_add }}</legend>
-                <div class="row mb-3">
-                  <label for="input-history-comment" class="col-sm-2 col-form-label">{{ entry_comment }}</label>
-                  <div class="col-sm-10">
-                    <textarea name="comment" rows="8" placeholder="{{ entry_comment }}" id="input-history-comment" class="form-control"></textarea>
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button type="submit" id="button-history" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_history_add }}</button>
-                </div>
+                <legend>{{ text_payment_method }}</legend>
+                <div id="payment-method">{{ payment_method }}</div>
               </fieldset>
-            </form>
-          </div>
-          <div id="tab-transaction" class="tab-pane">
-            <fieldset>
-              <legend>{{ text_transaction }}</legend>
-              <div id="transaction">{{ transaction }}</div>
-            </fieldset>
-            <form id="form-transaction">
+            </div>
+            <div id="tab-history" class="tab-pane">
               <fieldset>
-                <legend>{{ text_transaction_add }}</legend>
-                <div class="row mb-3">
-                  <label for="input-transaction-description" class="col-sm-2 col-form-label">{{ entry_description }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-transaction-description" class="form-control"/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-transaction-amount" class="col-sm-2 col-form-label">{{ entry_amount }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" id="input-transaction-amount" class="form-control"/>
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button type="submit" id="button-transaction" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_transaction_add }}</button>
-                </div>
+                <legend>{{ text_history }}</legend>
+                <div id="history">{{ history }}</div>
               </fieldset>
-            </form>
-          </div>
-          <div id="tab-reward" class="tab-pane">
-            <fieldset>
-              <legend>{{ text_reward }}</legend>
-              <div id="reward">{{ reward }}</div>
-            </fieldset>
-            <form id="form-reward">
+              <form id="form-history">
+                <fieldset>
+                  <legend>{{ text_history_add }}</legend>
+                  <div class="row mb-3">
+                    <label for="input-history-comment" class="col-sm-2 col-form-label">{{ entry_comment }}</label>
+                    <div class="col-sm-10">
+                      <textarea name="comment" rows="8" placeholder="{{ entry_comment }}" id="input-history-comment" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    <button type="submit" id="button-history" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_history_add }}</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div id="tab-transaction" class="tab-pane">
               <fieldset>
-                <legend>{{ text_reward_add }}</legend>
-                <div class="row mb-3">
-                  <label for="input-reward-description" class="col-sm-2 col-form-label">{{ entry_description }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-reward-description" class="form-control"/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-reward-points" class="col-sm-2 col-form-label">{{ entry_points }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="points" value="" placeholder="{{ entry_points }}" id="input-reward-points" class="form-control"/>
-                    <div class="form-text">{{ help_points }}</div>
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button type="submit" id="button-reward" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_reward_add }}</button>
-                </div>
+                <legend>{{ text_transaction }}</legend>
+                <div id="transaction">{{ transaction }}</div>
               </fieldset>
-            </form>
+              <form id="form-transaction">
+                <fieldset>
+                  <legend>{{ text_transaction_add }}</legend>
+                  <div class="row mb-3">
+                    <label for="input-transaction-description" class="col-sm-2 col-form-label">{{ entry_description }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-transaction-description" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="input-transaction-amount" class="col-sm-2 col-form-label">{{ entry_amount }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" id="input-transaction-amount" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    <button type="submit" id="button-transaction" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_transaction_add }}</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div id="tab-reward" class="tab-pane">
+              <fieldset>
+                <legend>{{ text_reward }}</legend>
+                <div id="reward">{{ reward }}</div>
+              </fieldset>
+              <form id="form-reward">
+                <fieldset>
+                  <legend>{{ text_reward_add }}</legend>
+                  <div class="row mb-3">
+                    <label for="input-reward-description" class="col-sm-2 col-form-label">{{ entry_description }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-reward-description" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="input-reward-points" class="col-sm-2 col-form-label">{{ entry_points }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="points" value="" placeholder="{{ entry_points }}" id="input-reward-points" class="form-control"/>
+                      <div class="form-text">{{ help_points }}</div>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    <button type="submit" id="button-reward" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {{ button_reward_add }}</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div id="tab-ip" class="tab-pane">
+              <fieldset>
+                <legend>{{ text_ip }}</legend>
+                <div id="ip">{{ ip }}</div>
+              </fieldset>
+            </div>
           </div>
-          <div id="tab-ip" class="tab-pane">
-            <fieldset>
-              <legend>{{ text_ip }}</legend>
-              <div id="ip">{{ ip }}</div>
-            </fieldset>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -916,52 +916,6 @@ $('#tab-address').on('change', 'select[name$=\'[country_id]\']', function () {
 });
 
 $('#tab-address select[name$=\'[country_id]\']:first').trigger('change');
-
-$('#form-customer, #form-address').on('submit', function (e) {
-    e.preventDefault();
-
-    $.ajax({
-        url: 'index.php?route=customer/customer|save&user_token={{ user_token }}',
-        type: 'post',
-        data: $('#form-customer, #form-address').serialize(),
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded',
-        beforeSend: function () {
-            $('#button-customer').prop('disabled', true).addClass('loading');
-        },
-        complete: function () {
-            $('#button-customer').prop('disabled', false).removeClass('loading');
-        },
-        success: function (json) {
-            $('.alert-dismissible').remove();
-            $('.is-invalid').removeClass('is-invalid');
-            $('.invalid-feedback').removeClass('d-block');
-
-            if (json['error']) {
-                if (json['error']['warning']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-                }
-
-                for (key in json['error']) {
-                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
-                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
-                }
-            }
-
-            if (json['success']) {
-                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                // Replace any form values that correspond to form names.
-                for (key in json) {
-                    $('#form-customer, #form-address').find('[name=\'' + key + '\']').val(json[key]);
-                }
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
 
 $('#payment-method').on('click', '.pagination a', function (e) {
     e.preventDefault();

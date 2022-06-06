@@ -78,14 +78,16 @@ class Security extends \Opencart\System\Engine\Controller {
 			while (count($directory) != 0) {
 				$next = array_shift($directory);
 
-				foreach (glob($next . '/*') as $file) {
-					// If directory add to path array
-					if (is_dir($file)) {
-						$directory[] = $file;
-					}
+				if (is_dir($next)) {
+					foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+						// If directory add to path array
+						if (is_dir($file)) {
+							$directory[] = $file;
+						}
 
-					// Add the file to the files to be deleted array
-					$files[] = $file;
+						// Add the file to the files to be deleted array
+						$files[] = $file;
+					}
 				}
 			}
 
@@ -115,7 +117,7 @@ class Security extends \Opencart\System\Engine\Controller {
 
 		if ($this->user->hasPermission('modify', 'common/security')) {
 			$path_old = DIR_STORAGE;
-			$path_new = $this->request->post['path'] . 'storage/';
+			$path_new = $this->request->post['path'] . preg_replace('[^a-zA-z0-9]', '', basename(html_entity_decode(trim($this->request->post['name']), ENT_QUOTES, 'UTF-8'))) . '/';
 
 			$path = '';
 
@@ -156,7 +158,7 @@ class Security extends \Opencart\System\Engine\Controller {
 			while (count($directory) != 0) {
 				$next = array_shift($directory);
 
-				foreach (glob($next . '/*') as $file) {
+				foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
 					// If directory add to path array
 					if (is_dir($file)) {
 						$directory[] = $file;
@@ -180,6 +182,20 @@ class Security extends \Opencart\System\Engine\Controller {
 
 				if (is_file($file)) {
 					copy($file, $destination);
+				}
+			}
+
+			rsort($files);
+
+			foreach ($files as $file) {
+				// If file just delete
+				if (is_file($file)) {
+					unlink($file);
+				}
+
+				// If directory use the remove directory function
+				if (is_dir($file)) {
+					rmdir($file);
 				}
 			}
 
@@ -338,7 +354,7 @@ class Security extends \Opencart\System\Engine\Controller {
 			$status = false;
 		}
 
-		if ($path_old != DIR_APPLICATION) {
+		if ($path_old == DIR_APPLICATION) {
 			$status = false;
 		}
 
