@@ -9,6 +9,8 @@ $_['text_default']          = 'По умолчанию';
 $_['text_customer']         = 'Покупатель';
 $_['text_affiliate']        = 'Партнер';
 $_['text_filter']           = 'Фильтр';
+$_['text_approve']          = 'Одобрить';
+$_['text_deny']             = 'Отклонить';
 
 // Column
 $_['column_customer']       = 'Покупатель';
