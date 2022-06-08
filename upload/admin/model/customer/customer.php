@@ -344,7 +344,6 @@ class Customer extends \Opencart\System\Engine\Model {
 	public function getTransactionTotal(int $customer_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-
 		return (int)$query->row['total'];
 	}
 
@@ -356,6 +355,10 @@ class Customer extends \Opencart\System\Engine\Model {
 
 	public function deletePaymentMethod(int $customer_payment_id): void {
 		$this->db->query("DELETE `" . DB_PREFIX . "customer_payment` WHERE `customer_payment_id` = '" . (int)$customer_payment_id . "'");
+	}
+
+	public function editPaymentMethodStatus(int $customer_payment_id, bool $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "customer_payment` SET `status` = '" . (int)$status . "' WHERE `customer_payment_id` = '" . (int)$customer_payment_id . "'");
 	}
 
 	public function getPaymentMethod(int $customer_id, int $customer_payment_id): array {
