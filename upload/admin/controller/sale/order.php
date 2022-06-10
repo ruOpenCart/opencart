@@ -1221,7 +1221,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		// Hard coding css so they can be replaced via the events system.
 		$data['bootstrap_css'] = 'view/stylesheet/bootstrap.css';
-		$data['icons'] = 'view/stylesheet/icon/fontawesome/css/all.css';
+		$data['icons'] = 'view/stylesheet/fonts/fontawesome/css/all.min.css';
 		$data['stylesheet'] = 'view/stylesheet/stylesheet.css';
 
 		// Hard coding scripts so they can be replaced via the events system.
@@ -1298,7 +1298,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					'country'   => $order_info['payment_country']
 				];
 
-				$payment_address = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+				$payment_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				if ($order_info['shipping_address_format']) {
 					$format = $order_info['shipping_address_format'];
@@ -1332,7 +1332,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					'country'   => $order_info['shipping_country']
 				];
 
-				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				$this->load->model('tool/upload');
 
@@ -1433,7 +1433,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		// Hard coding css so they can be replaced via the events system.
 		$data['bootstrap_css'] = 'view/stylesheet/bootstrap.css';
-		$data['icons'] = 'view/stylesheet/icon/fontawesome/css/all.css';
+		$data['icons'] = 'view/stylesheet/fonts/fontawesome/css/all.min.css';
 		$data['stylesheet'] = 'view/stylesheet/stylesheet.css';
 
 		// Hard coding scripts so they can be replaced via the events system.
@@ -1513,7 +1513,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					'country'   => $order_info['shipping_country']
 				];
 
-				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br />', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br />', trim(str_replace($find, $replace, $format))));
+				$shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
 				$this->load->model('tool/upload');
 
