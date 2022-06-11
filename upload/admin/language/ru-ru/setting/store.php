@@ -77,7 +77,7 @@ $_['entry_width']                      = 'Ширина';
 $_['entry_height']                     = 'Высота';
 
 // Help
-$_['help_url']                         = 'Include the full URL to your store. Make sure to add \'/\' at the end. Example: http://www.yourdomain.com/path/<br/><br/>Don\'t use directories to create a new store. You should always point another domain or sub domain to your hosting.';
+$_['help_url']                         = 'Включите полный URL-адрес вашего магазина. Не забудьте добавить \'/\' в конце. Пример: http://www.yourdomain.com/path/<br/><br/>Не используйте каталоги для создания нового магазина. Вы всегда должны указывать другой домен или субдомен на свой хостинг.';
 $_['help_geocode']                     = 'Пожалуйста, введите геокод местоположения вашего магазина вручную.';
 $_['help_open']                        = 'Заполните время работы вашего магазина.';
 $_['help_comment']                     = 'Это поле для любых специальных заметок, которые вы хотели бы сообщить клиенту, т. е. Магазин не принимает чеки.';
