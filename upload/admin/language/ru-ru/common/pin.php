@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title'] = 'Protect your account';
+$_['heading_title'] = 'Защитите свою учетную запись';
 
 // Text
-$_['text_success']  = 'Success: Your account PIN have been successfully added!';
-$_['text_setup']    = 'Setup PIN for your account';
-$_['text_pin']      = 'Please enter a 4 digit PIN number to protect your account. This is a one time PIN that you enter as security question whenever you login from an unknown device or computer.';
+$_['text_success']  = 'Успех: ПИН-код вашей учетной записи успешно добавлен!';
+$_['text_setup']    = 'Установите PIN-код для своей учетной записи';
+$_['text_pin']      = 'Пожалуйста, введите 4-значный PIN-код для защиты вашей учетной записи. Это одноразовый PIN-код, который вы вводите в качестве секретного вопроса всякий раз, когда входите в систему с неизвестного устройства или компьютера.';
 
 // Entry
 $_['entry_pin']     = 'PIN';
 
 // Error
-$_['error_pin']     = 'PIN must be 4 digits!';
-$_['error_hacker']  = 'You are not allowed to use a PIN easy to guess by hackers!';
+$_['error_pin']     = 'PIN-код должен содержать 4 цифры!';
+$_['error_hacker']  = 'Вам не разрешается использовать PIN-код, который легко подобрать хакерам!';
