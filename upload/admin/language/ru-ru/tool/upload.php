@@ -16,7 +16,8 @@ $_['column_action']      = 'Действие';
 // Entry
 $_['entry_name']         = 'Название загрузки';
 $_['entry_filename']     = 'Имя файла';
-$_['entry_date_added']   = 'Дата добавления';
+$_['entry_date_from']    = 'Date From';
+$_['entry_date_to']      = 'Date To';
 
 // Error
 $_['error_permission']   = 'Внимание: У вас нет прав на изменение загрузок!';
