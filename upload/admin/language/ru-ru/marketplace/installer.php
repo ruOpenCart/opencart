@@ -20,14 +20,14 @@ $_['entry_progress']         = 'Прогресс';
 
 // Error
 $_['error_permission']       = 'Внимание: У вас нет прав на изменение расширений!';
-$_['error_install']          = 'Warning: Could not find install.json!';
+$_['error_install']          = 'Внимание: Не удалось найти файл install.json!';
 
-$_['error_extension']        = 'Installed extension could not be found!';
+$_['error_extension']        = 'Установленное расширение не может быть найдено!';
 $_['error_installed']        = 'Расширение уже установлено!';
-$_['error_name']             = 'Name must be between 3 and 128 characters!';
-$_['error_version']          = 'Version must be between 3 and 128 characters!';
-$_['error_author']           = 'Author must be between 3 and 128 characters!';
-$_['error_link']             = 'Link must be between 3 and 128 characters!';
+$_['error_name']             = 'Имя должно быть от 3 до 128 символов!';
+$_['error_version']          = 'Версия должна быть от 3 до 128 символов!';
+$_['error_author']           = 'Автор должен быть от 3 до 128 символов!';
+$_['error_link']             = 'Ссылка должна быть от 3 до 128 символов!';
 
 $_['error_filename']         = 'Имя файла должно быть от 3 до 128 символов!';
 $_['error_file']             = 'Файл установки %s не найден!';
