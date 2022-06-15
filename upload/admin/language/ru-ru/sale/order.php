@@ -111,8 +111,8 @@ $_['entry_shipping_method']  = 'Способ доставки';
 $_['entry_payment_method']   = 'Метод оплаты';
 $_['entry_order_id']         = 'Номер заказа';
 $_['entry_total']            = 'Всего';
-$_['entry_date_added']       = 'Дата добавления';
-$_['entry_date_modified']    = 'Дата изменения';
+$_['entry_date_from']        = 'Date From';
+$_['entry_date_to']          = 'Date To';
 
 // Help
 $_['help_override']          = 'Если в связи с расширением для борьбы с мошенничеством покупатель не сможет изменять статус заказа, то включите переопределение.';
