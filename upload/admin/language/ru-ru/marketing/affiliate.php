@@ -56,7 +56,8 @@ $_['entry_bank_account_number'] = 'Номер счета';
 $_['entry_comment']             = 'Комментарий';
 $_['entry_description']         = 'Описание';
 $_['entry_amount']              = 'Сумма';
-$_['entry_date_added']          = 'Дата добавления';
+$_['entry_date_from']           = 'Дата от';
+$_['entry_date_to']             = 'Дата до';
 
 // Help
 $_['help_tracking']             = 'Код отслеживания, который будет использован для отслеживания рефералов.';

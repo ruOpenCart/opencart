@@ -9,7 +9,7 @@ $_['text_add']              = 'Добавление покупателя';
 $_['text_edit']             = 'Редактирование покупателя';
 $_['text_default']          = 'По умолчанию';
 $_['text_store']            = 'Магазин';
-$_['text_account']          = 'Сведения о покупателе';
+$_['text_customer']         = 'Сведения о покупателе';
 $_['text_password']         = 'Пароль';
 $_['text_other']            = 'Другие';
 $_['text_balance']          = 'Баланс';
@@ -73,7 +73,8 @@ $_['entry_amount']          = 'Сумма';
 $_['entry_points']          = 'Баллы';
 $_['entry_name']            = 'Имя покупателя';
 $_['entry_ip']              = 'IP-адрес';
-$_['entry_date_added']      = 'Дата добавления';
+$_['entry_date_from']       = 'Дата от';
+$_['entry_date_to']         = 'Дата до';
 
 // Button
 $_['button_order']          = 'Заказы';

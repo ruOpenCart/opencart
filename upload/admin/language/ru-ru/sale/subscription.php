@@ -58,7 +58,8 @@ $_['entry_description']          = 'Описание';
 $_['entry_amount']               = 'Сумма';
 $_['entry_notify']               = 'Уведомить покупателя';
 $_['entry_override']             = 'Переопределить';
-$_['entry_date_added']           = 'Дата добавления';
+$_['entry_date_from']            = 'Дата от';
+$_['entry_date_to']              = 'Дата до';
 
 // Error
 $_['error_subscription']         = 'Внимание: Подписка не существует!';

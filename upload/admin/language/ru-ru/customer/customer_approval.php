@@ -25,7 +25,8 @@ $_['entry_customer']        = 'Покупатель';
 $_['entry_email']           = 'Эл. почта';
 $_['entry_customer_group']  = 'Группа покупателя';
 $_['entry_type']            = 'Тип';
-$_['entry_date_added']      = 'Дата добавления';
+$_['entry_date_from']       = 'Дата от';
+$_['entry_date_to']         = 'Дата до';
 
 // Error
 $_['error_permission']      = 'Внимание: У вас нет прав на изменение одобрений покупателя!';
