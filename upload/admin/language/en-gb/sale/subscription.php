@@ -58,8 +58,7 @@ $_['entry_description']          = 'Description';
 $_['entry_amount']               = 'Amount';
 $_['entry_notify']               = 'Notify Customer';
 $_['entry_override']             = 'Override';
-$_['entry_date_from']            = 'Date From';
-$_['entry_date_to']              = 'Date To';
+$_['entry_date_added']           = 'Date Added';
 
 // Error
 $_['error_subscription']         = 'Warning: Subscription does not exist!';
