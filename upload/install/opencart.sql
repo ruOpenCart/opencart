@@ -867,7 +867,11 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`) VALUES
 ('admin_currency_add', 'admin/model/localisation/currency/addCurrency/after', 'event/currency', 1),
 ('admin_currency_edit', 'admin/model/localisation/currency/editCurrency/after', 'event/currency', 1),
 ('admin_setting', 'admin/model/setting/setting/editSetting/after', 'event/currency', 1),
-('admin_mail_gdpr', 'admin/model/customer/gdpr/editStatus/after', 'mail/gdpr', 1);
+('admin_mail_gdpr', 'admin/model/customer/gdpr/editStatus/after', 'mail/gdpr', 1),
+
+
+('admin_mail_pin', 'admin/model/customer/gdpr/editStatus/after', 'mail/pin', 1),
+('admin_mail_pin_reset', 'admin/model/customer/gdpr/editStatus/after', 'mail/pin|reset', 1);
 
 -----------------------------------------------------------
 
@@ -1967,6 +1971,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_customer_group_id', '1', 0),
 (0, 'config', 'config_customer_group_display', '["1"]', 1),
 (0, 'config', 'config_customer_price', '0', 0),
+(0, 'config', 'config_address_format_id', '1', 0),
 (0, 'config', 'config_account_id', '3', 0),
 (0, 'config', 'config_invoice_prefix', CONCAT('INV-', YEAR(CURDATE()), '-00'), 0),
 (0, 'config', 'config_api_id', '1', 0),
