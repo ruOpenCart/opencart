@@ -46,8 +46,8 @@ $_['entry_return_action']  = 'Действие при возврате';
 $_['entry_return_status']  = 'Статус возврата';
 $_['entry_notify']         = 'Уведомить покупателя';
 $_['entry_return_id']      = 'Идентификатор возврата';
-$_['entry_date_added']     = 'Дата добавления';
-$_['entry_date_modified']  = 'Дата изменения';
+$_['entry_date_from']      = 'Date From';
+$_['entry_date_to']        = 'Date To';
 
 // Help
 $_['help_product']         = '(Автодополнение)';
