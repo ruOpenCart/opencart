@@ -29,7 +29,8 @@ $_['entry_name']        = 'Название кампании';
 $_['entry_description'] = 'Описание кампании';
 $_['entry_code']        = 'Код отслеживания';
 $_['entry_example']     = 'Примеры';
-$_['entry_date_added']  = 'Дата добавления';
+$_['entry_date_from']   = 'Date From';
+$_['entry_date_to']     = 'Date To';
 
 // Help
 $_['help_code']         = 'Код отслеживания, который будет использован для отслеживания маркетинговых кампаний.';
