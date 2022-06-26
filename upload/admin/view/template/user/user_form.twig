@@ -108,7 +108,10 @@
               <input type="hidden" name="user_id" value="{{ user_id }}" id="input-user-id"/>
             </div>
             <div id="tab-login" class="tab-pane">
-
+              <fieldset>
+                <legend>{{ text_login }}</legend>
+                <div id="login">{{ user_login }}</div>
+              </fieldset>
             </div>
           </div>
         </form>
@@ -116,4 +119,50 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"><!--
+$('#login').on('click', '.pagination a', function (e) {
+    e.preventDefault();
+
+    $('#login').load(this.href);
+});
+
+$('#login').on('click', '.btn', function (e) {
+    e.preventDefault();
+
+    var element = this;
+
+    if (confirm('{{ text_confirm }}')) {
+        $.ajax({
+            url: $(element).attr('href'),
+            dataType: 'json',
+            beforeSend: function () {
+                $(element).prop('disabled', true).addClass('loading');
+            },
+            complete: function () {
+                $(element).prop('disabled', false).removeClass('loading');
+            },
+            success: function (json) {
+                $('.alert-dismissible').remove();
+
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
+
+                if (json['error']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                if (json['success']) {
+                    $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#login').load('index.php?route=user/user|login&user_token={{ user_token }}&user_id={{ user_id }}');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    }
+});
+//--></script>
 {{ footer }} 

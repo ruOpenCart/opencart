@@ -4,16 +4,16 @@
     <br/>
     <br/>
     <div class="row justify-content-sm-center">
-      <div class="col-sm-4 col-md-6">
+      <div class="col-sm-10 col-md-8 col-lg-5">
         <div class="card">
           <div class="card-header"><i class="fas fa-lock"></i> {{ text_login }}</div>
           <div class="card-body">
             <form id="form-login" action="{{ login }}" method="post" data-oc-toggle="ajax">
               {% if error_warning %}
-                <div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> {{ error_warning }}</div>
+                <div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> {{ error_warning }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
               {% endif %}
               {% if success %}
-                <div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> {{ success }}</div>
+                <div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> {{ success }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
               {% endif %}
               <div class="mb-3">
                 <label for="input-username" class="form-label">{{ entry_username }}</label>

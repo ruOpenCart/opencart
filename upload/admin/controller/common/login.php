@@ -38,15 +38,17 @@ class Login extends \Opencart\System\Engine\Controller {
 		$data['forgotten'] = $this->url->link('common/forgotten');
 
 		if (isset($this->request->get['route']) && $this->request->get['route'] != 'common/login') {
-			$route = $this->request->get['route'];
+			$args = $this->request->get;
 
-			unset($this->request->get['route']);
-			unset($this->request->get['user_token']);
+			$route = $args['route'];
+
+			unset($args['route']);
+			unset($args['user_token']);
 
 			$url = '';
 
 			if ($this->request->get) {
-				$url .= http_build_query($this->request->get);
+				$url .= http_build_query($args);
 			}
 
 			$data['redirect'] = $this->url->link($route, $url);
@@ -99,7 +101,7 @@ class Login extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['login_token']);
 
 			if ($this->request->post['redirect'] && (strpos($this->request->post['redirect'], HTTP_SERVER) === 0)) {
-				$json['redirect'] = $this->request->post['redirect'] . '&user_token=' . $this->session->data['user_token'];
+				$json['redirect'] =str_replace('&amp;', '&',  $this->request->post['redirect'] . '&user_token=' . $this->session->data['user_token']);
 			} else {
 				$json['redirect'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 			}
