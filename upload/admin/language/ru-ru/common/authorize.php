@@ -3,18 +3,18 @@
 $_['heading_title'] = 'Защитите свою учетную запись';
 
 // Text
-$_['text_security'] = 'You must answer security question whenever you login from an unknown device or computer.';
-$_['text_code']     = 'An email has been sent to your email account with a security code. Enter the code below to continue.';
-$_['text_locked']   = 'Your account has been locked!';
-$_['text_unlock']   = 'Your account has been locked because of to many incorrect attempts at entering the security code. Click the reset button to receive a reset link via your email account.';
-$_['text_unlocked'] = 'Success: Your account has been unlocked!';
+$_['text_security'] = 'Вы должны ответить на секретный вопрос всякий раз, когда вы входите с неизвестного устройства или компьютера.';
+$_['text_code']     = 'Письмо было отправлено на вашу учётную запись электронной почты с кодом безопасности. Введите код ниже, чтобы продолжить.';
+$_['text_locked']   = 'Ваша учетная запись заблокирована!';
+$_['text_unlock']   = 'Ваша учетная запись заблокирована из-за многих неправильных попыток ввода кода безопасности. Нажмите кнопку сброса, чтобы получить ссылку сброса по электронной почте.';
+$_['text_unlocked'] = 'Успех: Ваша учетная запись разблокирована!';
 $_['text_link']     = 'Успех: На ваш адрес электронной почты отправлено письмо со ссылкой для сброса!';
-$_['text_resend']   = 'Success: An email has been sent to your email account with a security code!';
+$_['text_resend']   = 'Успех: Письмо было отправлено на ваш адрес электронной почты с кодом безопасности!';
 
 // Entry
-$_['entry_code']    = 'Security Code';
+$_['entry_code']    = 'Код безопасности';
 
 // Error
-$_['error_warning'] = 'You have exceeded the allowed number of sSecurity code attempts!';
-$_['error_code']    = 'Security code does not match!';
-$_['error_reset']   = 'Warning: Could not reset your security code!';
+$_['error_warning'] = 'Вы превысили допустимое количество попыток ввода кода безопасности!';
+$_['error_code']    = 'Код безопасности не совпадает!';
+$_['error_reset']   = 'Внимание: Не удалось сбросить ваш код безопасности!';
