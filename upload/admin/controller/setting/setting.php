@@ -192,6 +192,7 @@ class Setting extends \Opencart\System\Engine\Controller {
 		$data['config_product_report_status'] = $this->config->get('config_product_report_status');
 
 		$data['config_review_status'] = $this->config->get('config_review_status');
+		$data['config_review_purchased'] = $this->config->get('config_review_purchased');
 		$data['config_review_guest'] = $this->config->get('config_review_guest');
 
 		$data['config_voucher_min'] = $this->config->get('config_voucher_min');
@@ -389,7 +390,7 @@ class Setting extends \Opencart\System\Engine\Controller {
 
 		$data['captcha_pages'][] = [
 			'text'  => $this->language->get('text_return'),
-			'value' => 'return'
+			'value' => 'returns'
 		];
 
 		$data['captcha_pages'][] = [
@@ -588,6 +589,7 @@ class Setting extends \Opencart\System\Engine\Controller {
 			$data['config_session_expire'] = 3600;
 		}
 
+		$data['config_session_samesite'] = $this->config->get('config_session_samesite');
 		$data['config_seo_url'] = $this->config->get('config_seo_url');
 		$data['config_robots'] = $this->config->get('config_robots');
 		$data['config_compression'] = $this->config->get('config_compression');

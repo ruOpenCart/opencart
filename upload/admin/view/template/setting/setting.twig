@@ -3,8 +3,8 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="submit" form="form-setting" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
-        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+        <button type="submit" form="form-setting" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a>
       </div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
@@ -16,7 +16,7 @@
   </div>
   <div class="container-fluid">
     <div class="card">
-      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_edit }}</div>
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_edit }}</div>
       <div class="card-body">
         <form id="form-setting" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <ul class="nav nav-tabs">
@@ -55,8 +55,8 @@
                   <div class="card image">
                     <img src="{{ logo }}" alt="" title="" id="thumb-logo" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
                     <div class="card-body">
-                      <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
-                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary btn-sm btn-block"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning btn-sm btn-block"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                     </div>
                   </div>
                 </div>
@@ -132,8 +132,8 @@
                   <div class="card image">
                     <img src="{{ thumb }}" alt="" title="" id="thumb-image" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image"/>
                     <div class="card-body">
-                      <button type="button" data-oc-toggle="image" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
-                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-primary btn-sm btn-block"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-warning btn-sm btn-block"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                     </div>
                   </div>
                 </div>
@@ -338,6 +338,15 @@
                           <div class="form-text">{{ help_review }}</div>
                         </div>
                       </div>
+                      <div class="row mt-2 mb-3">
+                        <label class="col-sm-2 col-form-label">{{ entry_review_purchased }}</label>
+                        <div class="col-sm-10">
+                          <div class="form-check form-switch form-switch-lg">
+                            <input type="checkbox" name="config_review_purchased" value="1" id="input-review-purchased" class="form-check-input"{% if config_review_purchased %} checked{% endif %}/>
+                          </div>
+                          <div class="form-text">{{ help_review_purchased }}</div>
+                        </div>
+                      </div>
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">{{ entry_review_guest }}</label>
                         <div class="col-sm-10">
@@ -350,7 +359,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="accordion-item">
                   <h2 class="accordion-header"><button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-voucher">{{ text_voucher }}</button></h2>
                   <div id="collapse-voucher" class="accordion-collapse collapse" data-bs-parent="#accordion-option">
@@ -1171,6 +1179,17 @@
                   <div class="col-sm-10">
                     <input type="text" name="config_session_expire" value="{{ config_session_expire }}" placeholder="{{ entry_session_expire }}" id="input-session-expire" class="form-control"/>
                     <div class="form-text">{{ help_session_expire }}</div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="input-session-samesite" class="col-sm-2 col-form-label">{{ entry_session_samesite }}</label>
+                  <div class="col-sm-10">
+                    <select name="config_session_samesite" id="input-session-samesite" class="form-select">
+                      <option value="None"{% if config_session_samesite == 'None' %} selected="selected"{% endif %}>{{ text_none }}</option>
+                      <option value="Lax"{% if config_session_samesite == 'Lax' %} selected="selected"{% endif %}>{{ text_lax }}</option>
+                      <option value="Strict"{% if config_session_samesite == 'Strict' %} selected="selected"{% endif %}>{{ text_strict }}</option>
+                    </select>
+                    <div class="form-text">{{ help_session_samesite }}</div>
                   </div>
                 </div>
                 <div class="row mb-3">
