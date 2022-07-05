@@ -15,6 +15,6 @@ $_['text_resend']   = 'Успех: Письмо было отправлено н
 $_['entry_code']    = 'Код безопасности';
 
 // Error
-$_['error_warning'] = 'You have exceeded the allowed number of security code attempts!';
+$_['error_warning'] = 'Вы превысили допустимое количество попыток ввода кода безопасности!';
 $_['error_code']    = 'Код безопасности не совпадает!';
 $_['error_reset']   = 'Внимание: Не удалось сбросить ваш код безопасности!';
