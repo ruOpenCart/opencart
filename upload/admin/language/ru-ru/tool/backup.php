@@ -30,3 +30,4 @@ $_['error_file']         = 'Файл не найден!';
 $_['error_directory']    = 'Каталог не найден!';
 $_['error_not_found']    = 'Ошибка: Не удалось найти файл %s!';
 $_['error_headers_sent'] = 'Ошибка: Заголовки уже отправлен!';
+$_['error_upload_size']  = 'Upload file cannot be larger than %s!';
