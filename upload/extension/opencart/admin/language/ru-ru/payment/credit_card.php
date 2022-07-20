@@ -12,8 +12,8 @@ $_['text_deny']             = 'Отклонить';
 
 // Entry
 $_['entry_response']        = 'Ответ процессора карты';
-$_['entry_approved_status'] = 'Approved Status';
-$_['entry_failed_status']   = 'Failed Status';
+$_['entry_approved_status'] = 'Подтвержденный статус';
+$_['entry_failed_status']   = 'Неудачный статус';
 $_['entry_order_status']    = 'Статус заказа';
 $_['entry_geo_zone']        = 'Гео-зона';
 $_['entry_status']          = 'Статус';
