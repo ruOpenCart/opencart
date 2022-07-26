@@ -24,6 +24,7 @@ $_['error_install']          = 'Внимание: Не удалось найти
 
 $_['error_extension']        = 'Установленное расширение не может быть найдено!';
 $_['error_installed']        = 'Расширение уже установлено!';
+$_['error_uninstall']        = 'There are %s extensions that need to be uninstalled before this extension can be safely removed!';
 $_['error_name']             = 'Имя должно быть от 3 до 128 символов!';
 $_['error_version']          = 'Версия должна быть от 3 до 128 символов!';
 $_['error_author']           = 'Автор должен быть от 3 до 128 символов!';
