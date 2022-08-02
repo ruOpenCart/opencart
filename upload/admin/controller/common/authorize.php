@@ -1,6 +1,6 @@
 <?php
 namespace Opencart\Admin\Controller\Common;
-use \Opencart\System\Helper AS Helper;
+use \Opencart\System\Helper as Helper;
 class Authorize extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('common/authorize');
@@ -72,7 +72,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 
 			$data['redirect'] = $this->url->link($route, $url);
 		} else {
-			$json['redirect'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
+			$data['redirect'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
