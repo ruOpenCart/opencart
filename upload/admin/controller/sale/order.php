@@ -736,9 +736,9 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		// Coupon, Voucher, Reward
-		$data['coupon'] = '';
-		$data['voucher'] = '';
-		$data['reward'] = 0;
+		$data['total_coupon'] = '';
+		$data['total_voucher'] = '';
+		$data['total_reward'] = 0;
 
 		if ($order_id) {
 			$order_totals = $this->model_sale_order->getTotals($order_id);
@@ -749,7 +749,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				$end = strrpos($order_total['title'], ')');
 
 				if ($start && $end) {
-					$data[$order_total['code']] = substr($order_total['title'], $start, $end - $start);
+					$data['total_' . $order_total['code']] = substr($order_total['title'], $start, $end - $start);
 				}
 			}
 		}
@@ -1021,7 +1021,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$extension_info = $this->model_setting_extension->getExtensionByCode('payment', $order_info['payment_code']);
 
 			if ($extension_info && $this->user->hasPermission('access', 'extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'])) {
-				$output = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '|order');
+				$output = $this->load->controller('extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'] . '|order');
 
 				if (!$output instanceof \Exception) {
 					$this->load->language('extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'], 'extension');
@@ -1659,19 +1659,19 @@ class Order extends \Opencart\System\Engine\Controller {
 						}
 
 						$product_data[] = [
-							'name'     		=> $product_info['name'],
-							'model'    		=> $product_info['model'],
-							'option'   		=> $option_data,
-							'subscription'	=> $subscription_data,
-							'quantity' 		=> $product['quantity'],
-							'location' 		=> $product_info['location'],
-							'sku'      		=> $product_info['sku'],
-							'upc'      		=> $product_info['upc'],
-							'ean'      		=> $product_info['ean'],
-							'jan'      		=> $product_info['jan'],
-							'isbn'     		=> $product_info['isbn'],
-							'mpn'      		=> $product_info['mpn'],
-							'weight'   		=> $this->weight->format(($product_info['weight'] + (float)$option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
+							'name'     	   => $product_info['name'],
+							'model'    	   => $product_info['model'],
+							'option'   	   => $option_data,
+							'subscription' => $subscription_data,
+							'quantity'     => $product['quantity'],
+							'location'     => $product_info['location'],
+							'sku'          => $product_info['sku'],
+							'upc'          => $product_info['upc'],
+							'ean'          => $product_info['ean'],
+							'jan'          => $product_info['jan'],
+							'isbn'         => $product_info['isbn'],
+							'mpn'          => $product_info['mpn'],
+							'weight'       => $this->weight->format(($product_info['weight'] + (float)$option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
 						];
 					}
 				}
