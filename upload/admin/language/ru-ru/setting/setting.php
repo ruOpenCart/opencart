@@ -265,6 +265,7 @@ $_['error_image_wishlist']                = 'Размер изображения
 $_['error_image_cart']                    = 'Размер изображения в корзине обязателен!';
 $_['error_image_location']                = 'Укажите размер изображений магазина!';
 $_['error_file_max_size']                 = 'Необходимо указать максимальный размер файла!';
+$_['error_security']                      = 'Two-factor Security can be be used if you do not have your email setup yet!';
 $_['error_extension']                     = 'PHP загрузки запрещены!';
 $_['error_mime']                          = 'PHP загрузки запрещены!';
 $_['error_log_required']                  = 'Необходимо ввести имя журнала ошибок!';
