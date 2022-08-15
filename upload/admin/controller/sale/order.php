@@ -1203,6 +1203,9 @@ class Order extends \Opencart\System\Engine\Controller {
 			$language_code = $this->config->get('config_language');
 		}
 
+		// Catalog uses language key in URLs
+		$request->get['language'] = $language_code;
+
 		$this->load->model('localisation/language');
 
 		$language_info = $this->model_localisation_language->getLanguageByCode($language_code);
@@ -1216,10 +1219,17 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		$language = new \Opencart\System\Library\Language($language_code);
-		$language->addPath(DIR_CATALOG . 'language/');
+
+		if (!$language_info['extension']) {
+			$language->addPath(DIR_CATALOG . 'language/');
+		} else {
+			$language->addPath(DIR_EXTENSION . $language_info['extension'] . '/catalog/language/');
+		}
+
 		$language->load($language_code);
 		$registry->set('language', $language);
 
+		// Currency
 		if (!isset($session->data['currency'])) {
 			$session->data['currency'] = $this->config->get('config_currency');
 		}
