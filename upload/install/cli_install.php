@@ -1,7 +1,4 @@
 <?php
-namespace Install;
-use \Opencart\System\Helper as Helper;
-//
 // Command line tool for installing opencart
 // Original Author: Vineet Naik <vineet.naik@kodeplay.com> <naikvin@gmail.com>
 // Updated and maintained by OpenCart
@@ -22,9 +19,15 @@ use \Opencart\System\Helper as Helper;
 //                               --db_prefix   oc_
 //
 
+namespace Install;
+use \Opencart\System\Helper as Helper;
+
 ini_set('display_errors', 1);
 
 error_reporting(E_ALL);
+
+// APPLICATION
+define('APPLICATION', 'Install');
 
 // DIR
 define('DIR_OPENCART', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/');
@@ -45,12 +48,21 @@ define('DIR_UPLOAD', DIR_SYSTEM . 'storage/upload/');
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
 
+// Engine
+require_once(DIR_SYSTEM . 'engine/controller.php');
+require_once(DIR_SYSTEM . 'engine/registry.php');
+
+// Library
+require_once(DIR_SYSTEM . 'library/request.php');
+require_once(DIR_SYSTEM . 'library/response.php');
+require_once(DIR_SYSTEM . 'library/db.php');
+require_once(DIR_SYSTEM . 'library/db/mysqli.php');
+
+// Helper
+require_once(DIR_SYSTEM . 'helper/db_schema.php');
+
 // Registry
 $registry = new \Opencart\System\Engine\Registry();
-
-// Loader
-$loader = new \Opencart\System\Engine\Loader($registry);
-$registry->set('load', $loader);
 
 // Request
 $registry->set('request', new \Opencart\System\Library\Request());
@@ -238,13 +250,13 @@ class CliInstall extends \Opencart\System\Engine\Controller {
 			return 'ERROR: Could not load SQL file: ' . $file;
 		}
 
-		$db_driver   = html_entity_decode($option['db_driver'], ENT_QUOTES, 'UTF-8');
+		$db_driver = html_entity_decode($option['db_driver'], ENT_QUOTES, 'UTF-8');
 		$db_hostname = html_entity_decode($option['db_hostname'], ENT_QUOTES, 'UTF-8');
 		$db_username = html_entity_decode($option['db_username'], ENT_QUOTES, 'UTF-8');
 		$db_password = html_entity_decode($option['db_password'], ENT_QUOTES, 'UTF-8');
 		$db_database = html_entity_decode($option['db_database'], ENT_QUOTES, 'UTF-8');
-		$db_port     = $option['db_port'];
-		$db_prefix   = $option['db_prefix'];
+		$db_port = $option['db_port'];
+		$db_prefix = $option['db_prefix'];
 
 		try {
 			// Database
@@ -335,8 +347,6 @@ class CliInstall extends \Opencart\System\Engine\Controller {
 
 			$db->query("DELETE FROM `" . $db_prefix . "setting` WHERE `key` = 'config_encryption'");
 			$db->query("INSERT INTO `" . $db_prefix . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(Helper\General\token(1024)) . "'");
-
-			$db->query("UPDATE `" . $db_prefix . "product` SET `viewed` = '0'");
 
 			$db->query("INSERT INTO `" . $db_prefix . "api` SET `username` = 'Default', `key` = '" . $db->escape(Helper\General\token(256)) . "', `status` = 1, `date_added` = NOW(), `date_modified` = NOW()");
 
