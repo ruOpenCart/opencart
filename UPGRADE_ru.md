@@ -11,7 +11,7 @@ If you have __1.5.x__ and want to upgrade __to 3.0.x__, You may try to [contact 
 ## Step by step
 
 1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
-    * Backup your __database__ via your store `Admin -> System -> Backup`
+    * Резервное копирование __базы данных__ через ваш магазин `Администратор -> Система -> инструменты -> Резервное копирование`
     * Backup your __files__ using FTP file copy or use cPanel filemanager to create a zip of all the existing opencart files and folders
 2. Download the __latest version__ of OpenCart and __upload all__ new files on top of your current install __except__ your `config.php` and `admin/config.php`.
     1. Backup and Remove all of 2.x.x views files. Because OpenCart 3 is start to use TWIG to replace the TPL format.
@@ -46,9 +46,6 @@ If you have __1.5.x__ and want to upgrade __to 3.0.x__, You may try to [contact 
 
 13. If you use vQmod (by now everyone should be) you should first check for a new version at http://vQmod.com. Be sure to download the version that is marked for "opencart". You will also need to re-run the vQmod installer, even if you have the latest version. You should already have the installer on your site as it isn't meant to be deleted from the first time you run it. Simply browse to: http://yoursite.com/vqmod/install and you should see a success message. If you do not see a success message, follow the full install guide from the http://vQmod.com site.
 
-Note that some of your vQmod scripts may need to be updated for the new core changes. So run through your site catalog and admin areas and check in FTP for the vqmod/vqmod.log file. If you see errors, then you will need to address them.
-
-
 ## Troubleshooting:
 
 1. If you have any upgrade script errors, post them in the forum
@@ -56,6 +53,6 @@ Note that some of your vQmod scripts may need to be updated for the new core cha
 3. If you find bugs, check the "official" bug thread for this version of Opencart
 
 
-Many bugs may have already been reported and fixes will be offered in the first post of this thread. You should always visit this thread immediately after a fresh upgrade to see if there are any immediate bug fixes If nobody has reported your bug, then please report it.
+Многие сообщения об ошибках уже были сообщены и исправления будут предложены в первом сообщении этой темы. Вы должны всегда заходить в эту тему сразу после обновления и убедиться, что есть ли немедленные исправления ошибок Если никто не сообщил о вашей ошибке, пожалуйста, сообщите об этом.
 
-An online version of this file can be found here: http://www.opencart.com/index.php?route=documentation/documentation&path=98
+Онлайн версия этого файла находится здесь: http://www.opencart.com/index.php?route=documentation/documentation&path=98
