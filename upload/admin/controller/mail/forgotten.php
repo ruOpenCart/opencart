@@ -21,7 +21,7 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 			$code = '';
 		}
 
-		if ($email && $code && ($route == 'common/forgotten|reset') && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if ($email && $code && ($route == 'common/forgotten.reset') && filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$this->load->language('mail/forgotten');
 
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
@@ -30,7 +30,7 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 
 			$data['text_greeting'] = sprintf($this->language->get('text_greeting'), $store_name);
 
-			$data['reset'] = $this->url->link('common/forgotten|reset', 'email=' . $email . '&code=' . $code, true);
+			$data['reset'] = $this->url->link('common/forgotten.reset', 'email=' . $email . '&code=' . $code, true);
 			$data['ip'] = $this->request->server['REMOTE_ADDR'];
 
 			$data['store'] = $store_name;

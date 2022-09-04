@@ -113,7 +113,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		$data['store_url'] = $order_info['store_url'];
 
 		$data['customer_id'] = $order_info['customer_id'];
-		$data['link'] = $order_info['store_url'] . 'index.php?route=account/order|info&order_id=' . $order_info['order_id'];
+		$data['link'] = $order_info['store_url'] . 'index.php?route=account/order.info&order_id=' . $order_info['order_id'];
 
 		if ($download_status) {
 			$data['download'] = $order_info['store_url'] . 'index.php?route=account/download';
@@ -310,7 +310,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$store_url = $store_info['url'];
 		} else {
 			$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-			$store_url = HTTP_SERVER;
+			$store_url = HTTP_CATALOG;
 		}
 
 		$this->load->model('localisation/language');
@@ -348,7 +348,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if ($order_info['customer_id']) {
-			$data['link'] = $order_info['store_url'] . 'index.php?route=account/order|info&order_id=' . $order_info['order_id'];
+			$data['link'] = $order_info['store_url'] . 'index.php?route=account/order.info&order_id=' . $order_info['order_id'];
 		} else {
 			$data['link'] = '';
 		}

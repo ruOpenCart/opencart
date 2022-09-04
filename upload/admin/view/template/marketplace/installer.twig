@@ -42,8 +42,6 @@ $('#extension').on('click', 'thead a, .pagination a', function (e) {
     $('#extension').load(this.href);
 });
 
-$('#extension').load('index.php?route=marketplace/installer|list&user_token={{ user_token }}');
-
 // Upload
 $('#button-upload').on('click', function () {
     var element = this;
@@ -72,7 +70,7 @@ $('#button-upload').on('click', function () {
                 clearInterval(timer);
 
                 $.ajax({
-                    url: 'index.php?route=marketplace/installer|upload&user_token={{ user_token }}',
+                    url: 'index.php?route=marketplace/installer.upload&user_token={{ user_token }}',
                     type: 'post',
                     data: new FormData($('#form-upload')[0]),
                     dataType: 'json',
@@ -93,7 +91,7 @@ $('#button-upload').on('click', function () {
                         if (json['success']) {
                             $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                            $('#extension').load('index.php?route=marketplace/installer|list&user_token={{ user_token }}');
+                            $('#extension').load('index.php?route=marketplace/installer.list&user_token={{ user_token }}');
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -138,7 +136,7 @@ $('#extension').on('click', '.btn-success, .btn-warning', function (e) {
                     $('#progress-bar').addClass('bg-success').css('width', '100%');
                     $('#progress-text').html('<div class="text-success">' + json['success'] + '</div>');
 
-                    $('#extension').load('index.php?route=marketplace/installer|list&user_token={{ user_token }}');
+                    $('#extension').load('index.php?route=marketplace/installer.list&user_token={{ user_token }}');
                 }
 
                 if (json['next']) {
@@ -182,7 +180,7 @@ $('#extension').on('click', '.btn-danger', function (e) {
                 if (json['success']) {
                     $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                    $('#extension').load('index.php?route=marketplace/installer|list&user_token={{ user_token }}');
+                    $('#extension').load('index.php?route=marketplace/installer.list&user_token={{ user_token }}');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
