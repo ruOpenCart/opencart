@@ -11,6 +11,7 @@ $_['text_shipping_address']   = 'Адрес доставки';
 $_['text_your_password']      = 'Ваш пароль';
 $_['text_agree']              = 'Я прочитал и согласен с <a href="%s" class="agree"><b>%s</b></a>';
 $_['text_success_add']        = 'Успех: Ваша учетная запись создана!';
+$_['text_success_guest']      = 'Success: Your guest account information has been saved!';
 $_['text_success_edit']       = 'Успех: Ваша учетная запись успешно обновлена!';
 
 // Entry
