@@ -641,7 +641,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$subscription_id = 0;
 		}
 
-		if (isset($this->request->get['page'])) {
+		if (isset($this->request->get['page']) && $this->request->get['route'] == 'sale/subscription.history') {
 			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
@@ -716,7 +716,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$subscription_id = 0;
 		}
 
-		if (isset($this->request->get['page'])) {
+		if (isset($this->request->get['page']) && $this->request->get['route'] == 'sale/subscription.transaction') {
 			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
@@ -736,7 +736,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		//$data['balance'] = $this->currency->format($this->model_sale_subscription->getTransactionTotal($subscription_id), $this->config->get('config_currency'));
+		$data['balance'] = $this->currency->format($this->model_sale_subscription->getTransactionTotal($subscription_id), $this->config->get('config_currency'));
 
 		$transaction_total = $this->model_sale_subscription->getTotalTransactions($subscription_id);
 
