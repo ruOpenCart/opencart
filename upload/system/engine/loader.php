@@ -16,9 +16,9 @@ class Loader {
 	protected $registry;
 
 	/**
-	 * __construct
+	 * Constructor
 	 *
-	 * @param    object $registry
+	 * @param    object  $registry
 	 */
 	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		$this->registry = $registry;
@@ -45,7 +45,7 @@ class Loader {
 	 * @param    string $key
 	 * @param    object $value
 	 *
-	 * @return    object
+	 * @return    void
 	 */
 	public function __set(string $key, object $value): void {
 		$this->registry->set($key, $value);
@@ -65,38 +65,56 @@ class Loader {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_|\/\.]/', '', $route);
 
+		$output = '';
+
 		// Keep the original trigger
-		$trigger = $route;
+		$action = new \Opencart\System\Engine\Action($route);
 
-		// Trigger the pre events
-		$result = $this->event->trigger('controller/' . $trigger . '/before', [&$route, &$args]);
+		while ($action) {
+			$route = $action->getId();
 
-		// Make sure it's only the last event that returns an output if required.
-		if ($result != null && !$result instanceof \Exception) {
-			$output = $result;
-		} else {
-			$action = new \Opencart\System\Engine\Action($route);
-			$output = $action->execute($this->registry, $args);
+			$trigger = $route;
+
+			// Trigger the pre events
+			$result = $this->event->trigger('controller/' . $trigger . '/before', [&$route, &$args]);
+
+			if ($result instanceof \Opencart\System\Engine\Action) {
+				$action = $result;
+			}
+
+			// Execute action
+			$result = $action->execute($this->registry, $args);
+
+			// Make action a non-object so it's not infinitely looping
+			$action = '';
+
+			// Action object returned then we keep the loop going
+			if ($result instanceof \Opencart\System\Engine\Action) {
+				$action = $result;
+			}
+
+			// If not an object then it's the output
+			if (!$action) {
+				$output = $result;
+			}
+
+			// Trigger the post events
+			$result = $this->event->trigger('controller/' . $trigger . '/after', [&$route, &$args, &$output]);
+
+			if ($result instanceof \Opencart\System\Engine\Action) {
+				$action = $result;
+			}
 		}
 
-		// Trigger the post events
-		$result = $this->event->trigger('controller/' . $trigger . '/after', [&$route, &$args, &$output]);
-
-		if ($result && !$result instanceof \Exception) {
-			$output = $result;
-		}
-
-		if (!$output instanceof \Exception) {
-			return $output;
-		}
-
-		return '';
+		return $output;
 	}
 	
 	/**
 	 * Model
 	 *
 	 * @param    string $route
+	 *
+	 * @return	 void
 	 */
 	public function model(string $route): void {
 		// Sanitize the call
@@ -129,8 +147,9 @@ class Loader {
 	 *
 	 * Loads the template file and generates the html code.
 	 *
-	 * @param    string $route
-	 * @param    array $data
+	 * @param    string  $route
+	 * @param    array   $data
+	 * @param	 string  $code
 	 *
 	 * @return   string
 	 */
@@ -157,7 +176,8 @@ class Loader {
 	 * Language
 	 *
 	 * @param    string $route
-	 * @param    string $key
+	 * @param    string $prefix
+	 * @param	 string $code
 	 *
 	 * @return    array
 	 */
@@ -183,7 +203,9 @@ class Loader {
 	 * Loads library classes
 	 *
 	 * @param    string $route	The path to the library file.
-	 * @param    string $args	A list of arguments to pass into the library object being created.
+	 * @param    array  $args	A list of arguments to pass into the library object being created.
+	 *
+	 * @return	 object
 	 */
 	public function library(string $route, array &...$args): object {
 		// Sanitize the call
@@ -213,7 +235,9 @@ class Loader {
 	/**
 	 * Helper
 	 *
-	 * @param    string $route
+	 * @param    string  $route
+	 *
+	 * @return	 void
 	 */
 	public function helper(string $route): void {
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
@@ -238,7 +262,9 @@ class Loader {
 	/**
 	 * Config
 	 *
-	 * @param    string $route
+	 * @param    string  $route
+	 *
+	 * @return	 array
 	 */
 	public function config(string $route): array {
 		// Sanitize the call

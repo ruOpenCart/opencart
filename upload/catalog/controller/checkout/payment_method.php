@@ -4,8 +4,6 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('checkout/payment_method');
 
-		$data['language'] = $this->config->get('config_language');
-
 		$status = true;
 
 		// Validate cart has products and has stock.
@@ -29,7 +27,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 			$status = false;
 		}
 
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$status = false;
 		}
 
@@ -52,45 +50,15 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$data['payment_methods'] = [];
-
-		if ($status) {
-			if (isset($this->session->data['payment_methods'])) {
-				$data['payment_methods'] = $this->session->data['payment_methods'];
-			} else {
-				if (isset($this->session->data['payment_address'])) {
-					$payment_address = $this->session->data['payment_address'];
-				} else {
-					$payment_address = [
-						'address_id'     => 0,
-						'firstname'      => '',
-						'lastname'       => '',
-						'company'        => '',
-						'address_1'      => '',
-						'address_2'      => '',
-						'city'           => '',
-						'postcode'       => '',
-						'zone_id'        => 0,
-						'zone'           => '',
-						'zone_code'      => '',
-						'country_id'     => 0,
-						'country'        => '',
-						'iso_code_2'     => '',
-						'iso_code_3'     => '',
-						'address_format' => '',
-						'custom_field'   => []
-					];
-				}
-
-				$this->load->model('checkout/payment_method');
-
-				$data['payment_methods'] = $this->model_checkout_payment_method->getMethods($payment_address);
-
-				$this->session->data['payment_methods'] = $data['payment_methods'];
-			}
-		} else {
-			// Remove any payment methods that does not meet checkout validation requirements
+		if (!$status) {
+			// Remove any payment methods if the validation not working
 			unset($this->session->data['payment_methods']);
+		}
+
+		if (isset($this->session->data['payment_methods'])) {
+			$data['payment_methods'] = $this->session->data['payment_methods'];
+		} else {
+			$data['payment_methods'] = [];
 		}
 
 		if (isset($this->session->data['payment_method'])) {
@@ -121,6 +89,8 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 			$data['agree'] = '';
 		}
 
+		$data['language'] = $this->config->get('config_language');
+
 		return $this->load->view('checkout/payment_method', $data);
 	}
 
@@ -141,7 +111,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 
 		foreach ($products as $product) {
 			if (!$product['minimum']) {
-				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+				$status = false;
 
 				break;
 			}
@@ -152,7 +122,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 			$status = false;
 		}
 
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$status = false;
 		}
 
@@ -176,8 +146,10 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		if ($status) {
-			if (isset($this->session->data['payment_address'])) {
+			if ($this->config->get('config_checkout_payment_address') && isset($this->session->data['payment_address'])) {
 				$payment_address = $this->session->data['payment_address'];
+			} elseif ($this->config->get('config_checkout_shipping_address') && isset($this->session->data['shipping_address'])) {
+				$payment_address = $this->session->data['shipping_address'];
 			} else {
 				$payment_address = [
 					'address_id'     => 0,
@@ -241,7 +213,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 		}
 

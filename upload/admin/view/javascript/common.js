@@ -79,7 +79,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     // Tooltip
     var oc_tooltip = function () {
-        // Apply to all on current page
+        // BS 5.2.1: Destroy tooltip, otherwise it has wrong position when displayed second time
+        // Get tooltip instance
+        tooltip = bootstrap.Tooltip.getInstance(this);
+        if (tooltip) {
+            // Destroy tooltip
+            tooltip.dispose();
+        }
+        // Apply to current element
         tooltip = bootstrap.Tooltip.getOrCreateInstance(this);
         tooltip.show();
     }
@@ -295,7 +302,7 @@ $(document).on('click', '[data-oc-toggle=\'upload\']', function () {
                 clearInterval(timer);
 
                 $.ajax({
-                    url: 'index.php?route=tool/upload.upload&user_token=' + getURLVar('user_token'),
+                    url: $(element).attr('data-oc-url'),
                     type: 'post',
                     data: new FormData($('#form-upload')[0]),
                     dataType: 'json',
