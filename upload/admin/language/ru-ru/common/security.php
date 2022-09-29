@@ -31,5 +31,5 @@ $_['error_storage']            = 'Внимание: Папка storage не су
 $_['error_storage_exists']     = 'Внимание: Папка с именем storage уже существует!';
 $_['error_admin']              = 'Внимание: Директория администратора не существует!';
 $_['error_admin_exists']       = 'Внимание: Название папки администратора уже существует!';
-$_['error_admin_name']         = 'Внимание: Имя администратора не может быть `admin`, так как оно доступно для публичного доступа!';
+$_['error_admin_name']         = 'Warning: Admin name cannot be `admin` as it is available to the public!';
 $_['error_writable']           = 'Внимание: config.php и admin/config.php должны быть доступны для записи!';
