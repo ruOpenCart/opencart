@@ -9,9 +9,9 @@ $_['text_add']              = 'Добавление пользователя';
 $_['text_edit']             = 'Редактирование пользователя';
 $_['text_user']             = 'Сведения о пользователях';
 $_['text_password']         = 'Пароль';
-$_['text_user_login']       = 'Вход для пользователей';
 $_['text_other']            = 'Другие';
 $_['text_login']            = 'История входов в систему';
+$_['text_authorize']        = 'Authorize History';
 
 // Column
 $_['column_username']       = 'Имя пользователя';
@@ -33,7 +33,8 @@ $_['entry_image']           = 'Изображение';
 $_['entry_status']          = 'Статус';
 
 // Tab
-$_['tab_login']             = 'Логины';
+$_['tab_authorize']         = 'Authorize';
+$_['tab_login']             = 'Войти';
 
 // Error
 $_['error_permission']      = 'Внимание: У вас нет разрешения на изменение пользователей!';
