@@ -65,3 +65,4 @@ $_['entry_date_to']              = 'Дата до';
 $_['error_subscription']         = 'Внимание: Подписка не существует!';
 $_['error_subscription_plan']    = 'Внимание: План подписки не существует!';
 $_['error_payment_method']       = 'Внимание: Способ оплаты не существует!';
+$_['error_service_type']		 = 'The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
