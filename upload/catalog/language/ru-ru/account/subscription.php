@@ -4,8 +4,9 @@ $_['heading_title']                        = 'Подписки';
 
 // Text
 $_['text_account']                         = 'Аккаунт';
-$_['text_recurring']                       = 'Информация о повторяющемся платеже';
-$_['text_recurring_detail']                = 'Детали повторяющегося платежа';
+$_['text_subscription']                    = 'Subscription Payment Information';
+$_['text_subscription_id']                 = 'Идентификатор подписки';
+$_['text_subscription_detail']             = 'Subscription Payment Details';
 $_['text_date_added']                      = 'Дата добавления:';
 $_['text_status']                          = 'Статус:';
 $_['text_payment_method']                  = 'Метод оплаты:';
@@ -43,9 +44,9 @@ $_['column_date_added']                    = 'Дата добавления';
 $_['column_type']                          = 'Тип';
 $_['column_amount']                        = 'Сумма';
 
-// Error
-$_['error_not_cancelled']                  = 'Ошибка: %s';
-$_['error_not_found']                      = 'Не удалось отменить подписку';
-
 // Button
 $_['button_return']                        = 'Вернуть';
+
+// Error
+$_['error_not_cancelled']                  = 'Ошибка: %s';
+$_['error_not_found']                      = 'Could not cancel subscription';
