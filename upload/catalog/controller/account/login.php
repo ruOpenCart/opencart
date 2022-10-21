@@ -75,12 +75,10 @@ class Login extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
+		$this->customer->logout();
+
 		if (!isset($this->request->get['login_token']) || !isset($this->session->data['login_token']) || ($this->request->get['login_token'] != $this->session->data['login_token'])) {
 			$json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
-		}
-
-		if ($this->customer->isLogged()) {
-			$json['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'], true);
 		}
 
 		if (!$json) {
@@ -129,14 +127,10 @@ class Login extends \Opencart\System\Engine\Controller {
 				'custom_field'      => $customer_info['custom_field']
 			];
 
-			// Default address
-			$this->load->model('account/address');
-
-			$address_info = $this->model_account_address->getAddress($this->customer->getAddressId());
-
-			if ($address_info) {
-				$this->session->data['shipping_address'] = $address_info;
-			}
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
 
 			// Wishlist
 			if (isset($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {

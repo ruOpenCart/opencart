@@ -117,7 +117,9 @@
 
                         {% for option_value in option.product_option_value %}
                           <div class="form-check">
-                            <input type="checkbox" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" id="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-input"/> <label for="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-label">
+                            <input type="checkbox" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" id="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-input"/>
+
+                            <label for="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-label">
                               {% if option_value.image %}
                                 <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %}{{ option_value.price_prefix }} {{ option_value.price }}{% endif %}" class="img-thumbnail"/>{% endif %}
                               {{ option_value.name }}
@@ -146,7 +148,7 @@
                     <div class="mb-3{% if option.required %} required{% endif %}">
                       <label for="button-upload-{{ option.product_option_id }}" class="form-label">{{ option.name }}</label>
                       <div>
-                        <button type="button" id="button-upload-{{ option.product_option_id }}" data-oc-toggle="upload" data-oc-size-max="{{ config_file_max_size }}" data-oc-size-error="{{ error_upload_size }}" data-oc-url="{{ upload }}" data-oc-target="#input-option-{{ option.product_option_id }}" class="btn btn-light btn-block"><i class="fa-solid fa-upload"></i> {{ button_upload }}</button>
+                        <button type="button" id="button-upload-{{ option.product_option_id }}" data-oc-toggle="upload" data-oc-url="{{ upload }}" data-oc-target="#input-option-{{ option.product_option_id }}" data-oc-size-max="{{ config_file_max_size }}" data-oc-size-error="{{ error_upload_size }}" class="btn btn-light btn-block"><i class="fa-solid fa-upload"></i> {{ button_upload }}</button>
                         <input type="hidden" name="option[{{ option.product_option_id }}]" value="" id="input-option-{{ option.product_option_id }}"/>
                       </div>
                       <div id="error-option-{{ option.product_option_id }}" class="invalid-feedback"></div>
@@ -310,6 +312,8 @@ $('#form-product').on('submit', function (e) {
             $('#button-cart').prop('disabled', false).removeClass('loading');
         },
         success: function (json) {
+            console.log(json);
+
             $('#form-product').find('.is-invalid').removeClass('is-invalid');
             $('#form-product').find('.invalid-feedback').removeClass('d-block');
 
@@ -323,7 +327,7 @@ $('#form-product').on('submit', function (e) {
             if (json['success']) {
                 $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                $('#header-cart').load('index.php?route=common/cart|info');
+                $('#header-cart').load('index.php?route=common/cart.info');
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {

@@ -9,8 +9,6 @@ class Register extends \Opencart\System\Engine\Controller {
 
 		$this->load->language('account/register');
 
-		$data['language'] = $this->config->get('config_language');
-
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$data['breadcrumbs'] = [];
@@ -92,6 +90,8 @@ class Register extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['text_agree'] = '';
 		}
+
+		$data['language'] = $this->config->get('config_language');
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

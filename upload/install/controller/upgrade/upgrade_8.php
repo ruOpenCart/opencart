@@ -197,6 +197,13 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` DROP COLUMN `recurring_id`");
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` ADD COLUMN `subscription_plan_id` int(11) NOT NULL AFTER `product_id`");
 			}
+			
+			// Customer Payment - extension
+			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_payment' AND COLUMN_NAME = 'extension'");
+
+			if (!$query->num_rows) {
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_payment` ADD COLUMN `extension` varchar(255) NOT NULL AFTER `type`");
+			}
 
 			// Drop Fields
 			$remove = [];
@@ -274,6 +281,21 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 			$remove[] = [
 				'table' => 'user',
 				'field' => 'salt'
+			];
+
+			$remove[] = [
+				'table' => 'user_login',
+				'field' => 'token'
+			];
+
+			$remove[] = [
+				'table' => 'user_login',
+				'field' => 'total'
+			];
+
+			$remove[] = [
+				'table' => 'user_login',
+				'field' => 'status'
 			];
 
 			foreach ($remove as $result) {

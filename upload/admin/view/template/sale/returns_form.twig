@@ -45,7 +45,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">{{ entry_customer }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="customer" value="{{ customer }}" placeholder="{{ entry_customer }}" id="input-customer" list="list-customer" class="form-control"/>
+                    <input type="text" name="customer" value="{{ customer }}" placeholder="{{ entry_customer }}" id="input-customer" list="list-customer" class="form-control" autocomplete="new-password"/>
                     <datalist id="list-customer"></datalist>
                     <input type="hidden" name="customer_id" value="{{ customer_id }}"/>
                   </div>
@@ -175,7 +175,10 @@
                 <div class="row mb-3">
                   <label for="input-notify" class="col-sm-2 col-form-label">{{ entry_notify }}</label>
                   <div class="col-sm-10">
-                    <input type="checkbox" name="notify" value="1" id="input-notify" class="form-check-input"/>
+                    <div class="form-check form-switch form-switch-lg">
+                      <input type="hidden" name="notify" value="0"/>
+                      <input type="checkbox" name="notify" value="1" id="input-notify" class="form-check-input"/>
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -263,7 +266,7 @@ $('#button-history').on('click', function (e) {
         url: 'index.php?route=sale/returns.addHistory&user_token={{ user_token }}&return_id=' + $('#input-return-id').val(),
         type: 'post',
         dataType: 'json',
-        data: 'return_status_id=' + $('#input-return-status').val() + '&notify=' + ($('#input-notify').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#input-comment').val()),
+        data: 'return_status_id=' + $('#input-return-status').val() + '&notify=' + ($('#input-notify').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#input-history').val()),
         beforeSend: function () {
             $('#button-history').prop('disabled', true).addClass('loading');
         },
@@ -282,7 +285,7 @@ $('#button-history').on('click', function (e) {
 
                 $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                $('#input-history-comment').val('');
+                $('#input-history').val('');
             }
         }
     });

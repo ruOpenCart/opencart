@@ -79,9 +79,13 @@ $(document).ready(function () {
 $(document).ready(function () {
     // Tooltip
     var oc_tooltip = function () {
-        // Apply to all on current page
-        tooltip = bootstrap.Tooltip.getOrCreateInstance(this);
-        tooltip.show();
+        // Get tooltip instance
+        tooltip = bootstrap.Tooltip.getInstance(this);
+        if (!tooltip) {
+            // Apply to current element
+            tooltip = bootstrap.Tooltip.getOrCreateInstance(this);
+            tooltip.show();
+        }
     }
 
     $(document).on('mouseenter', '[data-bs-toggle=\'tooltip\']', oc_tooltip);
@@ -151,7 +155,7 @@ $(document).ready(function () {
             $('.alert-dismissible').fadeTo(1000, 0, function () {
                 $(this).remove();
             });
-        }, 7000);
+        }, 3000);
     }
 
     $(document).on('click', 'button', oc_alert);
@@ -295,7 +299,7 @@ $(document).on('click', '[data-oc-toggle=\'upload\']', function () {
                 clearInterval(timer);
 
                 $.ajax({
-                    url: 'index.php?route=tool/upload.upload&user_token=' + getURLVar('user_token'),
+                    url: $(element).attr('data-oc-url'),
                     type: 'post',
                     data: new FormData($('#form-upload')[0]),
                     dataType: 'json',
@@ -347,13 +351,19 @@ $(document).on('click', '[data-oc-toggle=\'download\']', function (e) {
 $(document).on('click', '[data-oc-toggle=\'clear\']', function () {
     var element = this;
 
-    if ($(element).attr('data-oc-thumb')) {
-        var thumb = $(this).attr('data-oc-thumb');
+    // Images
+    var thumb = $(this).attr('data-oc-thumb');
 
+    if (thumb !== undefined) {
         $(thumb).attr('src', $(thumb).attr('data-oc-placeholder'));
     }
 
-    $(element).parent().find('[data-oc-toggle=\'download\'], [data-oc-toggle=\'clear\']').prop('disabled', true);
+    // Custom fields
+    var download = $(element).parent().find('[data-oc-toggle=\'download\']');
+
+    if (download.length) {
+        $(element).parent().find('[data-oc-toggle=\'download\'], [data-oc-toggle=\'clear\']').prop('disabled', true);
+    }
 
     $($(this).attr('data-oc-target')).val('');
 });

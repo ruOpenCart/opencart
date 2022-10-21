@@ -153,7 +153,7 @@ class Category extends \Opencart\System\Engine\Controller {
 
 			$filter_data = [
 				'filter_category_id'  => $category_id,
-				'filter_sub_category' => $this->config->get('config_product_category') ? true : false,
+				'filter_sub_category' => true,
 				'filter_filter'       => $filter,
 				'sort'                => $sort,
 				'order'               => $order,

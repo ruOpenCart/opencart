@@ -25,9 +25,13 @@ function getURLVar(key) {
 $(document).ready(function () {
     // Tooltip
     var oc_tooltip = function () {
-        // Apply to all on current page
-        tooltip = bootstrap.Tooltip.getOrCreateInstance(this);
-        tooltip.show();
+        // Get tooltip instance
+        tooltip = bootstrap.Tooltip.getInstance(this);
+        if (!tooltip) {
+            // Apply to current element
+            tooltip = bootstrap.Tooltip.getOrCreateInstance(this);
+            tooltip.show();
+        }
     }
 
     $(document).on('mouseenter', '[data-bs-toggle=\'tooltip\']', oc_tooltip);
@@ -94,13 +98,14 @@ $(document).ready(function () {
     // Alert Fade
     var oc_alert = function () {
         window.setTimeout(function () {
-            //$('.alert-dismissible').fadeTo(1000, 0, function () {
-            //    $(this).remove();
-            //});
-        }, 7000);
+            $('.alert-dismissible').fadeTo(1000, 0, function () {
+                $(this).remove();
+            });
+        }, 3000);
     }
 
     $(document).on('click', 'button', oc_alert);
+    $(document).on('click', 'change', oc_alert);
 });
 
 $(document).ready(function () {
@@ -308,7 +313,7 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
                     $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
                 }
 
-                for (key in json['error']) {
+                for (var key in json['error']) {
                     $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
                     $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
                 }
@@ -327,7 +332,7 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
             }
 
             // Replace any form values that correspond to form names.
-            for (key in json) {
+            for (var key in json) {
                 $(form).find('[name=\'' + key + '\']').val(json[key]);
             }
         },

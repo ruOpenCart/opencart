@@ -11,13 +11,15 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// Payment Address
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$json['error'] = $this->language->get('error_payment_address');
 		}
 
 		if (!$json) {
 			if (isset($this->session->data['payment_address'])) {
 				$payment_address = $this->session->data['payment_address'];
+			} elseif ($this->config->get('config_checkout_shipping_address') && isset($this->session->data['shipping_address'])) {
+				$payment_address = $this->session->data['shipping_address'];
 			} else {
 				$payment_address = [
 					'address_id'     => 0,
@@ -64,7 +66,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		// Payment Address
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$json['error'] = $this->language->get('error_payment_address');
 		}
 

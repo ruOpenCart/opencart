@@ -2,7 +2,7 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
@@ -21,7 +21,7 @@ class Language {
 	/**
 	 * Constructor
 	 *
-	 * @param    string $code
+	 * @param    string  $code
 	 *
 	 */
 	public function __construct(string $code) {
@@ -31,8 +31,10 @@ class Language {
 	/**
 	 * addPath
 	 *
-	 * @param    string $namespace
-	 * @param    string $directory
+	 * @param    string  $namespace
+	 * @param    string  $directory
+	 *
+	 * @return   void
 	 */
 	public function addPath(string $namespace, string $directory = ''): void {
 		if (!$directory) {
@@ -43,7 +45,7 @@ class Language {
 	}
 
 	/**
-     * Get language tex string
+     * Get language text string
      *
      * @param	string	$key
 	 * 
@@ -89,7 +91,7 @@ class Language {
 	/**
 	 * Clear
 	 *
-	 * @return	array
+	 * @return	void
 	 */
 	public function clear(): void {
 		$this->data = [];

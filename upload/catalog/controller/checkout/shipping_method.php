@@ -4,8 +4,6 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('checkout/shipping_method');
 
-		$data['language'] = $this->config->get('config_language');
-
 		$status = true;
 
 		// Validate cart has products and has stock.
@@ -18,7 +16,7 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 
 		foreach ($products as $product) {
 			if (!$product['minimum']) {
-				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+				$status = false;
 
 				break;
 			}
@@ -30,7 +28,7 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$status = false;
 		}
 
@@ -39,23 +37,15 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 			$status = false;
 		}
 
-		$data['shipping_methods'] = [];
-
-		if ($status) {
-			if (isset($this->session->data['shipping_methods'])) {
-				$data['shipping_methods'] = $this->session->data['shipping_methods'];
-			} else {
-				// Shipping methods
-				$this->load->model('checkout/shipping_method');
-
-				$data['shipping_methods'] = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
-
-				// Store shipping methods in session
-				$this->session->data['shipping_methods'] = $data['shipping_methods'];
-			}
-		} else {
+		if (!$status) {
 			// Remove any shipping methods that does not meet checkout validation requirements
 			unset($this->session->data['shipping_methods']);
+		}
+
+		if (isset($this->session->data['shipping_methods'])) {
+			$data['shipping_methods'] = $this->session->data['shipping_methods'];
+		} else {
+			$data['shipping_methods'] = [];
 		}
 
 		if (isset($this->session->data['shipping_method'])) {
@@ -63,6 +53,8 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['code'] = '';
 		}
+
+		$data['language'] = $this->config->get('config_language');
 
 		return $this->load->view('checkout/shipping_method', $data);
 	}
@@ -84,7 +76,7 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 
 		foreach ($products as $product) {
 			if (!$product['minimum']) {
-				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+				$status = false;
 
 				break;
 			}
@@ -96,7 +88,7 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$status = false;
 		}
 
@@ -152,7 +144,7 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if ($this->config->get('config_checkout_address') && !isset($this->session->data['payment_address'])) {
+		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 		}
 
@@ -177,6 +169,8 @@ class ShippingMethod extends \Opencart\System\Engine\Controller {
 			$this->session->data['shipping_method'] = $this->request->post['shipping_method'];
 
 			$json['success'] = $this->language->get('text_success');
+
+			unset($this->session->data['payment_methods']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
