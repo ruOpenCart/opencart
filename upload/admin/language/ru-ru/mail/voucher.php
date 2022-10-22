@@ -5,6 +5,6 @@ $_['text_subject']  = 'Вы получили подарочный сертифи
 $_['text_greeting'] = 'Поздравляем, вы получили подарочный сертификат на сумму %s';
 $_['text_from']     = 'Этот подарочный сертификат отправлен вам от %s';
 $_['text_message']  = 'С сообщением';
-$_['text_redeem']   = 'In the first place, to redeem this Gift Certificate, write down the redemption code which is <b>%s</b>. Then, click on the link below and purchase the product you wish to use this gift certificate. Lastly, you can enter the gift certificate code on the <b>Shopping Cart</b> page before you click: <b>Checkout</b>.';
+$_['text_redeem']   = 'В первую очередь, чтобы погасить этот подарочный сертификат, запишите код погашения, который выглядит следующим образом: <b>%s</b>. Затем перейдите по ссылке ниже и приобретите продукт, на который вы хотите использовать этот подарочный сертификат. Наконец, вы можете ввести код подарочного сертификата на странице <b>Корзины</b> перед тем, как нажать кнопку: <b>Оформить заказ</b>.';
 $_['text_footer']   = 'Пожалуйста, ответьте на это письмо, если у вас есть какие-либо вопросы.';
 $_['text_sent']     = 'Успех: Подарочный сертификат успешно отправлен на указанный e-mail адрес!';
