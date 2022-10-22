@@ -20,7 +20,7 @@ $_['text_progress']     = 'Патч %s был применен (%s из %s)';
 $_['text_success']      = 'Поздравляем! Вы только что успешно обновили Opencart!';
 
 // Entry
-$_['entry_admin']       = 'Admin Name';
+$_['entry_admin']       = 'Имя Администратора';
 $_['entry_progress']    = 'Прогресс';
 
 // Error
