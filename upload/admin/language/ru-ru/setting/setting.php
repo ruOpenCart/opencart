@@ -225,7 +225,7 @@ $_['help_mail_smtp_hostname']            = 'Добавьте префикс \'tl
 $_['help_mail_smtp_password']            = 'Для Gmail вам может понадобиться установить специальный пароль приложения здесь: <a href="https://security.google.com/settings/security/apppasswords" target="_blank">https://security.google.com/settings/security/apppasswords</a>.';
 $_['help_mail_alert']                    = 'Выберите функции, о которых вы хотите получать оповещения по электронной почте, когда клиент использует их.';
 $_['help_mail_alert_email']              = 'Любые дополнительные адреса электронной почты, на которые вы хотите получать уведомления, в дополнение к основной электронной почте магазина (разделенные запятой).';
-$_['help_session_expire']                = 'Установить время жизни сессий PHP';
+$_['help_session_expire']                = 'Set the PHP Session lifetime in seconds (e.g. 3600 = 1 hour)';
 $_['help_session_samesite']              = 'Установите куки для сессии PHP';
 $_['help_security']                      = 'Двухфакторная безопасность для пользователей-администраторов.';
 $_['help_shared']                        = 'Попытка поделиться cookie сессии между магазинами, чтобы корзина могла быть передана между различными доменами.';
