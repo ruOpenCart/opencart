@@ -21,47 +21,7 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 		// Config and file structure changes
 		$file = DIR_OPENCART . 'config.php';
 
-		if (!is_file($file)) {
-			$json['error'] = sprintf($this->language->get('error_file'), $file);
-		}
-
-		if (!is_writable($file)) {
-			$json['error'] =  sprintf($this->language->get('error_writable'), $file);
-		}
-
-		if (!$json) {
-			$capture = [
-				'APPLICATION',
-				'HOST_NAME',
-				'HTTP_SERVER',
-				'HTTPS_SERVER',
-				'HTTP_CATALOG',
-				'HTTPS_CATALOG',
-				'DIR_OPENCART',
-				'DIR_APPLICATION',
-				'DIR_EXTENSION',
-				'DIR_IMAGE',
-				'DIR_SYSTEM',
-				'DIR_CATALOG',
-				'DIR_STORAGE',
-				'DIR_LANGUAGE',
-				'DIR_TEMPLATE',
-				'DIR_CONFIG',
-				'DIR_CACHE',
-				'DIR_DOWNLOAD',
-				'DIR_LOGS',
-				'DIR_SESSION',
-				'DIR_UPLOAD',
-				'DB_DRIVER',
-				'DB_HOSTNAME',
-				'DB_USERNAME',
-				'DB_PASSWORD',
-				'DB_DATABASE',
-				'DB_PORT',
-				'DB_PREFIX',
-				'OPENCART_SERVER'
-			];
-
+		if (is_file($file)) {
 			$config = [];
 
 			// Catalog
@@ -101,6 +61,12 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 			if (!defined('DB_PREFIX')) {
 				$json['error'] = $this->language->get('error_db_prefix');
 			}
+
+			if (!is_writable($file)) {
+				$json['error'] =  sprintf($this->language->get('error_writable'), $file);
+			}
+		} else {
+			$json['error'] = sprintf($this->language->get('error_file'), $file);
 		}
 
 		if (!$json) {
@@ -168,15 +134,7 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 		// Admin
 		$file = DIR_OPENCART . $admin . '/config.php';
 
-		if (!is_file($file)) {
-			$json['error'] = sprintf($this->language->get('error_file'), $file);
-		}
-
-		if (!is_writable($file)) {
-			$json['error'] = sprintf($this->language->get('error_writable'), $file);
-		}
-
-		if (!$json) {
+		if (is_file($file)) {
 			$config = [];
 
 			$lines = file($file);
@@ -190,6 +148,10 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 
 			if (!isset($config['HTTP_SERVER'])) {
 				$json['error'] = $this->language->get('error_server');
+			}
+
+			if (!isset($config['HTTP_CATALOG'])) {
+				$json['error'] = $this->language->get('error_catalog');
 			}
 
 			if (!defined('DB_DRIVER')) {
@@ -215,9 +177,62 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 			if (!defined('DB_PREFIX')) {
 				$json['error'] = $this->language->get('error_db_prefix');
 			}
+
+			if (!is_writable($file)) {
+				$json['error'] = sprintf($this->language->get('error_writable'), $file);
+			}
+		} else {
+			$json['error'] = sprintf($this->language->get('error_file'), $file);
 		}
 
 		if (!$json) {
+			$path_old = DIR_OPENCART . 'admin/';
+			$path_new = dirname($file) . '/';
+
+			// 1. Check if default admin directory exists
+			if (is_dir($path_old) && $path_old != $path_new) {
+				// 2. Move current config file to default admin directory.
+				rename($file, $path_old . 'config.php');
+
+				// 3. Remove the current directory
+				$files = [];
+
+				// Make path into an array
+				$directory = [$path_new];
+
+				// While the path array is still populated keep looping through
+				while (count($directory) != 0) {
+					$next = array_shift($directory);
+
+					if (is_dir($next)) {
+						foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $delete) {
+							// If directory add to path array
+							$directory[] = $delete;
+						}
+					}
+
+					// Add the file to the files to be deleted array
+					$files[] = $next;
+				}
+
+				// Reverse sort the file array
+				rsort($files);
+
+				foreach ($files as $delete) {
+					// If file just delete
+					if (is_file($delete)) {
+						unlink($delete);
+
+						// If directory use the remove directory function
+					} elseif (is_dir($delete)) {
+						rmdir($delete);
+					}
+				}
+
+				// 4. Rename folder to the old directory
+				rename(DIR_OPENCART . 'admin/', $path_new);
+			}
+
 			// Admin config.php
 			$output  = '<?php' . "\n";
 			$output .= '// APPLICATION' . "\n";
@@ -293,11 +308,17 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 			'upload'
 		];
 
-		foreach ($directories as $directory) {
-			if (!is_dir(DIR_STORAGE . $directory)) {
-				mkdir(DIR_STORAGE . $directory, '0644');
+		if (isset($config['DIR_STORAGE'])) {
+			$storage = $config['DIR_STORAGE'];
+		} else {
+			$storage = DIR_SYSTEM . 'storage/';
+		}
 
-				$handle = fopen(DIR_STORAGE . $directory . '/index.html', 'w');
+		foreach ($directories as $directory) {
+			if (!is_dir($storage . $directory)) {
+				mkdir($storage . $directory, '0644');
+
+				$handle = fopen($storage . $directory . '/index.html', 'w');
 
 				fclose($handle);
 			}
@@ -305,7 +326,7 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 
 		// Merge system/upload to system/storage/upload
 		if (is_dir(DIR_SYSTEM . 'upload')) {
-			$this->recursive_move(DIR_SYSTEM . 'upload', DIR_STORAGE . 'upload');
+			$this->recursive_move(DIR_SYSTEM . 'upload', $storage . 'upload');
 		}
 
 		// Merge image/data to image/catalog
@@ -320,7 +341,7 @@ class Upgrade1 extends \Opencart\System\Engine\Controller {
 		}
 
 		if (is_dir(DIR_SYSTEM . 'download')) {
-			$this->recursive_move(DIR_SYSTEM . 'download', DIR_STORAGE . 'download');
+			$this->recursive_move(DIR_SYSTEM . 'download', $storage . 'download');
 		}
 
 		// Cleanup files in old directories
