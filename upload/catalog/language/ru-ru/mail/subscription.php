@@ -1,0 +1,34 @@
+<?php
+// Text
+$_['text_subject']               = '%s - Subscription %s';
+$_['text_greeting']              = 'Thank you for your interest in %s product. Your subscription request has been received and will be processed once payment has been confirmed.';
+$_['text_link']                  = 'To view your subscription, click on the link below:';
+$_['text_promotion']             = 'Success: A promotional feature has been successfully added with this subscription!';
+$_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
+$_['text_subscription_detail']   = 'Детали подписки';
+$_['text_instruction']           = 'Инструкции';
+$_['text_orders_id']             = 'Номер заказа:';
+$_['text_date_added']            = 'Дата добавления:';
+$_['text_order_status']          = 'Статус заказа:';
+$_['text_payment_method']        = 'Метод оплаты:';
+$_['text_payment_address']       = 'Платежный адрес';
+$_['text_email']                 = 'Эл. почта:';
+$_['text_telephone']             = 'Телефон:';
+$_['text_ip']                    = 'IP-адрес:';
+$_['text_products']              = 'Товары';
+$_['text_product']               = 'Товар';
+$_['text_model']                 = 'Модель';
+$_['text_quantity']              = 'Количество';
+$_['text_price']                 = 'Цена';
+$_['text_order_total']           = 'Сумма заказа';
+$_['text_total']                 = 'Всего';
+$_['text_comment']               = 'The comments for your subscription are:';
+$_['text_description']           = 'Описание';
+$_['text_day']                   = 'день';
+$_['text_week']                  = 'неделя';
+$_['text_semi_month']            = 'полмесяца';
+$_['text_month']                 = 'месяц';
+$_['text_year']                  = 'год';
+$_['text_footer']                = 'Пожалуйста, ответьте на это письмо, если у вас есть какие-либо вопросы.';
