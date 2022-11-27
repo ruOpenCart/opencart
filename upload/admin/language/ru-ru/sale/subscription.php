@@ -62,6 +62,8 @@ $_['entry_date_from']            = 'Дата от';
 $_['entry_date_to']              = 'Дата до';
 
 // Error
+$_['error_permission']           = 'Warning: You do not have permission to modify subscriptions!';
+$_['error_status']               = 'Error: The subscription status does not match with the store status!';
 $_['error_subscription']         = 'Внимание: Подписка не существует!';
 $_['error_subscription_plan']    = 'Внимание: План подписки не существует!';
 $_['error_subscription_status']  = 'Внимание: Необходимо выбрать статус подписки!';
