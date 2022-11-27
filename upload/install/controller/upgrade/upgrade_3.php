@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
-use \Opencart\System\Helper as Helper;
 class Upgrade3 extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
@@ -12,7 +11,7 @@ class Upgrade3 extends \Opencart\System\Engine\Controller {
 			// Structure
 			$this->load->helper('db_schema');
 
-			$tables = Helper\DbSchema\db_schema();
+			$tables = oc_db_schema();
 
 			// Clear any old db foreign key constraints
 			/*

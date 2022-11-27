@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Mail;
-use \Opencart\System\Helper as Helper;
 class Order extends \Opencart\System\Engine\Controller {
 	public function index(string &$route, array &$args): void {
 		if (isset($args[0])) {
@@ -90,8 +89,8 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		// Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-		$this->language->load($language_code, 'mail', $language_code);
-		$this->language->load('mail/order_add', 'mail', $language_code);
+		$this->load->language($language_code, 'mail', $language_code);
+		$this->load->language('mail/order_add', 'mail', $language_code);
 
 		// Add language vars to the template folder
 		$results = $this->language->all('mail');
@@ -148,6 +147,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['comment'] = '';
 		}
 
+		// Payment Address
 		if ($order_info['payment_address_format']) {
 			$format = $order_info['payment_address_format'];
 		} else {
@@ -182,6 +182,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['payment_address'] = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
+		// Shipping Address
 		if ($order_info['shipping_address_format']) {
 			$format = $order_info['shipping_address_format'];
 		} else {
@@ -329,8 +330,8 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		// Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-		$this->language->load($language_code, 'mail', $language_code);
-		$this->language->load('mail/order_edit', 'mail', $language_code);
+		$this->load->language($language_code, 'mail', $language_code);
+		$this->load->language('mail/order_edit', 'mail', $language_code);
 
 		// Add language vars to the template folder
 		$results = $this->language->all('mail');

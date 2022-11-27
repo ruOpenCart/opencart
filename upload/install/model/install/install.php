@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Install\Model\Install;
-use \Opencart\System\Helper as Helper;
 class Install extends \Opencart\System\Engine\Model {
 	public function database(array $data): void {
 		$db = new \Opencart\System\Library\DB($data['db_driver'], html_entity_decode($data['db_hostname'], ENT_QUOTES, 'UTF-8'), html_entity_decode($data['db_username'], ENT_QUOTES, 'UTF-8'), html_entity_decode($data['db_password'], ENT_QUOTES, 'UTF-8'), html_entity_decode($data['db_database'], ENT_QUOTES, 'UTF-8'), $data['db_port']);
@@ -8,9 +7,10 @@ class Install extends \Opencart\System\Engine\Model {
 		// Structure
 		$this->load->helper('db_schema');
 
-		$tables = Helper\DbSchema\db_schema();
+		$tables = oc_db_schema();
 
 		// Clear any old db foreign key constraints
+		/*
 		foreach ($tables as $table) {
 			$foreign_query = $db->query("SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = '" . html_entity_decode($data['db_database'], ENT_QUOTES, 'UTF-8') . "' AND TABLE_NAME = '" . $data['db_prefix'] . $table['name'] . "' AND CONSTRAINT_TYPE = 'FOREIGN KEY'");
 
@@ -18,6 +18,7 @@ class Install extends \Opencart\System\Engine\Model {
 				$db->query("ALTER TABLE `" . $data['db_prefix'] . $table['name'] . "` DROP FOREIGN KEY `" . $foreign['CONSTRAINT_NAME'] . "`");
 			}
 		}
+		*/
 
 		// CLear old DB
 		foreach ($tables as $table) {
@@ -62,6 +63,7 @@ class Install extends \Opencart\System\Engine\Model {
 		}
 
 		// Setup foreign keys
+		/*
 		foreach ($tables as $table) {
 			if (isset($table['foreign'])) {
 				foreach ($table['foreign'] as $foreign) {
@@ -69,7 +71,7 @@ class Install extends \Opencart\System\Engine\Model {
 				}
 			}
 		}
-
+		*/
 		// Data
 		$lines = file(DIR_APPLICATION . 'opencart.sql', FILE_IGNORE_NEW_LINES);
 
@@ -105,9 +107,9 @@ class Install extends \Opencart\System\Engine\Model {
 		$db->query("UPDATE `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_email', `value` = '" . $db->escape($data['email']) . "' WHERE `key` = 'config_email'");
 
 		$db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_encryption'");
-		$db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(Helper\General\token(512)) . "'");
+		$db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(oc_token(512)) . "'");
 
-		$db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET `username` = 'Default', `key` = '" . $db->escape(Helper\General\token(256)) . "', `status` = '1', `date_added` = NOW(), `date_modified` = NOW()");
+		$db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET `username` = 'Default', `key` = '" . $db->escape(oc_token(256)) . "', `status` = '1', `date_added` = NOW(), `date_modified` = NOW()");
 
 		$api_id = $db->getLastId();
 

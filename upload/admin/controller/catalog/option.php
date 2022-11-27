@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Admin\Controller\Catalog;
-use \Opencart\System\Helper as Helper;
 class Option extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('catalog/option');
@@ -305,7 +304,7 @@ class Option extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->post['option_value'])) {
 			foreach ($this->request->post['option_value'] as $option_value_id => $option_value) {
 				foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
-					if ((Helper\Utf8\strlen(trim($option_value_description['name'])) < 1) || (Helper\Utf8\strlen($option_value_description['name']) > 128)) {
+					if ((oc_strlen(trim($option_value_description['name'])) < 1) || (oc_strlen($option_value_description['name']) > 128)) {
 						$json['error']['option_value_' . $option_value_id . '_' . $language_id] = $this->language->get('error_option_value');
 					}
 				}

@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Api\Sale;
-use \Opencart\System\Helper as Helper;
 class Voucher extends \Opencart\System\Engine\Controller {
 	// Apply voucher
 	public function index(): void {
@@ -84,7 +83,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$code = Helper\General\token();
+			$code = oc_token();
 
 			$this->session->data['vouchers'][] = [
 				'code'             => $code,

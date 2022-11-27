@@ -20,26 +20,27 @@ class Order extends \Opencart\System\Engine\Model {
 				}
 
 				if ($product['subscription']) {
-					$subscription_data = [
-						'order_product_id' 		=> $order_product_id,
-						'customer_id'			=> $data['customer_id'],
-						'order_id'              => $order_id,
-						'subscription_plan_id' 	=> $product['subscription']['subscription_plan_id'],
-						'name'              	=> $product['subscription']['name'],
-						'description'       	=> $product['subscription']['description'],
-						'trial_price'       	=> $product['subscription']['trial_price'],
-						'trial_frequency'   	=> $product['subscription']['trial_frequency'],
-						'trial_cycle'       	=> $product['subscription']['trial_cycle'],
-						'trial_duration'    	=> $product['subscription']['trial_duration'],
-						'trial_status'      	=> $product['subscription']['trial_status'],
-						'price'             	=> $product['subscription']['price'],
-						'frequency'         	=> $product['subscription']['frequency'],
-						'cycle'             	=> $product['subscription']['cycle'],
-						'duration'          	=> $product['subscription']['duration'],
-						'remaining'         	=> $product['subscription']['duration'],
-						'date_next'				=> $product['subscription']['date_next'],
-						'status'				=> $product['subscription']['status']
-					];
+                    $subscription_data = [
+                        'order_product_id' 		=> $order_product_id,
+                        'customer_id'			=> $data['customer_id'],
+                        'order_id'              => $order_id,
+                        'subscription_plan_id' 	=> $product['subscription']['subscription_plan_id'],
+                        'name'              	=> $product['subscription']['name'],
+                        'description'       	=> $product['subscription']['description'],
+                        'trial_price'       	=> $product['subscription']['trial_price'],
+                        'trial_frequency'   	=> $product['subscription']['trial_frequency'],
+                        'trial_cycle'       	=> $product['subscription']['trial_cycle'],
+                        'trial_duration'    	=> $product['subscription']['trial_duration'],
+                        'trial_remaining'       => $product['subscription']['trial_remaining'],
+                        'trial_status'      	=> $product['subscription']['trial_status'],
+                        'price'             	=> $product['subscription']['price'],
+                        'frequency'         	=> $product['subscription']['frequency'],
+                        'cycle'             	=> $product['subscription']['cycle'],
+                        'duration'          	=> $product['subscription']['duration'],
+                        'remaining'         	=> $product['subscription']['duration'],
+                        'date_next'				=> $product['subscription']['date_next'],
+                        'status'				=> $product['subscription']['status']
+                    ];
 
 					$this->model_checkout_subscription->addSubscription($order_id, $subscription_data);
 				}
@@ -92,8 +93,6 @@ class Order extends \Opencart\System\Engine\Model {
 
 			$this->load->model('checkout/subscription');
 
-			$this->model_checkout_subscription->deleteSubscriptionByOrderId($order_id);
-
 			// Products
 			if (isset($data['products'])) {
 				foreach ($data['products'] as $product) {
@@ -103,10 +102,6 @@ class Order extends \Opencart\System\Engine\Model {
 
 					foreach ($product['option'] as $option) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_option` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `product_option_id` = '" . (int)$option['product_option_id'] . "', `product_option_value_id` = '" . (int)$option['product_option_value_id'] . "', `name` = '" . $this->db->escape($option['name']) . "', `value` = '" . $this->db->escape($option['value']) . "', `type` = '" . $this->db->escape($option['type']) . "'");
-					}
-
-					if ($product['subscription']) {
-						$this->model_checkout_subscription->addSubscription($order_id, $product['subscription'] + ['order_product_id' => $order_product_id]);
 					}
 				}
 			}

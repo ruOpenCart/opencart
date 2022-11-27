@@ -1,6 +1,5 @@
 <?php
-namespace Opencart\System\Helper\DbSchema;
-function db_schema() {
+function oc_db_schema() {
 	$tables = [];
 
 	$tables[] = [
@@ -1210,7 +1209,7 @@ function db_schema() {
 			],
 			[
 				'name' => 'decimal_place',
-				'type' => 'char(1)',
+				'type' => 'int(1)',
 				'not_null' => true
 			],
 			[

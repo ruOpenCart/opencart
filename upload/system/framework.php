@@ -152,7 +152,7 @@ if ($config->get('session_autostart')) {
 	// Require higher security for session cookies
 	$option = [
 		'expires'  => 0,
-		'path'     => !empty($request->server['PHP_SELF']) ? rtrim(dirname($request->server['PHP_SELF']), '/') . '/' : '/',
+		'path'     => $config->get('session_path'),
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
@@ -174,7 +174,7 @@ $template->addPath(DIR_TEMPLATE);
 $language = new \Opencart\System\Library\Language($config->get('language_code'));
 $registry->set('language', $language);
 $language->addPath(DIR_LANGUAGE);
-$language->load($config->get('language_code'));
+$loader->language('default');
 
 // Url
 $registry->set('url', new \Opencart\System\Library\Url($config->get('site_url')));

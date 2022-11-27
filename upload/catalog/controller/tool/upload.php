@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Tool;
-use \Opencart\System\Helper as Helper;
 class Upload extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('tool/upload');
@@ -55,7 +54,7 @@ class Upload extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$file = $filename . '.' . Helper\General\token(32);
+			$file = $filename . '.' . oc_token(32);
 
 			move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
 

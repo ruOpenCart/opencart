@@ -10,20 +10,6 @@ class File {
 	 */
 	public function __construct(int $expire = 3600) {
 		$this->expire = $expire;
-
-		$files = glob(DIR_CACHE . 'cache.*');
-
-		if ($files) {
-			foreach ($files as $file) {
-				$filename = basename($file);
-
-				$time = substr(strrchr($file, '.'), 1);
-
-				if ($time < time()) {
-					$this->delete(substr($filename, 6, strrpos($filename, '.') - 6));
-				}
-			}
-		}
 	}
 	
 	/**
@@ -34,7 +20,7 @@ class File {
 	 * @return array|string|null
 	 */
 	public function get(string $key): array|string|null {
-		$files = glob(DIR_CACHE . 'cache.' . basename($key) . '.*');
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {
 			return json_decode(file_get_contents($files[0]), true);
@@ -58,7 +44,7 @@ class File {
 			$expire = $this->expire;
 		}
 
-		file_put_contents(DIR_CACHE . 'cache.' . basename($key) . '.' . (time() + $expire), json_encode($value));
+		file_put_contents(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $expire), json_encode($value));
 	}
 
 	/**
@@ -69,12 +55,31 @@ class File {
 	 * @return void
 	 */
 	public function delete(string $key): void {
-		$files = glob(DIR_CACHE . 'cache.' . basename($key) . '.*');
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {
 			foreach ($files as $file) {
 				if (!@unlink($file)) {
 					clearstatcache(false, $file);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Destructor
+	 */
+	public function __destruct() {
+		$files = glob(DIR_CACHE . 'cache.*');
+
+		if ($files && rand(1, 100) == 1) {
+			foreach ($files as $file) {
+				$time = substr(strrchr($file, '.'), 1);
+
+				if ($time < time()) {
+					if (!@unlink($file)) {
+						clearstatcache(false, $file);
+					}
 				}
 			}
 		}

@@ -68,7 +68,7 @@
 
       $('#form-upload input[name=\'file[]\']').on('change', function () {
           for (i = 0; i < this.files.length; i++) {
-              if (this.files[i].size > {{ config_file_max_size }}) {
+              if ((this.files[0].size / 1024) > {{ config_file_max_size }}) {
                   $(this).val('');
 
                   alert('{{ error_upload_size }}');
@@ -209,11 +209,11 @@
     {% if thumb %}
       $('{{ thumb|escape('js') }}').attr('src', $(this).find('img').attr('src'));
 
-      $('{{ target|escape('js') }}').val('catalog/' + $(this).parent().find('input').val());
+      $('{{ target|escape('js') }}').val('catalog/' + $(this).parent().parent().find('input').val());
     {% endif %}
 
     {% if ckeditor %}
-      CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertHtml('<img src="' + $(this).attr('href') + '" alt="" title="" />');
+      CKEDITOR.instances['{{ ckeditor|escape('js') }}'].insertHtml('<img src="' + $(this).attr('href') + '" alt="" title=""/>');
     {% endif %}
 
       $('#modal-image').modal('hide');

@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Admin\Controller\Marketplace;
-use \Opencart\System\Helper as Helper;
 class Installer extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('marketplace/installer');
@@ -189,7 +188,7 @@ class Installer extends \Opencart\System\Engine\Controller {
 			$filename = basename($this->request->files['file']['name']);
 
 			// 2. Validate the filename.
-			if ((Helper\Utf8\strlen($filename) < 1) || (Helper\Utf8\strlen($filename) > 128)) {
+			if ((oc_strlen($filename) < 1) || (oc_strlen($filename) > 128)) {
 				$json['error'] = $this->language->get('error_filename');
 			}
 
@@ -470,9 +469,10 @@ class Installer extends \Opencart\System\Engine\Controller {
 				// If file just delete
 				if (is_file($file)) {
 					unlink($file);
+				}
 
-					// If directory use the remove directory function
-				} elseif (is_dir($file)) {
+				// If directory use the remove directory function
+				if (is_dir($file)) {
 					rmdir($file);
 				}
 			}
@@ -501,7 +501,9 @@ class Installer extends \Opencart\System\Engine\Controller {
 				if ($path_total < 2) {
 					if (is_file($path)) {
 						unlink($path);
-					} elseif (is_dir($path)) {
+					}
+
+					if (is_dir($path)) {
 						rmdir($path);
 					}
 				}

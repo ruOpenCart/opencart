@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
-use \Opencart\System\Helper as Helper;
 class Order extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('account/order');
@@ -145,6 +144,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['order_id'] = $order_id;
 			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
+			// Payment Address
 			if ($order_info['payment_address_format']) {
 				$format = $order_info['payment_address_format'];
 			} else {
@@ -181,6 +181,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			$data['payment_method'] = $order_info['payment_method'];
 
+			// Shipping Address
 			if ($order_info['shipping_address_format']) {
 				$format = $order_info['shipping_address_format'];
 			} else {

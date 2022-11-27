@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Admin\Controller\Catalog;
-use \Opencart\System\Helper as Helper;
 class Information extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('catalog/information');
@@ -294,7 +293,7 @@ class Information extends \Opencart\System\Engine\Controller {
 				$json['error']['title_' . $language_id] = $this->language->get('error_title');
 			}
 
-			if ((oc_strlen(trim($value['meta_title'])) < 1) || (Helper\Utf8\strlen($value['meta_title']) > 255)) {
+			if ((oc_strlen(trim($value['meta_title'])) < 1) || (oc_strlen($value['meta_title']) > 255)) {
 				$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
 			}
 		}
@@ -304,14 +303,14 @@ class Information extends \Opencart\System\Engine\Controller {
 
 			foreach ($this->request->post['information_seo_url'] as $store_id => $language) {
 				foreach ($language as $language_id => $keyword) {
-					if ($keyword) {
-						$seo_url_info = $this->model_design_seo_url->getSeoUrlByKeyword($keyword, $store_id, $language_id);
+					if ((oc_strlen(trim($keyword)) < 1) || (oc_strlen($keyword) > 100)) {
+						$json['error']['keyword_' . $store_id . '_' . $language_id] = $this->language->get('error_keyword');
+					}
 
-						if ($seo_url_info && (!isset($this->request->post['information_id']) || $seo_url_info['key'] != 'information_id' || $seo_url_info['value'] != (int)$this->request->post['information_id'])) {
-							$json['error']['keyword_' . $store_id . '_' . $language_id] = $this->language->get('error_keyword');
-						}
-					} else {
-						$json['error']['keyword_' . $store_id . '_' . $language_id] = $this->language->get('error_seo');
+					$seo_url_info = $this->model_design_seo_url->getSeoUrlByKeyword($keyword, $store_id);
+
+					if ($seo_url_info && (!isset($this->request->post['information_id']) || $seo_url_info['key'] != 'information_id' || $seo_url_info['value'] != (int)$this->request->post['information_id'])) {
+						$json['error']['keyword_' . $store_id . '_' . $language_id] = $this->language->get('error_keyword_exists');
 					}
 				}
 			}

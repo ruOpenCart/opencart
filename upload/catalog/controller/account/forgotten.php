@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
-use \Opencart\System\Helper as Helper;
 class Forgotten extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('account/forgotten');
@@ -70,7 +69,7 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$this->model_account_customer->editCode($this->request->post['email'], Helper\General\token(40));
+			$this->model_account_customer->editCode($this->request->post['email'], oc_token(40));
 
 			$this->session->data['success'] = $this->language->get('text_success');
 

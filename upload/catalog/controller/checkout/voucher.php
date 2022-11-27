@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Checkout;
-use \Opencart\System\Helper as Helper;
 class Voucher extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('checkout/voucher');
@@ -116,7 +115,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$code = Helper\General\token(10);
+			$code = oc_token(10);
 
 			$this->session->data['vouchers'][] = [
 				'code'             => $code,

@@ -111,6 +111,9 @@ class Language {
 		}
 
 		if (!isset($this->cache[$code][$filename])) {
+			$_ = [];
+
+			// Load selected language file to overwrite the default language keys
 			$file = $this->directory . $code . '/' . $filename . '.php';
 
 			$namespace = '';
@@ -128,8 +131,6 @@ class Language {
 					$file = $this->path[$namespace] . $code . substr($filename, strlen($namespace)) . '.php';
 				}
 			}
-
-			$_ = [];
 
 			if (is_file($file)) {
 				require($file);

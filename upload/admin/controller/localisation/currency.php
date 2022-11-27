@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Admin\Controller\Localisation;
-use \Opencart\System\Helper as Helper;
 class Currency extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('localisation/currency');
@@ -279,11 +278,11 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((Helper\Utf8\strlen($this->request->post['title']) < 3) || (Helper\Utf8\strlen($this->request->post['title']) > 32)) {
+		if ((oc_strlen($this->request->post['title']) < 3) || (oc_strlen($this->request->post['title']) > 32)) {
 			$json['error']['title'] = $this->language->get('error_title');
 		}
 
-		if (Helper\Utf8\strlen($this->request->post['code']) != 3) {
+		if (oc_strlen($this->request->post['code']) != 3) {
 			$json['error']['code'] = $this->language->get('error_code');
 		}
 

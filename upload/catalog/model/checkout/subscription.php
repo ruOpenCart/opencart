@@ -21,9 +21,15 @@ class Subscription extends \Opencart\System\Engine\Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
-	public function getSubscriptionByOrderProductId(int $order_product_id): int {
+	public function getSubscriptionByOrderProductId(int $order_product_id): array {
 		$this->db->query("SELECT * FROM  `" . DB_PREFIX . "subscription` WHERE `order_product_id` = '" . (int)$order_product_id . "'");
 
-		return $this->db->rows;
+		return $this->db->row;
 	}
+	
+	public function addHistory(int $subscription_id, int $subscription_status_id, string $comment = '', bool $notify = false): void {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_history` SET `subscription_id` = '" . (int)$subscription_id . "', `subscription_status_id` = '" . (int)$subscription_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (int)$notify . "', `date_added` = NOW()");
+
+        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_status_id` = '" . (int)$subscription_status_id . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+    }
 }

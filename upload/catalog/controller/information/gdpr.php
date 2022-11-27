@@ -1,6 +1,5 @@
 <?php
 namespace Opencart\Catalog\Controller\Information;
-use \Opencart\System\Helper as Helper;
 class Gdpr extends \Opencart\System\Engine\Controller {
 	public function index(): object|null {
 		$this->load->model('catalog/information');
@@ -123,7 +122,7 @@ class Gdpr extends \Opencart\System\Engine\Controller {
 			}
 
 			if ($status) {
-				$this->model_account_gdpr->addGdpr(Helper\General\token(32), $email, $action);
+				$this->model_account_gdpr->addGdpr(oc_token(32), $email, $action);
 			}
 
 			$json['success'] = $this->language->get('text_success');
