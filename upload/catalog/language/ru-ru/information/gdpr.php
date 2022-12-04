@@ -4,7 +4,7 @@ $_['heading_title']     = 'Запрос по Общему положению о 
 
 // Text
 $_['text_account']      = 'Аккаунт';
-$_['text_gdpr']         = 'You can view %s GDPR policy on the <a href="%s" target="_blank">%s</a> page.';
+$_['text_gdpr']         = 'Вы можете просмотреть %s GDPR политику на странице <a href="%s" target="_blank">%s</a>.';
 $_['text_verification'] = 'Верификация счета';
 $_['text_email']        = 'Прежде чем мы сможем выполнить любые GDPR запросы, мы должны подтвердить вашу учетную запись. Пожалуйста, введите ваш адрес электронной почты ниже.';
 $_['text_action']       = 'Выберите действие';
