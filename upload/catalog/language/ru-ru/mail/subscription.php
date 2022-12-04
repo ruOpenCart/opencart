@@ -1,9 +1,9 @@
 <?php
 // Text
-$_['text_subject']               = '%s - Subscription %s';
-$_['text_greeting']              = 'Thank you for your interest in %s product. Your subscription request has been received and will be processed once payment has been confirmed.';
-$_['text_link']                  = 'To view your subscription, click on the link below:';
-$_['text_promotion']             = 'Success: A promotional feature has been successfully added with this subscription!';
+$_['text_subject']               = '%s - Подписка %s';
+$_['text_greeting']              = 'Спасибо за ваш интерес к продукту %s. Ваш запрос на подписку был получен и будет обработан после подтверждения оплаты.';
+$_['text_link']                  = 'Для просмотра подписки нажмите на ссылку ниже:';
+$_['text_promotion']             = 'Успех: Рекламная функция успешно добавлена в эту подписку!';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
@@ -24,7 +24,7 @@ $_['text_quantity']              = 'Количество';
 $_['text_price']                 = 'Цена';
 $_['text_order_total']           = 'Сумма заказа';
 $_['text_total']                 = 'Всего';
-$_['text_comment']               = 'The comments for your subscription are:';
+$_['text_comment']               = 'Комментарии к вашей подписке:';
 $_['text_description']           = 'Описание';
 $_['text_day']                   = 'день';
 $_['text_week']                  = 'неделя';
