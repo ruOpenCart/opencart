@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']     = 'Success: The subscription profile has been renewed successfully!';
+$_['text_success']     = 'Успех: Профиль подписки успешно обновлен!';
 
 // Error
 $_['error_extension']  = 'Внимание: Не удалось найти расширение метода оплаты!';
