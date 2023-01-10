@@ -40,7 +40,7 @@ $_['text_comment']       = 'Комментарии';
 $_['text_download']      = 'Загрузка';
 $_['text_install']       = 'Install';
 $_['text_comment_add']   = 'Оставить комментарий';
-$_['text_write']         = 'Напишите свой комментарий тут..';
+$_['text_write']         = 'Write your comment here.';
 $_['text_purchase']      = 'Пожалуйста, подтвердите, кто вы!';
 $_['text_pin']           = 'Пожалуйста, введите ваш 4-значный PIN-код. Номер PIN-кода для защиты вашего аккаунта.';
 $_['text_secure']        = 'Не выдавайте ПИН-код кому-либо (включая разработчиков). Если вам нужна помощь, пожалуйста, отправьте сообщение продавцу расширения о конкретном пакете расширений.';
@@ -75,5 +75,5 @@ $_['button_forgot_pin']  = 'Забыли PIN?';
 // Error
 $_['error_permission']   = 'Внимание: У вас нет прав на изменение расширений!';
 $_['error_opencart']     = 'Внимание: Вы должны ввести информацию об OpenCart API, прежде чем совершать покупки!';
-$_['error_purchase']     = 'Расширение не может быть куплено!';
-$_['error_download']     = 'Расширение не может быть загружено!';
+$_['error_purchase']     = 'The extension could not be purchased!';
+$_['error_download']     = 'The extension could not be downloaded!';
