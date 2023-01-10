@@ -23,11 +23,13 @@
               <label for="input-subscription-id" class="form-label">{{ entry_subscription_id }}</label> <input type="text" name="filter_subscription_id" value="{{ filter_subscription_id }}" placeholder="{{ entry_subscription_id }}" id="input-subscription-id" class="form-control"/>
             </div>
             <div class="mb-3">
-              <label for="input-order-id" class="form-label">{{ entry_order_id }}</label> <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+              <label for="input-order-id" class="form-label">{{ entry_order_id }}</label>
+              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
             </div>
             <div class="mb-3">
-              <label for="input-customer" class="form-label">{{ entry_customer }}</label> <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" list="list-customer" class="form-control"/>
-              <datalist id="list-customer"></datalist>
+              <label for="input-customer" class="form-label">{{ entry_customer }}</label>
+              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" data-oc-target="autocomplete-customer" class="form-control" autocomplete="off"/>
+              <ul id="autocomplete-customer" class="dropdown-menu"></ul>
             </div>
             <div class="mb-3">
               <label for="input-subscription-status" class="form-label">{{ entry_subscription_status }}</label> <select name="filter_subscription_status_id" id="input-subscription-status" class="form-select">
@@ -131,6 +133,7 @@ $('#input-customer').autocomplete({
         });
     },
     'select': function (item) {
+        $('#input-customer').val(item['label']);
     }
 });
 //--></script>

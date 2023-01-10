@@ -442,36 +442,55 @@ class Chain {
 var chain = new Chain();
 
 // Autocomplete
-(function ($) {
++function ($) {
     $.fn.autocomplete = function (option) {
         return this.each(function () {
-            var $this = $(this);
-            var $dropdown = $('#' + $this.attr('list'));
+            var element = this;
+            var $dropdown = $('#' + $(element).attr('data-oc-target'));
 
             this.timer = null;
             this.items = [];
 
             $.extend(this, option);
 
-            // Focus
-            $this.on('focus', function () {
-                this.request();
+            // Focus in
+            $(element).on('focusin', function () {
+                element.request();
             });
 
-            // Keydown
-            $this.on('input', function (e) {
-                this.request();
+            // Focus out
+            $(element).on('focusout', function (e) {
+                if (!e.relatedTarget || !$(e.relatedTarget).hasClass('dropdown-item')) {
+                    $dropdown.removeClass('show');
+                }
+            });
 
-                var value = $this.val();
+            // Input
+            $(element).on('input', function (e) {
+                element.request();
+            });
 
-                if (value && this.items[value]) {
-                    this.select(this.items[value]);
+            // Click
+            $dropdown.on('click', 'a', function (e) {
+                e.preventDefault();
+
+                var value = $(this).attr('href');
+
+                if (element.items[value] !== undefined) {
+                    element.select(element.items[value]);
+
+                    $dropdown.removeClass('show');
                 }
             });
 
             // Request
             this.request = function () {
                 clearTimeout(this.timer);
+
+                $('#autocomplete-loading').remove();
+
+                $dropdown.prepend('<li id="autocomplete-loading"><span class="dropdown-item text-center disabled"><i class="fa-solid fa-circle-notch fa-spin"></i></span></li>');
+                $dropdown.addClass('show');
 
                 this.timer = setTimeout(function (object) {
                     object.source($(object).val(), $.proxy(object.response, object));
@@ -488,11 +507,11 @@ var chain = new Chain();
                 if (json.length) {
                     for (i = 0; i < json.length; i++) {
                         // update element items
-                        this.items[json[i]['label']] = json[i];
+                        this.items[json[i]['value']] = json[i];
 
                         if (!json[i]['category']) {
                             // ungrouped items
-                            html += '<option>' + json[i]['label'] + '</option>';
+                            html += '<li><a href="' + json[i]['value'] + '" class="dropdown-item">' + json[i]['label'] + '</a></li>';
                         } else {
                             // grouped items
                             name = json[i]['category'];
@@ -506,8 +525,10 @@ var chain = new Chain();
                     }
 
                     for (name in category) {
+                        html += '<li><h6 class="dropdown-header">' + name + '</h6></li>';
+
                         for (j = 0; j < category[name].length; j++) {
-                            html += '<option value="' + category[name][j]['label'] + '">' + name + '</option>';
+                            html += '<li><a href="' + category[name][j]['value'] + '" class="dropdown-item">' + category[name][j]['label'] + '</a></li>';
                         }
                     }
                 }
@@ -516,4 +537,4 @@ var chain = new Chain();
             }
         });
     }
-})(window.jQuery);
+}(jQuery);

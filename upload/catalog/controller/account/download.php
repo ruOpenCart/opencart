@@ -37,7 +37,7 @@ class Download extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		$limit = $this->config->get('config_pagination');
+		$limit = 10;
 
 		$data['downloads'] = [];
 
