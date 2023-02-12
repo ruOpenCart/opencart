@@ -5,8 +5,9 @@ $_['heading_title']              = 'Подписки';
 // Text
 $_['text_success']               = 'Успех: Вы изменили подписки!';
 $_['text_list']                  = 'Список подписок';
+$_['text_add']                   = 'Добавить подписку';
+$_['text_edit']                  = 'Subscription (#%s)';
 $_['text_filter']                = 'Фильтр';
-$_['text_subscription']          = 'Детали подписки';
 $_['text_subscription_id']       = 'Идентификатор подписки';
 $_['text_order_id']              = 'Номер заказа';
 $_['text_customer']              = 'Покупатель';
