@@ -35,7 +35,7 @@ $_['text_points']            		= 'Бонусные баллы';
 $_['text_subscription_trial']    	= '%s каждые %d %s для %d платеж(а)(ей) тогда';
 $_['text_subscription_description'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']      = '%s каждые %d %s до отмены';
-$_['text_report']            		= 'Product Reports';
+$_['text_report']            		= 'Отчеты по товарам';
 
 // Column
 $_['column_name']            		= 'Название товара';
