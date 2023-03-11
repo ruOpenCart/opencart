@@ -1,28 +1,28 @@
 <?php
 // Heading
-$_['heading_title']      = 'Credit Card Payment';
+$_['heading_title']      = 'Оплата кредитной картой';
 
 // Text
-$_['text_title']         = 'Please enter your card details below';
-$_['text_description']   = 'This payment method is a dummy one and will not store credit card information nor should it be used on a live site.';
-$_['text_card_use']      = 'Use credit card';
+$_['text_title']         = 'Пожалуйста, введите данные вашей карты ниже';
+$_['text_description']   = 'Этот способ оплаты является фиктивным и не хранит информацию о кредитной карте, а также не должен использоваться на действующем сайте.';
+$_['text_card_use']      = 'Использовать кредитную карту';
 $_['text_month']         = 'Месяцы';
 $_['text_year']          = 'Годы';
-$_['text_store']         = 'Remember My Card';
+$_['text_store']         = 'Запомнить мою карту';
 
 // Entry
-$_['entry_card_name']    = 'Cardholders Name';
-$_['entry_card_number']  = 'Credit Card Number';
-$_['entry_card_expire']  = 'Expire Date';
-$_['entry_card_cvv']     = 'CVV';
+$_['entry_card_name']    = 'Имя владельца карты';
+$_['entry_card_number']  = 'Номер кредитной карты';
+$_['entry_card_expire']  = 'Дата истечения';
+$_['entry_card_cvv']     = 'CVV-код';
 
 // Help
-$_['help_name']          = 'Cardholder Name';
+$_['help_name']          = 'Имя владельца карты';
 
 // Error
-$_['error_credit_card']  = 'Error: Credit Card required!';
-$_['error_card_name']    = 'Error: Cardholder name required!';
-$_['error_card_number']  = 'Error: Credit card number required!';
-$_['error_card_expire']  = 'Error: Expiration date required!';
-$_['error_card_expired'] = 'Error: Credit card has expired!';
-$_['error_card_cvv']     = 'Error: CVV must have 3 digits!';
+$_['error_credit_card']  = 'Ошибка: Номер кредитной карты обязателен!';
+$_['error_card_name']    = 'Ошибка: Имя владельца карты обязательно!';
+$_['error_card_number']  = 'Ошибка: Номер кредитной карты обязателен!';
+$_['error_card_expire']  = 'Ошибка: Дата истечения срока действия обязательна!';
+$_['error_card_expired'] = 'Ошибка: Срок действия кредитной карты истек!';
+$_['error_card_cvv']     = 'Ошибка: CVV должен содержать 3 цифры!';
