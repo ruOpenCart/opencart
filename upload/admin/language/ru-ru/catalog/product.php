@@ -70,7 +70,7 @@ $_['entry_quantity']         = 'Количество';
 $_['entry_minimum']          = 'Минимальное количество';
 $_['entry_stock_status']     = 'Статус отсутствия на складе';
 $_['entry_price']            = 'Цена';
-$_['entry_trial_price']      = 'Trial Price';
+$_['entry_trial_price']      = 'Пробная цена';
 $_['entry_tax_class']        = 'Класс налога';
 $_['entry_points']           = 'Баллы';
 $_['entry_subtract']         = 'Вычитать со склада';
@@ -101,7 +101,7 @@ $_['entry_related']          = 'Сопутствующие товары';
 $_['entry_tag']              = 'Теги товара';
 $_['entry_reward']           = 'Бонусные баллы';
 $_['entry_layout']           = 'Переопределение макета';
-$_['entry_subscription']     = 'Subscription Plan';
+$_['entry_subscription']     = 'План подписки';
 
 // Help
 $_['help_tag']               = 'Разделитель — запятая';
