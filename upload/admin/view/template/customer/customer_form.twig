@@ -855,13 +855,13 @@ $('#tab-address').on('change', 'select[name$=\'[country_id]\']', function () {
                         html += '<option value="' + json['zone'][i]['zone_id'] + '"';
 
                         if (json['zone'][i]['zone_id'] == $(element).attr('data-zone-id')) {
-                            html += ' selected="selected"';
+                            html += ' selected';
                         }
 
                         html += '>' + json['zone'][i]['name'] + '</option>';
                     }
                 } else {
-                    html += '<option value="0">{{ text_none }}</option>';
+                    html += '<option value="0" selected>{{ text_none }}</option>';
                 }
 
                 $('#tab-address select[name=\'address[' + $(element).attr('data-address-row') + '][zone_id]\']').html(html);
@@ -884,7 +884,7 @@ $('#tab-address').on('change', 'select[name$=\'[country_id]\']', function () {
                 html += '<option value="' + zone[$(element).val()]['zone'][i]['zone_id'] + '"';
 
                 if (zone[$(element).val()]['zone'][i]['zone_id'] == $(element).attr('data-zone-id')) {
-                    html += ' selected="selected"';
+                    html += ' selected';
                 }
 
                 html += '>' + zone[$(element).val()]['zone'][i]['name'] + '</option>';
@@ -921,10 +921,10 @@ $('#payment-method').on('click', 'button', function (e) {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
         beforeSend: function () {
-            $(element).prop('disabled', true).addClass('loading');
+            $(element).button('loading');
         },
         complete: function () {
-            $(element).prop('disabled', false).removeClass('loading');
+            $(element).button('reset');
         },
         success: function (json) {
             $('.alert-dismissible').remove();
@@ -995,10 +995,10 @@ $('#button-history').on('click', function (e) {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
         beforeSend: function () {
-            $('#button-history').prop('disabled', true).addClass('loading');
+            $('#button-history').button('loading');
         },
         complete: function () {
-            $('#button-history').prop('disabled', false).removeClass('loading');
+            $('#button-history').button('reset');
         },
         success: function (json) {
             $('.alert-dismissible').remove();
@@ -1037,10 +1037,10 @@ $('#button-transaction').on('click', function (e) {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
         beforeSend: function () {
-            $('#button-transaction').prop('disabled', true).addClass('loading');
+            $('#button-transaction').button('loading');
         },
         complete: function () {
-            $('#button-transaction').prop('disabled', false).removeClass('loading');
+            $('#button-transaction').button('reset');
         },
         success: function (json) {
             $('.alert-dismissible').remove();
@@ -1080,10 +1080,10 @@ $('#button-reward').on('click', function (e) {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
         beforeSend: function () {
-            $('#button-reward').prop('disabled', true).addClass('loading');
+            $('#button-reward').button('loading');
         },
         complete: function () {
-            $('#button-reward').prop('disabled', false).removeClass('loading');
+            $('#button-reward').button('reset');
         },
         success: function (json) {
             $('.alert-dismissible').remove();

@@ -5,30 +5,20 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 		$this->load->language('checkout/shipping_address');
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
-
-		$data['config_checkout_payment_address'] = $this->config->get('config_checkout_payment_address');
 		$data['config_file_max_size'] = ((int)$this->config->get('config_file_max_size') * 1024 * 1024);
+		$data['payment_address_required'] = $this->config->get('config_checkout_payment_address');
 
 		$data['upload'] = $this->url->link('tool/upload', 'language=' . $this->config->get('config_language'));
 
-		// Set shipping address
 		$this->load->model('account/address');
 
-		if ($this->customer->isLogged() && !isset($this->session->data['shipping_address'])) {
-			$address_info = $this->model_account_address->getAddress($this->customer->getAddressId());
+		$data['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
 
-			if ($address_info) {
-				$this->session->data['shipping_address'] = $address_info;
-			}
-		}
-
-		if (isset($this->session->data['shipping_address']['address_id'])) {
-			$data['address_id'] = (int)$this->session->data['shipping_address']['address_id'];
+		if (isset($this->session->data['shipping_address'])) {
+			$data['address_id'] = $this->session->data['shipping_address']['address_id'];
 		} else {
-			$data['address_id'] = $this->config->get('config_country_id');
+			$data['address_id'] = 0;
 		}
-
-		$data['addresses'] = $this->model_account_address->getAddresses();
 
 		$this->load->model('localisation/country');
 
@@ -163,54 +153,13 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 
 			$json['address_id'] = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
 
-			$json['addresses'] = $this->model_account_address->getAddresses();
+			$json['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
 
-			if ($country_info) {
-				$country = $country_info['name'];
-				$iso_code_2 = $country_info['iso_code_2'];
-				$iso_code_3 = $country_info['iso_code_3'];
-				$address_format = $country_info['address_format'];
-			} else {
-				$country = '';
-				$iso_code_2 = '';
-				$iso_code_3 = '';
-				$address_format = '';
-			}
-
-			$this->load->model('localisation/zone');
-
-			$zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
-
-			if ($zone_info) {
-				$zone = $zone_info['name'];
-				$zone_code = $zone_info['code'];
-			} else {
-				$zone = '';
-				$zone_code = '';
-			}
-
-			$this->session->data['shipping_address'] = [
-				'address_id'     => $json['address_id'],
-				'firstname'      => $this->request->post['firstname'],
-				'lastname'       => $this->request->post['lastname'],
-				'company'        => $this->request->post['company'],
-				'address_1'      => $this->request->post['address_1'],
-				'address_2'      => $this->request->post['address_2'],
-				'city'           => $this->request->post['city'],
-				'postcode'       => $this->request->post['postcode'],
-				'zone_id'        => $this->request->post['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $this->request->post['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
-				'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : []
-			];
+			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getId(), $json['address_id']);
 
 			$json['success'] = $this->language->get('text_success');
 
+			// Clear payment and shipping methods
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);
@@ -253,11 +202,6 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 			$json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
 		}
 
-		// Validate if payment address is set if required in settings
-		if ($this->config->get('config_checkout_payment_address') && !isset($this->session->data['payment_address'])) {
-			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
-		}
-
 		// Validate if shipping is not required
 		if (!$this->cart->hasShipping()) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
@@ -266,10 +210,16 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('account/address');
 
-			$address_info = $this->model_account_address->getAddress($address_id);
+			$address_info = $this->model_account_address->getAddress($this->customer->getId(), $address_id);
 
 			if (!$address_info) {
 				$json['error'] = $this->language->get('error_address');
+
+				unset($this->session->data['shipping_address']);
+				unset($this->session->data['shipping_method']);
+				unset($this->session->data['shipping_methods']);
+				unset($this->session->data['payment_method']);
+				unset($this->session->data['payment_methods']);
 			}
 		}
 
@@ -278,6 +228,7 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 
 			$json['success'] = $this->language->get('text_success');
 
+			// Clear payment and shipping methods
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);
