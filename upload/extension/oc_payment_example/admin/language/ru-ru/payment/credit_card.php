@@ -32,7 +32,7 @@ $_['entry_status']          = 'Статус';
 $_['entry_sort_order']      = 'Порядок сортировки';
 
 // Help
-$_['help_response']         = 'Choose if the credit card should return approved or denied making test orders';
+$_['help_response']         = 'Выбор одобрения или отказа в возврате кредитной карты при выполнении тестовых заказов';
 
 // Error
-$_['error_permission']      = 'Warning: You do not have permission to modify payment credit card!';
+$_['error_permission']      = 'Внимание: У вас нет прав на изменение оплаты кредитной картой!';
