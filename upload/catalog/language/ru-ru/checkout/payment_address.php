@@ -20,7 +20,7 @@ $_['entry_country']         = 'Страна';
 $_['entry_zone']            = 'Регион / Область';
 
 // Error
-$_['error_address']         = 'Payment address could not be found!';
+$_['error_address']         = 'Адрес оплаты не найден!';
 $_['error_firstname']       = 'Имя должно быть от 1 до 32-х символов!';
 $_['error_lastname']        = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_address_1']       = 'Адрес 1 должен быть от 3 до 128 символов!';

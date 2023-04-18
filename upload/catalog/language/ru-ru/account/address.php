@@ -26,7 +26,7 @@ $_['entry_default']      = 'Адрес по умолчанию';
 
 // Error
 $_['error_token']        = 'Внимание: Токен адреса недействителен!';
-$_['error_subscription'] = 'Warning: Address is still being used by %s active subscriptions!';
+$_['error_subscription'] = 'Внимание: Адрес до сих пор используется %s активными подписками!';
 $_['error_default']      = 'Внимание: Требуется адрес по умолчанию!';
 $_['error_delete']       = 'Внимание: Вы должны иметь хотя бы один адрес!';
 $_['error_firstname']    = 'Имя должно быть от 1 до 32-х символов!';
