@@ -17,12 +17,10 @@ $_['text_year']              = 'Год';
 
 // Entry
 $_['entry_name']            = 'Название плана подписки';
-$_['entry_trial_price']     = 'Пробная цена';
 $_['entry_trial_duration']  = 'Пробный период';
 $_['entry_trial_cycle']     = 'Пробный цикл';
 $_['entry_trial_frequency'] = 'Пробная частота';
 $_['entry_trial_status']    = 'Пробный метод';
-$_['entry_price']           = 'Цена';
 $_['entry_duration']        = 'Продолжительность';
 $_['entry_cycle']           = 'Цикл';
 $_['entry_frequency']       = 'Периодичность';
