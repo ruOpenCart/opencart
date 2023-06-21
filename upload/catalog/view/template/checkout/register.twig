@@ -254,6 +254,7 @@
                 <div id="error-payment-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
               </div>
             {% endif %}
+
             {% if custom_field.type == 'datetime' %}
               <div class="col mb-3{% if custom_field.required %} required{% endif %} custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-payment-custom-field-{{ custom_field.custom_field_id }}" class="form-label">{{ custom_field.name }}</label>
@@ -264,8 +265,10 @@
                 <div id="error-payment-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
               </div>
             {% endif %}
+
           {% endif %}
         {% endfor %}
+
         {% if shipping_required %}
           <div class="col mb-3">
             <div class="form-check">
@@ -273,6 +276,7 @@
             </div>
           </div>
         {% endif %}
+
       </div>
     </fieldset>
   {% endif %}
@@ -605,7 +609,7 @@ $('select[name$=\'_country_id\']').on('change', function() {
                     $('#input-' + type + '-postcode').parent().removeClass('required');
                 }
 
-                html = '<option value="">{{ text_select }}</option>';
+                html = '<option value="">{{ text_select|escape('js') }}</option>';
 
                 if (json['zone'] && json['zone'] != '') {
                     for (i = 0; i < json['zone'].length; i++) {
@@ -618,7 +622,7 @@ $('select[name$=\'_country_id\']').on('change', function() {
                         html += '>' + json['zone'][i]['name'] + '</option>';
                     }
                 } else {
-                    html += '<option value="0" selected>{{ text_none }}</option>';
+                    html += '<option value="0" selected>{{ text_none|escape('js') }}</option>';
                 }
 
                 $('#input-' + type + '-zone').html(html);
