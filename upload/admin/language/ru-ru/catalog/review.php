@@ -4,7 +4,7 @@ $_['heading_title']     = 'Отзывы';
 
 // Text
 $_['text_success']      = 'Успех: Вы изменили отзывы!';
-$_['text_rating']       = 'Success: You have modified %s product ratings out of %s!';
+$_['text_next']         = 'Success: You have modified %s product ratings out of %s!';
 $_['text_list']         = 'Список отзывов';
 $_['text_add']          = 'Добавление отзыва';
 $_['text_edit']         = 'Редактирование отзыва';
@@ -31,7 +31,7 @@ $_['entry_date_to']     = 'Дата до';
 $_['help_product']      = '(Автодополнение)';
 
 // Button
-$_['button_rating']     = 'Sync Product Ratings';
+$_['button_rating']     = 'Синхронизировать оценки товаров';
 
 // Error
 $_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
