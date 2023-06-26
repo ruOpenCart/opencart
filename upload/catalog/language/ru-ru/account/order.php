@@ -4,7 +4,7 @@ $_['heading_title']              = 'Заказы';
 
 // Text
 $_['text_account']               = 'Аккаунт';
-$_['text_order']                 = 'Order #%s';
+$_['text_order']                 = 'Заказ #%s';
 $_['text_invoice_no']            = 'Счет №';
 $_['text_order_id']              = 'Номер заказа';
 $_['text_order_status']          = 'Статус заказа';
