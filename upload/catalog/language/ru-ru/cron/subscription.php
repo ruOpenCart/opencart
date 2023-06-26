@@ -9,7 +9,7 @@ $_['error_product']          = 'Внимание: Не удалось найти
 $_['error_shipping_address'] = 'Внимание: Не удалось найти расширение метода оплаты!';
 $_['error_shipping_method']  = '';
 $_['error_payment_address']  = 'Внимание: Не удалось найти расширение метода оплаты!';
-$_['error_payment_method']   = 'Warning: Payment method %s could not be found!';
+$_['error_payment_method']   = 'Внимание: Метод оплаты %s не найден!';
 
 $_['error_extension']  = 'Внимание: Не удалось найти расширение метода оплаты!';
 $_['error_recurring']  = 'Внимание: Метод оплаты не имеет периодического способа оплаты!';
