@@ -4,7 +4,7 @@ $_['heading_title']               = 'Подписки';
 
 // Text
 $_['text_account']                = 'Аккаунт';
-$_['text_subscription']           = 'Subscription #%s';
+$_['text_subscription']           = 'Подписка #%s';
 $_['text_invoice_no']             = 'Счет №';
 $_['text_subscription_id']        = 'Идентификатор подписки';
 $_['text_order_id']               = 'Номер заказа';
@@ -20,7 +20,7 @@ $_['text_week']                   = 'неделя';
 $_['text_semi_month']             = 'полмесяца';
 $_['text_month']                  = 'месяц';
 $_['text_year']                   = 'год';
-$_['text_history']                = 'Subscription History';
+$_['text_history']                = 'История подписки';
 $_['text_orders']                 = 'История заказа';
 
 $_['text_date_added']             = 'Дата добавления';
@@ -30,7 +30,7 @@ $_['text_order_id']               = 'Номер заказа';
 
 $_['text_description']            = 'Описание';
 $_['text_quantity']               = 'Количество';
-$_['text_history']                = 'Subscription History';
+$_['text_history']                = 'История подписки';
 $_['text_order']                  = 'История заказа';
 $_['text_no_results']             = 'Подписки не найдены!';
 $_['text_error']                  = 'Запрошенный вами заказ подписки не найден!';
