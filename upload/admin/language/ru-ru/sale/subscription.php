@@ -8,37 +8,49 @@ $_['text_list']                  = 'Список подписок';
 $_['text_add']                   = 'Добавить подписку';
 $_['text_edit']                  = 'Подписка (#%s)';
 $_['text_filter']                = 'Фильтр';
-$_['text_subscription_id']       = 'Идентификатор подписки';
-$_['text_order_id']              = 'Номер заказа';
-$_['text_order']                 = 'Заказы';
-$_['text_customer']              = 'Покупатель';
+
 $_['text_date_added']            = 'Дата добавления';
+$_['text_order']                 = 'Номер заказа';
+$_['text_customer']              = 'Покупатель';
 $_['text_subscription_plan']     = 'План подписки';
-$_['text_payment_method']        = 'Метод оплаты';
-$_['text_remaining']             = 'Оставшиеся платежи';
-$_['text_date_next']             = 'Дата следующего платежа';
-$_['text_order_status']          = 'Статус заказа';
-$_['text_cancel']                = 'До отмены';
+
+
+
 $_['text_product']               = 'Детали товара';
 $_['text_quantity']              = 'Количество';
-$_['text_amount']                = 'Сумма';
-$_['text_amount']                = 'Сумма';
+
+$_['text_subscription']          = 'Подписка';
+$_['text_trial']                 = 'Пробный период';
 $_['text_subscription']          = 'Подписка';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
-$_['text_day']                   = 'день';
-$_['text_week']                  = 'неделя';
-$_['text_semi_month']            = 'полмесяца';
-$_['text_month']                 = 'месяц';
-$_['text_year']                  = 'год';
+$_['text_cancel']                = 'До отмены';
+
+
+
+$_['text_day']                   = 'День';
+$_['text_week']                  = 'Неделя';
+$_['text_semi_month']            = 'Half-Month';
+$_['text_month']                 = 'Месяц';
+$_['text_year']                  = 'Год';
+
+$_['text_date_next']             = 'Date Next';
+$_['text_remaining']             = 'Remaining';
+
+
+$_['text_payment_address']       = 'Платежный адрес';
+$_['text_payment_method']        = 'Метод оплаты';
+$_['text_shipping_address']      = 'Адрес доставки';
+$_['text_shipping_method']       = 'Способ доставки';
+
+
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавление истории';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
 $_['column_order_id']            = 'Номер заказа';
-$_['column_reference']           = 'Ссылка';
 $_['column_customer']            = 'Покупатель';
 $_['column_comment']             = 'Комментарий';
 $_['column_description']         = 'Описание';
@@ -52,17 +64,37 @@ $_['column_total']               = 'Всего';
 $_['column_action']              = 'Действие';
 
 // Entry
-$_['entry_order_id']             = 'Номер заказа';
-$_['entry_subscription_id']      = 'Идентификатор подписки';
 $_['entry_customer']             = 'Покупатель';
-$_['entry_subscription_status']  = 'Статус подписки';
+$_['entry_subscription_id']      = 'Идентификатор подписки';
+$_['entry_order_id']             = 'Номер заказа';
+$_['entry_subscription_plan']    = 'План подписки';
+$_['entry_trial_price']          = 'Пробная цена';
+$_['entry_trial_duration']       = 'Пробный период';
+$_['entry_trial_remaining']      = 'Trial Remaining';
+$_['entry_trial_cycle']          = 'Пробный цикл';
+$_['entry_trial_frequency']      = 'Пробная частота';
+$_['entry_trial_status']         = 'Пробный метод';
+$_['entry_price']                = 'Цена';
+$_['entry_duration']             = 'Продолжительность';
+$_['entry_remaining']            = 'Remaining';
+$_['entry_cycle']                = 'Цикл';
+$_['entry_frequency']            = 'Периодичность';
+$_['entry_date_next']            = 'Date Next';
 $_['entry_comment']              = 'Комментарий';
-$_['entry_description']          = 'Описание';
 $_['entry_amount']               = 'Сумма';
 $_['entry_notify']               = 'Уведомить покупателя';
 $_['entry_override']             = 'Переопределить';
 $_['entry_date_from']            = 'Дата от';
 $_['entry_date_to']              = 'Дата до';
+$_['entry_subscription_status']  = 'Статус подписки';
+
+// Help
+$_['help_trial_duration']   = 'Продолжительность - это количество раз, которое пользователь совершает платеж.';
+$_['help_trial_cycle']      = 'Сумма подписки рассчитывается по частоте и циклам.';
+$_['help_trial_frequency']  = 'Если вы используете частоту "неделя" и цикл "2", то пользователю будет выставляться счет каждые 2 недели.';
+$_['help_duration']         = 'Продолжительность - это количество раз, которое пользователь будет совершать платеж; установите значение 0, если вы хотите, чтобы платежи осуществлялись до тех пор, пока они не будут отменены.';
+$_['help_cycle']            = 'Сумма подписки рассчитывается по частоте и циклам.';
+$_['help_frequency']        = 'Если вы используете частоту "неделя" и цикл "2", то пользователю будет выставляться счет каждые 2 недели.';
 
 // Tab
 $_['tab_order']                  = 'Заказы';

@@ -1,46 +1,50 @@
 <?php
 // Heading
-$_['heading_title']                        = 'Подписки';
+$_['heading_title']               = 'Подписки';
 
 // Text
-$_['text_account']                         = 'Аккаунт';
-$_['text_subscription']                    = 'Подписка';
-$_['text_subscription_id']                 = 'Идентификатор подписки';
-$_['text_subscription_detail']             = 'Подробности оплаты подписки';
-$_['text_date_added']                      = 'Дата добавления:';
-$_['text_status']                          = 'Статус:';
-$_['text_payment_method']                  = 'Метод оплаты:';
-$_['text_order_id']                        = 'Номер заказа:';
-$_['text_product']                         = 'Товар:';
-$_['text_quantity']                        = 'Количество:';
-$_['text_description']                     = 'Описание';
-$_['text_reference']                       = 'Ссылка';
-$_['text_transaction']                     = 'Транзакции';
-$_['text_transaction_date_added']          = 'Создано';
-$_['text_transaction_payment']             = 'Оплата';
-$_['text_transaction_outstanding_payment'] = 'Неоплаченный платеж';
-$_['text_transaction_skipped']             = 'Пропущенный платеж';
-$_['text_transaction_failed']              = 'Оплата не удалась';
-$_['text_transaction_cancelled']           = 'Отменено';
-$_['text_transaction_suspended']           = 'Приостановлено';
-$_['text_transaction_suspended_failed']    = 'Приостановлен из-за неудачного платежа';
-$_['text_transaction_outstanding_failed']  = 'Неоплаченный платеж не удалось';
-$_['text_transaction_expired']             = 'Истекло';
-$_['text_no_results']                      = 'Подписки не найдены!';
-$_['text_error']                           = 'Запрошенный вами заказ подписки не найден!';
-$_['text_cancelled']                       = 'Повторяющийся платеж был отменен';
+$_['text_account']                = 'Аккаунт';
+$_['text_subscription']           = 'Subscription #%s';
+$_['text_invoice_no']             = 'Счет №';
+$_['text_subscription_id']        = 'Идентификатор подписки';
+$_['text_order_id']               = 'Номер заказа';
+$_['text_shipping_address']       = 'Адрес доставки';
+$_['text_shipping_method']        = 'Способ доставки';
+$_['text_payment_address']        = 'Платежный адрес';
+$_['text_payment_method']         = 'Метод оплаты';
+$_['text_subscription_trial']     = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration']  = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']    = '%s каждые %d %s до отмены';
+$_['text_day']                    = 'день';
+$_['text_week']                   = 'неделя';
+$_['text_semi_month']             = 'полмесяца';
+$_['text_month']                  = 'месяц';
+$_['text_year']                   = 'год';
+$_['text_history']                = 'Subscription History';
+$_['text_orders']                 = 'История заказа';
+
+$_['text_date_added']             = 'Дата добавления';
+$_['text_status']                 = 'Статус подписки';
+$_['text_payment_method']         = 'Метод оплаты';
+$_['text_order_id']               = 'Номер заказа';
+
+$_['text_description']            = 'Описание';
+$_['text_quantity']               = 'Количество';
+$_['text_history']                = 'Subscription History';
+$_['text_order']                  = 'История заказа';
+$_['text_no_results']             = 'Подписки не найдены!';
+$_['text_error']                  = 'Запрошенный вами заказ подписки не найден!';
+$_['text_cancelled']              = 'Повторяющийся платеж был отменен';
 
 // Column
-$_['column_subscription_id']               = 'Идентификатор подписки';
-$_['column_product']                       = 'Товар';
-$_['column_status']                        = 'Статус';
-$_['column_date_added']                    = 'Дата добавления';
-$_['column_type']                          = 'Тип';
-$_['column_amount']                        = 'Сумма';
-
-// Button
-$_['button_return']                        = 'Вернуть';
+$_['column_subscription_id']      = 'Идентификатор подписки';
+$_['column_product']              = 'Товар';
+$_['column_order_id']             = 'Номер заказа';
+$_['column_status']               = 'Статус';
+$_['column_total']                = 'Всего';
+$_['column_comment']              = 'Комментарий';
+$_['column_date_added']           = 'Дата добавления';
 
 // Error
-$_['error_not_cancelled']                  = 'Ошибка: %s';
-$_['error_not_found']                      = 'Невозможно отменить подписку';
+$_['error_not_cancelled']         = 'Ошибка: %s';
+$_['error_not_found']             = 'Невозможно отменить подписку';
