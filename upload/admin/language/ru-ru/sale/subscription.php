@@ -31,12 +31,12 @@ $_['text_cancel']                = 'До отмены';
 
 $_['text_day']                   = 'День';
 $_['text_week']                  = 'Неделя';
-$_['text_semi_month']            = 'Half-Month';
+$_['text_semi_month']            = 'Полмесяца';
 $_['text_month']                 = 'Месяц';
 $_['text_year']                  = 'Год';
 
-$_['text_date_next']             = 'Date Next';
-$_['text_remaining']             = 'Remaining';
+$_['text_date_next']             = 'Дате Следующая';
+$_['text_remaining']             = 'Осталось';
 
 
 $_['text_payment_address']       = 'Платежный адрес';
@@ -70,16 +70,16 @@ $_['entry_order_id']             = 'Номер заказа';
 $_['entry_subscription_plan']    = 'План подписки';
 $_['entry_trial_price']          = 'Пробная цена';
 $_['entry_trial_duration']       = 'Пробный период';
-$_['entry_trial_remaining']      = 'Trial Remaining';
+$_['entry_trial_remaining']      = 'Осталось пробного периода';
 $_['entry_trial_cycle']          = 'Пробный цикл';
 $_['entry_trial_frequency']      = 'Пробная частота';
 $_['entry_trial_status']         = 'Пробный метод';
 $_['entry_price']                = 'Цена';
 $_['entry_duration']             = 'Продолжительность';
-$_['entry_remaining']            = 'Remaining';
+$_['entry_remaining']            = 'Осталось';
 $_['entry_cycle']                = 'Цикл';
 $_['entry_frequency']            = 'Периодичность';
-$_['entry_date_next']            = 'Date Next';
+$_['entry_date_next']            = 'Дате Следующая';
 $_['entry_comment']              = 'Комментарий';
 $_['entry_amount']               = 'Сумма';
 $_['entry_notify']               = 'Уведомить покупателя';
