@@ -46,4 +46,4 @@ $_['error_meta_title']        = 'Мета заголовок должен быт
 $_['error_parent']            = 'Выбранная вами родительская категория является дочерней по отношению к текущей!';
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
-$_['error_keyword_character'] = 'Keyword can only use characters a-z, 0-9, - and _!';
+$_['error_keyword_character'] = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
