@@ -32,7 +32,7 @@ $_['text_image']              = 'Изображение';
 $_['text_image_additional']   = 'Дополнительные изображения';
 $_['text_reward']             = 'Купить баллы';
 $_['text_points']             = 'Бонусные баллы';
-$_['text_report']             = 'Отчеты по товарам';
+$_['text_report']             = 'Отчеты';
 
 // Column
 $_['column_name']             = 'Название товара';
@@ -129,5 +129,5 @@ $_['error_meta_title']        = 'Мета заголовок должен быт
 $_['error_model']             = 'Модель продукта должна быть больше 1 и меньше, чем 64 символов!';
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
-$_['error_keyword_character'] = 'Keyword can only use characters a-z, 0-9, - and _!';
+$_['error_keyword_character'] = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
 $_['error_required']          = '%s обязательно к заполнению!';
