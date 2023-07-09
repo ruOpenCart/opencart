@@ -25,8 +25,6 @@ $_['text_orders']                 = 'История заказа';
 
 $_['text_date_added']             = 'Дата добавления';
 $_['text_status']                 = 'Статус подписки';
-$_['text_payment_method']         = 'Метод оплаты';
-$_['text_order_id']               = 'Номер заказа';
 
 $_['text_description']            = 'Описание';
 $_['text_quantity']               = 'Количество';
