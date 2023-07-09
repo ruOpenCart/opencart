@@ -1,7 +1,6 @@
 <?php
 // Heading
 $_['heading_title']            = 'Загрузки';
-$_['heading_title']            = 'Загрузки';
 
 // Text
 $_['text_success']             = 'Успех: Вы изменили загрузки!';
