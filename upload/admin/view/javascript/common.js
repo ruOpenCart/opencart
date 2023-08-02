@@ -162,10 +162,20 @@ $(document).ready(function () {
 });
 
 // Forms
-$(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
+$(document).on('submit', '[data-oc-toggle=\'ajax\']', function (e) {
     e.preventDefault();
 
     var element = this;
+
+    if ($(element).is('form')) {
+
+    }
+
+    if ($(element).is('button')) {
+
+    }
+
+
 
     var form = e.target;
 
@@ -222,8 +232,9 @@ $(document).on('submit', 'form[data-oc-toggle=\'ajax\']', function (e) {
         complete: function () {
             $(button).button('reset');
         },
-        success: function (json) {
+        success: function (json, textStatus) {
             console.log(json);
+            console.log(textStatus);
 
             $('.alert-dismissible').remove();
             $(element).find('.is-invalid').removeClass('is-invalid');

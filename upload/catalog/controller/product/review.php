@@ -4,10 +4,12 @@ class Review extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('product/review');
 
+		$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')));
+
 		$data['list'] = $this->getList();
 
 		if (isset($this->request->get['product_id'])) {
-			$data['product_id'] = $this->request->get['product_id'];
+			$data['product_id'] = (int)$this->request->get['product_id'];
 		} else {
 			$data['product_id'] = 0;
 		}
@@ -41,7 +43,7 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['language'] = $this->config->get('config_language');
-		$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')));
+
 		return $this->load->view('product/review', $data);
 	}
 
@@ -129,7 +131,7 @@ class Review extends \Opencart\System\Engine\Controller {
 
 	public function getList(): string {
 		if (isset($this->request->get['product_id'])) {
-			$product_id = $this->request->get['product_id'];
+			$product_id = (int)$this->request->get['product_id'];
 		} else {
 			$product_id = 0;
 		}
