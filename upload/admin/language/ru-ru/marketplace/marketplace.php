@@ -51,7 +51,6 @@ $_['text_install']       = 'Установить';
 $_['text_uninstall']     = 'Деинсталляция';
 $_['text_delete']        = 'Удалить';
 $_['text_more']          = 'посмотреть больше ответов...';
-$_['text_leave']         = 'посмотреть больше ответов...';
 $_['text_refresh']       = 'обновить';
 
 // Entry
@@ -64,7 +63,7 @@ $_['tab_download']       = 'Скачать';
 $_['tab_comment']        = 'Комментарий';
 
 // Button
-$_['button_opencart']    = 'Маркетплейс API';
+$_['button_api']         = 'Marketplace API';
 $_['button_purchase']    = 'Купить';
 $_['button_view_all']    = 'Посмотреть все расширения';
 $_['button_support']     = 'Получить поддержку';
@@ -74,6 +73,6 @@ $_['button_forgot_pin']  = 'Забыли PIN?';
 
 // Error
 $_['error_permission']   = 'Внимание: У вас нет прав на изменение расширений!';
-$_['error_opencart']     = 'Внимание: Вы должны ввести информацию об OpenCart API, прежде чем совершать покупки!';
+$_['error_api']          = 'Warning: You must enter your OpenCart API information by clicking the <i class="fa-solid fa-triangle-exclamation"></i> before you can download extensions or make any purchases!';
 $_['error_purchase']     = 'Расширение не может быть приобретено!';
 $_['error_download']     = 'Расширение не может быть скачано!';
