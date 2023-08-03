@@ -20,9 +20,9 @@ $_['text_transaction']          = 'Транзакции';
 $_['text_transaction_add']      = 'Добавление транзакции';
 $_['text_report']               = 'Отчет';
 $_['text_filter']               = 'Фильтр';
-$_['text_payment_cheque']       = 'Cheque Payment';
-$_['text_payment_paypal']       = 'PayPal Payment';
-$_['text_payment_bank']         = 'Bank Transfer Payment';
+$_['text_payment_cheque']       = 'Оплата чеком';
+$_['text_payment_paypal']       = 'Оплата PayPal';
+$_['text_payment_bank']         = 'Оплата банковским переводом';
 
 // Column
 $_['column_name']               = 'Имя покупателя';
