@@ -122,9 +122,9 @@ $_['button_backup']                 = 'Резервное копирование
 $_['button_developer']              = 'Настройки разработчика';
 $_['button_master']                 = 'Главный товар';
 $_['button_resend']                 = 'Отправить повторно';
-$_['button_calculate']              = 'Calculate Payments';
-$_['button_csv']                    = 'Download CSV';
-$_['button_complete']               = 'Complete Payments';
+$_['button_calculate']              = 'Рассчитать платежи';
+$_['button_csv']                    = 'Скачать CSV';
+$_['button_complete']               = 'Завершить платежи';
 
 // Tab
 $_['tab_address']                   = 'Адреса';
