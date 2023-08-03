@@ -73,6 +73,6 @@ $_['button_forgot_pin']  = 'Забыли PIN?';
 
 // Error
 $_['error_permission']   = 'Внимание: У вас нет прав на изменение расширений!';
-$_['error_api']          = 'Warning: You must enter your OpenCart API information by clicking the <i class="fa-solid fa-triangle-exclamation"></i> before you can download extensions or make any purchases!';
+$_['error_api']          = 'Внимание: Вы должны ввести информацию об API OpenCart, кликнув <i class="fa-solid fa-triangle-exclamation"></i>, прежде чем сможете загружать расширения или совершать какие-либо покупки!';
 $_['error_purchase']     = 'Расширение не может быть приобретено!';
 $_['error_download']     = 'Расширение не может быть скачано!';
