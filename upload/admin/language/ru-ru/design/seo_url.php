@@ -14,6 +14,7 @@ $_['text_default']            = 'По умолчанию';
 $_['column_key']              = 'Ключ';
 $_['column_value']            = 'Значение';
 $_['column_keyword']          = 'Ключевое слово';
+$_['column_sort_order']       = 'Порядок сортировки';
 $_['column_store']            = 'Магазин';
 $_['column_language']         = 'Язык';
 $_['column_action']           = 'Действие';
