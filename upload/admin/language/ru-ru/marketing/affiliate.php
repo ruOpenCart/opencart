@@ -20,6 +20,9 @@ $_['text_transaction']          = 'Транзакции';
 $_['text_transaction_add']      = 'Добавление транзакции';
 $_['text_report']               = 'Отчет';
 $_['text_filter']               = 'Фильтр';
+$_['text_payment_cheque']       = 'Оплата чеком';
+$_['text_payment_paypal']       = 'Оплата PayPal';
+$_['text_payment_bank']         = 'Оплата банковским переводом';
 
 // Column
 $_['column_name']               = 'Имя покупателя';
@@ -39,13 +42,12 @@ $_['column_action']             = 'Действие';
 
 // Entry
 $_['entry_customer']            = 'Покупатель';
-$_['entry_status']              = 'Статус';
 $_['entry_company']             = 'Компания';
 $_['entry_tracking']            = 'Код отслеживания';
 $_['entry_website']             = 'Веб-сайт';
 $_['entry_commission']          = 'Комиссия (%)';
 $_['entry_tax']                 = 'Идентификатор налога';
-$_['entry_payment']             = 'Метод оплаты';
+$_['entry_payment_method']      = 'Метод оплаты';
 $_['entry_cheque']              = 'Имя получателя чека';
 $_['entry_paypal']              = 'Эл. почта учетной записи PayPal';
 $_['entry_bank_name']           = 'Наименование банка';
@@ -58,6 +60,8 @@ $_['entry_description']         = 'Описание';
 $_['entry_amount']              = 'Сумма';
 $_['entry_date_from']           = 'Дата от';
 $_['entry_date_to']             = 'Дата до';
+$_['entry_status']              = 'Статус';
+$_['entry_limit']               = 'Лимит';
 
 // Help
 $_['help_tracking']             = 'Код отслеживания, который будет использован для отслеживания рефералов.';
@@ -70,6 +74,7 @@ $_['error_customer']            = 'Внимание: Покупатель обя
 $_['error_already']             = 'Внимание: Покупатель уже зарегистрирован в качестве партнера!';
 $_['error_tracking']            = 'Код отслеживания обязателен!';
 $_['error_exists']              = 'Код отслеживания уже используется другим партнером!';
+$_['error_payment_method']      = 'Необходимо указать способ оплаты!';
 $_['error_cheque']              = 'Необходимо указать имя получателя чека!';
 $_['error_paypal']              = 'Адрес электронной почты PayPal недействителен!';
 $_['error_bank_account_name']   = 'Имя счета обязательно!';

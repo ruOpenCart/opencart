@@ -8,43 +8,29 @@ $_['text_list']                  = 'Список подписок';
 $_['text_add']                   = 'Добавить подписку';
 $_['text_edit']                  = 'Подписка (#%s)';
 $_['text_filter']                = 'Фильтр';
-
 $_['text_date_added']            = 'Дата добавления';
 $_['text_order']                 = 'Номер заказа';
 $_['text_customer']              = 'Покупатель';
 $_['text_subscription_plan']     = 'План подписки';
-
-
-
 $_['text_product']               = 'Детали товара';
 $_['text_quantity']              = 'Количество';
-
-$_['text_subscription']          = 'Подписка';
 $_['text_trial']                 = 'Пробный период';
 $_['text_subscription']          = 'Подписка';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_cancel']                = 'До отмены';
-
-
-
 $_['text_day']                   = 'День';
 $_['text_week']                  = 'Неделя';
 $_['text_semi_month']            = 'Полмесяца';
 $_['text_month']                 = 'Месяц';
 $_['text_year']                  = 'Год';
-
 $_['text_date_next']             = 'Дате Следующая';
 $_['text_remaining']             = 'Осталось';
-
-
 $_['text_payment_address']       = 'Платежный адрес';
 $_['text_payment_method']        = 'Метод оплаты';
 $_['text_shipping_address']      = 'Адрес доставки';
 $_['text_shipping_method']       = 'Способ доставки';
-
-
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавление истории';
 
