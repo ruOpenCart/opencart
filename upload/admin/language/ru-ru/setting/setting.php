@@ -134,6 +134,7 @@ $_['entry_image_popup']                   = 'Размер всплывающег
 $_['entry_image_product']                 = 'Размер изображения в списке товара (Ш х В)';
 $_['entry_image_additional']              = 'Размер дополнительных изображений товара (Ш х В)';
 $_['entry_image_related']                 = 'Размер изображения сопутствующего товара (Ш x В)';
+$_['entry_image_blog']                    = 'Blog Image Size (W x H)';
 $_['entry_image_compare']                 = 'Размер изображения сравнения (Ш х В)';
 $_['entry_image_wishlist']                = 'Размер изображения списка желаний (Ш х В)';
 $_['entry_image_cart']                    = 'Размер изображения в корзине (Ш х В)';
