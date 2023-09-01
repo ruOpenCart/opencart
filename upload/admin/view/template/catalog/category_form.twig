@@ -87,12 +87,12 @@
                   <input type="text" name="filter" value="" placeholder="{{ entry_filter }}" id="input-filter" data-oc-target="autocomplete-filter" class="form-control" autocomplete="off"/>
                   <ul id="autocomplete-filter" class="dropdown-menu"></ul>
                   <div class="form-control p-0" style="height: 150px; overflow: auto;">
-                    <table id="category-filter" class="table table-sm m-0">
+                    <table id="category-filter" class="table m-0">
                       <tbody>
                         {% for category_filter in category_filters %}
                           <tr id="category-filter-{{ category_filter.filter_id }}">
                             <td>{{ category_filter.name }}<input type="hidden" name="category_filter[]" value="{{ category_filter.filter_id }}"/></td>
-                            <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>
+                            <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
                           </tr>
                         {% endfor %}
                       </tbody>
