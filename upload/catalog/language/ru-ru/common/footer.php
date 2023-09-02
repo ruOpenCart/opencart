@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_information']  = 'Информация';
-$_['text_blog']         = 'Blog';
+$_['text_blog']         = 'Блог';
 $_['text_service']      = 'Служба поддержки';
 $_['text_extra']        = 'Дополнительно';
 $_['text_contact']      = 'Связаться с нами';
