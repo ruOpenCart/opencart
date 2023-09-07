@@ -7,7 +7,6 @@ $_['text_extension']   = 'Расширения';
 $_['text_success']     = 'Успех: Вы изменили курсы валют fixer!';
 $_['text_edit']        = 'Редактирование Fixer';
 $_['text_signup']      = 'Fixer.io - сервис конвертации валют <a href="https://fixer.io/" target="_blank" class="alert-link">зарегистрируйтесь здесь</a>.';
-$_['text_support']     = 'Это расширение требует, чтобы валюта EUR была доступной валютой.';
 
 // Entry
 $_['entry_api']        = 'Ключ доступа к API';
