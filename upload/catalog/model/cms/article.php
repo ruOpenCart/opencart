@@ -3,7 +3,7 @@ namespace Opencart\Catalog\Model\Cms;
 /**
  * Class Article
  *
- * @package Opencart\Admin\Model\Cms
+ * @package Opencart\Catalog\Model\Cms
  */
 class Article extends \Opencart\System\Engine\Model {
 	/**
@@ -40,7 +40,7 @@ class Article extends \Opencart\System\Engine\Model {
 				$sql .= " (" . implode(" OR ", $implode) . ")";
 			}
 
-			$sql .= " OR `bd`.`description` LIKE '" . $this->db->escape('%' . (string)$data['filter_search'] . '%') . "' OR";
+			$sql .= " OR `bd`.`description` LIKE '" . $this->db->escape('%' . (string)$data['filter_search'] . '%') . "'";
 
 			$implode = [];
 
@@ -49,7 +49,7 @@ class Article extends \Opencart\System\Engine\Model {
 			}
 
 			if ($implode) {
-				$sql .= " (" . implode(" OR ", $implode) . ")";
+				$sql .= " OR (" . implode(" OR ", $implode) . ")";
 			}
 
 			$sql .= ")";
@@ -57,6 +57,10 @@ class Article extends \Opencart\System\Engine\Model {
 
 		if (!empty($data['filter_topic_id'])) {
 			$sql .= " AND `a`.`topic_id` = '" . (int)$data['filter_topic_id'] . "'";
+		}
+
+		if (!empty($data['filter_author'])) {
+			$sql .= " AND `a`.`author` = '" . (int)$data['filter_author'] . "'";
 		}
 
 		$sql .= " ORDER BY `a`.`date_added` DESC";
@@ -99,7 +103,7 @@ class Article extends \Opencart\System\Engine\Model {
 				$sql .= " (" . implode(" OR ", $implode) . ")";
 			}
 
-			$sql .= " OR `ad`.`description` LIKE '" . $this->db->escape('%' . (string)$data['filter_search'] . '%') . "' OR";
+			$sql .= " OR `ad`.`description` LIKE '" . $this->db->escape('%' . (string)$data['filter_search'] . '%') . "'";
 
 			$implode = [];
 
@@ -108,7 +112,7 @@ class Article extends \Opencart\System\Engine\Model {
 			}
 
 			if ($implode) {
-				$sql .= " (" . implode(" OR ", $implode) . ")";
+				$sql .= " OR (" . implode(" OR ", $implode) . ")";
 			}
 
 			$sql .= ")";
@@ -116,6 +120,10 @@ class Article extends \Opencart\System\Engine\Model {
 
 		if (!empty($data['filter_topic_id'])) {
 			$sql .= " AND `a`.`topic_id` = '" . (int)$data['filter_topic_id'] . "'";
+		}
+
+		if (!empty($data['filter_author'])) {
+			$sql .= " AND `a`.`author` = '" . (int)$data['filter_author'] . "'";
 		}
 
 		$query = $this->db->query($sql);
@@ -136,5 +144,65 @@ class Article extends \Opencart\System\Engine\Model {
 		} else {
 			return 0;
 		}
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	public function getComments(array $data = []): array {
+		$sql = "SELECT * FROM `" . DB_PREFIX . "article_comment`";
+
+		$implode = [];
+
+		if (!empty($data['filter_keyword'])) {
+			$implode[] = "LCASE(`comment`) LIKE '" . $this->db->escape('%' . (string)$data['filter_keyword'] . '%') . "'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$sql .= " ORDER BY `date_added` DESC";
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
+	public function getTotalComments(array $data = []): int {
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "article_comment`";
+
+		$implode = [];
+
+		if (!empty($data['filter_keyword'])) {
+			$implode[] = "LCASE(`comment`) LIKE '" . $this->db->escape('%' . (string)$data['filter_keyword'] . '%') . "'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
+
+		return (int)$query->row['total'];
 	}
 }

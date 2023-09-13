@@ -1,20 +1,20 @@
-<form id="form-layout" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#layout">
+<form id="form-antispam" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#antispam">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
-          <td class="text-start"><a href="{{ sort_name }}"{% if sort == 'name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>
+          <td class="text-start"><a href="{{ sort_keyword }}"{% if sort == 'keyword' %} class="{{ order|lower }}"{% endif %}>{{ column_keyword }}</a></td>
           <td class="text-end">{{ column_action }}</td>
         </tr>
       </thead>
       <tbody>
-        {% if layouts %}
-          {% for layout in layouts %}
+        {% if antispams %}
+          {% for antispam in antispams %}
             <tr>
-              <td class="text-center"><input type="checkbox" name="selected[]" value="{{ layout.layout_id }}" class="form-check-input"/></td>
-              <td class="text-start">{{ layout.name }}</td>
-              <td class="text-end"><a href="{{ layout.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a></td>
+              <td class="text-center"><input type="checkbox" name="selected[]" value="{{ antispam.antispam_id }}" class="form-check-input"/></td>
+              <td class="text-start">{{ antispam.keyword }}</td>
+              <td class="text-end"><a href="{{ antispam.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></a></td>
             </tr>
           {% endfor %}
         {% else %}
