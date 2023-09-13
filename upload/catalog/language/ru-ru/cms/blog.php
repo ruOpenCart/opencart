@@ -1,32 +1,22 @@
 <?php
 // Heading
-$_['heading_title']    = 'Блог';
+$_['heading_title']   = 'Блог';
 
 // Text
 $_['text_blog']       = 'Блог';
-$_['text_reviews']    = '%s отзыв(ов)';
-$_['text_write']      = 'Написать отзыв';
-$_['text_login']      = 'Пожалуйста, <a href="%s">войдите</a> или <a href="%s">зарегистрируйтесь</a>, чтобы оставить отзыв';
-$_['text_no_results'] = 'Нет отзывов об этом товаре.';
-$_['text_note']       = '<span style="color: #FF0000;">Примечание:</span> HTML разметка не поддерживается! Используйте обычный текст!';
-$_['text_all']        = 'Все';
-$_['text_success']    = 'Спасибо за ваш отзыв. Он был отправлен на одобрение.';
+$_['text_comments']   = '%s comments';
+$_['text_write']      = 'Write a comment';
+$_['text_login']      = 'Please <a href="%s">login</a> or <a href="%s">register</a> to comment';
+$_['text_no_results'] = 'There are no comments for this article.';
+$_['text_queue']      = 'Your comment has been added to our moderation queue!';
+$_['text_success']    = 'Thank you for your comment. It has been submitted to the webmaster for approval.';
 
 // Entry
-$_['entry_name']       = 'Ваше имя';
-$_['entry_review']     = 'Ваш отзыв';
-$_['entry_rating']     = 'Рейтинг';
-$_['entry_good']       = 'Хорошо';
-$_['entry_bad']        = 'Плохо';
-
-// Tabs
-$_['tab_review']       = 'Отзывов (%s)';
+$_['entry_author']    = 'Ваше имя';
+$_['entry_comment']   = 'Ваш отзыв';
 
 // Error
-$_['error_token']      = 'Внимание: Неверный токен отзыва!';
-$_['error_product']    = 'Внимание: Товар не может быть найден!';
-$_['error_name']       = 'Название должно быть от 3 до 25 символов!';
-$_['error_text']       = 'Текст отзыва должен быть от 25 до 1000 символов!';
-$_['error_rating']     = 'Пожалуйста, выберите оценку отзыва!';
-$_['error_guest']      = 'Вы должны войти, чтобы оставить отзыв о товаре!';
-$_['error_purchased']  = 'Вы должны приобрести этот товар перед тем, как написать отзыв!';
+$_['error_token']      = 'Warning: Comment token invalid!';
+$_['error_article']    = 'Warning: Article could not be found!';
+$_['error_comment']    = 'Comment must be between 25 and 1000 characters!';
+$_['error_guest']      = 'You must login to comment on the article!';
