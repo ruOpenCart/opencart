@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']        = 'Anti-Spam';
+$_['heading_title']        = 'Анти-спам';
 
 // Text
-$_['text_success']         = 'Success: You have modified anti-spam!';
-$_['text_list']            = 'Anti-Spam List';
-$_['text_add']             = 'Add Anti-Spam';
-$_['text_edit']            = 'Edit Anti-Spam';
+$_['text_success']         = 'Успех: Вы изменили анти-спам!';
+$_['text_list']            = 'Список анти-спама';
+$_['text_add']             = 'Добавить Анти-спам';
+$_['text_edit']            = 'Редактировать анти-спам';
 
 // Column
 $_['column_keyword']       = 'Ключевое слово';
@@ -17,6 +17,6 @@ $_['entry_keyword']        = 'Ключевое слово';
 
 // Error
 $_['error_warning']        = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']     = 'Warning: You do not have permission to modify anti-spam!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение анти-спама!';
 $_['error_keyword']        = 'Ключевое слово должно быть от 1 до 64 символов!';
-$_['error_keyword_exists'] = 'Keyword must be unique!';
+$_['error_keyword_exists'] = 'Ключевое слово должно быть уникальным!';
