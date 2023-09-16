@@ -4,22 +4,22 @@ $_['heading_title']   = 'Блог';
 
 // Text
 $_['text_blog']       = 'Блог';
-$_['text_comments']   = '%s comments';
-$_['text_write']      = 'Write a comment';
-$_['text_login']      = 'Please <a href="%s">login</a> or <a href="%s">register</a> to comment';
-$_['text_no_results'] = 'There are no comments for this article.';
-$_['text_queue']      = 'Your comment has been added to our moderation queue!';
-$_['text_success']    = 'Thank you for your comment. It has been submitted to the webmaster for approval.';
+$_['text_comments']   = 'Комментариев: %s';
+$_['text_write']      = 'Написать комментарий';
+$_['text_login']      = 'Пожалуйста <a href="%s">войдите</a> или <a href="%s">создайте учетную запись</a> перед тем как написать комментарий';
+$_['text_no_results'] = 'В этой статье нет комментариев.';
+$_['text_queue']      = 'Ваш комментарий был добавлен в нашу очередь модерации!';
+$_['text_success']    = 'Спасибо за ваш комментарий. Он был отправлен на утверждение веб-мастеру.';
 
 // Entry
 $_['entry_author']    = 'Ваше имя';
 $_['entry_comment']   = 'Комментарий';
 
 // Button
-$_['button_continue'] = 'Continue Reading';
+$_['button_continue'] = 'Читать далее';
 
 // Error
-$_['error_token']     = 'Warning: Comment token invalid!';
-$_['error_article']   = 'Warning: Article could not be found!';
-$_['error_comment']   = 'Comment must be between 25 and 1000 characters!';
-$_['error_guest']     = 'You must login to comment on the article!';
+$_['error_token']     = 'Внимание: Токен комментария недействителен!';
+$_['error_article']   = 'Внимание: Статья не найдена!';
+$_['error_comment']   = 'Комментарий должен быть от 25 до 1000 символов!';
+$_['error_guest']     = 'Вы должны войти, чтобы прокомментировать статью!';
