@@ -1,30 +1,30 @@
 <?php
 // Heading
-$_['heading_title']           = 'Articles';
+$_['heading_title']           = 'Статьи';
 
 // Text
-$_['text_success']            = 'Success: You have modified articles!';
-$_['text_list']               = 'Article List';
-$_['text_add']                = 'Add Article';
-$_['text_edit']               = 'Edit Article';
+$_['text_success']            = 'Успех: Вы изменили статьи!';
+$_['text_list']               = 'Список статей';
+$_['text_add']                = 'Добавить статью';
+$_['text_edit']               = 'Редактировать статью';
 $_['text_default']            = 'По умолчанию';
 $_['text_keyword']            = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
 
 // Column
-$_['column_name']             = 'Article Name';
+$_['column_name']             = 'Название статьи';
 $_['column_author']           = 'Автор';
 $_['column_date_added']       = 'Дата добавления';
 $_['column_action']           = 'Действие';
 
 // Entry
 $_['entry_image']             = 'Изображение';
-$_['entry_name']              = 'Article Name';
+$_['entry_name']              = 'Название статьи';
 $_['entry_description']       = 'Описание';
-$_['entry_tag']               = 'Tags';
+$_['entry_tag']               = 'Тэги';
 $_['entry_meta_title']        = 'Мета-тег Title';
 $_['entry_meta_keyword']      = 'Мета-тег Keywords';
 $_['entry_meta_description']  = 'Мета-тег Description';
-$_['entry_topic']             = 'Topic';
+$_['entry_topic']             = 'Тема';
 $_['entry_author']            = 'Автор';
 $_['entry_store']             = 'Магазины';
 $_['entry_sort_order']        = 'Порядок сортировки';
@@ -34,8 +34,8 @@ $_['entry_layout']            = 'Переопределение макета';
 
 // Error
 $_['error_warning']           = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']        = 'Warning: You do not have permission to modify articles!';
-$_['error_name']              = 'Article Name must be between 1 and 255 characters!';
+$_['error_permission']        = 'Внимание: У вас нет прав на изменение статей!';
+$_['error_name']              = 'Название статьи должно быть от 1 до 255 символов!';
 $_['error_meta_title']        = 'Мета заголовок должен быть больше 1 и меньше 255 символов!';
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
