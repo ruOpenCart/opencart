@@ -112,20 +112,16 @@ class TaxRate extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('localisation/tax_rate');
 
-		$tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRates();
-
 		$results = $this->model_localisation_tax_rate->getTaxRates($filter_data);
 
 		foreach ($results as $result) {
 			$data['tax_rates'][] = [
-				'tax_rate_id'   => $result['tax_rate_id'],
-				'name'          => $result['name'],
-				'rate'          => $result['rate'],
-				'type'          => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')),
-				'geo_zone'      => $result['geo_zone'],
-				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-				'edit'          => $this->url->link('localisation/tax_rate.form', 'user_token=' . $this->session->data['user_token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url)
+				'tax_rate_id' => $result['tax_rate_id'],
+				'name'        => $result['name'],
+				'rate'        => $result['rate'],
+				'type'        => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')),
+				'geo_zone'    => $result['geo_zone'],
+				'edit'        => $this->url->link('localisation/tax_rate.form', 'user_token=' . $this->session->data['user_token'] . '&tax_rate_id=' . $result['tax_rate_id'] . $url)
 			];
 		}
 
@@ -141,8 +137,6 @@ class TaxRate extends \Opencart\System\Engine\Controller {
 		$data['sort_rate'] = $this->url->link('localisation/tax_rate.list', 'user_token=' . $this->session->data['user_token'] . '&sort=tr.rate' . $url);
 		$data['sort_type'] = $this->url->link('localisation/tax_rate.list', 'user_token=' . $this->session->data['user_token'] . '&sort=tr.type' . $url);
 		$data['sort_geo_zone'] = $this->url->link('localisation/tax_rate.list', 'user_token=' . $this->session->data['user_token'] . '&sort=gz.name' . $url);
-		$data['sort_date_added'] = $this->url->link('localisation/tax_rate.list', 'user_token=' . $this->session->data['user_token'] . '&sort=tr.date_added' . $url);
-		$data['sort_date_modified'] = $this->url->link('localisation/tax_rate.list', 'user_token=' . $this->session->data['user_token'] . '&sort=tr.date_modified' . $url);
 
 		$url = '';
 
@@ -153,6 +147,8 @@ class TaxRate extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['order'])) {
 			$url .= '&order=' . $this->request->get['order'];
 		}
+
+		$tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRates();
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $tax_rate_total,

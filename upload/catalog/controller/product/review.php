@@ -12,15 +12,17 @@ class Review extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('product/review');
 
+		if (isset($this->request->get['product_id'])) {
+			$product_id = (int)$this->request->get['product_id'];
+		} else {
+			$product_id = 0;
+		}
+
 		$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', 'language=' . $this->config->get('config_language')), $this->url->link('account/register', 'language=' . $this->config->get('config_language')));
 
 		$data['list'] = $this->getList();
 
-		if (isset($this->request->get['product_id'])) {
-			$data['product_id'] = (int)$this->request->get['product_id'];
-		} else {
-			$data['product_id'] = 0;
-		}
+		$data['product_id'] = $product_id;
 
 		if ($this->customer->isLogged() || $this->config->get('config_review_guest')) {
 			$data['review_guest'] = true;
@@ -29,9 +31,9 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		if ($this->customer->isLogged()) {
-			$data['customer_name'] = $this->customer->getFirstName() . ' ' . $this->customer->getLastName();
+			$data['customer'] = $this->customer->getFirstName() . ' ' . $this->customer->getLastName();
 		} else {
-			$data['customer_name'] = '';
+			$data['customer'] = '';
 		}
 
 		// Create a login token to prevent brute force attacks
@@ -85,16 +87,20 @@ class Review extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$this->load->model('product/product');
+		if (!$this->config->get('config_review_status')) {
+			$json['error']['warning'] = $this->language->get('error_status');
+		}
 
-		$product_info = $this->model_product_product->getProduct($product_id);
+		$this->load->model('catalog/product');
+
+		$product_info = $this->model_catalog_product->getProduct($product_id);
 
 		if (!$product_info) {
 			$json['error']['warning'] = $this->language->get('error_product');
 		}
 
-		if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 25)) {
-			$json['error']['name'] = $this->language->get('error_name');
+		if ((oc_strlen($this->request->post['author']) < 3) || (oc_strlen($this->request->post['author']) > 25)) {
+			$json['error']['author'] = $this->language->get('error_author');
 		}
 
 		if ((oc_strlen($this->request->post['text']) < 25) || (oc_strlen($this->request->post['text']) > 1000)) {
@@ -171,8 +177,6 @@ class Review extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('catalog/review');
 
-		$review_total = $this->model_catalog_review->getTotalReviewsByProductId($product_id);
-
 		$results = $this->model_catalog_review->getReviewsByProductId($product_id, ($page - 1) * 5, 5);
 
 		foreach ($results as $result) {
@@ -183,6 +187,8 @@ class Review extends \Opencart\System\Engine\Controller {
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			];
 		}
+
+		$review_total = $this->model_catalog_review->getTotalReviewsByProductId($product_id);
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $review_total,

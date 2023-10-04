@@ -346,9 +346,6 @@ footer a {
   }
 }
 /* content */
-#content {
-  min-height: 600px;
-}
 /* footer */
 footer {
   margin-top: 30px;
@@ -567,9 +564,6 @@ footer h5 {
     width: 100%;
     border-left: 1px solid #ddd;
   }
-}
-.rating {
-  padding-bottom: 10px;
 }
 .rating .fa-stack {
   width: 20px;

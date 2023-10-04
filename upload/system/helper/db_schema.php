@@ -1,4 +1,59 @@
 <?php
+function oc_db_create($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port, $db_prefix) {
+	try {
+		// Database
+		$db = new \Opencart\System\Library\DB($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port);
+	} catch (\Exception $e) {
+		return false;
+	}
+
+	// Set up Database structure
+	$tables = oc_db_schema();
+
+	foreach ($tables as $table) {
+		$table_query = $db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . $db_database . "' AND TABLE_NAME = '" . $db_prefix . $table['name'] . "'");
+
+		if ($table_query->num_rows) {
+			$db->query("DROP TABLE `" . $db_prefix . $table['name'] . "`");
+		}
+
+		$sql = "CREATE TABLE `" . $db_prefix . $table['name'] . "` (" . "\n";
+
+		foreach ($table['field'] as $field) {
+			$sql .= "  `" . $field['name'] . "` " . $field['type'] . (!empty($field['not_null']) ? " NOT NULL" : "") . (isset($field['default']) ? " DEFAULT '" . $db->escape($field['default']) . "'" : "") . (!empty($field['auto_increment']) ? " AUTO_INCREMENT" : "") . ",\n";
+		}
+
+		if (isset($table['primary'])) {
+			$primary_data = [];
+
+			foreach ($table['primary'] as $primary) {
+				$primary_data[] = "`" . $primary . "`";
+			}
+
+			$sql .= "  PRIMARY KEY (" . implode(",", $primary_data) . "),\n";
+		}
+
+		if (isset($table['index'])) {
+			foreach ($table['index'] as $index) {
+				$index_data = [];
+
+				foreach ($index['key'] as $key) {
+					$index_data[] = "`" . $key . "`";
+				}
+
+				$sql .= "  KEY `" . $index['name'] . "` (" . implode(",", $index_data) . "),\n";
+			}
+		}
+
+		$sql = rtrim($sql, ",\n") . "\n";
+		$sql .= ") ENGINE=" . $table['engine'] . " CHARSET=" . $table['charset'] . " COLLATE=" . $table['collate'] . ";\n";
+
+		$db->query($sql);
+	}
+
+	return true;
+}
+
 function oc_db_schema() {
 	$tables = [];
 
@@ -574,13 +629,18 @@ function oc_db_schema() {
 				'not_null' => true
 			],
 			[
+				'name' => 'author',
+				'type' => 'varchar(64)',
+				'not_null' => true
+			],
+			[
 				'name' => 'comment',
 				'type' => 'text',
 				'not_null' => true
 			],
 			[
 				'name' => 'status',
-				'type' => 'varchar(255)',
+				'type' => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
@@ -631,11 +691,6 @@ function oc_db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
 				'name' => 'name',
 				'type' => 'varchar(255)',
 				'not_null' => true
@@ -643,6 +698,11 @@ function oc_db_schema() {
 			[
 				'name' => 'description',
 				'type' => 'text',
+				'not_null' => true
+			],
+			[
+				'name' => 'image',
+				'type' => 'varchar(255)',
 				'not_null' => true
 			],
 			[
@@ -814,11 +874,6 @@ function oc_db_schema() {
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
 				'name' => 'name',
 				'type' => 'varchar(255)',
 				'not_null' => true
@@ -826,6 +881,11 @@ function oc_db_schema() {
 			[
 				'name' => 'description',
 				'type' => 'text',
+				'not_null' => true
+			],
+			[
+				'name' => 'image',
+				'type' => 'varchar(255)',
 				'not_null' => true
 			],
 			[
@@ -1729,8 +1789,12 @@ function oc_db_schema() {
 			[
 				'name' => 'newsletter',
 				'type' => 'tinyint(1)',
-				'not_null' => true,
-				'default' => '0'
+				'not_null' => true
+			],
+			[
+				'name' => 'commenter',
+				'type' => 'tinyint(1)',
+				'not_null' => true
 			],
 			[
 				'name' => 'ip',
@@ -3301,16 +3365,6 @@ function oc_db_schema() {
 			[
 				'name' => 'description',
 				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
 				'not_null' => true
 			]
 		],
@@ -7323,16 +7377,6 @@ function oc_db_schema() {
 				'name' => 'description',
 				'type' => 'varchar(255)',
 				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
-				'not_null' => true
 			]
 		],
 		'primary' => [
@@ -7372,16 +7416,6 @@ function oc_db_schema() {
 			[
 				'name' => 'type',
 				'type' => 'char(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
 				'not_null' => true
 			]
 		],
