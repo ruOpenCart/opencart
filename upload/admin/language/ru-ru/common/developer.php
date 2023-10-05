@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']          = 'Developer Options';
+$_['heading_title']          = 'Параметры разработчика';
 
 // Text
-$_['text_developer_success'] = 'Success: You have modified developer settings!';
-$_['text_cache_success']     = 'Success: You have cleared the cache!';
-$_['text_theme_success']     = 'Success: You have cleared the theme cache!';
-$_['text_sass_success']      = 'Success: You have cleared the SASS cache!';
+$_['text_developer_success'] = 'Успех: Вы изменили настройки разработчика!';
+$_['text_cache_success']     = 'Успех: Вы очистили кэш!';
+$_['text_theme_success']     = 'Успех: Вы очистили кэш темы!';
+$_['text_sass_success']      = 'Успех: Вы очистили кэш SASS!';
 $_['text_theme']             = 'Тема';
 $_['text_sass']              = 'SASS';
 $_['text_cache']             = 'Кэш';
