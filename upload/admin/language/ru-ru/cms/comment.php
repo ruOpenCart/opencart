@@ -6,7 +6,7 @@ $_['heading_title']     = 'Комментарии к статье';
 $_['text_success']      = 'Успех: Вы изменили комментарии к статьям!';
 $_['text_list']         = 'Список комментариев к статье';
 $_['text_filter']       = 'Фильтр';
-$_['text_by']           = 'by';
+$_['text_by']           = 'от';
 
 // Column
 $_['column_comment']    = 'Комментарий';
@@ -23,7 +23,7 @@ $_['entry_status']      = 'Статус';
 $_['entry_date_added']  = 'Дата добавления';
 
 // Button
-$_['button_spam']       = 'Spam';
+$_['button_spam']       = 'Спам';
 
 // Error
 $_['error_permission']  = 'У вас нет прав для изменения комментариев к статьям!';
