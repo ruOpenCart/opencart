@@ -15,9 +15,15 @@ $_['text_plesk']             = 'Настройка базы данных в Ples
 
 // Entry
 $_['entry_db_driver']        = 'Драйвер БД';
+$_['entry_db_driver_select'] = 'Select a DB driver';
 $_['entry_db_hostname']      = 'Хост';
 $_['entry_db_username']      = 'Имя пользователя';
 $_['entry_db_password']      = 'Пароль';
+$_['entry_db_advanced']      = 'Advanced';
+$_['entry_db_ssl_key']       = 'SSL Key';
+$_['entry_db_ssl_cert']      = 'SSL Cert';
+$_['entry_db_ssl_ca']        = 'SSL CA';
+$_['entry_db_ssl_info']      = 'Certificate inputs should be added as a single line like: "MIIDrzCCApegAwIBAgIQ....=="';
 $_['entry_db_database']      = 'База данных';
 $_['entry_db_port']          = 'Порт';
 $_['entry_db_prefix']        = 'Префикс';
