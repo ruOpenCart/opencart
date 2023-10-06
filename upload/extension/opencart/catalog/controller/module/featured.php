@@ -1,16 +1,28 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\Opencart\Module;
+/**
+ * Class Featured
+ *
+ * @package
+ */
 class Featured extends \Opencart\System\Engine\Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
 	public function index(array $setting): string {
 		$this->load->language('extension/opencart/module/featured');
+
+		$data['axis'] = $setting['axis'];
+
+		$data['products'] = [];
 
 		$this->load->model('catalog/product');
 		$this->load->model('tool/image');
 
-		$data['products'] = [];
-
 		if (!empty($setting['product'])) {
-			$product_data = [];
+			$products = [];
 
 			foreach ($setting['product'] as $product_id) {
 				$product_info = $this->model_catalog_product->getProduct($product_id);
@@ -49,7 +61,7 @@ class Featured extends \Opencart\System\Engine\Controller {
 					'product_id'  => $product['product_id'],
 					'thumb'       => $image,
 					'name'        => $product['name'],
-					'description' => utf8_substr(strip_tags(html_entity_decode($product['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get('config_product_description_length')) . '..',
+					'description' => oc_substr(trim(strip_tags(html_entity_decode($product['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('config_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,

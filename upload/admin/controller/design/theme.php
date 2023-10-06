@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Design;
+/**
+ * Class Theme
+ *
+ * @package Opencart\Admin\Controller\Design
+ */
 class Theme extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('design/theme');
 
@@ -40,6 +48,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('design/theme', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function history(): void {
 		$this->load->language('design/theme');
 
@@ -49,14 +60,14 @@ class Theme extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['histories'] = [];
 
 		$this->load->model('design/theme');
 		$this->load->model('setting/store');
 
-		$history_total = $this->model_design_theme->getTotalThemes();
-
-		$results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
+		$results = $this->model_design_theme->getThemes(($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$store_info = $this->model_setting_store->getStore($result['store_id']);
@@ -72,23 +83,28 @@ class Theme extends \Opencart\System\Engine\Controller {
 				'store'      => ($result['store_id'] ? $store : $this->language->get('text_default')),
 				'route'      => $result['route'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('design/theme|template', 'user_token=' . $this->session->data['user_token']),
-				'delete'     => $this->url->link('design/theme|delete', 'user_token=' . $this->session->data['user_token'] . '&theme_id=' . $result['theme_id'])
+				'edit'       => $this->url->link('design/theme.template', 'user_token=' . $this->session->data['user_token']),
+				'delete'     => $this->url->link('design/theme.delete', 'user_token=' . $this->session->data['user_token'] . '&theme_id=' . $result['theme_id'])
 			];
 		}
+
+		$history_total = $this->model_design_theme->getTotalThemes();
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,
-			'limit' => 10,
-			'url'   => $this->url->link('design/theme|history', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
+			'limit' => $limit,
+			'url'   => $this->url->link('design/theme.history', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
 		]);
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
 
 		$this->response->setOutput($this->load->view('design/theme_history', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function path(): void {
 		$this->load->language('design/theme');
 
@@ -216,6 +232,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function template(): void {
 		$this->load->language('design/theme');
 
@@ -281,6 +300,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('design/theme');
 
@@ -321,6 +343,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function reset(): void {
 		$json = [];
 
@@ -374,6 +399,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function delete(): void {
 		$this->load->language('design/theme');
 

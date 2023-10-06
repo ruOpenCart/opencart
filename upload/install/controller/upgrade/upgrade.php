@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -13,6 +21,7 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 		$data['text_steps'] = $this->language->get('text_steps');
 		$data['text_error'] = $this->language->get('text_error');
 		$data['text_clear'] = $this->language->get('text_clear');
+		$data['text_refresh'] = $this->language->get('text_refresh');
 		$data['text_admin'] = $this->language->get('text_admin');
 		$data['text_user'] = $this->language->get('text_user');
 		$data['text_setting'] = $this->language->get('text_setting');
@@ -23,14 +32,9 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 
 		$data['button_continue'] = $this->language->get('button_continue');
 
-		$file = DIR_OPENCART . 'admin/config.php';
+		$server = trim(HTTP_SERVER, '/');
 
-		if (!is_file($file)) {
-			$data['error_warning'] = sprintf($this->language->get('error_admin'), $file);
-		} else {
-			$data['error_warning'] = '';
-		}
-
+		$data['server'] = substr($server, 0, strrpos($server, '/')). '/';
 		$data['total'] = count(glob(DIR_APPLICATION . 'controller/upgrade/upgrade_*.php'));
 
 		$data['header'] = $this->load->controller('common/header');

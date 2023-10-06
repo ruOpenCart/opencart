@@ -1,15 +1,27 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\Opencart\Module;
+/**
+ * Class Latest
+ *
+ * @package
+ */
 class Latest extends \Opencart\System\Engine\Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
 	public function index(array $setting): string {
 		$this->load->language('extension/opencart/module/latest');
 
-		$this->load->model('catalog/product');
-		$this->load->model('tool/image');
+		$data['axis'] = $setting['axis'];
 
 		$data['products'] = [];
 
-		$results = $this->model_catalog_product->getLatest($setting['limit']);
+		$this->load->model('extension/opencart/module/latest');
+		$this->load->model('tool/image');
+
+		$results = $this->model_extension_opencart_module_latest->getLatest($setting['limit']);
 
 		if ($results) {
 			foreach ($results as $result) {
@@ -41,7 +53,7 @@ class Latest extends \Opencart\System\Engine\Controller {
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
 					'name'        => $result['name'],
-					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('config_product_description_length')) . '..',
+					'description' => oc_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('config_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,

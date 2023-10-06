@@ -1,5 +1,10 @@
 <?php
 namespace Opencart\System\Library\Template;
+/**
+ * Class Template
+ *
+ * @package
+ */
 class Template {
 	protected string $directory = '';
 	protected array $path = [];
@@ -7,8 +12,10 @@ class Template {
 	/**
 	 * addPath
 	 *
-	 * @param    string $namespace
-	 * @param    string $directory
+	 * @param    string  $namespace
+	 * @param    string  $directory
+	 *
+	 * @return	 void
 	 */
 	public function addPath(string $namespace, string $directory = ''): void {
 		if (!$directory) {
@@ -25,7 +32,7 @@ class Template {
 	 * @param	array	$data
 	 * @param	string	$code
 	 *
-	 * @return	array
+	 * @return	string
 	 */
 	public function render(string $filename, array $data = [], string $code = ''): string {
 		if (!$code) {
@@ -43,7 +50,7 @@ class Template {
 				}
 
 				if (isset($this->path[$namespace])) {
-					$file = $this->path[$namespace] . substr($filename, strlen($namespace)) . '.tpl';
+					$file = $this->path[$namespace] . substr($filename, strlen($namespace) + 1) . '.tpl';
 				}
 			}
 
@@ -67,6 +74,14 @@ class Template {
 		}
 	}
 
+	/**
+	 * Compile
+	 *
+	 * @param	string	$filename
+	 * @param	string	$code
+	 *
+	 * @return	string
+	 */
 	protected function compile(string $filename, string $code): string {
 		$file = DIR_CACHE . 'template/' . hash('md5', $filename . $code) . '.php';
 

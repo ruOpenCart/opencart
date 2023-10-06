@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Dashboard;
+/**
+ * Class Chart
+ *
+ * @package
+ */
 class Chart extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/dashboard/chart');
 
@@ -23,7 +31,7 @@ class Chart extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/dashboard/chart', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/dashboard/chart|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/dashboard/chart.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard');
 
 		$data['dashboard_chart_width'] = $this->config->get('dashboard_chart_width');
@@ -44,6 +52,9 @@ class Chart extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/dashboard/chart_form', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/dashboard/chart');
 
@@ -65,6 +76,9 @@ class Chart extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return string
+	 */
 	public function dashboard(): string {
 		$this->load->language('extension/opencart/dashboard/chart');
 
@@ -73,7 +87,10 @@ class Chart extends \Opencart\System\Engine\Controller {
 		return $this->load->view('extension/opencart/dashboard/chart_info', $data);
 	}
 
-	public function chart() {
+	/**
+	 * @return void
+	 */
+	public function chart(): void {
 		$this->load->language('extension/opencart/dashboard/chart');
 
 		$json = [];
@@ -169,7 +186,7 @@ class Chart extends \Opencart\System\Engine\Controller {
 				}
 
 				for ($i = 1; $i <= 12; $i++) {
-					$json['xaxis'][] = [$i, date('M', mktime(0, 0, 0, $i))];
+					$json['xaxis'][] = [$i, date('M', mktime(0, 0, 0, $i, 1))];
 				}
 				break;
 		}

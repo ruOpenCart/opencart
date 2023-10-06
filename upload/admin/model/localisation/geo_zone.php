@@ -1,8 +1,18 @@
 <?php
 namespace Opencart\Admin\Model\Localisation;
+/**
+ * Class GeoZone
+ *
+ * @package Opencart\Admin\Model\Localisation
+ */
 class GeoZone extends \Opencart\System\Engine\Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
 	public function addGeoZone(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `description` = '" . $this->db->escape((string)$data['description']) . "', `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `description` = '" . $this->db->escape((string)$data['description']) . "'");
 
 		$geo_zone_id = $this->db->getLastId();
 
@@ -19,8 +29,14 @@ class GeoZone extends \Opencart\System\Engine\Model {
 		return $geo_zone_id;
 	}
 
+	/**
+	 * @param int   $geo_zone_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
 	public function editGeoZone(int $geo_zone_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `description` = '" . $this->db->escape((string)$data['description']) . "', `date_modified` = NOW() WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `description` = '" . $this->db->escape((string)$data['description']) . "' WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
@@ -35,6 +51,11 @@ class GeoZone extends \Opencart\System\Engine\Model {
 		$this->cache->delete('geo_zone');
 	}
 
+	/**
+	 * @param int $geo_zone_id
+	 *
+	 * @return void
+	 */
 	public function deleteGeoZone(int $geo_zone_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
@@ -42,87 +63,114 @@ class GeoZone extends \Opencart\System\Engine\Model {
 		$this->cache->delete('geo_zone');
 	}
 
+	/**
+	 * @param int $geo_zone_id
+	 *
+	 * @return array
+	 */
 	public function getGeoZone(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
 	public function getGeoZones(array $data = []): array {
-		if ($data) {
-			$sql = "SELECT * FROM `" . DB_PREFIX . "geo_zone`";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "geo_zone`";
 
-			$sort_data = [
-				'name',
-				'description'
-			];
+		$sort_data = [
+			'name',
+			'description'
+		];
 
-			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY `" . $data['sort'] . "`";
-			} else {
-				$sql .= " ORDER BY `name`";
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY `name`";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
 			}
 
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
 			}
 
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
 
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
+		$geo_zone_data = $this->cache->get('geo_zone.' . md5($sql));
 
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
-
+		if (!$geo_zone_data) {
 			$query = $this->db->query($sql);
 
-			return $query->rows;
-		} else {
-			$geo_zone_data = $this->cache->get('geo_zone');
+			$geo_zone_data = $query->rows;
 
-			if (!$geo_zone_data) {
-				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "geo_zone` ORDER BY `name` ASC");
-
-				$geo_zone_data = $query->rows;
-
-				$this->cache->set('geo_zone', $geo_zone_data);
-			}
-
-			return $geo_zone_data;
+			$this->cache->set('geo_zone.' . md5($sql), $geo_zone_data);
 		}
+
+		return $geo_zone_data;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getTotalGeoZones(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "geo_zone`");
 
 		return (int)$query->row['total'];
 	}
 
+	/**
+	 * @param int $geo_zone_id
+	 *
+	 * @return array
+	 */
 	public function getZoneToGeoZones(int $geo_zone_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
 		return $query->rows;
 	}
 
+	/**
+	 * @param int $geo_zone_id
+	 *
+	 * @return int
+	 */
 	public function getTotalZoneToGeoZoneByGeoZoneId(int $geo_zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
+	/**
+	 * @param int $country_id
+	 *
+	 * @return int
+	 */
 	public function getTotalZoneToGeoZoneByCountryId(int $country_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `country_id` = '" . (int)$country_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
+	/**
+	 * @param int $zone_id
+	 *
+	 * @return int
+	 */
 	public function getTotalZoneToGeoZoneByZoneId(int $zone_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 

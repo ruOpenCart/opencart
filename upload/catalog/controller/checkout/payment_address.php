@@ -1,36 +1,31 @@
 <?php
 namespace Opencart\Catalog\Controller\Checkout;
+/**
+ * Class PaymentAddress
+ *
+ * @package Opencart\Catalog\Controller\Checkout
+ */
 class PaymentAddress extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->language('checkout/payment_address');
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
-
 		$data['config_file_max_size'] = ((int)$this->config->get('config_file_max_size') * 1024 * 1024);
 
 		$data['upload'] = $this->url->link('tool/upload', 'language=' . $this->config->get('config_language'));
 
-		$data['language'] = $this->config->get('config_language');
-		$data['shipping_required'] = $this->cart->hasShipping();
-
-		// Set payment address
 		$this->load->model('account/address');
 
-		if ($this->customer->isLogged() && !isset($this->session->data['payment_address'])) {
-			$address_info = $this->model_account_address->getAddress($this->customer->getAddressId());
-
-			if ($address_info) {
-				$this->session->data['payment_address'] = $address_info;
-			}
-		}
+		$data['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
 
 		if (isset($this->session->data['payment_address']['address_id'])) {
-			$data['address_id'] = (int)$this->session->data['payment_address']['address_id'];
+			$data['address_id'] = $this->session->data['payment_address']['address_id'];
 		} else {
 			$data['address_id'] = 0;
 		}
-
-		$data['addresses'] = $this->model_account_address->getAddresses();
 
 		$this->load->model('localisation/country');
 
@@ -49,9 +44,14 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		$data['language'] = $this->config->get('config_language');
+
 		return $this->load->view('checkout/payment_address', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('checkout/payment_address');
 
@@ -79,7 +79,7 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if (!$this->config->get('config_checkout_address')) {
+		if (!$this->config->get('config_checkout_payment_address')) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 		}
 
@@ -103,36 +103,36 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
-				$json['error']['payment_firstname'] = $this->language->get('error_firstname');
+			if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
+				$json['error']['firstname'] = $this->language->get('error_firstname');
 			}
 
-			if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
-				$json['error']['payment_lastname'] = $this->language->get('error_lastname');
+			if ((oc_strlen($this->request->post['lastname']) < 1) || (oc_strlen($this->request->post['lastname']) > 32)) {
+				$json['error']['lastname'] = $this->language->get('error_lastname');
 			}
 
-			if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
-				$json['error']['payment_address_1'] = $this->language->get('error_address_1');
+			if ((oc_strlen($this->request->post['address_1']) < 3) || (oc_strlen($this->request->post['address_1']) > 128)) {
+				$json['error']['address_1'] = $this->language->get('error_address_1');
 			}
 
-			if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 32)) {
-				$json['error']['payment_city'] = $this->language->get('error_city');
+			if ((oc_strlen($this->request->post['city']) < 2) || (oc_strlen($this->request->post['city']) > 128)) {
+				$json['error']['city'] = $this->language->get('error_city');
 			}
 
 			$this->load->model('localisation/country');
 
 			$country_info = $this->model_localisation_country->getCountry((int)$this->request->post['country_id']);
 
-			if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
-				$json['error']['payment_postcode'] = $this->language->get('error_postcode');
+			if ($country_info && $country_info['postcode_required'] && (oc_strlen($this->request->post['postcode']) < 2 || oc_strlen($this->request->post['postcode']) > 10)) {
+				$json['error']['postcode'] = $this->language->get('error_postcode');
 			}
 
 			if ($this->request->post['country_id'] == '') {
-				$json['error']['payment_country'] = $this->language->get('error_country');
+				$json['error']['country'] = $this->language->get('error_country');
 			}
 
 			if ($this->request->post['zone_id'] == '') {
-				$json['error']['payment_zone'] = $this->language->get('error_zone');
+				$json['error']['zone'] = $this->language->get('error_zone');
 			}
 
 			// Custom field validation
@@ -143,9 +143,9 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 			foreach ($custom_fields as $custom_field) {
 				if ($custom_field['location'] == 'address') {
 					if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
-						$json['error']['payment_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 					} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
-						$json['error']['payment_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
+						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 					}
 				}
 			}
@@ -163,54 +163,16 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 
 			$json['address_id'] = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
 
-			$json['addresses'] = $this->model_account_address->getAddresses();
+			$json['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
 
-			if ($country_info) {
-				$country = $country_info['name'];
-				$iso_code_2 = $country_info['iso_code_2'];
-				$iso_code_3 = $country_info['iso_code_3'];
-				$address_format = $country_info['address_format'];
-			} else {
-				$country = '';
-				$iso_code_2 = '';
-				$iso_code_3 = '';
-				$address_format = '';
-			}
-
-			$this->load->model('localisation/zone');
-
-			$zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
-
-			if ($zone_info) {
-				$zone = $zone_info['name'];
-				$zone_code = $zone_info['code'];
-			} else {
-				$zone = '';
-				$zone_code = '';
-			}
-
-			$this->session->data['payment_address'] = [
-				'address_id'     => $json['address_id'],
-				'firstname'      => $this->request->post['firstname'],
-				'lastname'       => $this->request->post['lastname'],
-				'company'        => $this->request->post['company'],
-				'address_1'      => $this->request->post['address_1'],
-				'address_2'      => $this->request->post['address_2'],
-				'city'           => $this->request->post['city'],
-				'postcode'       => $this->request->post['postcode'],
-				'zone_id'        => $this->request->post['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $this->request->post['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
-				'custom_field'   => isset($this->request->post['custom_field']) ? $this->request->post['custom_field'] : []
-			];
+			$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getId(), $json['address_id']);
 
 			$json['success'] = $this->language->get('text_success');
 
+			// Clear payment and shipping methods
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
 		}
 
@@ -218,6 +180,9 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function address(): void {
 		$this->load->language('checkout/payment_address');
 
@@ -255,17 +220,23 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate if payment address is set if required in settings
-		if (!$this->config->get('config_checkout_address')) {
+		if (!$this->config->get('config_checkout_payment_address')) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
 		}
 
 		if (!$json) {
 			$this->load->model('account/address');
 
-			$address_info = $this->model_account_address->getAddress($address_id);
+			$address_info = $this->model_account_address->getAddress($this->customer->getId(), $address_id);
 
 			if (!$address_info) {
 				$json['error'] = $this->language->get('error_address');
+
+				unset($this->session->data['payment_address']);
+				unset($this->session->data['shipping_method']);
+				unset($this->session->data['shipping_methods']);
+				unset($this->session->data['payment_method']);
+				unset($this->session->data['payment_methods']);
 			}
 		}
 
@@ -274,6 +245,10 @@ class PaymentAddress extends \Opencart\System\Engine\Controller {
 
 			$json['success'] = $this->language->get('text_success');
 
+			// Clear payment and shipping methods
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
 		}
 

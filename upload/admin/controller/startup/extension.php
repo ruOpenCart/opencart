@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Startup;
+/**
+ * Class Extension
+ *
+ * @package Opencart\Admin\Controller\Startup
+ */
 class Extension extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		// Add extension paths from the DB
 		$this->load->model('setting/extension');
@@ -13,7 +21,7 @@ class Extension extends \Opencart\System\Engine\Controller {
 			// Register controllers, models and system extension folders
 			$this->autoloader->register('Opencart\Admin\Controller\Extension\\' . $extension, DIR_EXTENSION . $result['code'] . '/admin/controller/');
 			$this->autoloader->register('Opencart\Admin\Model\Extension\\' . $extension, DIR_EXTENSION . $result['code'] . '/admin/model/');
-			$this->autoloader->register('Opencart\System\Extension\\' . $extension, DIR_EXTENSION . $result['code'] . '/system/');
+			$this->autoloader->register('Opencart\System\Library\Extension\\' . $extension, DIR_EXTENSION . $result['code'] . '/system/library/');
 
 			// Template directory
 			$this->template->addPath('extension/' . $result['code'], DIR_EXTENSION . $result['code'] . '/admin/view/template/');

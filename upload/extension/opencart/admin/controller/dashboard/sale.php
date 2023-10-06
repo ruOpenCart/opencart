@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Dashboard;
+/**
+ * Class Sale
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Dashboard
+ */
 class Sale extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/dashboard/sale');
 
@@ -23,7 +31,7 @@ class Sale extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/dashboard/sale', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/dashboard/sale|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/dashboard/sale.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard');
 
 		$data['dashboard_sale_width'] = $this->config->get('dashboard_sale_width');
@@ -44,6 +52,9 @@ class Sale extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/dashboard/sale_form', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/dashboard/sale');
 
@@ -65,6 +76,9 @@ class Sale extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return string
+	 */
 	public function dashboard(): string {
 		$this->load->language('extension/opencart/dashboard/sale');
 

@@ -2,21 +2,29 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
-
+namespace Opencart\System\Library;
 /**
-* Response class
+ * Class Response
  *
  * Stores the response so the correct headers can go out before the response output is shown.
  *
-*/
-namespace Opencart\System\Library;
+ */
 class Response {
+	/**
+	 * @var array
+	 */
 	private array $headers = [];
+	/**
+	 * @var int
+	 */
 	private int $level = 0;
+	/**
+	 * @var string
+	 */
 	private string $output = '';
 
 	/**
@@ -28,7 +36,17 @@ class Response {
 	public function addHeader(string $header): void {
 		$this->headers[] = $header;
 	}
-	
+
+	/**
+	 * Get Headers
+	 *
+	 * @param	array
+	 *
+ 	*/
+	public function getHeaders(): array {
+		return $this->headers;
+	}
+
 	/**
 	 * Redirect
 	 *
@@ -40,7 +58,7 @@ class Response {
 		header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
 		exit();
 	}
-	
+
 	/**
 	 * Set Compression
 	 *
@@ -105,7 +123,7 @@ class Response {
 
 		return gzencode($data, $level);
 	}
-	
+
 	/**
 	 * Output
 	 *
@@ -114,13 +132,13 @@ class Response {
 	public function output(): void {
 		if ($this->output) {
 			$output = $this->level ? $this->compress($this->output, $this->level) : $this->output;
-			
+
 			if (!headers_sent()) {
 				foreach ($this->headers as $header) {
 					header($header, true);
 				}
 			}
-			
+
 			echo $output;
 		}
 	}

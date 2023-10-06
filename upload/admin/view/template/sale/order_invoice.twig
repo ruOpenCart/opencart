@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <title>{{ title }}</title>
   <base href="{{ base }}"/>
-  <link href="{{ bootstrap_css }}" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="{{ bootstrap_css }}" type="text/css" rel="stylesheet"/>
   <link href="{{ icons }}" type="text/css" rel="stylesheet"/>
   <script src="{{ jquery }}" type="text/javascript"></script>
   <script src="{{ bootstrap_js }}" type="text/javascript"></script>
@@ -107,6 +107,7 @@
             </div>
           </div>
         {% endif %}
+
         {% if order.shipping_address %}
           <div class="col">
             <div class="form-control-plaintext p-0 border rounded mb-3">
@@ -140,12 +141,12 @@
 
                 {% if product.reward %}
                   <br/>
-                  <small> - {{ text_points }} {{ product.reward }}</small>
+                  <small> - {{ text_points }}: {{ product.reward }}</small>
                 {% endif %}
 
                 {% if product.subscription %}
                   <br/>
-                  <small> - {{ text_subscription }} {{ product.subscription }} </small>
+                  <small> - {{ text_subscription }}: {{ product.subscription }} </small>
                 {% endif %}
 
               </td>

@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Tool;
+/**
+ * Class Notification
+ *
+ * @package Opencart\Admin\Controller\Tool
+ */
 class Notification extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('tool/notification');
 
@@ -29,12 +37,18 @@ class Notification extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('tool/notification', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function list(): void {
 		$this->load->language('tool/notification');
 
 		$this->response->setOutput($this->getList());
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getList(): string {
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
@@ -50,35 +64,52 @@ class Notification extends \Opencart\System\Engine\Controller {
 
 		$data['notifications'] = [];
 
-		$this->load->model('tool/notification');
-
-		$notification_total = $this->model_tool_notification->getTotalNotifications();
-
 		$filter_data = [
 			'start' => ($page - 1) * $this->config->get('config_pagination_admin'),
 			'limit' => $this->config->get('config_pagination_admin')
 		];
 
+		$this->load->model('tool/notification');
+
 		$results = $this->model_tool_notification->getNotifications($filter_data);
 
 		foreach ($results as $result) {
-			[$code, $date_added] = date_added($result['date_added']);
+			$second = time() - strtotime($result['date_added']);
+			
+			$ranges = [
+				'second' => $second,
+				'minute' => floor($second / 60),
+				'hour'	 => floor($second / 3600),
+				'day'	 => floor($second / 86400),
+				'week'	 => floor($second / 604800),
+				'month'	 => floor($second / 2629743),
+				'year'	 => floor($second / 31556926)
+			];
+
+			foreach ($ranges as $range => $value) {
+				if ($value) {
+					$date_added = $value;
+					$code = $range . ($value > 1) ? 's' : '';
+				}
+			}
 
 			$data['notifications'][] = [
 				'notification_id' => $result['notification_id'],
 				'title'           => $result['title'],
 				'status'          => $result['status'],
 				'date_added'      => sprintf($this->language->get('text_' . $code . '_ago'), $date_added),
-				'view'            => $this->url->link('tool/notification|info', 'user_token=' . $this->session->data['user_token'] . '&notification_id=' . $result['notification_id'] . $url),
-				'delete'          => $this->url->link('tool/notification|delete', 'user_token=' . $this->session->data['user_token'] . '&notification_id=' . $result['notification_id'] . $url)
+				'view'            => $this->url->link('tool/notification.info', 'user_token=' . $this->session->data['user_token'] . '&notification_id=' . $result['notification_id'] . $url),
+				'delete'          => $this->url->link('tool/notification.delete', 'user_token=' . $this->session->data['user_token'] . '&notification_id=' . $result['notification_id'] . $url)
 			];
 		}
+
+		$notification_total = $this->model_tool_notification->getTotalNotifications();
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $notification_total,
 			'page'  => $page,
 			'limit' => $this->config->get('config_pagination_admin'),
-			'url'   => $this->url->link('tool/notification|list', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
+			'url'   => $this->url->link('tool/notification.list', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($notification_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($notification_total - $this->config->get('config_pagination_admin'))) ? $notification_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $notification_total, ceil($notification_total / $this->config->get('config_pagination_admin')));
@@ -86,6 +117,9 @@ class Notification extends \Opencart\System\Engine\Controller {
 		return $this->load->view('tool/notification_list', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function info(): void {
 		if (isset($this->request->get['notification_id'])) {
 			$notification_id = $this->request->get['notification_id'];
@@ -102,9 +136,7 @@ class Notification extends \Opencart\System\Engine\Controller {
 
 			$data['title'] = $notification_info['title'];
 
-			$this->load->helper('bbcode');
-
-			$data['message'] = \Opencart\System\Helper\bbcode_decode($notification_info['message']);
+			$data['text'] = oc_bbcode_decode($notification_info['text']);
 
 			$this->model_tool_notification->editStatus($notification_id, 1);
 
@@ -112,6 +144,9 @@ class Notification extends \Opencart\System\Engine\Controller {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function delete(): void {
 		$this->load->language('tool/notification');
 

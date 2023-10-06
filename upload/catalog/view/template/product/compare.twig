@@ -6,7 +6,7 @@
     {% endfor %}
   </ul>
   {% if success %}
-    <div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> {{ success }}
+    <div class="alert alert-success alert-dismissible"><i class="fa-solid fa-circle-check"></i> {{ success }}
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
   {% endif %}
@@ -68,9 +68,9 @@
                   <td class="rating">
                     {% for i in 1..5 %}
                       {% if product.rating < i %}
-                        <span class="fas fa-stack"><i class="fas fa-star-o fa-stack-2x"></i></span>
+                        <span class="fa-stack"><i class="fa-regular fa-star fa-stack-1x"></i></span>
                       {% else %}
-                        <span class="fas fa-stack"><i class="fas fa-star fa-stack-2x"></i><i class="fas fa-star-o fa-stack-2x"></i></span>
+                        <span class="fa-stack"><i class="fa-solid fa-star fa-stack-1x"></i><i class="fa-regular fa-star fa-stack-1x"></i></span>
                       {% endif %}
                     {% endfor %}
                     <br/>
@@ -118,7 +118,7 @@
             <td></td>
             {% for product in products %}
               <td class="text-center">
-                <form action="{{ add_to_cart }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#cart">
+                <form action="{{ add_to_cart }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#header-cart">
                   <button type="submit" id="button-confirm" class="btn btn-primary btn-block">{{ button_cart }}</button>
                   <input type="hidden" name="product_id" value="{{ product.product_id }}"/> <input type="hidden" name="quantity" value="{{ product.minimum }}"/>
                   <a href="{{ product.remove }}" class="btn btn-danger btn-block">{{ button_remove }}</a>
@@ -129,9 +129,7 @@
         </table>
       {% else %}
         <p>{{ text_no_results }}</p>
-        <div class="d-inline-block pt-2 pd-2 w-100">
-          <div class="float-end"><a href="{{ continue }}" class="btn btn-light">{{ button_continue }}</a></div>
-        </div>
+        <div class="text-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
       {% endif %}
       {{ content_bottom }}</div>
     {{ column_right }}</div>

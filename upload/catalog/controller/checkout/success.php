@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Checkout;
+/**
+ * Class Success
+ *
+ * @package Opencart\Catalog\Controller\Checkout
+ */
 class Success extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('checkout/success');
 
@@ -8,13 +16,12 @@ class Success extends \Opencart\System\Engine\Controller {
 			$this->cart->clear();
 
 			unset($this->session->data['order_id']);
-			unset($this->session->data['payment_address']);
 			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
-			unset($this->session->data['shipping_address']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['comment']);
+			unset($this->session->data['agree']);
 			unset($this->session->data['coupon']);
 			unset($this->session->data['reward']);
 			unset($this->session->data['voucher']);

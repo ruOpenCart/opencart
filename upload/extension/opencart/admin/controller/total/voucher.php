@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Total;
+/**
+ * Class Voucher
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Total
+ */
 class Voucher extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/total/voucher');
 
@@ -23,7 +31,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/total/voucher', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/total/voucher|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/total/voucher.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total');
 
 		$data['total_voucher_status'] = $this->config->get('total_voucher_status');
@@ -36,6 +44,9 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/total/voucher', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/total/voucher');
 

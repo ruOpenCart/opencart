@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Currency;
+/**
+ * Class ECB
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Currency
+ */
 class ECB extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/currency/ecb');
 
@@ -15,7 +23,7 @@ class ECB extends \Opencart\System\Engine\Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=captcha')
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency')
 		];
 
 		$data['breadcrumbs'][] = [
@@ -23,7 +31,7 @@ class ECB extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/currency/ecb', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/currency/ecb|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/currency/ecb.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency');
 
 		$data['currency_ecb_status'] = $this->config->get('currency_ecb_status');
@@ -35,6 +43,9 @@ class ECB extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/currency/ecb', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/currency/ecb');
 
@@ -56,6 +67,11 @@ class ECB extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @param string $default
+	 *
+	 * @return void
+	 */
 	public function currency(string $default = ''): void {
 		if ($this->config->get('currency_ecb_status')) {
 			$curl = curl_init();
@@ -69,9 +85,11 @@ class ECB extends \Opencart\System\Engine\Controller {
 
 			$response = curl_exec($curl);
 
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 			curl_close($curl);
 
-			if ($response) {
+			if ($status == 200) {
 				$dom = new \DOMDocument('1.0', 'UTF-8');
 				$dom->loadXml($response);
 
@@ -87,6 +105,12 @@ class ECB extends \Opencart\System\Engine\Controller {
 					}
 				}
 
+				if (isset($currencies[$default])) {
+					$value = $currencies[$default];
+				} else {
+					$value = $currencies['EUR'];
+				}
+
 				if ($currencies) {
 					$this->load->model('localisation/currency');
 
@@ -94,19 +118,15 @@ class ECB extends \Opencart\System\Engine\Controller {
 
 					foreach ($results as $result) {
 						if (isset($currencies[$result['code']])) {
-							$from = $currencies['EUR'];
-
-							$to = $currencies[$result['code']];
-
-							$this->model_localisation_currency->editValueByCode($result['code'], 1 / ($currencies[$default] * ($from / $to)));
+							$this->model_localisation_currency->editValueByCode($result['code'], 1 / ($value * ($value / $currencies[$result['code']])));
 						}
 					}
+
+					$this->model_localisation_currency->editValueByCode($default, '1.00000');
 				}
-
-				$this->model_localisation_currency->editValueByCode($default, '1.00000');
-
-				$this->cache->delete('currency');
 			}
 		}
+
+		$this->cache->delete('currency');
 	}
 }

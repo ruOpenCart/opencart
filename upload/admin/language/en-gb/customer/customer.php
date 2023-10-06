@@ -9,7 +9,7 @@ $_['text_add']              = 'Add Customer';
 $_['text_edit']             = 'Edit Customer';
 $_['text_default']          = 'Default';
 $_['text_store']            = 'Store';
-$_['text_account']          = 'Customer Details';
+$_['text_customer']         = 'Customer Details';
 $_['text_password']         = 'Password';
 $_['text_other']            = 'Other';
 $_['text_balance']          = 'Balance';
@@ -21,7 +21,8 @@ $_['text_transaction']      = 'Transactions';
 $_['text_transaction_add']  = 'Add Transaction';
 $_['text_reward']           = 'Reward Points';
 $_['text_reward_add']       = 'Add Reward Points';
-$_['text_ip']               = 'IP';
+$_['text_ip']               = 'IP History';
+$_['text_authorize']        = 'Authorize History';
 $_['text_option']           = 'Options';
 $_['text_login']            = 'Login into Store';
 $_['text_unlock']           = 'Unlock Account';
@@ -45,6 +46,7 @@ $_['column_payment_method'] = 'Payment Name';
 $_['column_image']          = 'Image';
 $_['column_type']           = 'Type';
 $_['column_date_expire']    = 'Date Expires';
+$_['column_user_agent']     = 'User Agent';
 $_['column_action']         = 'Action';
 
 // Entry
@@ -73,7 +75,11 @@ $_['entry_amount']          = 'Amount';
 $_['entry_points']          = 'Points';
 $_['entry_name']            = 'Customer Name';
 $_['entry_ip']              = 'IP';
-$_['entry_date_added']      = 'Date Added';
+$_['entry_date_from']       = 'Date From';
+$_['entry_date_to']         = 'Date To';
+
+// Tab
+$_['tab_authorize']         = 'Authorize';
 
 // Button
 $_['button_order']          = 'Orders';
@@ -100,3 +106,4 @@ $_['error_postcode']        = 'Postcode must be between 2 and 10 characters for 
 $_['error_country']         = 'Please select a country!';
 $_['error_zone']            = 'Please select a region / state!';
 $_['error_custom_field']    = '%s required!';
+$_['error_regex']           = '%s is not a valid input!';

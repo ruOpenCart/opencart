@@ -2,22 +2,25 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
-
+namespace Opencart\System\Engine;
 /**
-* Event class
+* Class Event
 *
-* Event System
-* 
 * https://github.com/opencart/opencart/wiki/Events-(script-notifications)-2.2.x.x
 */
-namespace Opencart\System\Engine;
 class Event {
+	/**
+	 * @var \Opencart\System\Engine\Registry
+	 */
 	protected $registry;
-	protected $data = [];
+	/**
+	 * @var array
+	 */
+	protected array $data = [];
 	
 	/**
 	 * Constructor

@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Marketplace;
+/**
+ * Class Extension
+ *
+ * @package Opencart\Admin\Controller\Marketplace
+ */
 class Extension extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('marketplace/extension');
 
@@ -36,20 +44,18 @@ class Extension extends \Opencart\System\Engine\Controller {
 			$this->load->language('extension/' . $extension, $extension);
 
 			if ($this->user->hasPermission('access', 'extension/' . $extension)) {
-				$extensions = $this->model_setting_extension->getPaths('%/admin/controller/' . $extension . '/%.php');
-
 				$data['categories'][] = [
 					'code' => $extension,
-					'text' => $this->language->get($extension . '_heading_title') . ' (' . count($extensions) . ')',
+					'text' => $this->language->get($extension . '_heading_title') . ' (' . count(glob(DIR_EXTENSION . '*/admin/controller/' . $extension . '/*.php')) . ')',
 					'href' => $this->url->link('extension/' . $extension, 'user_token=' . $this->session->data['user_token'])
 				];
 			}
 		}
 
 		if (isset($this->request->get['type'])) {
-			$data['extension'] = $this->load->controller('extension/' . $this->request->get['type'] . '|getList');
+			$data['extension'] = $this->load->controller('extension/' . basename($this->request->get['type']) . '.getList');
 		} elseif ($data['categories']) {
-			$data['extension'] = $this->load->controller('extension/' . $data['categories'][0]['code'] . '|getList');
+			$data['extension'] = $this->load->controller('extension/' . $data['categories'][0]['code'] . '.getList');
 		} else {
 			$data['extension'] = '';
 		}

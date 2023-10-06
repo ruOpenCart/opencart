@@ -1,7 +1,20 @@
 <?php
 namespace Opencart\Catalog\Controller\Mail;
+/**
+ * Class Review
+ *
+ * @package Opencart\Catalog\Controller\Mail
+ */
 class Review extends \Opencart\System\Engine\Controller {
 	// catalog/model/catalog/review/addReview/after
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		if (in_array('review', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/review');
@@ -23,28 +36,32 @@ class Review extends \Opencart\System\Engine\Controller {
 				$data['store'] = $store_name;
 				$data['store_url'] = $this->config->get('config_url');
 
-				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
-				$mail->parameter = $this->config->get('config_mail_parameter');
-				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+				if ($this->config->get('config_mail_engine')) {
+					$mail_option = [
+						'parameter'     => $this->config->get('config_mail_parameter'),
+						'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+						'smtp_username' => $this->config->get('config_mail_smtp_username'),
+						'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+						'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+						'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+					];
 
-				$mail->setTo($this->config->get('config_email'));
-				$mail->setFrom($this->config->get('config_email'));
-				$mail->setSender($store_name);
-				$mail->setSubject($subject);
-				$mail->setHtml($this->load->view('mail/review', $data));
-				$mail->send();
+					$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'), $mail_option);
+					$mail->setTo($this->config->get('config_email'));
+					$mail->setFrom($this->config->get('config_email'));
+					$mail->setSender($store_name);
+					$mail->setSubject($subject);
+					$mail->setHtml($this->load->view('mail/review', $data));
+					$mail->send();
 
-				// Send to additional alert emails
-				$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
+					// Send to additional alert emails
+					$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
 
-				foreach ($emails as $email) {
-					if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-						$mail->setTo(trim($email));
-						$mail->send();
+					foreach ($emails as $email) {
+						if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+							$mail->setTo(trim($email));
+							$mail->send();
+						}
 					}
 				}
 			}

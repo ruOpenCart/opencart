@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Startup;
+/**
+ * Class Login
+ *
+ * @package Opencart\Admin\Controller\Startup
+ */
 class Login extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return object|\Opencart\System\Engine\Action|null
+	 */
 	public function index(): object|null {
 		if (isset($this->request->get['route'])) {
 			$route = (string)$this->request->get['route'];
@@ -9,17 +17,16 @@ class Login extends \Opencart\System\Engine\Controller {
 		}
 
 		// Remove any method call for checking ignore pages.
-		$pos = strrpos($route, '|');
+		$pos = strrpos($route, '.');
 
 		if ($pos !== false) {
-			$route = substr($this->request->get['route'], 0, $pos);
+			$route = substr($route, 0, $pos);
 		}
 
 		$ignore = [
 			'common/login',
 			'common/forgotten',
-			'common/reset',
-			'common/cron'
+			'common/language'
 		];
 
 		// User
@@ -33,16 +40,15 @@ class Login extends \Opencart\System\Engine\Controller {
 			'common/login',
 			'common/logout',
 			'common/forgotten',
-			'common/reset',
-			'common/cron',
+			'common/language',
 			'error/not_found',
 			'error/permission'
 		];
 
 		if (!in_array($route, $ignore) && (!isset($this->request->get['user_token']) || !isset($this->session->data['user_token']) || ($this->request->get['user_token'] != $this->session->data['user_token']))) {
 			return new \Opencart\System\Engine\Action('common/login');
-		} else {
-			return null;
 		}
+
+		return null;
 	}
 }

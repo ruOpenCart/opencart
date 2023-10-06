@@ -1,12 +1,58 @@
 <?php
 namespace Opencart\System\Library\Cart;
+/**
+ * Class User
+ *
+ * @package
+ */
 class User {
-	private $user_id;
-	private $username;
-	private $user_group_id;
-	private $permission = [];
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $db;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $request;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $session;
+	/**
+	 * @var int|mixed
+	 */
+	private int $user_id = 0;
+	/**
+	 * @var string|mixed
+	 */
+	private string $username = '';
+	/**
+	 * @var string|mixed
+	 */
+	private string $firstname = '';
+	/**
+	 * @var string|mixed
+	 */
+	private string $lastname = '';
+	/**
+	 * @var string|mixed
+	 */
+	private string $email = '';
+	/**
+	 * @var int|mixed
+	 */
+	private int $user_group_id = 0;
+	/**
+	 * @var array
+	 */
+	private array $permission = [];
 
-	public function __construct($registry) {
+	/**
+	 * Constructor
+	 *
+	 * @param    object  $registry
+	 */
+	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		$this->db = $registry->get('db');
 		$this->request = $registry->get('request');
 		$this->session = $registry->get('session');
@@ -17,6 +63,9 @@ class User {
 			if ($user_query->num_rows) {
 				$this->user_id = $user_query->row['user_id'];
 				$this->username = $user_query->row['username'];
+				$this->firstname = $user_query->row['firstname'];
+				$this->lastname = $user_query->row['lastname'];
+				$this->email = $user_query->row['email'];
 				$this->user_group_id = $user_query->row['user_group_id'];
 
 				$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "' WHERE `user_id` = '" . (int)$this->session->data['user_id'] . "'");
@@ -35,8 +84,16 @@ class User {
 			}
 		}
 	}
-
-	public function login($username, $password) {
+	
+	/**
+	 * Login
+	 *
+	 * @param    string  $username
+	 * @param    string  $password
+	 *
+	 * @return   bool
+	 */
+	public function login(string $username, string $password): bool {
 		$user_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user` WHERE `username` = '" . $this->db->escape($username) . "' AND `status` = '1'");
 
 		if ($user_query->num_rows) {
@@ -58,6 +115,9 @@ class User {
 
 			$this->user_id = $user_query->row['user_id'];
 			$this->username = $user_query->row['username'];
+			$this->firstname = $user_query->row['firstname'];
+			$this->lastname = $user_query->row['lastname'];
+			$this->email = $user_query->row['email'];
 			$this->user_group_id = $user_query->row['user_group_id'];
 
 			$user_group_query = $this->db->query("SELECT `permission` FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_query->row['user_group_id'] . "'");
@@ -75,35 +135,99 @@ class User {
 			return false;
 		}
 	}
-
-	public function logout() {
+	
+	/**
+	 * Logout
+	 *
+	  * @return   void
+	 */
+	public function logout(): void {
 		unset($this->session->data['user_id']);
 
-		$this->user_id = '';
+		$this->user_id = 0;
 		$this->username = '';
+		$this->firstname = '';
+		$this->lastname = '';
+		$this->email = '';
+		$this->user_group_id = 0;
 	}
-
-	public function hasPermission($key, $value) {
+	
+	/**
+	 * hasPermission
+	 *
+	 * @param    string  $key
+	 * @param    mixed  $value
+	 *
+	 * @return   bool
+	 */
+	public function hasPermission(string $key, mixed $value): bool {
 		if (isset($this->permission[$key])) {
 			return in_array($value, $this->permission[$key]);
 		} else {
 			return false;
 		}
 	}
-
-	public function isLogged() {
+	
+	/**
+	 * isLogged
+	 *
+	 * @return   bool
+	 */
+	public function isLogged(): bool {
+		return $this->user_id ? true : false;
+	}
+	
+	/**
+	 * getId
+	 *
+	 * @return   int
+	 */
+	public function getId(): int {
 		return $this->user_id;
 	}
 
-	public function getId() {
-		return $this->user_id;
-	}
-
-	public function getUserName() {
+	/**
+	 * getUserName
+	 *
+	 * @return   string
+	 */
+	public function getUserName(): string {
 		return $this->username;
 	}
 
-	public function getGroupId() {
+	/**
+	 * getFirstName
+	 *
+	 * @return   string
+	 */
+	public function getFirstName(): string {
+		return $this->firstname;
+	}
+
+	/**
+	 * getLastName
+	 *
+	 * @return   string
+	 */
+	public function getLastName(): string {
+		return $this->lastname;
+	}
+
+	/**
+	 * getEmail
+	 *
+	 * @return   string
+	 */
+	public function getEmail(): string {
+		return $this->email;
+	}
+
+	/**
+	 * getGroupId
+	 *
+	 * @return   int
+	 */
+	public function getGroupId(): int {
 		return $this->user_group_id;
 	}
 }

@@ -1,10 +1,18 @@
 <?php
 namespace Opencart\Catalog\Controller\Common;
+/**
+ * Class Currency
+ *
+ * @package Opencart\Catalog\Controller\Common
+ */
 class Currency extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->language('common/currency');
 
-		$data['action'] = $this->url->link('common/currency|save', 'language=' . $this->config->get('config_language'));
+		$data['action'] = $this->url->link('common/currency.save', 'language=' . $this->config->get('config_language'));
 
 		$data['code'] = $this->session->data['currency'];
 
@@ -39,7 +47,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 		$url = '';
 
 		if ($url_data) {
-			$url = '&' . urldecode(http_build_query($url_data, '', '&'));
+			$url .= '&' . urldecode(http_build_query($url_data, '', '&'));
 		}
 
 		$data['redirect'] = $this->url->link($route, $url);
@@ -47,6 +55,9 @@ class Currency extends \Opencart\System\Engine\Controller {
 		return $this->load->view('common/currency', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		if (isset($this->request->post['code'])) {
 			$this->session->data['currency'] = $this->request->post['code'];

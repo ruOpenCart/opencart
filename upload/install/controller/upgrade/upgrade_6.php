@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade6
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade6 extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -9,13 +17,9 @@ class Upgrade6 extends \Opencart\System\Engine\Controller {
 		// Fixes the serialisation from serialise to json
 		try {
 			// customer
-			$query = $this->db->query("SELECT `customer_id`, `wishlist`, `custom_field` FROM `" . DB_PREFIX . "customer` WHERE `custom_field` LIKE 'a:%' OR `wishlist` LIKE 'a:%'");
+			$query = $this->db->query("SELECT `customer_id`, `custom_field` FROM `" . DB_PREFIX . "customer` WHERE `custom_field` LIKE 'a:%'");
 
 			foreach ($query->rows as $result) {
-				if (preg_match('/^(a:)/', $result['wishlist'])) {
-					$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `wishlist` = '" . $this->db->escape(json_encode(unserialize($result['wishlist']))) . "' WHERE `customer_id` = '" . (int)$result['customer_id'] . "'");
-				}
-
 				if (preg_match('/^(a:)/', $result['custom_field'])) {
 					$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `custom_field` = '" . $this->db->escape(json_encode(unserialize($result['custom_field']))) . "' WHERE `customer_id` = '" . (int)$result['customer_id'] . "'");
 				}
@@ -78,7 +82,7 @@ class Upgrade6 extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$json['text'] = sprintf($this->language->get('text_progress'), 6, 6, 8);
+			$json['text'] = sprintf($this->language->get('text_progress'), 6, 6, 9);
 
 			$url = '';
 

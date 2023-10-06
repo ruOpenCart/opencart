@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Api\Sale;
+/**
+ * Class Cart
+ *
+ * @package Opencart\Catalog\Controller\Api\Sale
+ */
 class Cart extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('api/sale/cart');
 
@@ -27,12 +35,12 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$description = '';
 
 			if ($product['subscription']) {
-				$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				$trial_cycle = $product['subscription']['trial_cycle'];
-				$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-				$trial_duration = $product['subscription']['trial_duration'];
-
 				if ($product['subscription']['trial_status']) {
+					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$trial_cycle = $product['subscription']['trial_cycle'];
+					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+					$trial_duration = $product['subscription']['trial_duration'];
+
 					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 				}
 
@@ -91,6 +99,9 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function add(): void {
 		$this->load->language('api/sale/cart');
 
@@ -166,15 +177,15 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$this->cart->add($product_id, $quantity, $option, $subscription_plan_id);
 
 			$json['success'] = $this->language->get('text_success');
-
-			unset($this->session->data['shipping_methods']);
-			unset($this->session->data['payment_methods']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function edit(): void {
 		$this->load->language('api/sale/cart');
 
@@ -196,14 +207,15 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 		$json['success'] = $this->language->get('text_success');
 
-		unset($this->session->data['shipping_methods']);
-		unset($this->session->data['payment_methods']);
 		unset($this->session->data['reward']);
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function remove(): void {
 		$this->load->language('api/sale/cart');
 
@@ -220,8 +232,6 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 		$json['success'] = $this->language->get('text_success');
 
-		unset($this->session->data['shipping_methods']);
-		unset($this->session->data['payment_methods']);
 		unset($this->session->data['reward']);
 
 		$this->response->addHeader('Content-Type: application/json');

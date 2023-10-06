@@ -3,8 +3,8 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="float-end">
-        <button type="submit" form="form-store" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
-        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
+        <button type="submit" form="form-store" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ol class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -15,7 +15,7 @@
   </div>
   <div class="container-fluid">
     <div class="card">
-      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_form }}</div>
       <div class="card-body">
         <form id="form-store" action="{{ save }}" method="post" data-oc-toggle="ajax">
           <ul class="nav nav-tabs">
@@ -57,11 +57,11 @@
               <div class="row mb-3">
                 <label for="input-logo" class="col-sm-2 col-form-label">{{ entry_logo }}</label>
                 <div class="col-sm-10">
-                  <div class="card image">
-                    <img src="{{ logo }}" alt="" title="" id="thumb-logo" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
-                    <div class="card-body">
-                      <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
-                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+                  <div class="border rounded d-block" style="max-width: 300px;">
+                    <img src="{{ logo }}" alt="" title="" id="thumb-logo" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
+                    <div class="d-grid">
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@
                   <div id="error-email" class="invalid-feedback"></div>
                 </div>
               </div>
-              <div class="row mb-3 required">
+              <div class="row mb-3">
                 <label for="input-telephone" class="col-sm-2 col-form-label">{{ entry_telephone }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="config_telephone" value="{{ config_telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
@@ -134,11 +134,11 @@
               <div class="row mb-3">
                 <label for="input-image" class="col-sm-2 col-form-label">{{ entry_image }}</label>
                 <div class="col-sm-10">
-                  <div class="card image">
-                    <img src="{{ thumb }}" alt="" title="" id="thumb-image" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image"/>
-                    <div class="card-body">
-                      <button type="button" data-oc-toggle="image" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
-                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+                  <div class="border rounded d-block" style="max-width: 300px;">
+                    <img src="{{ thumb }}" alt="" title="" id="thumb-image" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image"/>
+                    <div class="d-grid">
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
                     </div>
                   </div>
                 </div>
@@ -174,43 +174,52 @@
               {% endif %}
             </div>
             <div id="tab-local" class="tab-pane">
-              <div class="row mb-3">
-                <label for="input-country" class="col-sm-2 col-form-label">{{ entry_country }}</label>
-                <div class="col-sm-10">
-                  <select name="config_country_id" id="input-country" class="form-select">
-                    {% for country in countries %}
-                      <option value="{{ country.country_id }}"{% if country.country_id == config_country_id %} selected="selected"{% endif %}>{{ country.name }}</option>
-                    {% endfor %}
-                  </select>
+              <fieldset>
+                <legend>{{ text_region }}</legend>
+                <div class="row mb-3">
+                  <label for="input-country" class="col-sm-2 col-form-label">{{ entry_country }}</label>
+                  <div class="col-sm-10">
+                    <select name="config_country_id" id="input-country" class="form-select">
+                      {% for country in countries %}
+                        <option value="{{ country.country_id }}"{% if country.country_id == config_country_id %} selected{% endif %}>{{ country.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="row mb-3">
-                <label for="input-zone" class="col-sm-2 col-form-label">{{ entry_zone }}</label>
-                <div class="col-sm-10">
-                  <select name="config_zone_id" id="input-zone" class="form-select"></select>
+                <div class="row mb-3">
+                  <label for="input-zone" class="col-sm-2 col-form-label">{{ entry_zone }}</label>
+                  <div class="col-sm-10">
+                    <select name="config_zone_id" id="input-zone" class="form-select"></select>
+                  </div>
                 </div>
-              </div>
-              <div class="row mb-3">
-                <label for="input-language" class="col-sm-2 col-form-label">{{ entry_language }}</label>
-                <div class="col-sm-10">
-                  <select name="config_language" id="input-language" class="form-select">
-                    {% for language in languages %}
-                      <option value="{{ language.code }}"{% if language.code == config_language %} selected="selected"{% endif %}>{{ language.name }}</option>
-                    {% endfor %}
-                  </select>
+              </fieldset>
+              <fieldset>
+                <legend>{{ text_language }}</legend>
+                <div class="row mb-3">
+                  <label for="input-language" class="col-sm-2 col-form-label">{{ entry_language }}</label>
+                  <div class="col-sm-10">
+                    <select name="config_language" id="input-language" class="form-select">
+                      {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == config_language %} selected{% endif %}>{{ language.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="row mb-3">
-                <label for="input-currency" class="col-sm-2 col-form-label">{{ entry_currency }}</label>
-                <div class="col-sm-10">
-                  <select name="config_currency" id="input-currency" class="form-select">
-                    {% for currency in currencies %}
-                      <option value="{{ currency.code }}"{% if currency.code == config_currency %} selected="selected"{% endif %}>{{ currency.title }}</option>
-                    {% endfor %}
-                  </select>
-                  <div class="form-text">{{ help_currency }}</div>
+              </fieldset>
+              <fieldset>
+                <legend>{{ text_currency }}</legend>
+                <div class="row mb-3">
+                  <label for="input-currency" class="col-sm-2 col-form-label">{{ entry_currency }}</label>
+                  <div class="col-sm-10">
+                    <select name="config_currency" id="input-currency" class="form-select">
+                      {% for currency in currencies %}
+                        <option value="{{ currency.code }}"{% if currency.code == config_currency %} selected{% endif %}>{{ currency.title }}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="form-text">{{ help_currency }}</div>
+                  </div>
                 </div>
-              </div>
+              </fieldset>
             </div>
             <div id="tab-option" class="tab-pane">
               <div class="accordion" id="accordion-option">
@@ -238,7 +247,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_product_count }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_product_count" value="1" id="input-product-count" class="form-check-input"{% if config_product_count %} checked{% endif %}/>
+                            <input type="hidden" name="config_product_count" value="0"/> <input type="checkbox" name="config_product_count" value="1" id="input-product-count" class="form-check-input"{% if config_product_count %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_product_count }}</div>
                         </div>
@@ -256,7 +265,7 @@
                           <select name="config_gdpr_id" id="input-gdpr" class="form-select">
                             <option value="0">{{ text_none }}</option>
                             {% for information in informations %}
-                              <option value="{{ information.information_id }}"{% if information.information_id == config_gdpr_id %} selected="selected"{% endif %}>{{ information.title }}</option>
+                              <option value="{{ information.information_id }}"{% if information.information_id == config_gdpr_id %} selected{% endif %}>{{ information.title }}</option>
                             {% endfor %}
                           </select>
                           <div class="form-text">{{ help_gdpr }}</div>
@@ -273,7 +282,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_tax }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_tax" value="1" id="input-tax" class="form-check-input"{% if config_tax %} checked{% endif %}/>
+                            <input type="hidden" name="config_tax" value="0"/> <input type="checkbox" name="config_tax" value="1" id="input-tax" class="form-check-input"{% if config_tax %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -282,8 +291,8 @@
                         <div class="col-sm-10">
                           <select name="config_tax_default" id="input-tax-default" class="form-select">
                             <option value="">{{ text_none }}</option>
-                            <option value="shipping"{% if config_tax_default == 'shipping' %} selected="selected"{% endif %}>{{ text_shipping }}</option>
-                            <option value="payment"{% if config_tax_default == 'payment' %} selected="selected"{% endif %}>{{ text_payment }}</option>
+                            <option value="shipping"{% if config_tax_default == 'shipping' %} selected{% endif %}>{{ text_shipping }}</option>
+                            <option value="payment"{% if config_tax_default == 'payment' %} selected{% endif %}>{{ text_payment }}</option>
                           </select>
                           <div class="form-text">{{ help_tax_default }}</div>
                         </div>
@@ -293,8 +302,8 @@
                         <div class="col-sm-10">
                           <select name="config_tax_customer" id="input-tax-customer" class="form-select">
                             <option value="">{{ text_none }}</option>
-                            <option value="shipping"{% if config_tax_customer == 'shipping' %} selected="selected"{% endif %}>{{ text_shipping }}</option>
-                            <option value="payment"{% if config_tax_customer == 'payment' %} selected="selected"{% endif %}>{{ text_payment }}</option>
+                            <option value="shipping"{% if config_tax_customer == 'shipping' %} selected{% endif %}>{{ text_shipping }}</option>
+                            <option value="payment"{% if config_tax_customer == 'payment' %} selected{% endif %}>{{ text_payment }}</option>
                           </select>
                           <div class="form-text">{{ help_tax_customer }}</div>
                         </div>
@@ -311,7 +320,7 @@
                         <div class="col-sm-10">
                           <select name="config_customer_group_id" id="input-customer-group" class="form-select">
                             {% for customer_group in customer_groups %}
-                              <option value="{{ customer_group.customer_group_id }}"{% if customer_group.customer_group_id == config_customer_group_id %} selected="selected"{% endif %}>{{ customer_group.name }}</option>
+                              <option value="{{ customer_group.customer_group_id }}"{% if customer_group.customer_group_id == config_customer_group_id %} selected{% endif %}>{{ customer_group.name }}</option>
                             {% endfor %}
                           </select>
                           <div class="form-text">{{ help_customer_group }}</div>
@@ -335,7 +344,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_customer_price }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_customer_price" value="1" id="input-customer-price" class="form-check-input"{% if config_customer_price %} checked{% endif %}/>
+                            <input type="hidden" name="config_customer_price" value="0"/> <input type="checkbox" name="config_customer_price" value="1" id="input-customer-price" class="form-check-input"{% if config_customer_price %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_customer_price }}</div>
                         </div>
@@ -346,7 +355,7 @@
                           <select name="config_account_id" id="input-account" class="form-select">
                             <option value="0">{{ text_none }}</option>
                             {% for information in informations %}
-                              <option value="{{ information.information_id }}"{% if information.information_id == config_account_id %} selected="selected"{% endif %}>{{ information.title }}</option>
+                              <option value="{{ information.information_id }}"{% if information.information_id == config_account_id %} selected{% endif %}>{{ information.title }}</option>
                             {% endfor %}
                           </select>
                           <div class="form-text">{{ help_account }}</div>
@@ -363,7 +372,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_cart_weight }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_cart_weight" value="1" id="input-cart-weight" class="form-check-input"{% if config_cart_weight %} checked{% endif %}/>
+                            <input type="hidden" name="config_cart_weight" value="0"/> <input type="checkbox" name="config_cart_weight" value="1" id="input-cart-weight" class="form-check-input"{% if config_cart_weight %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -371,7 +380,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_checkout_guest }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_checkout_guest" value="1" id="input-checkout-guest" class="form-check-input"{% if config_checkout_guest %} checked{% endif %}/>
+                            <input type="hidden" name="config_checkout_guest" value="0"/> <input type="checkbox" name="config_checkout_guest" value="1" id="input-checkout-guest" class="form-check-input"{% if config_checkout_guest %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_checkout_guest }}</div>
                         </div>
@@ -382,7 +391,7 @@
                           <select name="config_checkout_id" id="input-checkout" class="form-select">
                             <option value="0">{{ text_none }}</option>
                             {% for information in informations %}
-                              <option value="{{ information.information_id }}"{% if information.information_id == config_checkout_id %} selected="selected"{% endif %}>{{ information.title }}</option>
+                              <option value="{{ information.information_id }}"{% if information.information_id == config_checkout_id %} selected{% endif %}>{{ information.title }}</option>
                             {% endfor %}
                           </select>
                           <div class="form-text">{{ help_checkout }}</div>
@@ -399,7 +408,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_stock_display }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_stock_display" value="1" id="input-stock-display" class="form-check-input"{% if config_stock_display %} checked{% endif %}/>
+                            <input type="hidden" name="config_stock_display" value="0"/> <input type="checkbox" name="config_stock_display" value="1" id="input-stock-display" class="form-check-input"{% if config_stock_display %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_stock_display }}</div>
                         </div>
@@ -408,7 +417,7 @@
                         <label class="col-sm-2 col-form-label">{{ entry_stock_checkout }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="checkbox" name="config_stock_checkout" value="1" id="input-stock-checkout" class="form-check-input"{% if config_stock_checkout %} checked{% endif %}/>
+                            <input type="hidden" name="config_stock_checkout" value="0"/> <input type="checkbox" name="config_stock_checkout" value="1" id="input-stock-checkout" class="form-check-input"{% if config_stock_checkout %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_stock_checkout }}</div>
                         </div>
@@ -492,7 +501,7 @@
                   </div>
                 </div>
                 <div class="row mb-3 required">
-                  <label for="input-image-related" class="col-sm-2 col-form-label">{{ entry_image_related }}</label>
+                  <label for="input-image-related-width" class="col-sm-2 col-form-label">{{ entry_image_related }}</label>
                   <div class="col-sm-10">
                     <div id="input-image-related" class="row">
                       <div class="col-sm-6">
@@ -506,7 +515,35 @@
                   </div>
                 </div>
                 <div class="row mb-3 required">
-                  <label for="input-image-compare" class="col-sm-2 col-form-label">{{ entry_image_compare }}</label>
+                  <label for="input-image-article-width" class="col-sm-2 col-form-label">{{ entry_image_article }}</label>
+                  <div class="col-sm-10">
+                    <div id="input-image-article" class="row">
+                      <div class="col-sm-6">
+                        <input type="text" name="config_image_article_width" value="{{ config_image_article_width }}" placeholder="{{ entry_width }}" id="input-image-article-width" class="form-control"/>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="text" name="config_image_article_height" value="{{ config_image_article_height }}" placeholder="{{ entry_height }}" id="input-image-article-height" class="form-control"/>
+                      </div>
+                    </div>
+                    <div id="error-image-article" class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <div class="row mb-3 required">
+                  <label for="input-image-topic-width" class="col-sm-2 col-form-label">{{ entry_image_topic }}</label>
+                  <div class="col-sm-10">
+                    <div id="input-image-topic" class="row">
+                      <div class="col-sm-6">
+                        <input type="text" name="config_image_topic_width" value="{{ config_image_topic_width }}" placeholder="{{ entry_width }}" id="input-image-topic-width" class="form-control"/>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="text" name="config_image_topic_height" value="{{ config_image_topic_height }}" placeholder="{{ entry_height }}" id="input-image-topic-height" class="form-control"/>
+                      </div>
+                    </div>
+                    <div id="error-image-topic" class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <div class="row mb-3 required">
+                  <label for="input-image-compare-width" class="col-sm-2 col-form-label">{{ entry_image_compare }}</label>
                   <div class="col-sm-10">
                     <div id="input-image-compare" class="row">
                       <div class="col-sm-6">
@@ -520,7 +557,7 @@
                   </div>
                 </div>
                 <div class="row mb-3 required">
-                  <label for="input-image-wishlist" class="col-sm-2 col-form-label">{{ entry_image_wishlist }}</label>
+                  <label for="input-image-wishlist-width" class="col-sm-2 col-form-label">{{ entry_image_wishlist }}</label>
                   <div class="col-sm-10">
                     <div id="input-image-wishlist" class="row">
                       <div class="col-sm-6">
@@ -534,7 +571,7 @@
                   </div>
                 </div>
                 <div class="row mb-3 required">
-                  <label for="input-image-cart" class="col-sm-2 col-form-label">{{ entry_image_cart }}</label>
+                  <label for="input-image-cart-width" class="col-sm-2 col-form-label">{{ entry_image_cart }}</label>
                   <div class="col-sm-10">
                     <div id="input-image-cart" class="row">
                       <div class="col-sm-6">
@@ -548,7 +585,7 @@
                   </div>
                 </div>
                 <div class="row mb-3 required">
-                  <label for="input-image-location" class="col-sm-2 col-form-label">{{ entry_image_location }}</label>
+                  <label for="input-image-location-width" class="col-sm-2 col-form-label">{{ entry_image_location }}</label>
                   <div class="col-sm-10">
                     <div id="input-image-location" class="row">
                       <div class="col-sm-6">
@@ -570,20 +607,20 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#input-theme').on('change', function () {
+$('#input-theme').on('change', function() {
     $.ajax({
-        url: 'index.php?route=setting/setting|theme&user_token={{ user_token }}&theme=' + this.value,
+        url: 'index.php?route=setting/setting.theme&user_token={{ user_token }}&theme=' + this.value,
         dataType: 'html',
-        beforeSend: function () {
+        beforeSend: function() {
             $('#input-theme').prop('disabled', true);
         },
-        complete: function () {
+        complete: function() {
             $('#input-theme').prop('disabled', false);
         },
-        success: function (html) {
+        success: function(html) {
             $('#theme').attr('src', html);
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
@@ -592,38 +629,40 @@ $('#input-theme').on('change', function () {
 $('#input-theme').trigger('change');
 //--></script>
 <script type="text/javascript"><!--
-$('#input-country').on('change', function () {
+$('#input-country').on('change', function() {
     var element = this;
 
     $.ajax({
-        url: 'index.php?route=localisation/country|country&user_token={{ user_token }}&country_id=' + this.value,
+        url: 'index.php?route=localisation/country.country&user_token={{ user_token }}&country_id=' + this.value,
         dataType: 'json',
-        beforeSend: function () {
+        beforeSend: function() {
             $(element).prop('disabled', true);
+            $('#input-zone').prop('disabled', true);
         },
-        complete: function () {
+        complete: function() {
             $(element).prop('disabled', false);
+            $('#input-zone').prop('disabled', false);
         },
-        success: function (json) {
-            html = '<option value="">{{ text_select }}</option>';
+        success: function(json) {
+            html = '<option value="">{{ text_select|escape('js') }}</option>';
 
             if (json['zone'] && json['zone'] != '') {
                 for (i = 0; i < json['zone'].length; i++) {
                     html += '<option value="' + json['zone'][i]['zone_id'] + '"';
 
                     if (json['zone'][i]['zone_id'] == '{{ config_zone_id }}') {
-                        html += ' selected="selected"';
+                        html += ' selected';
                     }
 
                     html += '>' + json['zone'][i]['name'] + '</option>';
                 }
             } else {
-                html += '<option value="0" selected="selected">{{ text_none }}</option>';
+                html += '<option value="0" selected>{{ text_none|escape('js') }}</option>';
             }
 
             $('#input-zone').html(html);
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });

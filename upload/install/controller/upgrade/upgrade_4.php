@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade4
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade4 extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -74,6 +82,15 @@ class Upgrade4 extends \Opencart\System\Engine\Controller {
 				'serialized' => 0
 			];
 
+			if (isset($settings['config_admin_language'])) {
+				$missing[] = [
+					'key'        => 'config_language_admin',
+					'value'      => $settings['config_admin_language'],
+					'code'       => 'config',
+					'serialized' => 0
+				];
+			}
+
 			if (isset($settings['config_limit_admin'])) {
 				$missing[] = [
 					'key'        => 'config_pagination_admin',
@@ -85,7 +102,7 @@ class Upgrade4 extends \Opencart\System\Engine\Controller {
 
 			$missing[] = [
 				'key'        => 'config_encryption',
-				'value'      => hash('sha512', token(32)),
+				'value'      => hash('sha512', oc_token(32)),
 				'code'       => 'config',
 				'serialized' => 0
 			];
@@ -163,14 +180,147 @@ class Upgrade4 extends \Opencart\System\Engine\Controller {
 				];
 			}
 
-			if (isset($settings['config_smtp_timeout'])) {
-				$missing[] = [
-					'key'        => 'config_mail_smtp_timeout',
-					'value'      => $settings['config_smtp_timeout'],
-					'code'       => 'config',
-					'serialized' => 0
-				];
-			}
+			$missing[] = [
+				'key'        => 'config_article_description_length',
+				'value'      => 100,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+
+			$missing[] = [
+				'key'        => 'config_image_default_width',
+				'value'      => 300,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_image_default_height',
+				'value'      => 300,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_image_article_width',
+				'value'      => 1140,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_image_article_height',
+				'value'      => 380,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_image_topic_width',
+				'value'      => 1140,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_image_topic_height',
+				'value'      => 380,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_session_expire',
+				'value'      => 3600000000,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_cookie_id',
+				'value'      => 0,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_gdpr_id',
+				'value'      => 0,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_gdpr_limit',
+				'value'      => 180,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_affiliate_status',
+				'value'      => 1,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_affiliate_expire',
+				'value'      => 3600000000,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			// Subscriptions
+			$missing[] = [
+				'key'        => 'config_subscription_status_id',
+				'value'      => 1,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_subscription_active_status_id',
+				'value'      => 2,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_subscription_expired_status_id',
+				'value'      => 6,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_subscription_canceled_status_id',
+				'value'      => 4,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_subscription_failed_status_id',
+				'value'      => 3,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_subscription_denied_status_id',
+				'value'      => 5,
+				'code'       => 'config',
+				'serialized' => 0
+			];
+
+			$missing[] = [
+				'key'        => 'config_fraud_status_id',
+				'value'      => 8,
+				'code'       => 'config',
+				'serialized' => 0
+			];
 
 			// Serialized
 			$missing[] = [
@@ -288,36 +438,25 @@ class Upgrade4 extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			// Merge image/data to image/catalog
-			if (is_dir(DIR_IMAGE . 'data')) {
-				if (!is_dir(DIR_IMAGE . 'catalog')) {
-					rename(DIR_IMAGE . 'data', DIR_IMAGE . 'catalog'); // Rename data to catalog
-				} else {
-					$this->recursive_move(DIR_IMAGE . 'data', DIR_IMAGE . 'catalog');
-
-					@unlink(DIR_IMAGE . 'data');
-				}
-			}
-
 			// Convert image/data to image/catalog
-			$this->db->query("UPDATE `" . DB_PREFIX . "banner_image` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "manufacturer` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "product_image` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "option_value` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "voucher_theme` SET `image` = REPLACE (image, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = REPLACE (value, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = REPLACE (value, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `description` = REPLACE (description, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "category_description` SET `description` = REPLACE (description, 'data/', 'catalog/')");
-			$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `description` = REPLACE (description, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "banner_image` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "manufacturer` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "product_image` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "option_value` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "voucher_theme` SET `image` = REPLACE(image, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = REPLACE(value, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = REPLACE(value, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `description` = REPLACE(description, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "category_description` SET `description` = REPLACE(description, 'data/', 'catalog/')");
+			$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `description` = REPLACE(description, 'data/', 'catalog/')");
 		} catch (\ErrorException $exception) {
 			$json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
 		}
 
 		if (!$json) {
-			$json['text'] = sprintf($this->language->get('text_progress'), 4, 4, 8);
+			$json['text'] = sprintf($this->language->get('text_progress'), 4, 4, 9);
 
 			$url = '';
 

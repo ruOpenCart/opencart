@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade2
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade2 extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -36,6 +44,7 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 		}
 
 		$total = 0;
+		$limit = 200;
 
 		$file = DIR_DOWNLOAD . 'opencart-' . $version . '.zip';
 
@@ -46,12 +55,13 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 			if ($zip->open($file, \ZipArchive::RDONLY)) {
 				$total = $zip->numFiles;
 
-				$start = ($page - 1) * 200;
+				$start = ($page - 1) * $limit;
+				$end = $start > ($total - $limit) ? $total : ($start + $limit);
 
 				$remove = 'opencart-' . $version . '/upload/';
 
 				// Check if any of the files already exist.
-				for ($i = $start; $i < ($start + 200); $i++) {
+				for ($i = $start; $i < $end; $i++) {
 					$source = $zip->getNameIndex($i);
 
 					if (substr($source, 0, strlen($remove)) == $remove) {
@@ -77,7 +87,7 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 							$path = '';
 
 							// Must have a path before files can be moved
-							$directories = explode('/', dirname($destination, '/'));
+							$directories = explode('/', dirname($destination));
 
 							foreach ($directories as $directory) {
 								if (!$path) {
@@ -92,7 +102,7 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 							}
 
 							// Check if the path is not directory and check there is no existing file
-							if (substr($destination, -1) != '/') {
+							if (substr($destination, -1) != '/' && !is_dir($base . $destination)) {
 								if (is_file($base . $destination)) {
 									unlink($base . $destination);
 								}
@@ -112,7 +122,7 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$json['text'] = sprintf($this->language->get('text_progress'), 2, 2, 8);
+			$json['text'] = sprintf($this->language->get('text_progress'), 2, 2, 9);
 
 			$url = '';
 
@@ -124,10 +134,10 @@ class Upgrade2 extends \Opencart\System\Engine\Controller {
 				$url .= '&admin=' . $this->request->get['admin'];
 			}
 
-			if (($page * 200) <= $total) {
-				$json['next'] = $this->url->link('upgrade/upgrade_2', 'version=' . $version . '&admin=' . $admin . '&page=' . ($page + 1), true);
+			if (($page * $limit) <= $total) {
+				$json['next'] = $this->url->link('upgrade/upgrade_2', $url . '&page=' . ($page + 1), true);
 			} else {
-				$json['next'] = $this->url->link('upgrade/upgrade_3', '', true);
+				$json['next'] = $this->url->link('upgrade/upgrade_3', $url, true);
 
 				if (is_file($file)) {
 					unlink($file);

@@ -18,6 +18,9 @@ $_['text_account']                     = 'Account';
 $_['text_checkout']                    = 'Checkout';
 $_['text_stock']                       = 'Stock';
 $_['text_image']                       = 'Image Sizes';
+$_['text_region']                      = 'Region';
+$_['text_language']                    = 'Language';
+$_['text_currency']                    = 'Currency';
 
 // Column
 $_['column_name']                      = 'Store Name';
@@ -69,6 +72,8 @@ $_['entry_image_popup']                = 'Product Image Popup Size (W x H)';
 $_['entry_image_product']              = 'Product Image List Size (W x H)';
 $_['entry_image_additional']           = 'Additional Product Image Size (W x H)';
 $_['entry_image_related']              = 'Related Product Image Size (W x H)';
+$_['entry_image_article']              = 'Article Image Size (W x H)';
+$_['entry_image_topic']                = 'Topic Image Size (W x H)';
 $_['entry_image_compare']              = 'Compare Image Size (W x H)';
 $_['entry_image_wishlist']             = 'Wish List Image Size (W x H)';
 $_['entry_image_cart']                 = 'Cart Image Size (W x H)';
@@ -77,7 +82,7 @@ $_['entry_width']                      = 'Width';
 $_['entry_height']                     = 'Height';
 
 // Help
-$_['help_url']                         = 'Include the full URL to your store. Make sure to add \'/\' at the end. Example: http://www.yourdomain.com/path/<br /><br />Don\'t use directories to create a new store. You should always point another domain or sub domain to your hosting.';
+$_['help_url']                         = 'Include the full URL to your store. Make sure to add \'/\' at the end. Example: http://www.yourdomain.com/path/<br/><br/>Don\'t use directories to create a new store. You should always point another domain or sub domain to your hosting.';
 $_['help_geocode']                     = 'Please enter your store location geocode manually.';
 $_['help_open']                        = 'Fill in your stores opening times.';
 $_['help_comment']                     = 'This field is for any special notes you would like to tell the customer i.e. Store does not accept cheques.';
@@ -97,6 +102,7 @@ $_['help_checkout_guest']              = 'Allow customers to checkout without cr
 $_['help_checkout']                    = 'Forces people to agree to terms before an a customer can checkout.';
 $_['help_stock_display']               = 'Display stock quantity on the product page.';
 $_['help_stock_checkout']              = 'Allow customers to still checkout if the products they are ordering are not in stock.';
+$_['help_product_count']               = 'Show the number of products inside the subcategories in the storefront header category menu. Be warned, this will cause an extreme performance hit for stores with a lot of subcategories!';
 
 // Error
 $_['error_warning']                    = 'Warning: Please check the form carefully for errors!';
@@ -107,19 +113,20 @@ $_['error_name']                       = 'Store Name must be between 3 and 32 ch
 $_['error_owner']                      = 'Store Owner must be between 3 and 64 characters!';
 $_['error_address']                    = 'Store Address must be between 10 and 256 characters!';
 $_['error_email']                      = 'E-Mail Address does not appear to be valid!';
-$_['error_telephone']                  = 'Telephone must be between 3 and 32 characters!';
 $_['error_product_description_length'] = 'Product description length required!';
 $_['error_pagination']                 = 'Pagination required!';
-$_['help_product_count']               = 'Show the number of products inside the subcategories in the storefront header category menu. Be warned, this will cause an extreme performance hit for stores with a lot of subcategories!';
 $_['error_customer_group_display']     = 'You must include the default customer group if you are going to use this feature!';
-$_['error_default']                    = 'Warning: You can not delete your default store!';
-$_['error_store']                      = 'Warning: This Store cannot be deleted as it is currently assigned to %s orders!';
+$_['error_default']                    = 'Warning: You cannot delete your default store!';
+$_['error_order']                      = 'Warning: This Store cannot be deleted as it is currently assigned to %s orders!';
+$_['error_subscription']               = 'Warning: This Store cannot be deleted as it is currently assigned to %s subscriptions!';
 $_['error_image_thumb']                = 'Product Image Thumb Size dimensions required!';
 $_['error_image_popup']                = 'Product Image Popup Size dimensions required!';
 $_['error_image_product']              = 'Product List Size dimensions required!';
 $_['error_image_category']             = 'Category List Size dimensions required!';
 $_['error_image_additional']           = 'Additional Product Image Size dimensions required!';
 $_['error_image_related']              = 'Related Product Image Size dimensions required!';
+$_['error_image_article']                 = 'Article Image Size dimensions required!';
+$_['error_image_topic']                   = 'Topic Image Size dimensions required!';
 $_['error_image_compare']              = 'Compare Image Size dimensions required!';
 $_['error_image_wishlist']             = 'Wish List Image Size dimensions required!';
 $_['error_image_cart']                 = 'Cart Image Size dimensions required!';

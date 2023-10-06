@@ -1,12 +1,22 @@
 <?php
 namespace Opencart\Catalog\Controller\Common;
+/**
+ * Class Footer
+ *
+ * @package Opencart\Catalog\Controller\Common
+ */
 class Footer extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->language('common/footer');
 
-		$this->load->model('catalog/information');
+		$data['blog'] = $this->url->link('cms/blog', 'language=' . $this->config->get('config_language'));
 
 		$data['informations'] = [];
+
+		$this->load->model('catalog/information');
 
 		foreach ($this->model_catalog_information->getInformations() as $result) {
 			if ($result['bottom']) {
@@ -18,7 +28,7 @@ class Footer extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['contact'] = $this->url->link('information/contact', 'language=' . $this->config->get('config_language'));
-		$data['return'] = $this->url->link('account/returns|add', 'language=' . $this->config->get('config_language'));
+		$data['return'] = $this->url->link('account/returns.add', 'language=' . $this->config->get('config_language'));
 
 		if ($this->config->get('config_gdpr_id')) {
 			$data['gdpr'] = $this->url->link('information/gdpr', 'language=' . $this->config->get('config_language'));
@@ -44,13 +54,13 @@ class Footer extends \Opencart\System\Engine\Controller {
 
 		$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
-		// Whos Online
+		// Who's Online
 		if ($this->config->get('config_customer_online')) {
 			$this->load->model('tool/online');
 
 			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
 				$ip = $this->request->server['HTTP_X_REAL_IP'];
-			} else if (isset($this->request->server['REMOTE_ADDR'])) {
+			} elseif (isset($this->request->server['REMOTE_ADDR'])) {
 				$ip = $this->request->server['REMOTE_ADDR'];
 			} else {
 				$ip = '';

@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Tool;
+/**
+ * Class Log
+ *
+ * @package Opencart\Admin\Controller\Tool
+ */
 class Log extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('tool/log');
 		
@@ -24,6 +32,12 @@ class Log extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['error']);
 		} else {
 			$data['error_warning'] = '';
+		}
+
+		$file = DIR_LOGS . $this->config->get('config_error_filename');
+
+		if (!is_file($file)) {
+			file_put_contents($file, '', FILE_APPEND);
 		}
 
 		$data['log'] = [];
@@ -65,8 +79,8 @@ class Log extends \Opencart\System\Engine\Controller {
 			$data['logs'][] = [
 				'name'     => $filename,
 				'output'   => fread($handle, 3145728),
-				'download' => $this->url->link('tool/log|download', 'user_token=' . $this->session->data['user_token'] . '&filename=' . $filename),
-				'clear'    => $this->url->link('tool/log|clear', 'user_token=' . $this->session->data['user_token'] . '&filename=' . $filename),
+				'download' => $this->url->link('tool/log.download', 'user_token=' . $this->session->data['user_token'] . '&filename=' . $filename),
+				'clear'    => $this->url->link('tool/log.clear', 'user_token=' . $this->session->data['user_token'] . '&filename=' . $filename),
 				'error'    => $error
 			];
 
@@ -82,11 +96,14 @@ class Log extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('tool/log', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function download(): void {
 		$this->load->language('tool/log');
 
 		if (isset($this->request->get['filename'])) {
-			$filename = (string)basename($this->request->get['filename']);
+			$filename = (string)basename(html_entity_decode($this->request->get['filename'], ENT_QUOTES, 'UTF-8'));
 		} else {
 			$filename = '';
 		}
@@ -96,13 +113,13 @@ class Log extends \Opencart\System\Engine\Controller {
 		if (!is_file($file)) {
 			$this->session->data['error'] = sprintf($this->language->get('error_file'), $filename);
 
-			$this->response->redirect($this->url->link('tool/log', 'user_token=' . $this->session->data['user_token']));
+			$this->response->redirect($this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true));
 		}
 
 		if (!filesize($file)) {
 			$this->session->data['error'] = sprintf($this->language->get('error_empty'), $filename);
 
-			$this->response->redirect($this->url->link('tool/log', 'user_token=' . $this->session->data['user_token']));
+			$this->response->redirect($this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true));
 		}
 
 		$this->response->addheader('Pragma: public');
@@ -114,12 +131,15 @@ class Log extends \Opencart\System\Engine\Controller {
 
 		$this->response->setOutput(file_get_contents($file, FILE_USE_INCLUDE_PATH, null));
 	}
-	
+
+	/**
+	 * @return void
+	 */
 	public function clear(): void {
 		$this->load->language('tool/log');
 
 		if (isset($this->request->get['filename'])) {
-			$filename = (string)$this->request->get['filename'];
+			$filename = (string)basename(html_entity_decode($this->request->get['filename'], ENT_QUOTES, 'UTF-8'));
 		} else {
 			$filename = '';
 		}

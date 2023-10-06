@@ -1,17 +1,36 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade3
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade3 extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
 		$json = [];
 
 		// It makes mass changes to the DB by creating tables that are not in the current db, changes the charset and DB engine to the SQL schema.
-		// Structure
-		$this->load->helper('db_schema');
-
 		try {
-			$tables = db_schema();
+			// Structure
+			$this->load->helper('db_schema');
+
+			$tables = oc_db_schema();
+
+			// Clear any old db foreign key constraints
+			/*
+			foreach ($tables as $table) {
+				$foreign_query = $this->db->query("SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $table['name'] . "' AND CONSTRAINT_TYPE = 'FOREIGN KEY'");
+
+				foreach ($foreign_query->rows as $foreign) {
+					$this->db->query("ALTER TABLE `" . DB_PREFIX . $table['name'] . "` DROP FOREIGN KEY `" . $foreign['CONSTRAINT_NAME'] . "`");
+				}
+			}
+			*/
 
 			foreach ($tables as $table) {
 				$table_query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $table['name'] . "'");
@@ -90,7 +109,7 @@ class Upgrade3 extends \Opencart\System\Engine\Controller {
 							// We need to remove the AUTO_INCREMENT
 							$field_query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $table['name'] . "' AND COLUMN_NAME = '" . $result['Column_name'] . "'");
 
-							$this->db->query("ALTER TABLE " . DB_PREFIX . $table['name'] . " MODIFY " . $result['Column_name'] . " " . $field_query->row['COLUMN_TYPE'] . " NOT NULL");
+							$this->db->query("ALTER TABLE `" . DB_PREFIX . $table['name'] . "` MODIFY `" . $result['Column_name'] . "` " . $field_query->row['COLUMN_TYPE'] . " NOT NULL");
 						}
 
 						if (!in_array($result['Key_name'], $keys)) {
@@ -154,12 +173,23 @@ class Upgrade3 extends \Opencart\System\Engine\Controller {
 					}
 				}
 			}
+
+			/*
+			// Setup foreign keys
+			foreach ($tables as $table) {
+				if (isset($table['foreign'])) {
+					foreach ($table['foreign'] as $foreign) {
+						//$this->db->query("ALTER TABLE `" . DB_PREFIX . $table['name'] . "` ADD FOREIGN KEY (`" . $foreign['key'] . "`) REFERENCES `" . DB_PREFIX . $foreign['table'] . "` (`" . $foreign['field'] . "`)");
+					}
+				}
+			}
+			*/
 		} catch (\ErrorException $exception) {
 			$json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
 		}
 
 		if (!$json) {
-			$json['text'] = sprintf($this->language->get('text_progress'), 3, 3, 8);
+			$json['text'] = sprintf($this->language->get('text_progress'), 3, 3, 9);
 
 			$url = '';
 

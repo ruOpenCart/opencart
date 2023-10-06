@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Setting;
+/**
+ * Class Store
+ *
+ * @package Opencart\Admin\Controller\Setting
+ */
 class Store extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('setting/store');
 
@@ -24,8 +32,8 @@ class Store extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'] . $url)
 		];
 
-		$data['add'] = $this->url->link('setting/store|form', 'user_token=' . $this->session->data['user_token'] . $url);
-		$data['delete'] = $this->url->link('setting/store|delete', 'user_token=' . $this->session->data['user_token']);
+		$data['add'] = $this->url->link('setting/store.form', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['delete'] = $this->url->link('setting/store.delete', 'user_token=' . $this->session->data['user_token']);
 
 		$data['list'] = $this->getList();
 
@@ -38,12 +46,18 @@ class Store extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('setting/store', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function list(): void {
 		$this->load->language('setting/store');
 
 		$this->response->setOutput($this->getList());
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getList(): string {
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
@@ -57,7 +71,7 @@ class Store extends \Opencart\System\Engine\Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['action'] = $this->url->link('setting/store|list', 'user_token=' . $this->session->data['user_token'] . $url);
+		$data['action'] = $this->url->link('setting/store.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
 		$data['stores'] = [];
 
@@ -76,10 +90,6 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$this->load->model('setting/setting');
-
-		$store_total += $this->model_setting_store->getTotalStores();
-
 		$results = $this->model_setting_store->getStores();
 
 		foreach ($results as $result) {
@@ -87,15 +97,17 @@ class Store extends \Opencart\System\Engine\Controller {
 				'store_id' => $result['store_id'],
 				'name'     => $result['name'],
 				'url'      => $result['url'],
-				'edit'     => $this->url->link('setting/store|form', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $result['store_id'])
+				'edit'     => $this->url->link('setting/store.form', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $result['store_id'])
 			];
 		}
+
+		$store_total += $this->model_setting_store->getTotalStores();
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $store_total,
 			'page'  => $page,
 			'limit' => $this->config->get('config_pagination_admin'),
-			'url'   => $this->url->link('setting/store|list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}')
+			'url'   => $this->url->link('setting/store.list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($store_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($store_total - $this->config->get('config_pagination_admin'))) ? $store_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $store_total, ceil($store_total / $this->config->get('config_pagination_admin')));
@@ -103,6 +115,9 @@ class Store extends \Opencart\System\Engine\Controller {
 		return $this->load->view('setting/store_list', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function form(): void {
 		$this->load->language('setting/store');
 
@@ -130,10 +145,10 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_settings'),
-			'href' => $this->url->link('setting/store|form', 'user_token=' . $this->session->data['user_token'] . (isset($this->request->post['store_id']) ? '&store_id=' . $this->request->get['store_id'] : '') . $url)
+			'href' => $this->url->link('setting/store.form', 'user_token=' . $this->session->data['user_token'] . (isset($this->request->post['store_id']) ? '&store_id=' . $this->request->get['store_id'] : '') . $url)
 		];
 
-		$data['save'] = $this->url->link('setting/store|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('setting/store.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token']);
 
 		if (isset($this->request->get['store_id'])) {
@@ -179,14 +194,12 @@ class Store extends \Opencart\System\Engine\Controller {
 		$extensions = $this->model_setting_extension->getExtensionsByType('theme');
 
 		foreach ($extensions as $extension) {
-			if ($this->config->get('theme_' . $extension['code'] . '_status')) {
-				$this->load->language('extension/' . $extension['extension'] . '/theme/' . $extension['code'], 'extension');
+			$this->load->language('extension/' . $extension['extension'] . '/theme/' . $extension['code'], 'extension');
 
-				$data['themes'][] = [
-					'text'  => $this->language->get('extension_heading_title'),
-					'value' => $extension['code']
-				];
-			}
+			$data['themes'][] = [
+				'text'  => $this->language->get('extension_heading_title'),
+				'value' => $extension['code']
+			];
 		}
 
 		if (isset($store_info['config_theme'])) {
@@ -249,10 +262,10 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('tool/image');
 
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['config_image'], ENT_QUOTES, 'UTF-8'))) {
-			$data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['config_image'], ENT_QUOTES, 'UTF-8'), 750, 90);
+			$data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['config_image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 		} else {
 			$data['thumb'] = $data['placeholder'];
 		}
@@ -435,10 +448,10 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('tool/image');
 
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 
 		if (is_file(DIR_IMAGE . html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'))) {
-			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'), 100, 100);
+			$data['logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
 		} else {
 			$data['logo'] = $data['placeholder'];
 		}
@@ -512,7 +525,31 @@ class Store extends \Opencart\System\Engine\Controller {
 		if (isset($store_info['config_image_related_height'])) {
 			$data['config_image_related_height'] = $store_info['config_image_related_height'];
 		} else {
-			$data['config_image_related_height'] = 80;
+			$data['config_image_related_height'] = 74;
+		}
+
+		if (isset($store_info['config_image_article_width'])) {
+			$data['config_image_article_width'] = $store_info['config_image_article_width'];
+		} else {
+			$data['config_image_article_width'] = 1140;
+		}
+
+		if (isset($store_info['config_image_article_height'])) {
+			$data['config_image_article_height'] = $store_info['config_image_article_height'];
+		} else {
+			$data['config_image_article_height'] = 380;
+		}
+
+		if (isset($store_info['config_image_topic_width'])) {
+			$data['config_image_topic_width'] = $store_info['config_image_topic_width'];
+		} else {
+			$data['config_image_topic_width'] = 1140;
+		}
+
+		if (isset($store_info['config_image_topic_height'])) {
+			$data['config_image_topic_height'] = $store_info['config_image_topic_height'];
+		} else {
+			$data['config_image_topic_height'] = 380;
 		}
 
 		if (isset($store_info['config_image_compare_width'])) {
@@ -572,6 +609,9 @@ class Store extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('setting/store_form', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('setting/store');
 
@@ -593,20 +633,16 @@ class Store extends \Opencart\System\Engine\Controller {
 			$json['error']['name'] = $this->language->get('error_name');
 		}
 
-		if ((utf8_strlen($this->request->post['config_owner']) < 3) || (utf8_strlen($this->request->post['config_owner']) > 64)) {
+		if ((oc_strlen($this->request->post['config_owner']) < 3) || (oc_strlen($this->request->post['config_owner']) > 64)) {
 			$json['error']['owner'] = $this->language->get('error_owner');
 		}
 
-		if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 256)) {
+		if ((oc_strlen($this->request->post['config_address']) < 3) || (oc_strlen($this->request->post['config_address']) > 256)) {
 			$json['error']['address'] = $this->language->get('error_address');
 		}
 
-		if ((utf8_strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
+		if ((oc_strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
 			$json['error']['email'] = $this->language->get('error_email');
-		}
-
-		if ((utf8_strlen($this->request->post['config_telephone']) < 3) || (utf8_strlen($this->request->post['config_telephone']) > 32)) {
-			$json['error']['telephone'] = $this->language->get('error_telephone');
 		}
 
 		if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
@@ -643,6 +679,14 @@ class Store extends \Opencart\System\Engine\Controller {
 
 		if (!$this->request->post['config_image_related_width'] || !$this->request->post['config_image_related_height']) {
 			$json['error']['image_related'] = $this->language->get('error_image_related');
+		}
+
+		if (!$this->request->post['config_image_article_width'] || !$this->request->post['config_image_article_height']) {
+			$json['error']['image_article'] = $this->language->get('error_image_article');
+		}
+
+		if (!$this->request->post['config_image_topic_width'] || !$this->request->post['config_image_topic_height']) {
+			$json['error']['image_topic'] = $this->language->get('error_image_topic');
 		}
 
 		if (!$this->request->post['config_image_compare_width'] || !$this->request->post['config_image_compare_height']) {
@@ -687,6 +731,9 @@ class Store extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function delete(): void {
 		$this->load->language('setting/store');
 
@@ -703,16 +750,23 @@ class Store extends \Opencart\System\Engine\Controller {
 		}
 
 		$this->load->model('sale/order');
+		$this->load->model('sale/subscription');
 
 		foreach ($selected as $store_id) {
 			if (!$store_id) {
 				$json['error'] = $this->language->get('error_default');
 			}
 
-			$store_total = $this->model_sale_order->getTotalOrdersByStoreId($store_id);
+			$order_total = $this->model_sale_order->getTotalOrdersByStoreId($store_id);
 
-			if ($store_total) {
-				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
+			if ($order_total) {
+				$json['error'] = sprintf($this->language->get('error_store'), $order_total);
+			}
+
+			$subscription_total = $this->model_sale_subscription->getTotalSubscriptionsByStoreId($store_id);
+
+			if ($subscription_total) {
+				$json['error'] = sprintf($this->language->get('error_store'), $subscription_total);
 			}
 		}
 

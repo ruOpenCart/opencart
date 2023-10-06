@@ -1,6 +1,16 @@
 <?php
 namespace Opencart\Admin\Model\Extension\Opencart\Report;
+/**
+ * Class Returns
+ *
+ * @package Opencart\Admin\Model\Extension\Opencart\Report
+ */
 class Returns extends \Opencart\System\Engine\Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
 	public function getReturns(array $data = []): array {
 		$sql = "SELECT MIN(r.`date_added`) AS date_start, MAX(r.`date_added`) AS date_end, COUNT(r.`return_id`) AS returns FROM `" . DB_PREFIX . "return` r";
 
@@ -24,16 +34,16 @@ class Returns extends \Opencart\System\Engine\Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql .= " GROUP BY YEAR(r.`date_added`), MONTH(r.`date_added`), DAY(r.`date_added`)";
 				break;
 			default:
 			case 'week':
-				$sql .= " GROUP BY YEAR(r.`date_added`), WEEK(r.date_added)";
+				$sql .= " GROUP BY YEAR(r.`date_added`), WEEK(r.`date_added`)";
 				break;
 			case 'month':
-				$sql .= " GROUP BY YEAR(r.`date_added`), MONTH(r.date_added)";
+				$sql .= " GROUP BY YEAR(r.`date_added`), MONTH(r.`date_added`)";
 				break;
 			case 'year':
 				$sql .= " GROUP BY YEAR(r.`date_added`)";
@@ -57,6 +67,11 @@ class Returns extends \Opencart\System\Engine\Model {
 		return $query->rows;
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
 	public function getTotalReturns(array $data = []): int {
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
@@ -64,7 +79,7 @@ class Returns extends \Opencart\System\Engine\Model {
 			$group = 'week';
 		}
 
-		switch($group) {
+		switch ($group) {
 			case 'day';
 				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`), DAY(`date_added`)) AS `total` FROM `" . DB_PREFIX . "return`";
 				break;
@@ -96,6 +111,6 @@ class Returns extends \Opencart\System\Engine\Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

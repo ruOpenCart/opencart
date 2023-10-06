@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Shipping;
+/**
+ * Class Weight
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Shipping
+ */
 class Weight extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/shipping/weight');
 
@@ -23,7 +31,7 @@ class Weight extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/shipping/weight', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/shipping/weight|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/shipping/weight.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping');
 
 		$this->load->model('localisation/geo_zone');
@@ -53,6 +61,9 @@ class Weight extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/shipping/weight', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/shipping/weight');
 

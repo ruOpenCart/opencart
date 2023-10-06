@@ -1,6 +1,15 @@
 <?php
 namespace Opencart\Catalog\Controller\Startup;
+/**
+ * Class Session
+ *
+ * @package Opencart\Catalog\Controller\Startup
+ */
 class Session extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 * @throws \Exception
+	 */
 	public function index(): void {
 		$session = new \Opencart\System\Library\Session($this->config->get('session_engine'), $this->registry);
 		$this->registry->set('session', $session);
@@ -36,6 +45,9 @@ class Session extends \Opencart\System\Engine\Controller {
 			$this->config->set('session_expire', $this->config->get('config_session_expire'));
 		}
 
+		// Update the session SameSite
+		$this->config->set('session_samesite', $this->config->get('config_session_samesite'));
+
 		if (isset($this->request->cookie[$this->config->get('session_name')])) {
 			$session_id = $this->request->cookie[$this->config->get('session_name')];
 		} else {
@@ -46,7 +58,7 @@ class Session extends \Opencart\System\Engine\Controller {
 
 		$option = [
 			'expires'  => time() + (int)$this->config->get('config_session_expire'),
-			'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
+			'path'     => $this->config->get('session_path'),
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => $this->config->get('session_samesite')

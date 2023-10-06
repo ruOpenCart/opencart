@@ -1,282 +1,364 @@
 <?php
-//namespace Opencart\System\Helper;
-function db_schema() {
+function oc_db_create($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port, $db_prefix, $db_ssl_key, $db_ssl_cert, $db_ssl_ca) {
+	try {
+		// Database
+		$db = new \Opencart\System\Library\DB($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port, $db_ssl_key, $db_ssl_cert, $db_ssl_ca);
+	} catch (\Exception $e) {
+		return false;
+	}
+
+	// Set up Database structure
+	$tables = oc_db_schema();
+
+	foreach ($tables as $table) {
+		$table_query = $db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . $db_database . "' AND TABLE_NAME = '" . $db_prefix . $table['name'] . "'");
+
+		if ($table_query->num_rows) {
+			$db->query("DROP TABLE `" . $db_prefix . $table['name'] . "`");
+		}
+
+		$sql = "CREATE TABLE `" . $db_prefix . $table['name'] . "` (" . "\n";
+
+		foreach ($table['field'] as $field) {
+			$sql .= "  `" . $field['name'] . "` " . $field['type'] . (!empty($field['not_null']) ? " NOT NULL" : "") . (isset($field['default']) ? " DEFAULT '" . $db->escape($field['default']) . "'" : "") . (!empty($field['auto_increment']) ? " AUTO_INCREMENT" : "") . ",\n";
+		}
+
+		if (isset($table['primary'])) {
+			$primary_data = [];
+
+			foreach ($table['primary'] as $primary) {
+				$primary_data[] = "`" . $primary . "`";
+			}
+
+			$sql .= "  PRIMARY KEY (" . implode(",", $primary_data) . "),\n";
+		}
+
+		if (isset($table['index'])) {
+			foreach ($table['index'] as $index) {
+				$index_data = [];
+
+				foreach ($index['key'] as $key) {
+					$index_data[] = "`" . $key . "`";
+				}
+
+				$sql .= "  KEY `" . $index['name'] . "` (" . implode(",", $index_data) . "),\n";
+			}
+		}
+
+		$sql = rtrim($sql, ",\n") . "\n";
+		$sql .= ") ENGINE=" . $table['engine'] . " CHARSET=" . $table['charset'] . " COLLATE=" . $table['collate'] . ";\n";
+
+		$db->query($sql);
+	}
+
+	return true;
+}
+
+function oc_db_schema() {
 	$tables = [];
 
 	$tables[] = [
-		'name' => 'address',
-		'field' => [
+		'name'    => 'address',
+		'field'   => [
 			[
-				'name' => 'address_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'address_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'company',
-				'type' => 'varchar(60)',
+				'name'     => 'company',
+				'type'     => 'varchar(60)',
 				'not_null' => true
 			],
 			[
-				'name' => 'address_1',
-				'type' => 'varchar(128)',
+				'name'     => 'address_1',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'address_2',
-				'type' => 'varchar(128)',
+				'name'     => 'address_2',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'city',
-				'type' => 'varchar(128)',
+				'name'     => 'city',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'postcode',
-				'type' => 'varchar(10)',
+				'name'     => 'postcode',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country_id',
-				'type' => 'int(11)',
+				'name'     => 'country_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'zone_id',
-				'type' => 'int(11)',
+				'name'     => 'zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'custom_field',
-				'type' => 'text',
+				'name'     => 'custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'default',
-				'type' => 'tinyint(1)',
+				'name'     => 'default',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'address_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'customer_id',
-				'key' => [
+				'key'  => [
 					'customer_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'address_format',
-		'field' => [
+		'name'    => 'address_format',
+		'field'   => [
 			[
-				'name' => 'address_format_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'address_format_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'address_format',
-				'type' => 'text',
+				'name'     => 'address_format',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'address_format_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'api',
-		'field' => [
+		'name'    => 'api',
+		'field'   => [
 			[
-				'name' => 'api_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'api_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'username',
-				'type' => 'varchar(64)',
+				'name'     => 'username',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'key',
-				'type' => 'text',
+				'name'     => 'key',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'api_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'api_ip',
-		'field' => [
+		'name'    => 'api_ip',
+		'field'   => [
 			[
-				'name' => 'api_ip_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'api_ip_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'api_id',
-				'type' => 'int(11)',
+				'name'     => 'api_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'api_ip_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'api_id',
+				'table' => 'api',
+				'field' => 'api_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'api_session',
-		'field' => [
+		'name'    => 'api_session',
+		'field'   => [
 			[
-				'name' => 'api_session_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'api_session_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'api_id',
-				'type' => 'int(11)',
+				'name'     => 'api_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'session_id',
-				'type' => 'varchar(32)',
+				'name'     => 'session_id',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'api_session_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'api_id',
+				'table' => 'api',
+				'field' => 'api_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'attribute',
-		'field' => [
+		'name'    => 'attribute',
+		'field'   => [
 			[
-				'name' => 'attribute_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'attribute_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'attribute_group_id',
-				'type' => 'int(11)',
+				'name'     => 'attribute_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'attribute_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'attribute_group_id',
+				'table' => 'attribute_group',
+				'field' => 'attribute_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'attribute_description',
-		'field' => [
+		'name'    => 'attribute_description',
+		'field'   => [
 			[
-				'name' => 'attribute_id',
-				'type' => 'int(11)',
+				'name'     => 'attribute_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -284,50 +366,62 @@ function db_schema() {
 			'attribute_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'attribute_id',
+				'table' => 'attribute',
+				'field' => 'attribute_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'attribute_group',
-		'field' => [
+		'name'    => 'attribute_group',
+		'field'   => [
 			[
-				'name' => 'attribute_group_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'attribute_group_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'attribute_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'attribute_group_description',
-		'field' => [
+		'name'    => 'attribute_group_description',
+		'field'   => [
 			[
-				'name' => 'attribute_group_id',
-				'type' => 'int(11)',
+				'name'     => 'attribute_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -335,145 +429,635 @@ function db_schema() {
 			'attribute_group_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'attribute_group_id',
+				'table' => 'attribute_group',
+				'field' => 'attribute_group_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'banner',
-		'field' => [
+		'name'    => 'banner',
+		'field'   => [
 			[
-				'name' => 'banner_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'banner_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'banner_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'banner_image',
-		'field' => [
+		'name'    => 'banner_image',
+		'field'   => [
 			[
-				'name' => 'banner_image_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'banner_image_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'banner_id',
-				'type' => 'int(11)',
+				'name'     => 'banner_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(64)',
+				'name'     => 'title',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'link',
-				'type' => 'varchar(255)',
+				'name'     => 'link',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			]
 		],
 		'primary' => [
 			'banner_image_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'banner_id',
+				'table' => 'banner',
+				'field' => 'banner_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'cart',
-		'field' => [
+		'name'    => 'antispam',
+		'field'   => [
 			[
-				'name' => 'cart_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'antispam_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'api_id',
-				'type' => 'int(11)',
+				'name'     => 'keyword',
+				'type'     => 'varchar(64)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'antispam_id'
+		],
+		'index'   => [
+			[
+				'name' => 'keyword',
+				'key'  => [
+					'keyword'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'article',
+		'field'   => [
+			[
+				'name'           => 'article_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'topic_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'author',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'session_id',
-				'type' => 'varchar(32)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'article_id'
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'article_comment',
+		'field'   => [
+			[
+				'name'           => 'article_comment_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'article_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'option',
-				'type' => 'text',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(5)',
+				'name'     => 'author',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'comment',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'article_comment_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'article_id',
+				'table' => 'article',
+				'field' => 'article_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'index'   => [
+			[
+				'name' => 'article_id',
+				'key'  => [
+					'article_id'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'article_description',
+		'field'   => [
+			[
+				'name'     => 'article_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'description',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'tag',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_title',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_description',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_keyword',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'article_id',
+			'language_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'index'   => [
+			[
+				'name' => 'name',
+				'key'  => [
+					'name'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'article_to_layout',
+		'field'   => [
+			[
+				'name'     => 'article_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'article_id',
+			'store_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'article_id',
+				'table' => 'article',
+				'field' => 'article_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'article_to_store',
+		'field'   => [
+			[
+				'name'     => 'article_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
+				'not_null' => true,
+				'default'  => '0'
+			]
+		],
+		'primary' => [
+			'article_id',
+			'store_id',
+		],
+		'foreign' => [
+			[
+				'key'   => 'article_id',
+				'table' => 'article',
+				'field' => 'article_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'topic',
+		'field'   => [
+			[
+				'name'           => 'topic_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
+				'not_null' => true,
+				'default'  => '0'
+			],
+			[
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'topic_id'
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'topic_description',
+		'field'   => [
+			[
+				'name'     => 'topic_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'description',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_title',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_description',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'meta_keyword',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'topic_id',
+			'language_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'index'   => [
+			[
+				'name' => 'name',
+				'key'  => [
+					'name'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'topic_to_store',
+		'field'   => [
+			[
+				'name'     => 'topic_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
+				'not_null' => true,
+				'default'  => '0'
+			]
+		],
+		'primary' => [
+			'topic_id',
+			'store_id',
+		],
+		'foreign' => [
+			[
+				'key'   => 'topic_id',
+				'table' => 'topic',
+				'field' => 'topic_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'cart',
+		'field'   => [
+			[
+				'name'           => 'cart_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'api_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'session_id',
+				'type'     => 'varchar(32)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'subscription_plan_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'option',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'quantity',
+				'type'     => 'int(5)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'override',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'cart_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'api_id',
+				'table' => 'api',
+				'field' => 'api_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'session_id',
+				'table' => 'session',
+				'field' => 'session_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'subscription_plan_id',
+				'table' => 'subscription_plan',
+				'field' => 'subscription_plan_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'cart_id',
-				'key' => [
+				'key'  => [
 					'api_id',
 					'customer_id',
 					'session_id',
@@ -482,115 +1066,115 @@ function db_schema() {
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category',
-		'field' => [
+		'name'    => 'category',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'category_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'parent_id',
-				'type' => 'int(11)',
+				'name'     => 'parent_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'top',
-				'type' => 'tinyint(1)',
+				'name'     => 'top',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'column',
-				'type' => 'int(3)',
+				'name'     => 'column',
+				'type'     => 'int(3)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'category_id'
 		],
-		'index' => [
+		'index'   => [
 			[
 				'name' => 'parent_id',
-				'key' => [
+				'key'  => [
 					'parent_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category_description',
-		'field' => [
+		'name'    => 'category_description',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_title',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_title',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_description',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_keyword',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_keyword',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
@@ -598,30 +1182,37 @@ function db_schema() {
 			'category_id',
 			'language_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'name',
-				'key' => [
+				'key'  => [
 					'name'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category_filter',
-		'field' => [
+		'name'    => 'category_filter',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'filter_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -629,27 +1220,39 @@ function db_schema() {
 			'category_id',
 			'filter_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			],
+			[
+				'key'   => 'filter_id',
+				'table' => 'filter',
+				'field' => 'filter_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category_path',
-		'field' => [
+		'name'    => 'category_path',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'path_id',
-				'type' => 'int(11)',
+				'name'     => 'path_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'level',
-				'type' => 'int(11)',
+				'name'     => 'level',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -657,27 +1260,34 @@ function db_schema() {
 			'category_id',
 			'path_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category_to_layout',
-		'field' => [
+		'name'    => 'category_to_layout',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -685,145 +1295,175 @@ function db_schema() {
 			'category_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'category_to_store',
-		'field' => [
+		'name'    => 'category_to_store',
+		'field'   => [
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
-				'not_null' => true
-			]
-		],
-		'primary' => [
-			'category_id',
-			'store_id'
-		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	];
-
-	$tables[] = [
-		'name' => 'country',
-		'field' => [
-			[
-				'name' => 'country_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
+				'default'  => '0'
+			]
+		],
+		'primary' => [
+			'category_id',
+			'store_id',
+		],
+		'foreign' => [
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'country',
+		'field'   => [
+			[
+				'name'           => 'country_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'iso_code_2',
-				'type' => 'varchar(2)',
+				'name'     => 'iso_code_2',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'iso_code_3',
-				'type' => 'varchar(3)',
+				'name'     => 'iso_code_3',
+				'type'     => 'varchar(3)',
 				'not_null' => true
 			],
 			[
-				'name' => 'address_format_id',
-				'type' => 'int(11)',
+				'name'     => 'address_format_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'postcode_required',
-				'type' => 'tinyint(1)',
+				'name'     => 'postcode_required',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			]
 		],
 		'primary' => [
 			'country_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'coupon',
-		'field' => [
+		'name'    => 'coupon',
+		'field'   => [
 			[
-				'name' => 'coupon_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'coupon_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(20)',
+				'name'     => 'code',
+				'type'     => 'varchar(20)',
 				'not_null' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'char(1)',
+				'name'     => 'type',
+				'type'     => 'char(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'discount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'discount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'logged',
-				'type' => 'tinyint(1)',
+				'name'     => 'logged',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping',
-				'type' => 'tinyint(1)',
+				'name'     => 'shipping',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'total',
-				'type' => 'decimal(15,4)',
+				'name'     => 'total',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_start',
-				'type' => 'date',
+				'name'     => 'date_start',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_end',
-				'type' => 'date',
+				'name'     => 'date_end',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'uses_total',
-				'type' => 'int(11)',
+				'name'     => 'uses_total',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'uses_customer',
-				'type' => 'varchar(11)',
+				'name'     => 'uses_customer',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
@@ -841,21 +1481,21 @@ function db_schema() {
 			'coupon_id'
 		],
 		'engine'  => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'coupon_category',
-		'field' => [
+		'name'    => 'coupon_category',
+		'field'   => [
 			[
-				'name' => 'coupon_id',
-				'type' => 'int(11)',
+				'name'     => 'coupon_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -863,564 +1503,719 @@ function db_schema() {
 			'coupon_id',
 			'category_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'coupon_id',
+				'table' => 'coupon',
+				'field' => 'coupon_id'
+			],
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'coupon_history',
-		'field' => [
+		'name'    => 'coupon_history',
+		'field'   => [
 			[
-				'name' => 'coupon_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'coupon_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'coupon_id',
-				'type' => 'int(11)',
+				'name'     => 'coupon_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'amount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'coupon_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'coupon_id',
+				'table' => 'coupon',
+				'field' => 'coupon_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'coupon_product',
-		'field' => [
+		'name'    => 'coupon_product',
+		'field'   => [
 			[
-				'name' => 'coupon_product_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'coupon_product_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'coupon_id',
-				'type' => 'int(11)',
+				'name'     => 'coupon_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'coupon_product_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'coupon_id',
+				'table' => 'coupon',
+				'field' => 'coupon_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'cron',
-		'field' => [
+		'name'    => 'cron',
+		'field'   => [
 			[
-				'name' => 'cron_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'cron_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(128)',
+				'name'     => 'code',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'cycle',
-				'type' => 'varchar(12)',
+				'name'     => 'cycle',
+				'type'     => 'varchar(12)',
 				'not_null' => true
 			],
 			[
-				'name' => 'action',
-				'type' => 'text',
+				'name'     => 'action',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'cron_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'currency',
-		'field' => [
+		'name'    => 'currency',
+		'field'   => [
 			[
-				'name' => 'currency_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'currency_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(32)',
+				'name'     => 'title',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(3)',
+				'name'     => 'code',
+				'type'     => 'varchar(3)',
 				'not_null' => true
 			],
 			[
-				'name' => 'symbol_left',
-				'type' => 'varchar(12)',
+				'name'     => 'symbol_left',
+				'type'     => 'varchar(12)',
 				'not_null' => true
 			],
 			[
-				'name' => 'symbol_right',
-				'type' => 'varchar(12)',
+				'name'     => 'symbol_right',
+				'type'     => 'varchar(12)',
 				'not_null' => true
 			],
 			[
-				'name' => 'decimal_place',
-				'type' => 'char(1)',
+				'name'     => 'decimal_place',
+				'type'     => 'int(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'double(15,8)',
+				'name'     => 'value',
+				'type'     => 'double(15,8)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'currency_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer',
-		'field' => [
+		'name'    => 'customer',
+		'field'   => [
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'telephone',
-				'type' => 'varchar(32)',
+				'name'     => 'telephone',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'password',
-				'type' => 'varchar(255)',
+				'name'     => 'password',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'custom_field',
-				'type' => 'text',
+				'name'     => 'custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'wishlist',
-				'type' => 'text',
+				'name'     => 'newsletter',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'newsletter',
-				'type' => 'tinyint(1)',
-				'not_null' => true,
-				'default' => '0'
-			],
-			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'commenter',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'safe',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'token',
-				'type' => 'text',
+				'name'     => 'safe',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(40)',
+				'name'     => 'token',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'code',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_activity',
-		'field' => [
+		'name'    => 'customer_activity',
+		'field'   => [
 			[
-				'name' => 'customer_activity_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_activity_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'key',
-				'type' => 'varchar(64)',
+				'name'     => 'key',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'data',
-				'type' => 'text',
+				'name'     => 'data',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_activity_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_affiliate',
-		'field' => [
+		'name'    => 'customer_affiliate',
+		'field'   => [
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'company',
-				'type' => 'varchar(60)',
+				'name'     => 'company',
+				'type'     => 'varchar(60)',
 				'not_null' => true
 			],
 			[
-				'name' => 'website',
-				'type' => 'varchar(255)',
+				'name'     => 'website',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'tracking',
-				'type' => 'varchar(64)',
+				'name'     => 'tracking',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'commission',
-				'type' => 'decimal(4,2)',
+				'name'     => 'balance',
+				'type'     => 'decimal(15,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'commission',
+				'type'     => 'decimal(4,2)',
 				'not_null' => true,
-				'default' => '0.00'
+				'default'  => '0.00'
 			],
 			[
-				'name' => 'tax',
-				'type' => 'varchar(64)',
+				'name'     => 'tax',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment',
-				'type' => 'varchar(6)',
+				'name'     => 'payment_method',
+				'type'     => 'varchar(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'cheque',
-				'type' => 'varchar(100)',
+				'name'     => 'cheque',
+				'type'     => 'varchar(100)',
 				'not_null' => true
 			],
 			[
-				'name' => 'paypal',
-				'type' => 'varchar(64)',
+				'name'     => 'paypal',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'bank_name',
-				'type' => 'varchar(64)',
+				'name'     => 'bank_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'bank_branch_number',
-				'type' => 'varchar(64)',
+				'name'     => 'bank_branch_number',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'bank_swift_code',
-				'type' => 'varchar(64)',
+				'name'     => 'bank_swift_code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'bank_account_name',
-				'type' => 'varchar(64)',
+				'name'     => 'bank_account_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'bank_account_number',
-				'type' => 'varchar(64)',
+				'name'     => 'bank_account_number',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'custom_field',
-				'type' => 'text',
+				'name'     => 'custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_affiliate_report',
-		'field' => [
+		'name'    => 'customer_affiliate_report',
+		'field'   => [
 			[
-				'name' => 'customer_affiliate_report_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_affiliate_report_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country',
-				'type' => 'varchar(2)',
+				'name'     => 'country',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_affiliate_report_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_approval',
-		'field' => [
+		'name'    => 'customer_approval',
+		'field'   => [
 			[
-				'name' => 'customer_approval_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_approval_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'varchar(9)',
+				'name'     => 'type',
+				'type'     => 'varchar(9)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_approval_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_group',
-		'field' => [
+		'name'    => 'customer_authorize',
+		'field'   => [
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_authorize_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'approval',
-				'type' => 'int(1)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'token',
+				'type'     => 'varchar(96)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'total',
+				'type'     => 'int(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'user_agent',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'user_authorize_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'customer_group',
+		'field'   => [
+			[
+				'name'           => 'customer_group_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'approval',
+				'type'     => 'int(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_group_description',
-		'field' => [
+		'name'    => 'customer_group_description',
+		'field'   => [
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
@@ -1428,362 +2223,432 @@ function db_schema() {
 			'customer_group_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_history',
-		'field' => [
+		'name'    => 'customer_history',
+		'field'   => [
 			[
-				'name' => 'customer_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_login',
-		'field' => [
+		'name'    => 'customer_login',
+		'field'   => [
 			[
-				'name' => 'customer_login_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_login_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'total',
-				'type' => 'int(4)',
+				'name'     => 'total',
+				'type'     => 'int(4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_login_id'
 		],
-		'index' => [
+		'index'   => [
 			[
 				'name' => 'email',
-				'key' => [
+				'key'  => [
 					'email'
 				]
 			],
 			[
 				'name' => 'ip',
-				'key' => [
+				'key'  => [
 					'ip'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_ip',
-		'field' => [
+		'name'    => 'customer_ip',
+		'field'   => [
 			[
-				'name' => 'customer_ip_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_ip_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country',
-				'type' => 'varchar(2)',
+				'name'     => 'country',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_ip_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'ip',
-				'key' => [
+				'key'  => [
 					'ip'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_online',
-		'field' => [
+		'name'    => 'customer_online',
+		'field'   => [
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'url',
-				'type' => 'text',
+				'name'     => 'url',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'referer',
-				'type' => 'text',
+				'name'     => 'referer',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'ip'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_reward',
-		'field' => [
+		'name'    => 'customer_reward',
+		'field'   => [
 			[
-				'name' => 'customer_reward_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_reward_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'points',
-				'type' => 'int(8)',
+				'name'     => 'points',
+				'type'     => 'int(8)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_reward_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_transaction',
-		'field' => [
+		'name'    => 'customer_transaction',
+		'field'   => [
 			[
-				'name' => 'customer_transaction_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_transaction_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'amount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_transaction_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_search',
-		'field' => [
+		'name'    => 'customer_search',
+		'field'   => [
 			[
-				'name' => 'customer_search_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'customer_search_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'keyword',
-				'type' => 'varchar(255)',
+				'name'     => 'keyword',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sub_category',
-				'type' => 'tinyint(1)',
+				'name'     => 'sub_category',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'tinyint(1)',
+				'name'     => 'description',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'products',
-				'type' => 'int(11)',
+				'name'     => 'products',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'customer_search_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_wishlist',
-		'field' => [
+		'name'    => 'customer_wishlist',
+		'field'   => [
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
@@ -1791,75 +2656,87 @@ function db_schema() {
 			'customer_id',
 			'product_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'custom_field',
-		'field' => [
+		'name'    => 'custom_field',
+		'field'   => [
 			[
-				'name' => 'custom_field_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'custom_field_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'varchar(32)',
+				'name'     => 'type',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'text',
+				'name'     => 'value',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'validation',
-				'type' => 'varchar(255)',
+				'name'     => 'validation',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'location',
-				'type' => 'varchar(10)',
+				'name'     => 'location',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'custom_field_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'custom_field_customer_group',
-		'field' => [
+		'name'    => 'custom_field_customer_group',
+		'field'   => [
 			[
-				'name' => 'custom_field_id',
-				'type' => 'int(11)',
+				'name'     => 'custom_field_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'required',
-				'type' => 'tinyint(1)',
+				'name'     => 'required',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			]
 		],
@@ -1867,27 +2744,39 @@ function db_schema() {
 			'custom_field_id',
 			'customer_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'custom_field_id',
+				'table' => 'custom_field',
+				'field' => 'custom_field_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'custom_field_description',
-		'field' => [
+		'name'    => 'custom_field_description',
+		'field'   => [
 			[
-				'name' => 'custom_field_id',
-				'type' => 'int(11)',
+				'name'     => 'custom_field_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
@@ -1895,60 +2784,79 @@ function db_schema() {
 			'custom_field_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'custom_field_id',
+				'table' => 'custom_field',
+				'field' => 'custom_field_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'custom_field_value',
-		'field' => [
+		'name'    => 'custom_field_value',
+		'field'   => [
 			[
-				'name' => 'custom_field_value_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'custom_field_value_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'custom_field_id',
-				'type' => 'int(11)',
+				'name'     => 'custom_field_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'custom_field_value_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'custom_field_id',
+				'table' => 'custom_field',
+				'field' => 'custom_field_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'custom_field_value_description',
-		'field' => [
+		'name'    => 'custom_field_value_description',
+		'field'   => [
 			[
-				'name' => 'custom_field_value_id',
-				'type' => 'int(11)',
+				'name'     => 'custom_field_value_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'custom_field_id',
-				'type' => 'int(11)',
+				'name'     => 'custom_field_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
@@ -1956,60 +2864,72 @@ function db_schema() {
 			'custom_field_value_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			],
+			[
+				'key'   => 'custom_field_id',
+				'table' => 'custom_field',
+				'field' => 'custom_field_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'download',
-		'field' => [
+		'name'    => 'download',
+		'field'   => [
 			[
-				'name' => 'download_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'download_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'filename',
-				'type' => 'varchar(160)',
+				'name'     => 'filename',
+				'type'     => 'varchar(160)',
 				'not_null' => true
 			],
 			[
-				'name' => 'mask',
-				'type' => 'varchar(128)',
+				'name'     => 'mask',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'download_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'download_description',
-		'field' => [
+		'name'    => 'download_description',
+		'field'   => [
 			[
-				'name' => 'download_id',
-				'type' => 'int(11)',
+				'name'     => 'download_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -2017,290 +2937,325 @@ function db_schema() {
 			'download_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'download_report',
-		'field' => [
+		'name'    => 'download_report',
+		'field'   => [
 			[
-				'name' => 'download_report_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'download_report_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'download_id',
-				'type' => 'int(11)',
+				'name'     => 'download_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country',
-				'type' => 'varchar(2)',
+				'name'     => 'country',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'download_report_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'download_id',
+				'table' => 'download',
+				'field' => 'download_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'event',
-		'field' => [
+		'name'    => 'event',
+		'field'   => [
 			[
-				'name' => 'event_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'event_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(128)',
+				'name'     => 'code',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'trigger',
-				'type' => 'text',
+				'name'     => 'trigger',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'action',
-				'type' => 'text',
+				'name'     => 'action',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			]
 		],
 		'primary' => [
 			'event_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'extension',
-		'field' => [
+		'name'    => 'extension',
+		'field'   => [
 			[
-				'name' => 'extension_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'extension_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'extension',
-				'type' => 'varchar(255)',
+				'name'     => 'extension',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'varchar(32)',
+				'name'     => 'type',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(128)',
+				'name'     => 'code',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'extension_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'extension_install',
-		'field' => [
+		'name'    => 'extension_install',
+		'field'   => [
 			[
-				'name' => 'extension_install_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'extension_install_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'extension_id',
-				'type' => 'int(11)',
+				'name'     => 'extension_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'extension_download_id',
-				'type' => 'int(11)',
+				'name'     => 'extension_download_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'package_name',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(255)',
+				'name'     => 'version',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'version',
-				'type' => 'varchar(255)',
+				'name'     => 'author',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'author',
-				'type' => 'varchar(255)',
+				'name'     => 'link',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'link',
-				'type' => 'varchar(255)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'extension_install_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'extension_id',
+				'table' => 'extension',
+				'field' => 'extension_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'extension_path',
-		'field' => [
+		'name'    => 'extension_path',
+		'field'   => [
 			[
-				'name' => 'extension_path_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'extension_path_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'extension_install_id',
-				'type' => 'int(11)',
+				'name'     => 'extension_install_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'path',
-				'type' => 'varchar(255)',
+				'name'     => 'path',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'extension_path_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'extension_install_id',
+				'table' => 'extension_install',
+				'field' => 'extension_install_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'path',
-				'key' => [
+				'key'  => [
 					'path'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'filter',
-		'field' => [
+		'name'    => 'filter',
+		'field'   => [
 			[
-				'name' => 'filter_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'filter_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'filter_group_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'filter_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'filter_group_id',
+				'table' => 'filter_group',
+				'field' => 'filter_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'filter_description',
-		'field' => [
+		'name'    => 'filter_description',
+		'field'   => [
 			[
-				'name' => 'filter_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'filter_group_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -2308,50 +3263,62 @@ function db_schema() {
 			'filter_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			],
+			[
+				'key'   => 'filter_group_id',
+				'table' => 'filter_group',
+				'field' => 'filter_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'filter_group',
-		'field' => [
+		'name'    => 'filter_group',
+		'field'   => [
 			[
-				'name' => 'filter_group_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'filter_group_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'filter_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'filter_group_description',
-		'field' => [
+		'name'    => 'filter_group_description',
+		'field'   => [
 			[
-				'name' => 'filter_group_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -2359,174 +3326,188 @@ function db_schema() {
 			'filter_group_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'filter_group_id',
+				'table' => 'filter_group',
+				'field' => 'filter_group_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'gdpr',
-		'field' => [
+		'name'    => 'gdpr',
+		'field'   => [
 			[
-				'name' => 'gdpr_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'gdpr_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(40)',
+				'name'     => 'code',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'action',
-				'type' => 'varchar(6)',
+				'name'     => 'action',
+				'type'     => 'varchar(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'gdpr_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'geo_zone',
-		'field' => [
+		'name'    => 'geo_zone',
+		'field'   => [
 			[
-				'name' => 'geo_zone_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'geo_zone_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'geo_zone_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'information',
-		'field' => [
+		'name'    => 'information',
+		'field'   => [
 			[
-				'name' => 'information_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'information_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'bottom',
-				'type' => 'int(1)',
+				'name'     => 'bottom',
+				'type'     => 'int(1)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			]
 		],
 		'primary' => [
 			'information_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'information_description',
-		'field' => [
+		'name'    => 'information_description',
+		'field'   => [
 			[
-				'name' => 'information_id',
-				'type' => 'int(11)',
+				'name'     => 'information_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(64)',
+				'name'     => 'title',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'mediumtext',
+				'name'     => 'description',
+				'type'     => 'mediumtext',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_title',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_title',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_description',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_keyword',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_keyword',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
@@ -2534,27 +3515,34 @@ function db_schema() {
 			'information_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'information_to_layout',
-		'field' => [
+		'name'    => 'information_to_layout',
+		'field'   => [
 			[
-				'name' => 'information_id',
-				'type' => 'int(11)',
+				'name'     => 'information_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -2562,22 +3550,39 @@ function db_schema() {
 			'information_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'information_id',
+				'table' => 'information',
+				'field' => 'information_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'information_to_store',
-		'field' => [
+		'name'    => 'information_to_store',
+		'field'   => [
 			[
-				'name' => 'information_id',
-				'type' => 'int(11)',
+				'name'     => 'information_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -2585,206 +3590,237 @@ function db_schema() {
 			'information_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'information_id',
+				'table' => 'information',
+				'field' => 'information_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'language',
-		'field' => [
+		'name'    => 'language',
+		'field'   => [
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'language_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(5)',
+				'name'     => 'code',
+				'type'     => 'varchar(5)',
 				'not_null' => true
 			],
 			[
-				'name' => 'locale',
-				'type' => 'varchar(255)',
+				'name'     => 'locale',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(64)',
+				'name'     => 'extension',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'language_id'
 		],
-		'index' => [
+		'index'   => [
 			[
 				'name' => 'name',
-				'key' => [
+				'key'  => [
 					'name'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'layout',
-		'field' => [
+		'name'    => 'layout',
+		'field'   => [
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'layout_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'layout_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'layout_module',
-		'field' => [
+		'name'    => 'layout_module',
+		'field'   => [
 			[
-				'name' => 'layout_module_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'layout_module_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'position',
-				'type' => 'varchar(14)',
+				'name'     => 'position',
+				'type'     => 'varchar(14)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'layout_module_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'layout_route',
-		'field' => [
+		'name'    => 'layout_route',
+		'field'   => [
 			[
-				'name' => 'layout_route_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'layout_route_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'route',
-				'type' => 'varchar(64)',
+				'name'     => 'route',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'layout_route_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'length_class',
-		'field' => [
+		'name'    => 'length_class',
+		'field'   => [
 			[
-				'name' => 'length_class_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'length_class_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'decimal(15,8)',
+				'name'     => 'value',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'length_class_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'length_class_description',
-		'field' => [
+		'name'    => 'length_class_description',
+		'field'   => [
 			[
-				'name' => 'length_class_id',
-				'type' => 'int(11)',
+				'name'     => 'length_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(32)',
+				'name'     => 'title',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'unit',
-				'type' => 'varchar(4)',
+				'name'     => 'unit',
+				'type'     => 'varchar(4)',
 				'not_null' => true
 			]
 		],
@@ -2792,121 +3828,133 @@ function db_schema() {
 			'length_class_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'length_class_id',
+				'table' => 'length_class',
+				'field' => 'length_class_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'location',
-		'field' => [
+		'name'    => 'location',
+		'field'   => [
 			[
-				'name' => 'location_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'location_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'address',
-				'type' => 'text',
+				'name'     => 'address',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'telephone',
-				'type' => 'varchar(32)',
+				'name'     => 'telephone',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'geocode',
-				'type' => 'varchar(32)',
+				'name'     => 'geocode',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'open',
-				'type' => 'text',
+				'name'     => 'open',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'location_id'
 		],
-		'index' => [
+		'index'   => [
 			[
 				'name' => 'name',
-				'key' => [
+				'key'  => [
 					'name'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'manufacturer',
-		'field' => [
+		'name'    => 'manufacturer',
+		'field'   => [
 			[
-				'name' => 'manufacturer_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'manufacturer_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'manufacturer_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'manufacturer_to_layout',
-		'field' => [
+		'name'    => 'manufacturer_to_layout',
+		'field'   => [
 			[
-				'name' => 'manufacturer_id',
-				'type' => 'int(11)',
+				'name'     => 'manufacturer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -2914,22 +3962,39 @@ function db_schema() {
 			'manufacturer_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'manufacturer_id',
+				'table' => 'manufacturer',
+				'field' => 'manufacturer_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'manufacturer_to_store',
-		'field' => [
+		'name'    => 'manufacturer_to_store',
+		'field'   => [
 			[
-				'name' => 'manufacturer_id',
-				'type' => 'int(11)',
+				'name'     => 'manufacturer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -2937,213 +4002,237 @@ function db_schema() {
 			'manufacturer_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'manufacturer_id',
+				'table' => 'manufacturer',
+				'field' => 'manufacturer_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'marketing',
-		'field' => [
+		'name'    => 'marketing',
+		'field'   => [
 			[
-				'name' => 'marketing_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'marketing_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'clicks',
-				'type' => 'int(5)',
+				'name'     => 'clicks',
+				'type'     => 'int(5)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'marketing_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'marketing_report',
-		'field' => [
+		'name'    => 'marketing_report',
+		'field'   => [
 			[
-				'name' => 'marketing_report_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'marketing_report_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'marketing_id',
-				'type' => 'int(11)',
+				'name'     => 'marketing_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country',
-				'type' => 'varchar(2)',
+				'name'     => 'country',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'marketing_report_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'marketing_id',
+				'table' => 'marketing',
+				'field' => 'marketing_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'module',
-		'field' => [
+		'name'    => 'module',
+		'field'   => [
 			[
-				'name' => 'module_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'module_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'setting',
-				'type' => 'text',
+				'name'     => 'setting',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'module_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'notification',
-		'field' => [
+		'name'    => 'notification',
+		'field'   => [
 			[
-				'name' => 'notification_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'notification_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(64)',
+				'name'     => 'title',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'text',
-				'type' => 'text',
+				'name'     => 'text',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(11)',
+				'name'     => 'status',
+				'type'     => 'tinyint(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'notification_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'option',
-		'field' => [
+		'name'    => 'option',
+		'field'   => [
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'option_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'varchar(32)',
+				'name'     => 'type',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'option_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'option_description',
-		'field' => [
+		'name'    => 'option_description',
+		'field'   => [
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
+				'name'     => 'option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
@@ -3151,65 +4240,79 @@ function db_schema() {
 			'option_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'option_value',
-		'field' => [
+		'name'    => 'option_value',
+		'field'   => [
 			[
-				'name' => 'option_value_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'option_value_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
+				'name'     => 'option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'option_value_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'option_id',
+				'table' => 'option',
+				'field' => 'option_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'option_value_description',
-		'field' => [
+		'name'    => 'option_value_description',
+		'field'   => [
 			[
-				'name' => 'option_value_id',
-				'type' => 'int(11)',
+				'name'     => 'option_value_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
+				'name'     => 'option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
@@ -3217,535 +4320,793 @@ function db_schema() {
 			'option_value_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			],
+			[
+				'key'   => 'option_id',
+				'table' => 'option',
+				'field' => 'option_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order',
-		'field' => [
+		'name'    => 'order',
+		'field'   => [
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'transaction_id',
-				'type' => 'varchar(100)',
+				'name'     => 'subscription_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'invoice_no',
-				'type' => 'int(11)',
+				'name'     => 'invoice_no',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'invoice_prefix',
-				'type' => 'varchar(26)',
+				'name'     => 'invoice_prefix',
+				'type'     => 'varchar(26)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'transaction_id',
+				'type'     => 'varchar(100)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'store_name',
-				'type' => 'varchar(64)',
+				'name'     => 'store_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_url',
-				'type' => 'varchar(255)',
+				'name'     => 'store_url',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'telephone',
-				'type' => 'varchar(32)',
+				'name'     => 'telephone',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'custom_field',
-				'type' => 'text',
+				'name'     => 'custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'payment_address_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'payment_firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_company',
-				'type' => 'varchar(60)',
+				'name'     => 'payment_lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_address_1',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_company',
+				'type'     => 'varchar(60)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_address_2',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_address_1',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_city',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_address_2',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_postcode',
-				'type' => 'varchar(10)',
+				'name'     => 'payment_city',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_country',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_postcode',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_country_id',
-				'type' => 'int(11)',
+				'name'     => 'payment_country',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_zone',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_country_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_zone_id',
-				'type' => 'int(11)',
+				'name'     => 'payment_zone',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_address_format',
-				'type' => 'text',
+				'name'     => 'payment_zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_custom_field',
-				'type' => 'text',
+				'name'     => 'payment_address_format',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_method',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'payment_code',
-				'type' => 'varchar(128)',
+				'name'     => 'payment_method',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'shipping_address_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'shipping_firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_company',
-				'type' => 'varchar(60)',
+				'name'     => 'shipping_lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_address_1',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_company',
+				'type'     => 'varchar(60)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_address_2',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_address_1',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_city',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_address_2',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_postcode',
-				'type' => 'varchar(10)',
+				'name'     => 'shipping_city',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_country',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_postcode',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_country_id',
-				'type' => 'int(11)',
+				'name'     => 'shipping_country',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_zone',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_country_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_zone_id',
-				'type' => 'int(11)',
+				'name'     => 'shipping_zone',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_address_format',
-				'type' => 'text',
+				'name'     => 'shipping_zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_custom_field',
-				'type' => 'text',
+				'name'     => 'shipping_address_format',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_method',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_custom_field',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping_code',
-				'type' => 'varchar(128)',
+				'name'     => 'shipping_method',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'total',
-				'type' => 'decimal(15,4)',
+				'name'     => 'total',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'order_status_id',
-				'type' => 'int(11)',
+				'name'     => 'order_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'affiliate_id',
-				'type' => 'int(11)',
+				'name'     => 'affiliate_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'commission',
-				'type' => 'decimal(15,4)',
+				'name'     => 'commission',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'marketing_id',
-				'type' => 'int(11)',
+				'name'     => 'marketing_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'tracking',
-				'type' => 'varchar(64)',
+				'name'     => 'tracking',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_code',
-				'type' => 'varchar(5)',
+				'name'     => 'language_code',
+				'type'     => 'varchar(5)',
 				'not_null' => true
 			],
 			[
-				'name' => 'currency_id',
-				'type' => 'int(11)',
+				'name'     => 'currency_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'currency_code',
-				'type' => 'varchar(3)',
+				'name'     => 'currency_code',
+				'type'     => 'varchar(3)',
 				'not_null' => true
 			],
 			[
-				'name' => 'currency_value',
-				'type' => 'decimal(15,8)',
+				'name'     => 'currency_value',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '1.00000000'
+				'default'  => '1.00000000'
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'forwarded_ip',
-				'type' => 'varchar(40)',
+				'name'     => 'forwarded_ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'user_agent',
-				'type' => 'varchar(255)',
+				'name'     => 'user_agent',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'accept_language',
-				'type' => 'varchar(255)',
+				'name'     => 'accept_language',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			],
+			[
+				'key'   => 'payment_country_id',
+				'table' => 'country',
+				'field' => 'country_id'
+			],
+			[
+				'key'   => 'payment_zone_id',
+				'table' => 'zone',
+				'field' => 'zone_id'
+			],
+			[
+				'key'   => 'shipping_country_id',
+				'table' => 'country',
+				'field' => 'country_id'
+			],
+			[
+				'key'   => 'shipping_zone_id',
+				'table' => 'zone',
+				'field' => 'zone_id'
+			],
+			[
+				'key'   => 'order_status_id',
+				'table' => 'order_status',
+				'field' => 'order_status_id'
+			],
+			[
+				'key'   => 'affiliate_id',
+				'table' => 'customer_affiliate',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'marketing_id',
+				'table' => 'marketing',
+				'field' => 'marketing_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			],
+			[
+				'key'   => 'currency_id',
+				'table' => 'currency',
+				'field' => 'currency_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_history',
-		'field' => [
+		'name'    => 'order_history',
+		'field'   => [
 			[
-				'name' => 'order_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_status_id',
-				'type' => 'int(11)',
+				'name'     => 'order_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'notify',
-				'type' => 'tinyint(1)',
+				'name'     => 'notify',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'order_status_id',
+				'table' => 'order_status',
+				'field' => 'order_status_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_option',
-		'field' => [
+		'name'    => 'order_option',
+		'field'   => [
 			[
-				'name' => 'order_option_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_option_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_product_id',
-				'type' => 'int(11)',
+				'name'     => 'order_product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_option_id',
-				'type' => 'int(11)',
+				'name'     => 'product_option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_option_value_id',
-				'type' => 'int(11)',
+				'name'     => 'product_option_value_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'text',
+				'name'     => 'value',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'type',
-				'type' => 'varchar(32)',
+				'name'     => 'type',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_option_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'order_product_id',
+				'table' => 'order_product',
+				'field' => 'order_product_id'
+			],
+			[
+				'key'   => 'product_option_id',
+				'table' => 'product_option',
+				'field' => 'product_option_id'
+			],
+			[
+				'key'   => 'product_option_value_id',
+				'table' => 'product_option_value',
+				'field' => 'product_option_value_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_product',
-		'field' => [
+		'name'    => 'order_product',
+		'field'   => [
 			[
-				'name' => 'order_product_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_product_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'master_id',
-				'type' => 'int(11)',
+				'name'     => 'master_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'model',
-				'type' => 'varchar(64)',
+				'name'     => 'model',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(4)',
+				'name'     => 'quantity',
+				'type'     => 'int(4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(15,4)',
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'total',
-				'type' => 'decimal(15,4)',
+				'name'     => 'total',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'tax',
-				'type' => 'decimal(15,4)',
+				'name'     => 'tax',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'reward',
-				'type' => 'int(8)',
+				'name'     => 'reward',
+				'type'     => 'int(8)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_product_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'master_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'order_id',
-				'key' => [
+				'key'  => [
 					'order_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_status',
-		'field' => [
+		'name'    => 'order_subscription',
+		'field'   => [
 			[
-				'name' => 'order_status_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_subscription_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'order_product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'subscription_plan_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_price',
+				'type'     => 'decimal(10,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_tax',
+				'type'     => 'decimal(15,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_cycle',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_duration',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_remaining',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'price',
+				'type'     => 'decimal(10,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'tax',
+				'type'     => 'decimal(15,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'not_null' => true
+			],
+			[
+				'name'     => 'cycle',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'duration',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'order_subscription_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'order_product_id',
+				'table' => 'order_product',
+				'field' => 'order_product_id'
+			],
+			[
+				'key'   => 'subscription_plan_id',
+				'table' => 'subscription_plan',
+				'field' => 'subscription_plan_id'
+			],
+			[
+				'key'   => 'subscription_status_id',
+				'table' => 'subscription_status',
+				'field' => 'subscription_status_id'
+			]
+		],
+		'index'   => [
+			[
+				'name' => 'order_id',
+				'key'  => [
+					'order_id'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'order_status',
+		'field'   => [
+			[
+				'name'           => 'order_status_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
@@ -3753,444 +5114,420 @@ function db_schema() {
 			'order_status_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_total',
-		'field' => [
+		'name'    => 'order_total',
+		'field'   => [
 			[
-				'name' => 'order_total_id',
-				'type' => 'int(10)',
-				'not_null' => true,
+				'name'           => 'order_total_id',
+				'type'           => 'int(10)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'extension',
-				'type' => 'varchar(255)',
+				'name'     => 'extension',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(32)',
+				'name'     => 'code',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(255)',
+				'name'     => 'title',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'decimal(15,4)',
+				'name'     => 'value',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_total_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'order_id',
-				'key' => [
+				'key'  => [
 					'order_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'order_voucher',
-		'field' => [
+		'name'    => 'order_voucher',
+		'field'   => [
 			[
-				'name' => 'order_voucher_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'order_voucher_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'voucher_id',
-				'type' => 'int(11)',
+				'name'     => 'voucher_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'varchar(255)',
+				'name'     => 'description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(10)',
+				'name'     => 'code',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'from_name',
-				'type' => 'varchar(64)',
+				'name'     => 'from_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'from_email',
-				'type' => 'varchar(96)',
+				'name'     => 'from_email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'to_name',
-				'type' => 'varchar(64)',
+				'name'     => 'to_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'to_email',
-				'type' => 'varchar(96)',
+				'name'     => 'to_email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)',
+				'name'     => 'voucher_theme_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'message',
-				'type' => 'text',
+				'name'     => 'message',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'amount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'order_voucher_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'voucher_id',
+				'table' => 'voucher',
+				'field' => 'voucher_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'customer_payment',
-		'field' => [
+		'name'    => 'product',
+		'field'   => [
 			[
-				'name' => 'customer_payment_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
-				'not_null' => true
-			],
-			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
-				'not_null' => true
-			],
-			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'type',
-				'type' => 'varchar(64)',
-				'not_null' => true
-			],
-			[
-				'name' => 'extension',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'code',
-				'type' => 'varchar(32)',
-				'not_null' => true
-			],
-			[
-				'name' => 'token',
-				'type' => 'varchar(96)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_expire',
-				'type' => 'date',
-				'not_null' => true
-			],
-			[
-				'name' => 'default',
-				'type' => 'tinyint(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			]
-		],
-		'primary' => [
-			'customer_payment_id'
-		],
-		'index' => [
-			[
-				'name' => 'customer_id',
-				'key' => [
-					'customer_id'
-				]
-			]
-		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	];
-
-	$tables[] = [
-		'name' => 'product',
-		'field' => [
-			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'master_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'auto_increment' => true
+				'default'  => '0'
 			],
 			[
-				'name' => 'master_id',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'default' => '0'
-			],
-			[
-				'name' => 'model',
-				'type' => 'varchar(64)',
+				'name'     => 'model',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sku',
-				'type' => 'varchar(64)',
+				'name'     => 'sku',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'upc',
-				'type' => 'varchar(12)',
+				'name'     => 'upc',
+				'type'     => 'varchar(12)',
 				'not_null' => true
 			],
 			[
-				'name' => 'ean',
-				'type' => 'varchar(14)',
+				'name'     => 'ean',
+				'type'     => 'varchar(14)',
 				'not_null' => true
 			],
 			[
-				'name' => 'jan',
-				'type' => 'varchar(13)',
+				'name'     => 'jan',
+				'type'     => 'varchar(13)',
 				'not_null' => true
 			],
 			[
-				'name' => 'isbn',
-				'type' => 'varchar(17)',
+				'name'     => 'isbn',
+				'type'     => 'varchar(17)',
 				'not_null' => true
 			],
 			[
-				'name' => 'mpn',
-				'type' => 'varchar(64)',
+				'name'     => 'mpn',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'location',
-				'type' => 'varchar(128)',
+				'name'     => 'location',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'variant',
-				'type' => 'text',
+				'name'     => 'variant',
+				'type'     => 'text',
 				'not_null' => true,
-				'default' => ''
+				'default'  => ''
 			],
 			[
-				'name' => 'override',
-				'type' => 'text',
+				'name'     => 'override',
+				'type'     => 'text',
 				'not_null' => true,
-				'default' => ''
+				'default'  => ''
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(4)',
+				'name'     => 'quantity',
+				'type'     => 'int(4)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'stock_status_id',
-				'type' => 'int(11)',
+				'name'     => 'stock_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'manufacturer_id',
-				'type' => 'int(11)',
+				'name'     => 'manufacturer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'shipping',
-				'type' => 'tinyint(1)',
+				'name'     => 'shipping',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(15,4)',
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'points',
-				'type' => 'int(8)',
+				'name'     => 'points',
+				'type'     => 'int(8)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'tax_class_id',
-				'type' => 'int(11)',
+				'name'     => 'tax_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_available',
-				'type' => 'date',
+				'name'     => 'date_available',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'weight',
-				'type' => 'decimal(15,8)',
+				'name'     => 'weight',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '0.00000000'
+				'default'  => '0.00000000'
 			],
 			[
-				'name' => 'weight_class_id',
-				'type' => 'int(11)',
+				'name'     => 'weight_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'length',
-				'type' => 'decimal(15,8)',
+				'name'     => 'length',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '0.00000000'
+				'default'  => '0.00000000'
 			],
 			[
-				'name' => 'width',
-				'type' => 'decimal(15,8)',
+				'name'     => 'width',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '0.00000000'
+				'default'  => '0.00000000'
 			],
 			[
-				'name' => 'height',
-				'type' => 'decimal(15,8)',
+				'name'     => 'height',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '0.00000000'
+				'default'  => '0.00000000'
 			],
 			[
-				'name' => 'length_class_id',
-				'type' => 'int(11)',
+				'name'     => 'length_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'subtract',
-				'type' => 'tinyint(1)',
+				'name'     => 'subtract',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			],
 			[
-				'name' => 'minimum',
-				'type' => 'int(11)',
+				'name'     => 'minimum',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'default' => '0'
-			],
-			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
-				'not_null' => true,
-				'default' => '0'
-			],
-			[
-				'name' => 'viewed',
-				'type' => 'int(5)',
-				'not_null' => true,
-				'default' => '0'
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'rating',
+				'type'     => 'int(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'sort_order',
+				'type'     => 'int(11)',
+				'not_null' => true,
+				'default'  => '0'
+			],
+			[
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true,
+				'default'  => '0'
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'product_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'master_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'stock_status_id',
+				'table' => 'stock_status',
+				'field' => 'stock_status_id'
+			],
+			[
+				'key'   => 'manufacturer_id',
+				'table' => 'manufacturer',
+				'field' => 'manufacturer_id'
+			],
+			[
+				'key'   => 'tax_class_id',
+				'table' => 'tax_class',
+				'field' => 'tax_class_id'
+			],
+			[
+				'key'   => 'weight_class_id',
+				'table' => 'weight_class',
+				'field' => 'weight_class_id'
+			],
+			[
+				'key'   => 'length_class_id',
+				'table' => 'length_class',
+				'field' => 'length_class_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_attribute',
-		'field' => [
+		'name'    => 'product_attribute',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'attribute_id',
-				'type' => 'int(11)',
+				'name'     => 'attribute_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'text',
-				'type' => 'text',
+				'name'     => 'text',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
@@ -4199,52 +5536,69 @@ function db_schema() {
 			'attribute_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'attribute_id',
+				'table' => 'attribute',
+				'field' => 'attribute_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_description',
-		'field' => [
+		'name'    => 'product_description',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'description',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'tag',
-				'type' => 'text',
+				'name'     => 'tag',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_title',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_title',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_description',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'meta_keyword',
-				'type' => 'varchar(255)',
+				'name'     => 'meta_keyword',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
@@ -4252,94 +5606,118 @@ function db_schema() {
 			'product_id',
 			'language_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'name',
-				'key' => [
+				'key'  => [
 					'name'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_discount',
-		'field' => [
+		'name'    => 'product_discount',
+		'field'   => [
 			[
-				'name' => 'product_discount_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_discount_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(4)',
+				'name'     => 'quantity',
+				'type'     => 'int(4)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'priority',
-				'type' => 'int(5)',
+				'name'     => 'priority',
+				'type'     => 'int(5)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(15,4)',
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'date_start',
-				'type' => 'date',
+				'name'     => 'date_start',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_end',
-				'type' => 'date',
+				'name'     => 'date_end',
+				'type'     => 'date',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'product_discount_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'product_id',
-				'key' => [
+				'key'  => [
 					'product_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_filter',
-		'field' => [
+		'name'    => 'product_filter',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'filter_id',
-				'type' => 'int(11)',
+				'name'     => 'filter_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -4347,185 +5725,248 @@ function db_schema() {
 			'product_id',
 			'filter_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'filter_id',
+				'table' => 'filter',
+				'field' => 'filter_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_image',
-		'field' => [
+		'name'    => 'product_image',
+		'field'   => [
 			[
-				'name' => 'product_image_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_image_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			]
 		],
 		'primary' => [
 			'product_image_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'product_id',
-				'key' => [
+				'key'  => [
 					'product_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_option',
-		'field' => [
+		'name'    => 'product_option',
+		'field'   => [
 			[
-				'name' => 'product_option_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_option_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
+				'name'     => 'option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'text',
+				'name'     => 'value',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'required',
-				'type' => 'tinyint(1)',
+				'name'     => 'required',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'product_option_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'option_id',
+				'table' => 'option',
+				'field' => 'option_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_option_value',
-		'field' => [
+		'name'    => 'product_option_value',
+		'field'   => [
 			[
-				'name' => 'product_option_value_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_option_value_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_option_id',
-				'type' => 'int(11)',
+				'name'     => 'product_option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'option_id',
-				'type' => 'int(11)',
+				'name'     => 'option_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'option_value_id',
-				'type' => 'int(11)',
+				'name'     => 'option_value_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(3)',
+				'name'     => 'quantity',
+				'type'     => 'int(3)',
 				'not_null' => true
 			],
 			[
-				'name' => 'subtract',
-				'type' => 'tinyint(1)',
+				'name'     => 'subtract',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(15,4)',
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'price_prefix',
-				'type' => 'varchar(1)',
+				'name'     => 'price_prefix',
+				'type'     => 'varchar(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'points',
-				'type' => 'int(8)',
+				'name'     => 'points',
+				'type'     => 'int(8)',
 				'not_null' => true
 			],
 			[
-				'name' => 'points_prefix',
-				'type' => 'varchar(1)',
+				'name'     => 'points_prefix',
+				'type'     => 'varchar(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'weight',
-				'type' => 'decimal(15,8)',
+				'name'     => 'weight',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true
 			],
 			[
-				'name' => 'weight_prefix',
-				'type' => 'varchar(1)',
+				'name'     => 'weight_prefix',
+				'type'     => 'varchar(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'product_option_value_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_option_id',
+				'table' => 'product_option',
+				'field' => 'product_option_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'option_id',
+				'table' => 'option',
+				'field' => 'option_id'
+			],
+			[
+				'key'   => 'option_value_id',
+				'table' => 'option_value',
+				'field' => 'option_value_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_subscription',
-		'field' => [
+		'name'    => 'product_subscription',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)',
+				'name'     => 'subscription_plan_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'trial_price',
+				'type'     => 'decimal(10,4)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'price',
+				'type'     => 'decimal(10,4)',
 				'not_null' => true
 			]
 		],
@@ -4534,22 +5975,39 @@ function db_schema() {
 			'subscription_plan_id',
 			'customer_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'subscription_plan_id',
+				'table' => 'subscription_plan',
+				'field' => 'subscription_plan_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_related',
-		'field' => [
+		'name'    => 'product_related',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'related_id',
-				'type' => 'int(11)',
+				'name'     => 'related_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -4557,161 +6015,208 @@ function db_schema() {
 			'product_id',
 			'related_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'related_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_report',
-		'field' => [
+		'name'    => 'product_report',
+		'field'   => [
 			[
-				'name' => 'product_report_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_report_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
 				'default'  => 0
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'country',
-				'type' => 'varchar(2)',
+				'name'     => 'country',
+				'type'     => 'varchar(2)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
-
 		],
 		'primary' => [
 			'product_report_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_reward',
-		'field' => [
+		'name'    => 'product_reward',
+		'field'   => [
 			[
-				'name' => 'product_reward_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_reward_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => 0
+				'default'  => 0
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'points',
-				'type' => 'int(8)',
+				'name'     => 'points',
+				'type'     => 'int(8)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			]
 		],
 		'primary' => [
 			'product_reward_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_special',
-		'field' => [
+		'name'    => 'product_special',
+		'field'   => [
 			[
-				'name' => 'product_special_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'product_special_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'priority',
-				'type' => 'int(5)',
+				'name'     => 'priority',
+				'type'     => 'int(5)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(15,4)',
+				'name'     => 'price',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'date_start',
-				'type' => 'date',
+				'name'     => 'date_start',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_end',
-				'type' => 'date',
+				'name'     => 'date_end',
+				'type'     => 'date',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'product_special_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'product_id',
-				'key' => [
+				'key'  => [
 					'product_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_to_category',
-		'field' => [
+		'name'    => 'product_to_category',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'category_id',
-				'type' => 'int(11)',
+				'name'     => 'category_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -4719,30 +6224,42 @@ function db_schema() {
 			'product_id',
 			'category_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'category_id',
+				'table' => 'category',
+				'field' => 'category_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'category_id',
-				'key' => [
+				'key'  => [
 					'category_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_to_download',
-		'field' => [
+		'name'    => 'product_to_download',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'download_id',
-				'type' => 'int(11)',
+				'name'     => 'download_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -4750,27 +6267,39 @@ function db_schema() {
 			'product_id',
 			'download_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'download_id',
+				'table' => 'download',
+				'field' => 'download_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_to_layout',
-		'field' => [
+		'name'    => 'product_to_layout',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'layout_id',
-				'type' => 'int(11)',
+				'name'     => 'layout_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -4778,161 +6307,251 @@ function db_schema() {
 			'product_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'layout_id',
+				'table' => 'layout',
+				'field' => 'layout_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'product_to_store',
-		'field' => [
+		'name'    => 'product_to_store',
+		'field'   => [
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			]
 		],
 		'primary' => [
 			'product_id',
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'return',
-		'field' => [
+		'name'    => 'product_viewed',
+		'field'   => [
 			[
-				'name' => 'return_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'viewed',
+				'type'     => 'int(11)',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'product_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'return',
+		'field'   => [
+			[
+				'name'           => 'return_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'telephone',
-				'type' => 'varchar(32)',
+				'name'     => 'telephone',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'product',
-				'type' => 'varchar(255)',
+				'name'     => 'product',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'model',
-				'type' => 'varchar(64)',
+				'name'     => 'model',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'quantity',
-				'type' => 'int(4)',
+				'name'     => 'quantity',
+				'type'     => 'int(4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'opened',
-				'type' => 'tinyint(1)',
+				'name'     => 'opened',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'return_reason_id',
-				'type' => 'int(11)',
+				'name'     => 'return_reason_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'return_action_id',
-				'type' => 'int(11)',
+				'name'     => 'return_action_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'return_status_id',
-				'type' => 'int(11)',
+				'name'     => 'return_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_ordered',
-				'type' => 'date',
+				'name'     => 'date_ordered',
+				'type'     => 'date',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'return_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'return_reason_id',
+				'table' => 'return_reason',
+				'field' => 'return_reason_id'
+			],
+			[
+				'key'   => 'return_action_id',
+				'table' => 'return_action',
+				'field' => 'return_action_id'
+			],
+			[
+				'key'   => 'return_status_id',
+				'table' => 'return_status',
+				'field' => 'return_status_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'return_action',
-		'field' => [
+		'name'    => 'return_action',
+		'field'   => [
 			[
-				'name' => 'return_action_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'return_action_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			]
 		],
@@ -4940,72 +6559,91 @@ function db_schema() {
 			'return_action_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'return_history',
-		'field' => [
+		'name'    => 'return_history',
+		'field'   => [
 			[
-				'name' => 'return_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'return_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'return_id',
-				'type' => 'int(11)',
+				'name'     => 'return_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'return_status_id',
-				'type' => 'int(11)',
+				'name'     => 'return_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'notify',
-				'type' => 'tinyint(1)',
+				'name'     => 'notify',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'return_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'return_id',
+				'table' => 'return',
+				'field' => 'return_id'
+			],
+			[
+				'key'   => 'return_status_id',
+				'table' => 'return_status',
+				'field' => 'return_status_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'return_reason',
-		'field' => [
+		'name'    => 'return_reason',
+		'field'   => [
 			[
-				'name' => 'return_reason_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'return_reason_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			]
 		],
@@ -5013,29 +6651,36 @@ function db_schema() {
 			'return_reason_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'return_status',
-		'field' => [
+		'name'    => 'return_status',
+		'field'   => [
 			[
-				'name' => 'return_status_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'return_status_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
@@ -5043,241 +6688,267 @@ function db_schema() {
 			'return_status_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'review',
-		'field' => [
+		'name'    => 'review',
+		'field'   => [
 			[
-				'name' => 'review_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'review_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'product_id',
-				'type' => 'int(11)',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'author',
-				'type' => 'varchar(64)',
+				'name'     => 'author',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'text',
-				'type' => 'text',
+				'name'     => 'text',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'rating',
-				'type' => 'int(1)',
+				'name'     => 'rating',
+				'type'     => 'int(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'review_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			],
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'product_id',
-				'key' => [
+				'key'  => [
 					'product_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'startup',
-		'field' => [
+		'name'    => 'startup',
+		'field'   => [
 			[
-				'name' => 'startup_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'startup_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'action',
-				'type' => 'text',
+				'name'     => 'action',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'startup_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'statistics',
-		'field' => [
+		'name'    => 'statistics',
+		'field'   => [
 			[
-				'name' => 'statistics_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'statistics_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(64)',
+				'name'     => 'code',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'decimal(15,4)',
+				'name'     => 'value',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'statistics_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'session',
-		'field' => [
+		'name'    => 'session',
+		'field'   => [
 			[
-				'name' => 'session_id',
-				'type' => 'varchar(32)',
+				'name'     => 'session_id',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'data',
-				'type' => 'text',
+				'name'     => 'data',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'expire',
-				'type' => 'datetime',
+				'name'     => 'expire',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'session_id'
 		],
-		'index' => [
+		'index'   => [
 			[
 				'name' => 'expire',
-				'key' => [
+				'key'  => [
 					'expire'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'setting',
-		'field' => [
+		'name'    => 'setting',
+		'field'   => [
 			[
-				'name' => 'setting_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'setting_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(128)',
+				'name'     => 'code',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'key',
-				'type' => 'varchar(128)',
+				'name'     => 'key',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'text',
+				'name'     => 'value',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'serialized',
-				'type' => 'tinyint(1)',
+				'name'     => 'serialized',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => 0
+				'default'  => 0
 			]
 		],
 		'primary' => [
 			'setting_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'stock_status',
-		'field' => [
+		'name'    => 'stock_status',
+		'field'   => [
 			[
-				'name' => 'stock_status_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'stock_status_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
@@ -5285,314 +6956,414 @@ function db_schema() {
 			'stock_status_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'store',
-		'field' => [
+		'name'    => 'store',
+		'field'   => [
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'store_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'url',
-				'type' => 'varchar(255)',
+				'name'     => 'url',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'store_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription',
-		'field' => [
+		'name'    => 'subscription',
+		'field'   => [
 			[
-				'name' => 'subscription_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'subscription_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_product_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_payment_id',
-				'type' => 'int(11)',
+				'name'     => 'payment_address_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'payment_method',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'shipping_address_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_price',
-				'type' => 'decimal(10,4)',
+				'name'     => 'shipping_method',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'name'     => 'product_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_cycle',
-				'type' => 'smallint(6)',
+				'name'     => 'quantity',
+				'type'     => 'int(4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_duration',
-				'type' => 'smallint(6)',
+				'name'     => 'subscription_plan_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_remaining',
-				'type' => 'smallint(6)',
+				'name'     => 'trial_price',
+				'type'     => 'decimal(10,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_status',
-				'type' => 'tinyint(1)',
+				'name'     => 'trial_frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(10,4)',
+				'name'     => 'trial_cycle',
+				'type'     => 'smallint(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'name'     => 'trial_duration',
+				'type'     => 'smallint(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'cycle',
-				'type' => 'smallint(6)',
+				'name'     => 'trial_remaining',
+				'type'     => 'smallint(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'duration',
-				'type' => 'smallint(6)',
+				'name'     => 'trial_status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'remaining',
-				'type' => 'smallint(6)',
+				'name'     => 'price',
+				'type'     => 'decimal(10,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_next',
-				'type' => 'datetime',
+				'name'     => 'frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_status_id',
-				'type' => 'int(11)',
+				'name'     => 'cycle',
+				'type'     => 'smallint(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'duration',
+				'type'     => 'smallint(6)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'remaining',
+				'type'     => 'smallint(6)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_next',
+				'type'     => 'datetime',
+				'not_null' => true
+			],
+			[
+				'name'     => 'comment',
+				'type'     => 'text',
+				'not_null' => true
+			],
+			[
+				'name'     => 'subscription_status_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'affiliate_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'marketing_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'tracking',
+				'type'     => 'varchar(64)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'currency_id',
+				'type'     => 'int(11)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'forwarded_ip',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'user_agent',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'accept_language',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'subscription_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'customer_id',
+				'table' => 'customer',
+				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'order_product_id',
+				'table' => 'order_product',
+				'field' => 'order_product_id'
+			],
+			[
+				'key'   => 'subscription_plan_id',
+				'table' => 'subscription_plan',
+				'field' => 'subscription_plan_id'
+			],
+			[
+				'key'   => 'subscription_status_id',
+				'table' => 'subscription_status',
+				'field' => 'subscription_status_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'order_id',
-				'key' => [
+				'key'  => [
 					'order_id'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription_history',
-		'field' => [
+		'name'    => 'subscription_history',
+		'field'   => [
 			[
-				'name' => 'subscription_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'subscription_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'subscription_id',
-				'type' => 'int(11)',
+				'name'     => 'subscription_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'subscription_status_id',
-				'type' => 'int(11)',
+				'name'     => 'subscription_status_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'notify',
-				'type' => 'tinyint(1)',
+				'name'     => 'notify',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'comment',
-				'type' => 'text',
+				'name'     => 'comment',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'subscription_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'subscription_id',
+				'table' => 'subscription',
+				'field' => 'subscription_id'
+			],
+			[
+				'key'   => 'subscription_status_id',
+				'table' => 'subscription_status',
+				'field' => 'subscription_status_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription_plan',
-		'field' => [
+		'name'    => 'subscription_plan',
+		'field'   => [
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'subscription_plan_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
-
 			[
-				'name' => 'trial_price',
-				'type' => 'decimal(10,4)',
+				'name'     => 'trial_frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'name'     => 'trial_duration',
+				'type'     => 'int(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_duration',
-				'type' => 'int(10)',
+				'name'     => 'trial_cycle',
+				'type'     => 'int(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_cycle',
-				'type' => 'int(10)',
+				'name'     => 'trial_status',
+				'type'     => 'tinyint(4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'trial_status',
-				'type' => 'tinyint(4)',
+				'name'     => 'frequency',
+				'type'     => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
 				'not_null' => true
 			],
 			[
-				'name' => 'price',
-				'type' => 'decimal(10,4)',
+				'name'     => 'duration',
+				'type'     => 'int(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'frequency',
-				'type' => 'enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\')',
+				'name'     => 'cycle',
+				'type'     => 'int(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'duration',
-				'type' => 'int(10)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'cycle',
-				'type' => 'int(10)',
-				'not_null' => true
-			],
-			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'subscription_plan_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription_plan_description',
-		'field' => [
+		'name'    => 'subscription_plan_description',
+		'field'   => [
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)',
+				'name'     => 'subscription_plan_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'description',
-				'type' => 'text',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
@@ -5600,28 +7371,35 @@ function db_schema() {
 			'subscription_plan_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription_status',
-		'field' => [
+		'name'    => 'subscription_status',
+		'field'   => [
 			[
-				'name' => 'subscription_status_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'subscription_status_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
@@ -5629,182 +7407,104 @@ function db_schema() {
 			'subscription_status_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'subscription_transaction',
-		'field' => [
+		'name'    => 'tax_class',
+		'field'   => [
 			[
-				'name' => 'subscription_transaction_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'tax_class_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'subscription_id',
-				'type' => 'int(11)',
+				'name'     => 'title',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
-				'not_null' => true
-			],
-			[
-				'name' => 'transaction_id',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'description',
-				'type' => 'text',
-				'not_null' => true
-			],
-			[
-				'name' => 'amount',
-				'type' => 'decimal(10,4)',
-				'not_null' => true
-			],
-			[
-				'name' => 'payment_method',
-				'type' => 'varchar(128)',
-				'not_null' => true
-			],
-			[
-				'name' => 'payment_code',
-				'type' => 'varchar(128)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			]
-		],
-		'primary' => [
-			'subscription_transaction_id'
-		],
-		'index' => [
-			[
-				'name' => 'subscription_id',
-				'key' => [
-					'subscription_id'
-				]
-			],
-			[
-				'name' => 'order_id',
-				'key' => [
-					'order_id'
-				]
-			]
-		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	];
-
-	$tables[] = [
-		'name' => 'tax_class',
-		'field' => [
-			[
-				'name' => 'tax_class_id',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'auto_increment' => true
-			],
-			[
-				'name' => 'title',
-				'type' => 'varchar(32)',
-				'not_null' => true
-			],
-			[
-				'name' => 'description',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'description',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'tax_class_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'tax_rate',
-		'field' => [
+		'name'    => 'tax_rate',
+		'field'   => [
 			[
-				'name' => 'tax_rate_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'tax_rate_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'geo_zone_id',
-				'type' => 'int(11)',
+				'name'     => 'geo_zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'rate',
-				'type' => 'decimal(15,4)',
+				'name'     => 'rate',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true,
-				'default' => '0.0000'
+				'default'  => '0.0000'
 			],
 			[
-				'name' => 'type',
-				'type' => 'char(1)',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'type',
+				'type'     => 'char(1)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'tax_rate_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'geo_zone_id',
+				'table' => 'geo_zone',
+				'field' => 'geo_zone_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'tax_rate_to_customer_group',
-		'field' => [
+		'name'    => 'tax_rate_to_customer_group',
+		'field'   => [
 			[
-				'name' => 'tax_rate_id',
-				'type' => 'int(11)',
+				'name'     => 'tax_rate_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'customer_group_id',
-				'type' => 'int(11)',
+				'name'     => 'customer_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			]
 		],
@@ -5812,529 +7512,677 @@ function db_schema() {
 			'tax_rate_id',
 			'customer_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'tax_rate_id',
+				'table' => 'tax_rate',
+				'field' => 'tax_rate_id'
+			],
+			[
+				'key'   => 'customer_group_id',
+				'table' => 'customer_group',
+				'field' => 'customer_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'tax_rule',
-		'field' => [
+		'name'    => 'tax_rule',
+		'field'   => [
 			[
-				'name' => 'tax_rule_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'tax_rule_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'tax_class_id',
-				'type' => 'int(11)',
+				'name'     => 'tax_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'tax_rate_id',
-				'type' => 'int(11)',
+				'name'     => 'tax_rate_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'based',
-				'type' => 'varchar(10)',
+				'name'     => 'based',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'priority',
-				'type' => 'int(5)',
+				'name'     => 'priority',
+				'type'     => 'int(5)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			]
 		],
 		'primary' => [
 			'tax_rule_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'tax_class_id',
+				'table' => 'tax_class',
+				'field' => 'tax_class_id'
+			],
+			[
+				'key'   => 'tax_rate_id',
+				'table' => 'tax_rate',
+				'field' => 'tax_rate_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'theme',
-		'field' => [
+		'name'    => 'theme',
+		'field'   => [
 			[
-				'name' => 'theme_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'theme_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'route',
-				'type' => 'varchar(64)',
+				'name'     => 'route',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'mediumtext',
+				'name'     => 'code',
+				'type'     => 'mediumtext',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'theme_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'translation',
-		'field' => [
+		'name'    => 'translation',
+		'field'   => [
 			[
-				'name' => 'translation_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'translation_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'route',
-				'type' => 'varchar(64)',
+				'name'     => 'route',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'key',
-				'type' => 'varchar(64)',
+				'name'     => 'key',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'text',
+				'name'     => 'value',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'translation_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'upload',
-		'field' => [
+		'name'    => 'upload',
+		'field'   => [
 			[
-				'name' => 'upload_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'upload_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(255)',
+				'name'     => 'name',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'filename',
-				'type' => 'varchar(255)',
+				'name'     => 'filename',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(255)',
+				'name'     => 'code',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'upload_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'seo_url',
-		'field' => [
+		'name'    => 'seo_url',
+		'field'   => [
 			[
-				'name' => 'seo_url_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'seo_url_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'store_id',
-				'type' => 'int(11)',
+				'name'     => 'store_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'key',
-				'type' => 'varchar(64)',
+				'name'     => 'key',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'varchar(255)',
+				'name'     => 'value',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'keyword',
-				'type' => 'varchar(255)',
+				'name'     => 'keyword',
+				'type'     => 'varchar(768)',
 				'not_null' => true
 			],
 			[
-				'name' => 'sort_order',
-				'type' => 'int(3)',
+				'name'     => 'sort_order',
+				'type'     => 'int(3)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'seo_url_id'
 		],
-		'index' => [
+		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'index'   => [
 			[
 				'name' => 'keyword',
-				'key' => [
+				'key'  => [
 					'keyword'
 				]
 			],
 			[
 				'name' => 'query',
-				'key' => [
+				'key'  => [
 					'key',
 					'value'
 				]
 			]
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'user',
-		'field' => [
+		'name'    => 'user',
+		'field'   => [
 			[
-				'name' => 'user_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'user_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'user_group_id',
-				'type' => 'int(11)',
+				'name'     => 'user_group_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'username',
-				'type' => 'varchar(20)',
+				'name'     => 'username',
+				'type'     => 'varchar(20)',
 				'not_null' => true
 			],
 			[
-				'name' => 'password',
-				'type' => 'varchar(255)',
+				'name'     => 'password',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'firstname',
-				'type' => 'varchar(32)',
+				'name'     => 'firstname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'lastname',
-				'type' => 'varchar(32)',
+				'name'     => 'lastname',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'email',
-				'type' => 'varchar(96)',
+				'name'     => 'email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true,
-				'default' => ''
+				'default'  => ''
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(40)',
+				'name'     => 'code',
+				'type'     => 'varchar(40)',
 				'not_null' => true,
-				'default' => ''
+				'default'  => ''
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true,
-				'default' => ''
+				'default'  => ''
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'user_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'user_group_id',
+				'table' => 'user_group',
+				'field' => 'user_group_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'user_group',
-		'field' => [
+		'name'    => 'user_authorize',
+		'field'   => [
 			[
-				'name' => 'user_group_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'user_authorize_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'user_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'permission',
-				'type' => 'text',
+				'name'     => 'token',
+				'type'     => 'varchar(96)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'total',
+				'type'     => 'int(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'user_agent',
+				'type'     => 'varchar(255)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'date_added',
+				'type'     => 'datetime',
+				'not_null' => true
+			]
+		],
+		'primary' => [
+			'user_authorize_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'user_id',
+				'table' => 'user',
+				'field' => 'user_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'    => 'user_group',
+		'field'   => [
+			[
+				'name'           => 'user_group_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
+				'auto_increment' => true
+			],
+			[
+				'name'     => 'name',
+				'type'     => 'varchar(64)',
+				'not_null' => true
+			],
+			[
+				'name'     => 'permission',
+				'type'     => 'text',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'user_group_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'vendor',
-		'field' => [
+		'name'    => 'user_login',
+		'field'   => [
 			[
-				'name' => 'vendor_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'user_login_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(64)',
+				'name'     => 'user_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'text',
+				'name'     => 'ip',
+				'type'     => 'varchar(40)',
 				'not_null' => true
 			],
 			[
-				'name' => 'version',
-				'type' => 'text',
+				'name'     => 'user_agent',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
-			'vendor_id'
+			'user_login_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'user_id',
+				'table' => 'user',
+				'field' => 'user_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'voucher',
-		'field' => [
+		'name'    => 'voucher',
+		'field'   => [
 			[
-				'name' => 'voucher_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'voucher_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(10)',
+				'name'     => 'code',
+				'type'     => 'varchar(10)',
 				'not_null' => true
 			],
 			[
-				'name' => 'from_name',
-				'type' => 'varchar(64)',
+				'name'     => 'from_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'from_email',
-				'type' => 'varchar(96)',
+				'name'     => 'from_email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'to_name',
-				'type' => 'varchar(64)',
+				'name'     => 'to_name',
+				'type'     => 'varchar(64)',
 				'not_null' => true
 			],
 			[
-				'name' => 'to_email',
-				'type' => 'varchar(96)',
+				'name'     => 'to_email',
+				'type'     => 'varchar(96)',
 				'not_null' => true
 			],
 			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)',
+				'name'     => 'voucher_theme_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'message',
-				'type' => 'text',
+				'name'     => 'message',
+				'type'     => 'text',
 				'not_null' => true
 			],
 			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'amount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'voucher_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'voucher_history',
-		'field' => [
+		'name'    => 'voucher_history',
+		'field'   => [
 			[
-				'name' => 'voucher_history_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'voucher_history_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'voucher_id',
-				'type' => 'int(11)',
+				'name'     => 'voucher_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'order_id',
-				'type' => 'int(11)',
+				'name'     => 'order_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)',
+				'name'     => 'amount',
+				'type'     => 'decimal(15,4)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'voucher_history_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'voucher_id',
+				'table' => 'voucher',
+				'field' => 'voucher_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'voucher_theme',
-		'field' => [
+		'name'    => 'voucher_theme',
+		'field'   => [
 			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'voucher_theme_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name'     => 'image',
+				'type'     => 'varchar(255)',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'voucher_theme_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'voucher_theme_description',
-		'field' => [
+		'name'    => 'voucher_theme_description',
+		'field'   => [
 			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)',
+				'name'     => 'voucher_theme_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(32)',
+				'name'     => 'name',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			]
 		],
@@ -6342,56 +8190,63 @@ function db_schema() {
 			'voucher_theme_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'weight_class',
-		'field' => [
+		'name'    => 'weight_class',
+		'field'   => [
 			[
-				'name' => 'weight_class_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'weight_class_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'value',
-				'type' => 'decimal(15,8)',
+				'name'     => 'value',
+				'type'     => 'decimal(15,8)',
 				'not_null' => true,
-				'default' => '0.00000000'
+				'default'  => '0.00000000'
 			]
 		],
 		'primary' => [
 			'weight_class_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'weight_class_description',
-		'field' => [
+		'name'    => 'weight_class_description',
+		'field'   => [
 			[
-				'name' => 'weight_class_id',
-				'type' => 'int(11)',
+				'name'     => 'weight_class_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'language_id',
-				'type' => 'int(11)',
+				'name'     => 'language_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'title',
-				'type' => 'varchar(32)',
+				'name'     => 'title',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'unit',
-				'type' => 'varchar(4)',
+				'name'     => 'unit',
+				'type'     => 'varchar(4)',
 				'not_null' => true
 			]
 		],
@@ -6399,92 +8254,123 @@ function db_schema() {
 			'weight_class_id',
 			'language_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'language_id',
+				'table' => 'language',
+				'field' => 'language_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'zone',
-		'field' => [
+		'name'    => 'zone',
+		'field'   => [
 			[
-				'name' => 'zone_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'zone_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'country_id',
-				'type' => 'int(11)',
+				'name'     => 'country_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'name',
-				'type' => 'varchar(128)',
+				'name'     => 'name',
+				'type'     => 'varchar(128)',
 				'not_null' => true
 			],
 			[
-				'name' => 'code',
-				'type' => 'varchar(32)',
+				'name'     => 'code',
+				'type'     => 'varchar(32)',
 				'not_null' => true
 			],
 			[
-				'name' => 'status',
-				'type' => 'tinyint(1)',
+				'name'     => 'status',
+				'type'     => 'tinyint(1)',
 				'not_null' => true,
-				'default' => '1'
+				'default'  => '1'
 			]
 		],
 		'primary' => [
 			'zone_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'country_id',
+				'table' => 'country',
+				'field' => 'country_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	$tables[] = [
-		'name' => 'zone_to_geo_zone',
-		'field' => [
+		'name'    => 'zone_to_geo_zone',
+		'field'   => [
 			[
-				'name' => 'zone_to_geo_zone_id',
-				'type' => 'int(11)',
-				'not_null' => true,
+				'name'           => 'zone_to_geo_zone_id',
+				'type'           => 'int(11)',
+				'not_null'       => true,
 				'auto_increment' => true
 			],
 			[
-				'name' => 'country_id',
-				'type' => 'int(11)',
+				'name'     => 'country_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'zone_id',
-				'type' => 'int(11)',
+				'name'     => 'zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true,
-				'default' => '0'
+				'default'  => '0'
 			],
 			[
-				'name' => 'geo_zone_id',
-				'type' => 'int(11)',
+				'name'     => 'geo_zone_id',
+				'type'     => 'int(11)',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_added',
-				'type' => 'datetime',
+				'name'     => 'date_added',
+				'type'     => 'datetime',
 				'not_null' => true
 			],
 			[
-				'name' => 'date_modified',
-				'type' => 'datetime',
+				'name'     => 'date_modified',
+				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
 		'primary' => [
 			'zone_to_geo_zone_id'
 		],
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
+		'foreign' => [
+			[
+				'key'   => 'country_id',
+				'table' => 'country',
+				'field' => 'country_id'
+			],
+			[
+				'key'   => 'zone_id',
+				'table' => 'zone',
+				'field' => 'zone_id'
+			],
+			[
+				'key'   => 'geo_zone_id',
+				'table' => 'geo_zone',
+				'field' => 'geo_zone_id'
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
 	];
 
 	return $tables;

@@ -11,7 +11,15 @@ Upgrade Process
 4. Redirect to upgrade page
 */
 namespace Opencart\Admin\Controller\Tool;
+/**
+ * Class Upgrade
+ *
+ * @package Opencart\Admin\Controller\Tool
+ */
 class Upgrade extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('tool/upgrade');
 
@@ -48,7 +56,7 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 		if ($response_info) {
 			$data['latest_version'] = $response_info['version'];
 			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($response_info['date_added']));
-			$data['log'] = $response_info['log'];
+			$data['log'] = nl2br($response_info['log']);
 
 			if (!version_compare(VERSION, $response_info['version'], '>=')) {
 				$data['upgrade'] = true;
@@ -71,6 +79,9 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('tool/upgrade', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function download(): void {
 		$this->load->language('tool/upgrade');
 
@@ -86,7 +97,7 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		if (!version_compare($version, VERSION, '>=')) {
+		if (version_compare($version, VERSION, '<')) {
 			$json['error'] = $this->language->get('error_version');
 		}
 
@@ -120,13 +131,16 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$json['text'] = $this->language->get('text_install');
 
-			$json['next'] = $this->url->link('tool/upgrade|install', 'user_token=' . $this->session->data['user_token'] . '&version=' . $version, true);
+			$json['next'] = $this->url->link('tool/upgrade.install', 'user_token=' . $this->session->data['user_token'] . '&version=' . $version, true);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->language('tool/upgrade');
 
@@ -168,7 +182,7 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 							$path = '';
 
 							// Must not have a path before files and directories can be moved
-							$directories = explode('/', dirname($destination, '/'));
+							$directories = explode('/', dirname($destination));
 
 							foreach ($directories as $directory) {
 								if (!$path) {

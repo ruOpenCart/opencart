@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Api\Localisation;
+/**
+ * Class Currency
+ *
+ * @package Opencart\Catalog\Controller\Api\Localisation
+ */
 class Currency extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('api/localisation/currency');
 
@@ -24,9 +32,6 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$this->session->data['currency'] = $currency;
 
 			$json['success'] = $this->language->get('text_success');
-
-			unset($this->session->data['shipping_methods']);
-			unset($this->session->data['payment_methods']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -1,8 +1,19 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Total;
+/**
+ * Class Tax
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Total
+ */
 class Tax extends \Opencart\System\Engine\Controller {
-	private $error = [];
+	/**
+	 * @var array
+	 */
+	private array $error = [];
 
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/total/tax');
 
@@ -25,7 +36,7 @@ class Tax extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/total/tax', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/total/tax|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/total/tax.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total');
 
 		$data['total_tax_status'] = $this->config->get('total_tax_status');
@@ -38,6 +49,9 @@ class Tax extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/total/tax', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/total/tax');
 

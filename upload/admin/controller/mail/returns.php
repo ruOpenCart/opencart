@@ -1,6 +1,19 @@
 <?php
 namespace Opencart\Admin\Controller\Mail;
+/**
+ * Class Returns
+ *
+ * @package Opencart\Admin\Controller\Mail
+ */
 class Returns extends \Opencart\System\Engine\Controller {
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
 	public function index(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {
 			$return_id = $args[0];
@@ -54,10 +67,10 @@ class Returns extends \Opencart\System\Engine\Controller {
 					$language_code = $this->config->get('config_language');
 				}
 
-				$this->language->load($language_code, 'mail', $language_code);
-				$this->language->load('mail/returns', 'mail', $language_code);
+				$this->load->language('default', 'mail', $language_code);
+				$this->load->language('mail/returns', 'mail', $language_code);
 
-				$subject = sprintf($this->language->get('text_subject'), $store_name, $return_id);
+				$subject = sprintf($this->language->get('mail_text_subject'), $store_name, $return_id);
 
 				$data['return_id'] = $return_id;
 				$data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_info['date_modified']));
@@ -67,20 +80,24 @@ class Returns extends \Opencart\System\Engine\Controller {
 				$data['store'] = $store_name;
 				$data['store_url'] = $store_url;
 
-				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'));
-				$mail->parameter = $this->config->get('config_mail_parameter');
-				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+				if ($this->config->get('config_mail_engine')) {
+					$mail_option = [
+						'parameter'     => $this->config->get('config_mail_parameter'),
+						'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+						'smtp_username' => $this->config->get('config_mail_smtp_username'),
+						'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+						'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+						'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+					];
 
-				$mail->setTo($return_info['email']);
-				$mail->setFrom($this->config->get('config_email'));
-				$mail->setSender($store_name);
-				$mail->setSubject($subject);
-				$mail->setHtml($this->load->view('mail/returns', $data));
-				$mail->send();
+					$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'), $mail_option);
+					$mail->setTo($return_info['email']);
+					$mail->setFrom($this->config->get('config_email'));
+					$mail->setSender($store_name);
+					$mail->setSubject($subject);
+					$mail->setHtml($this->load->view('mail/returns', $data));
+					$mail->send();
+				}
 			}
 		}
 	}

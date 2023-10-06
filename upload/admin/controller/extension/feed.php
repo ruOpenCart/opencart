@@ -1,24 +1,35 @@
 <?php
 namespace Opencart\Admin\Controller\Extension;
+/**
+ * Class Feed
+ *
+ * @package Opencart\Admin\Controller\Extension
+ */
 class Feed extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->response->setOutput($this->getList());
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getList(): string {
 		$this->load->language('extension/feed');
 
 		$available = [];
 
-		$this->load->model('setting/extension');
-
-		$results = $this->model_setting_extension->getPaths('%/admin/controller/feed/%.php');
+		$results = glob(DIR_EXTENSION . '*/admin/controller/feed/*.php');
 
 		foreach ($results as $result) {
-			$available[] = basename($result['path'], '.php');
+			$available[] = basename($result, '.php');
 		}
 
 		$installed = [];
+
+		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('feed');
 
@@ -34,17 +45,19 @@ class Feed extends \Opencart\System\Engine\Controller {
 
 		if ($results) {
 			foreach ($results as $result) {
-				$extension = substr($result['path'], 0, strpos($result['path'], '/'));
+				$path = substr($result, strlen(DIR_EXTENSION));
 
-				$code = basename($result['path'], '.php');
+				$extension = substr($path, 0, strpos($path, '/'));
+
+				$code = basename($result, '.php');
 
 				$this->load->language('extension/' . $extension . '/feed/' . $code, $code);
 
 				$data['extensions'][] = [
 					'name'      => $this->language->get($code . '_heading_title'),
 					'status'    => $this->config->get('feed_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'install'   => $this->url->link('extension/feed|install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
-					'uninstall' => $this->url->link('extension/feed|uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'install'   => $this->url->link('extension/feed.install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'uninstall' => $this->url->link('extension/feed.uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'installed' => in_array($code, $installed),
 					'edit'      => $this->url->link('extension/' . $extension . '/feed/' . $code, 'user_token=' . $this->session->data['user_token'])
 				];
@@ -56,6 +69,9 @@ class Feed extends \Opencart\System\Engine\Controller {
 		return $this->load->view('extension/feed', $data);
 	}
 
+	/**
+	 * @return bool
+	 */
 	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'extension/feed')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -64,6 +80,9 @@ class Feed extends \Opencart\System\Engine\Controller {
 		return !$this->error;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->language('extension/feed');
 
@@ -116,7 +135,7 @@ class Feed extends \Opencart\System\Engine\Controller {
 			$this->config->addPath('extension/' . $extension, DIR_EXTENSION . $extension . '/system/config/');
 
 			// Call install method if it exists
-			$this->load->controller('extension/' . $extension . '/feed/' . $code . '|install');
+			$this->load->controller('extension/' . $extension . '/feed/' . $code . '.install');
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -125,6 +144,9 @@ class Feed extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->language('extension/feed');
 
@@ -140,7 +162,7 @@ class Feed extends \Opencart\System\Engine\Controller {
 			$this->model_setting_extension->uninstall('feed', $this->request->get['code']);
 
 			// Call uninstall method if it exists
-			$this->load->controller('extension/' . $this->request->get['extension'] . '/feed/' . $this->request->get['code'] . '|uninstall');
+			$this->load->controller('extension/' . $this->request->get['extension'] . '/feed/' . $this->request->get['code'] . '.uninstall');
 
 			$json['success'] = $this->language->get('text_success');
 		}

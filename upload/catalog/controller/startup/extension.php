@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Startup;
+/**
+ * Class Extension
+ *
+ * @package Opencart\Catalog\Controller\Startup
+ */
 class Extension extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		// Add extension paths from the DB
 		$this->load->model('setting/extension');
@@ -13,7 +21,7 @@ class Extension extends \Opencart\System\Engine\Controller {
 			// Register controllers, models and system extension folders
 			$this->autoloader->register('Opencart\Catalog\Controller\Extension\\' . $extension, DIR_EXTENSION . $result['extension'] . '/catalog/controller/');
 			$this->autoloader->register('Opencart\Catalog\Model\Extension\\' . $extension, DIR_EXTENSION . $result['extension'] . '/catalog/model/');
-			$this->autoloader->register('Opencart\System\Extension\\' . $extension, DIR_EXTENSION . $result['extension'] . '/system/');
+			$this->autoloader->register('Opencart\System\Library\Extension\\' . $extension, DIR_EXTENSION . $result['extension'] . '/system/library/');
 
 			// Template directory
 			$this->template->addPath('extension/' . $result['extension'], DIR_EXTENSION . $result['extension'] . '/catalog/view/template/');

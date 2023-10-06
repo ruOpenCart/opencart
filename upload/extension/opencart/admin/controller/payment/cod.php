@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Payment;
+/**
+ * Class Cod
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Payment
+ */
 class Cod extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/payment/cod');
 
@@ -23,7 +31,7 @@ class Cod extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/payment/cod', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/payment/cod|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/payment/cod.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment');
 
 		$data['payment_cod_order_status_id'] = $this->config->get('payment_cod_order_status_id');
@@ -48,6 +56,9 @@ class Cod extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/payment/cod', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/payment/cod');
 

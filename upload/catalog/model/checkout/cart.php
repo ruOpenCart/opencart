@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Model\Checkout;
+/**
+ * Class Cart
+ *
+ * @package Opencart\Catalog\Model\Checkout
+ */
 class Cart extends \Opencart\System\Engine\Model {
+	/**
+	 * @return array
+	 */
 	public function getProducts(): array {
 		$this->load->model('tool/image');
 		$this->load->model('tool/upload');
@@ -33,9 +41,13 @@ class Cart extends \Opencart\System\Engine\Model {
 				}
 
 				$option_data[] = [
-					'name'  => $option['name'],
-					'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
-					'type'  => $option['type']
+					'product_option_id'       => $option['product_option_id'],
+					'product_option_value_id' => $option['product_option_value_id'],
+					'option_id'               => $option['option_id'],
+					'option_value_id'         => $option['option_value_id'],
+					'name'                    => $option['name'],
+					'value'                   => $value,
+					'type'                    => $option['type']
 				];
 			}
 
@@ -53,20 +65,6 @@ class Cart extends \Opencart\System\Engine\Model {
 				$minimum = true;
 			}
 
-			$option_data = [];
-
-			foreach ($product['option'] as $option) {
-				$option_data[] = [
-					'product_option_id'       => $option['product_option_id'],
-					'product_option_value_id' => $option['product_option_value_id'],
-					'option_id'               => $option['option_id'],
-					'option_value_id'         => $option['option_value_id'],
-					'name'                    => $option['name'],
-					'value'                   => $option['value'],
-					'type'                    => $option['type']
-				];
-			}
-
 			$product_data[] = [
 				'cart_id'      => $product['cart_id'],
 				'product_id'   => $product['product_id'],
@@ -74,7 +72,7 @@ class Cart extends \Opencart\System\Engine\Model {
 				'image'        => $image,
 				'name'         => $product['name'],
 				'model'        => $product['model'],
-				'option'       => $product['option'],
+				'option'       => $option_data,
 				'subscription' => $product['subscription'],
 				'download'     => $product['download'],
 				'quantity'     => $product['quantity'],
@@ -85,13 +83,16 @@ class Cart extends \Opencart\System\Engine\Model {
 				'reward'       => $product['reward'],
 				'tax_class_id' => $product['tax_class_id'],
 				'price'        => $product['price'],
-				'total'        => $product['price'] * $product['quantity']
+				'total'        => $product['total']
 			];
 		}
 
 		return $product_data;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getVouchers(): array {
 		$voucher_data = [];
 
@@ -114,6 +115,13 @@ class Cart extends \Opencart\System\Engine\Model {
 		return $voucher_data;
 	}
 
+	/**
+	 * @param array $totals
+	 * @param array $taxes
+	 * @param int   $total
+	 *
+	 * @return void
+	 */
 	public function getTotals(array &$totals, array &$taxes, int &$total): void {
 		$sort_order = [];
 
@@ -131,7 +139,7 @@ class Cart extends \Opencart\System\Engine\Model {
 			if ($this->config->get('total_' . $result['code'] . '_status')) {
 				$this->load->model('extension/' . $result['extension'] . '/total/' . $result['code']);
 
-				// __call can not pass-by-reference so we get PHP to call it as an anonymous function.
+				// __call magic method cannot pass-by-reference so we get PHP to call it as an anonymous function.
 				($this->{'model_extension_' . $result['extension'] . '_total_' . $result['code']}->getTotal)($totals, $taxes, $total);
 			}
 		}

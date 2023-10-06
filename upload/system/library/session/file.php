@@ -1,56 +1,59 @@
 <?php
 namespace Opencart\System\Library\Session;
+/**
+ * Class File
+ *
+ * @package
+ */
 class File {
+	private object $config;
+	/**
+	 * Constructor
+	 *
+	 * @param    object  $registry
+	 */
 	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		$this->config = $registry->get('config');
 	}
 
+	/**
+	 * Read
+	 *
+	 * @param    string  $session_id
+	 *
+	 * @return	 array
+	 */
 	public function read(string $session_id): array {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		if (is_file($file)) {
-			$size = filesize($file);
-
-			if ($size) {
-				$handle = fopen($file, 'r');
-
-				flock($handle, LOCK_SH);
-
-				$data = fread($handle, $size);
-
-				flock($handle, LOCK_UN);
-
-				fclose($handle);
-
-				return json_decode($data, true);
-			} else {
-				return [];
-			}
+			return json_decode(file_get_contents($file), true);
+		} else {
+			return [];
 		}
-
-		return [];
 	}
 
+	/**
+	 * Write
+	 *
+	 * @param    string  $session_id
+	 * @param    string  $data
+	 *
+	 * @return	 bool
+	 */
 	public function write(string $session_id, array $data): bool {
-		$file = DIR_SESSION . 'sess_' . basename($session_id);
-
-		$handle = fopen($file, 'c');
-
-		flock($handle, LOCK_EX);
-
-		fwrite($handle, json_encode($data));
-
-		ftruncate($handle, ftell($handle));
-
-		fflush($handle);
-
-		flock($handle, LOCK_UN);
-
-		fclose($handle);
+		file_put_contents(DIR_SESSION . 'sess_' . basename($session_id), json_encode($data));
 
 		return true;
 	}
 
+	/**
+	 * Destroy
+	 *
+	 * @param    string  $session_id
+	 *
+	 * @return	 void
+	 */
 	public function destroy(string $session_id): void {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
@@ -58,7 +61,12 @@ class File {
 			unlink($file);
 		}
 	}
-
+	
+	/**
+	 * GC
+	 *
+	 * @return	 void
+	 */
 	public function gc(): void {
 		if (round(rand(1, $this->config->get('session_divisor') / $this->config->get('session_probability'))) == 1) {
 			$expire = time() - $this->config->get('session_expire');

@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Api\Sale;
+/**
+ * Class Affiliate
+ *
+ * @package Opencart\Catalog\Controller\Api\Sale
+ */
 class Affiliate extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('api/sale/affiliate');
 
@@ -24,13 +32,13 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		if (!$json) {
 			if ($affiliate_id) {
-				$this->session->data['affiliate_id'] = $affiliate_id;
-
 				$json['success'] = $this->language->get('text_success');
-			} else {
-				unset($this->session->data['affiliate_id']);
 
+				$this->session->data['affiliate_id'] = $affiliate_id;
+			} else {
 				$json['success'] = $this->language->get('text_remove');
+
+				unset($this->session->data['affiliate_id']);
 			}
 		}
 

@@ -1,13 +1,50 @@
 <?php
 namespace Opencart\System\Library\Cart;
+/**
+ * Class Cart
+ *
+ * @package
+ */
 class Cart {
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $db;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $config;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $customer;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $session;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $tax;
+	/**
+	 * @var object|mixed|null
+	 */
+	private object $weight;
+	/**
+	 * @var array
+	 */
 	private array $data = [];
 
+	/**
+	 * Constructor
+	 *
+	 * @param object $registry
+	 */
 	public function __construct(\Opencart\System\Engine\Registry $registry) {
+		$this->db = $registry->get('db');
 		$this->config = $registry->get('config');
 		$this->customer = $registry->get('customer');
 		$this->session = $registry->get('session');
-		$this->db = $registry->get('db');
 		$this->tax = $registry->get('tax');
 		$this->weight = $registry->get('weight');
 
@@ -25,11 +62,19 @@ class Cart {
 				$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart['cart_id'] . "'");
 
 				// The advantage of using $this->add is that it will check if the products already exist and increase the quantity if necessary.
-				$this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option'], true), $cart['subscription_plan_id']);
+				$this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option'], true), $cart['subscription_plan_id'], $cart['override'], $cart['price']);
 			}
 		}
+
+		// Populate the cart data
+		$this->data = $this->getProducts();
 	}
 
+	/**
+	 * getProducts
+	 *
+	 * @return    array
+	 */
 	public function getProducts(): array {
 		if (!$this->data) {
 			$cart_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
@@ -138,42 +183,40 @@ class Cart {
 											$stock = false;
 										}
 
-										$option_data[] = [
-											'product_option_id'       => $product_option_id,
-											'product_option_value_id' => $product_option_value_id,
-											'option_id'               => $option_query->row['option_id'],
-											'option_value_id'         => $option_value_query->row['option_value_id'],
-											'name'                    => $option_query->row['name'],
-											'value'                   => $option_value_query->row['name'],
-											'type'                    => $option_query->row['type'],
-											'quantity'                => $option_value_query->row['quantity'],
-											'subtract'                => $option_value_query->row['subtract'],
-											'price'                   => $option_value_query->row['price'],
-											'price_prefix'            => $option_value_query->row['price_prefix'],
-											'points'                  => $option_value_query->row['points'],
-											'points_prefix'           => $option_value_query->row['points_prefix'],
-											'weight'                  => $option_value_query->row['weight'],
-											'weight_prefix'           => $option_value_query->row['weight_prefix']
+										$option_data[] = ['product_option_id'       => $product_option_id,
+														  'product_option_value_id' => $product_option_value_id,
+														  'option_id'               => $option_query->row['option_id'],
+														  'option_value_id'         => $option_value_query->row['option_value_id'],
+														  'name'                    => $option_query->row['name'],
+														  'value'                   => $option_value_query->row['name'],
+														  'type'                    => $option_query->row['type'],
+														  'quantity'                => $option_value_query->row['quantity'],
+														  'subtract'                => $option_value_query->row['subtract'],
+														  'price'                   => $option_value_query->row['price'],
+														  'price_prefix'            => $option_value_query->row['price_prefix'],
+														  'points'                  => $option_value_query->row['points'],
+														  'points_prefix'           => $option_value_query->row['points_prefix'],
+														  'weight'                  => $option_value_query->row['weight'],
+														  'weight_prefix'           => $option_value_query->row['weight_prefix']
 										];
 									}
 								}
 							} elseif ($option_query->row['type'] == 'text' || $option_query->row['type'] == 'textarea' || $option_query->row['type'] == 'file' || $option_query->row['type'] == 'date' || $option_query->row['type'] == 'datetime' || $option_query->row['type'] == 'time') {
-								$option_data[] = [
-									'product_option_id'       => $product_option_id,
-									'product_option_value_id' => '',
-									'option_id'               => $option_query->row['option_id'],
-									'option_value_id'         => '',
-									'name'                    => $option_query->row['name'],
-									'value'                   => $value,
-									'type'                    => $option_query->row['type'],
-									'quantity'                => '',
-									'subtract'                => '',
-									'price'                   => '',
-									'price_prefix'            => '',
-									'points'                  => '',
-									'points_prefix'           => '',
-									'weight'                  => '',
-									'weight_prefix'           => ''
+								$option_data[] = ['product_option_id'       => $product_option_id,
+												  'product_option_value_id' => '',
+												  'option_id'               => $option_query->row['option_id'],
+												  'option_value_id'         => '',
+												  'name'                    => $option_query->row['name'],
+												  'value'                   => $value,
+												  'type'                    => $option_query->row['type'],
+												  'quantity'                => '',
+												  'subtract'                => '',
+												  'price'                   => '',
+												  'price_prefix'            => '',
+												  'points'                  => '',
+												  'points_prefix'           => '',
+												  'weight'                  => '',
+												  'weight_prefix'           => ''
 								];
 							}
 						}
@@ -250,14 +293,20 @@ class Cart {
 					$subscription_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` ps LEFT JOIN `" . DB_PREFIX . "subscription_plan` sp ON (ps.`subscription_plan_id` = sp.`subscription_plan_id`) LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` spd ON (sp.`subscription_plan_id` = spd.`subscription_plan_id`) WHERE ps.`product_id` = '" . (int)$cart['product_id'] . "' AND ps.`subscription_plan_id` = '" . (int)$cart['subscription_plan_id'] . "' AND ps.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND spd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND sp.`status` = '1'");
 
 					if ($subscription_query->num_rows) {
+						$price = $subscription_query->row['price'];
+
+						if ($subscription_query->row['trial_status']) {
+							$price = $subscription_query->row['trial_price'];
+						}
+
 						$subscription_data = [
 							'subscription_plan_id' => $subscription_query->row['subscription_plan_id'],
 							'name'                 => $subscription_query->row['name'],
-							'description'          => $subscription_query->row['description'],
 							'trial_price'          => $subscription_query->row['trial_price'],
 							'trial_frequency'      => $subscription_query->row['trial_frequency'],
 							'trial_cycle'          => $subscription_query->row['trial_cycle'],
 							'trial_duration'       => $subscription_query->row['trial_duration'],
+							'trial_remaining'      => $subscription_query->row['trial_duration'],
 							'trial_status'         => $subscription_query->row['trial_status'],
 							'price'                => $subscription_query->row['price'],
 							'frequency'            => $subscription_query->row['frequency'],
@@ -267,7 +316,11 @@ class Cart {
 						];
 					}
 
-					$this->data[] = [
+					if ($cart['override']) {
+						$price = $cart['price'];
+					}
+
+					$this->data[$cart['cart_id']] = [
 						'cart_id'         => $cart['cart_id'],
 						'product_id'      => $product_query->row['product_id'],
 						'master_id'       => $product_query->row['master_id'],
@@ -303,37 +356,85 @@ class Cart {
 		return $this->data;
 	}
 
-	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0): void {
+	/**
+	 * Add
+	 *
+	 * @param int   $product_id
+	 * @param int   $quantity
+	 * @param array $option
+	 * @param int   $subscription_plan_id
+	 *
+	 * @return    void
+	 */
+	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0, bool $override = false, float $price = 0): void {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		if (!$query->row['total']) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `date_added` = NOW()");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `override` = '" . (bool)$override . "', `price` = '" . (float)($override ? $price : 0) . "', `date_added` = NOW()");
 		} else {
 			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = (`quantity` + " . (int)$quantity . ") WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 		}
 
-		$this->data = [];
+		// Populate the cart data
+		$this->data = $this->getProducts();
 	}
 
+	/**
+	 * Update
+	 *
+	 * @param int $cart_id
+	 * @param int $quantity
+	 *
+	 * @return    void
+	 */
 	public function update(int $cart_id, int $quantity): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
-		$this->data = [];
+		// Populate the cart data
+		$this->data = $this->getProducts();
 	}
 
+	/**
+	 * Has
+	 *
+	 * @param int $cart_id
+	 *
+	 * @return    bool
+	 */
+	public function has(int $cart_id): bool {
+		return isset($this->data[$cart_id]);
+	}
+
+	/**
+	 * Remove
+	 *
+	 * @param int $cart_id
+	 *
+	 * @return    void
+	 */
 	public function remove(int $cart_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
-		$this->data = [];
+		unset($this->data[$cart_id]);
 	}
 
+	/**
+	 * Clear
+	 *
+	 * @return    void
+	 */
 	public function clear(): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
 		$this->data = [];
 	}
 
-	public function getSubscription(): array {
+	/**
+	 * getSubscription
+	 *
+	 * @return    array
+	 */
+	public function getSubscriptions(): array {
 		$product_data = [];
 
 		foreach ($this->getProducts() as $value) {
@@ -345,6 +446,11 @@ class Cart {
 		return $product_data;
 	}
 
+	/**
+	 * getWeight
+	 *
+	 * @return    float
+	 */
 	public function getWeight(): float {
 		$weight = 0;
 
@@ -357,6 +463,11 @@ class Cart {
 		return $weight;
 	}
 
+	/**
+	 * getSubTotal
+	 *
+	 * @return    float
+	 */
 	public function getSubTotal(): float {
 		$total = 0;
 
@@ -367,6 +478,11 @@ class Cart {
 		return $total;
 	}
 
+	/**
+	 * getTaxes
+	 *
+	 * @return    array
+	 */
 	public function getTaxes(): array {
 		$tax_data = [];
 
@@ -387,6 +503,11 @@ class Cart {
 		return $tax_data;
 	}
 
+	/**
+	 * getTotal
+	 *
+	 * @return    float
+	 */
 	public function getTotal(): float {
 		$total = 0;
 
@@ -397,6 +518,11 @@ class Cart {
 		return $total;
 	}
 
+	/**
+	 * countProducts
+	 *
+	 * @return    int
+	 */
 	public function countProducts(): int {
 		$product_total = 0;
 
@@ -409,14 +535,29 @@ class Cart {
 		return $product_total;
 	}
 
+	/**
+	 * hadProducts
+	 *
+	 * @return    bool
+	 */
 	public function hasProducts(): bool {
-		return count($this->getProducts()) ? true : false;
+		return (bool)count($this->getProducts());
 	}
 
+	/**
+	 * hasSubscription
+	 *
+	 * @return    bool
+	 */
 	public function hasSubscription(): bool {
-		return count($this->getSubscription()) ? true : false;
+		return (bool)count($this->getSubscriptions());
 	}
 
+	/**
+	 * hasStock
+	 *
+	 * @return    bool
+	 */
 	public function hasStock(): bool {
 		foreach ($this->getProducts() as $product) {
 			if (!$product['stock']) {
@@ -427,6 +568,11 @@ class Cart {
 		return true;
 	}
 
+	/**
+	 * hasShipping
+	 *
+	 * @return    bool
+	 */
 	public function hasShipping(): bool {
 		foreach ($this->getProducts() as $product) {
 			if ($product['shipping']) {
@@ -437,6 +583,11 @@ class Cart {
 		return false;
 	}
 
+	/**
+	 * hasDownload
+	 *
+	 * @return    bool
+	 */
 	public function hasDownload(): bool {
 		foreach ($this->getProducts() as $product) {
 			if ($product['download']) {

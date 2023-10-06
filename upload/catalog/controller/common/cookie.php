@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Common;
+/**
+ * Class Cookie
+ *
+ * @package Opencart\Catalog\Controller\Common
+ */
 class Cookie extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {
 			$this->load->model('catalog/information');
@@ -10,10 +18,10 @@ class Cookie extends \Opencart\System\Engine\Controller {
 			if ($information_info) {
 				$this->load->language('common/cookie');
 
-				$data['text_cookie'] = sprintf($this->language->get('text_cookie'), $this->url->link('information/information|info', 'language=' . $this->config->get('config_language') . '&information_id=' . $information_info['information_id']));
+				$data['text_cookie'] = sprintf($this->language->get('text_cookie'), $this->url->link('information/information.info', 'language=' . $this->config->get('config_language') . '&information_id=' . $information_info['information_id']));
 
-				$data['agree'] = $this->url->link('common/cookie|confirm', 'language=' . $this->config->get('config_language') . '&agree=1');
-				$data['disagree'] = $this->url->link('common/cookie|confirm', 'language=' . $this->config->get('config_language') . '&agree=0');
+				$data['agree'] = $this->url->link('common/cookie.confirm', 'language=' . $this->config->get('config_language') . '&agree=1');
+				$data['disagree'] = $this->url->link('common/cookie.confirm', 'language=' . $this->config->get('config_language') . '&agree=0');
 
 				return $this->load->view('common/cookie', $data);
 			}
@@ -22,22 +30,25 @@ class Cookie extends \Opencart\System\Engine\Controller {
 		return '';
 	}
 
+	/**
+	 * @return void
+	 */
 	public function confirm(): void {
 		$json = [];
+
+		if (isset($this->request->get['agree'])) {
+			$agree = (int)$this->request->get['agree'];
+		} else {
+			$agree = 0;
+		}
 
 		if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {
 			$this->load->language('common/cookie');
 
-			if (isset($this->request->get['agree'])) {
-				$agree = (int)$this->request->get['agree'];
-			} else {
-				$agree = 0;
-			}
-
 			$option = [
 				'expires'  => time() + 60 * 60 * 24 * 365,
-				'path'     => !empty($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) . '/' : '',
-				'SameSite' => $this->config->get('session_samesite')
+				'path'     => $this->config->get('session_path'),
+				'SameSite' => $this->config->get('config_session_samesite')
 			];
 
 			setcookie('policy', $agree, $option);

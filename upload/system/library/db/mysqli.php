@@ -1,25 +1,89 @@
 <?php
 namespace Opencart\System\Library\DB;
+/**
+ * Class MySQLi
+ *
+ * @package
+ */
 class MySQLi {
-	private object $connection;
+	/**
+	 * @var object|\mysqli|null
+	 */
+	private object|null $connection;
 
-	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
+	/**
+	 * Constructor
+	 *
+	 * @param    string  $hostname
+	 * @param    string  $username
+	 * @param    string  $password
+	 * @param    string  $database
+	 * @param    string  $port
+	 */
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '', string $ssl_key = '', string $ssl_cert = '', string $ssl_ca = '') {
 		if (!$port) {
 			$port = '3306';
 		}
 
-		try {
-			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
+		if ($ssl_key) {
+			$temp_ssl_key_file = tempnam(sys_get_temp_dir(), 'mysqli_key_');
 
-			$this->connection = $mysqli;
-			$this->connection->report_mode = MYSQLI_REPORT_ERROR;
-			$this->connection->set_charset('utf8');
-			$this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
+			$handle = fopen($temp_ssl_key_file, 'w');
+
+			fwrite($handle, $ssl_key);
+
+			fclose($handle);
+		}
+		
+		if ($ssl_cert) {
+			$temp_ssl_cert_file = tempnam(sys_get_temp_dir(), 'mysqli_cert_');
+
+			$handle = fopen($temp_ssl_cert_file, 'w');
+
+			fwrite($handle, $ssl_cert);
+
+			fclose($handle);
+		}
+		
+		if ($ssl_ca) {
+			$temp_ssl_ca_file = tempnam(sys_get_temp_dir(), 'mysqli_ca_');
+
+			$handle = fopen($temp_ssl_ca_file, 'w');
+
+			fwrite($handle,'-----BEGIN CERTIFICATE-----' . PHP_EOL . $ssl_ca . PHP_EOL . '-----END CERTIFICATE-----');
+
+			fclose($handle);
+		}	
+
+		try {			
+			$this->connection =  mysqli_init();
+			$this->connection->ssl_set($temp_ssl_key_file, $temp_ssl_cert_file, $temp_ssl_ca_file, null, null);
+
+			if ($temp_ssl_cert_file || $temp_ssl_key_file || $temp_ssl_ca_file) {
+				$this->connection->real_connect($hostname, $username, $password, $database, $port, null, MYSQLI_CLIENT_SSL);
+			} else {
+				$this->connection->real_connect($hostname, $username, $password, $database, $port, null);
+			}
+
+			$this->connection->set_charset('utf8mb4');
+
+			$this->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
+			$this->query("SET FOREIGN_KEY_CHECKS = 0");
+
+			// Sync PHP and DB time zones
+			$this->query("SET `time_zone` = '" . $this->escape(date('P')) . "'");
 		} catch (\mysqli_sql_exception $e) {
-			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
+			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!<br/>Message: ' . $e->getMessage());
 		}
 	}
 
+	/**
+	 * Query
+	 *
+	 * @param    string  $sql
+	 *
+	 * @return   bool|object
+	 */
 	public function query(string $sql): bool|object {
 		try {
 			$query = $this->connection->query($sql);
@@ -45,32 +109,50 @@ class MySQLi {
 				return true;
 			}
 		} catch (\mysqli_sql_exception $e) {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
-		}
-	}
-
-	public function escape(string $value): string {
-		return $this->connection->real_escape_string($value);
-	}
-	
-	public function countAffected(): int {
-		return $this->connection->affected_rows;
-	}
-
-	public function getLastId(): int {
-		return $this->connection->insert_id;
-	}
-	
-	public function isConnected(): bool {
-		if ($this->connection) {
-			return $this->connection->ping();
-		} else {
-			return false;
+			throw new \Exception('Error: ' . $this->connection->error  . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
 		}
 	}
 
 	/**
-	 * __destruct
+	 * Escape
+	 *
+	 * @param    string  value
+	 *
+	 * @return   string
+	 */
+	public function escape(string $value): string {
+		return $this->connection->real_escape_string($value);
+	}
+	
+	/**
+	 * countAffected
+	 *
+	 * @return   int
+	 */
+	public function countAffected(): int {
+		return $this->connection->affected_rows;
+	}
+
+	/**
+	 * getLastId
+	 *
+	 * @return   int
+	 */
+	public function getLastId(): int {
+		return $this->connection->insert_id;
+	}
+	
+	/**
+	 * isConnected
+	 *
+	 * @return   bool
+	 */
+	public function isConnected(): bool {
+		return $this->connection;
+	}
+
+	/**
+	 * Destructor
 	 *
 	 * Closes the DB connection when this object is destroyed.
 	 *
@@ -79,7 +161,7 @@ class MySQLi {
 		if ($this->connection) {
 			$this->connection->close();
 
-			unset($this->connection);
+			$this->connection = null;
 		}
 	}
 }

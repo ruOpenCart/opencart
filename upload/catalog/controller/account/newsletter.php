@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
+/**
+ * Class Newsletter
+ *
+ * @package Opencart\Catalog\Controller\Account
+ */
 class Newsletter extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('account/newsletter');
 
@@ -29,7 +37,7 @@ class Newsletter extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('account/newsletter', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'])
 		];
 
-		$data['save'] = $this->url->link('account/newsletter|save', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+		$data['save'] = $this->url->link('account/newsletter.save', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 
 		$data['newsletter'] = $this->customer->getNewsletter();
 
@@ -45,6 +53,9 @@ class Newsletter extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('account/newsletter', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('account/newsletter');
 

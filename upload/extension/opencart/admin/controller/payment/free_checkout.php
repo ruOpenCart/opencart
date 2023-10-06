@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Payment;
+/**
+ * Class Free Checkout
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Payment
+ */
 class FreeCheckout extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/payment/free_checkout');
 
@@ -23,7 +31,7 @@ class FreeCheckout extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/payment/free_checkout', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/payment/free_checkout|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/payment/free_checkout.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment');
 
 		$data['payment_free_checkout_order_status_id'] = $this->config->get('payment_free_checkout_order_status_id');
@@ -42,6 +50,9 @@ class FreeCheckout extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/payment/free_checkout', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/payment/free_checkout');
 

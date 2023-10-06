@@ -2,21 +2,26 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr, Billy Noah
- * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
-
-/**
-* Encryption class
-*/
 namespace Opencart\System\Library;
+/**
+ * Class Encryption
+ */
 class Encryption {
+	/**
+	 * @var string
+	 */
 	private string $cipher = 'aes-256-ctr';
+	/**
+	 * @var string
+	 */
 	private string $digest = 'sha256';
 	
     /**
-     * 
+     * Encrypt
      *
      * @param	string	$key
      * @param	string	$value
@@ -32,7 +37,7 @@ class Encryption {
 	}
 	
     /**
-     * 
+     * Decrypt
      *
      * @param	string	$key
      * @param	string	$value

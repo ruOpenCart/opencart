@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Module;
+/**
+ * Class Latest
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Module
+ */
 class Latest extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/module/latest');
 
@@ -31,9 +39,9 @@ class Latest extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!isset($this->request->get['module_id'])) {
-			$data['save'] = $this->url->link('extension/opencart/module/latest|save', 'user_token=' . $this->session->data['user_token']);
+			$data['save'] = $this->url->link('extension/opencart/module/latest.save', 'user_token=' . $this->session->data['user_token']);
 		} else {
-			$data['save'] = $this->url->link('extension/opencart/module/latest|save', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id']);
+			$data['save'] = $this->url->link('extension/opencart/module/latest.save', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id']);
 		}
 
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module');
@@ -79,6 +87,12 @@ class Latest extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['status'] = '';
 		}
+		
+		if (isset($this->request->get['module_id'])) {
+			$data['module_id'] = (int)$this->request->get['module_id'];
+		} else {
+			$data['module_id'] = 0;
+		}
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -87,6 +101,9 @@ class Latest extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/module/latest', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/module/latest');
 
@@ -96,7 +113,7 @@ class Latest extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+		if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 64)) {
 			$json['error']['name'] = $this->language->get('error_name');
 		}
 
@@ -111,10 +128,10 @@ class Latest extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('setting/module');
 
-			if (!isset($this->request->get['module_id'])) {
-				$this->model_setting_module->addModule('opencart.latest', $this->request->post);
+			if (!$this->request->post['module_id']) {
+				$json['module_id'] = $this->model_setting_module->addModule('opencart.latest', $this->request->post);
 			} else {
-				$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
+				$this->model_setting_module->editModule($this->request->post['module_id'], $this->request->post);
 			}
 
 			$this->cache->delete('product');

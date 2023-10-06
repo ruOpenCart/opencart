@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Checkout;
+/**
+ * Class Voucher
+ *
+ * @package Opencart\Catalog\Controller\Checkout
+ */
 class Voucher extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('checkout/voucher');
 
@@ -31,7 +39,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 
 		$this->session->data['voucher_token'] = substr(bin2hex(openssl_random_pseudo_bytes(26)), 0, 26);
 
-		$data['save'] = $this->url->link('checkout/voucher|add', 'language=' . $this->config->get('config_language') . '&voucher_token=' . $this->session->data['voucher_token']);
+		$data['save'] = $this->url->link('checkout/voucher.add', 'language=' . $this->config->get('config_language') . '&voucher_token=' . $this->session->data['voucher_token']);
 
 		if ($this->customer->isLogged()) {
 			$data['from_name'] = $this->customer->getFirstName() . ' '  . $this->customer->getLastName();
@@ -61,6 +69,9 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('checkout/voucher', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function add(): void {
 		$this->load->language('checkout/voucher');
 
@@ -86,19 +97,19 @@ class Voucher extends \Opencart\System\Engine\Controller {
 			$json['redirect'] = $this->url->link('checkout/voucher', 'language=' . $this->config->get('config_language'), true);
 		}
 
-		if ((utf8_strlen($this->request->post['to_name']) < 1) || (utf8_strlen($this->request->post['to_name']) > 64)) {
+		if ((oc_strlen($this->request->post['to_name']) < 1) || (oc_strlen($this->request->post['to_name']) > 64)) {
 			$json['error']['to_name'] = $this->language->get('error_to_name');
 		}
 
-		if ((utf8_strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
+		if ((oc_strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
 			$json['error']['to_email'] = $this->language->get('error_email');
 		}
 
-		if ((utf8_strlen($this->request->post['from_name']) < 1) || (utf8_strlen($this->request->post['from_name']) > 64)) {
+		if ((oc_strlen($this->request->post['from_name']) < 1) || (oc_strlen($this->request->post['from_name']) > 64)) {
 			$json['error']['from_name'] = $this->language->get('error_from_name');
 		}
 
-		if ((utf8_strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
+		if ((oc_strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
 			$json['error']['from_email'] = $this->language->get('error_email');
 		}
 
@@ -115,7 +126,7 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$code = token(10);
+			$code = oc_token(10);
 
 			$this->session->data['vouchers'][] = [
 				'code'             => $code,
@@ -126,17 +137,26 @@ class Voucher extends \Opencart\System\Engine\Controller {
 				'from_email'       => $this->request->post['from_email'],
 				'voucher_theme_id' => $this->request->post['voucher_theme_id'],
 				'message'          => $this->request->post['message'],
-				'amount'           => $this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
+				'amount'           => $this->currency->convert((int)$this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
 			];
 
-			$json['redirect'] = $this->url->link('checkout/voucher|success', 'language=' . $this->config->get('config_language'), true);
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
+			unset($this->session->data['reward']);
+
+			$json['redirect'] = $this->url->link('checkout/voucher.success', 'language=' . $this->config->get('config_language'), true);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function remove() {
+	/**
+	 * @return void
+	 */
+	public function remove(): void {
 		$this->load->language('checkout/voucher');
 
 		$json = [];
@@ -152,11 +172,16 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
+				$json['success'] = $this->language->get('text_remove');
+			} else {
+				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
+			}
+
 			unset($this->session->data['vouchers'][$key]);
-
-			$json['success'] = $this->language->get('text_remove');
-
+			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
 			unset($this->session->data['reward']);
 		}
@@ -165,6 +190,9 @@ class Voucher extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function success(): void {
 		$this->load->language('checkout/voucher');
 

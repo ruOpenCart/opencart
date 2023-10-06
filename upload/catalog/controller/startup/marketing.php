@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Startup;
+/**
+ * Class Marketing
+ *
+ * @package Opencart\Catalog\Controller\Startup
+ */
 class Marketing extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$tracking = '';
 
@@ -22,9 +30,7 @@ class Marketing extends \Opencart\System\Engine\Controller {
 				$this->model_marketing_marketing->addReport($marketing_info['marketing_id'], $this->request->server['REMOTE_ADDR']);
 			}
 
-
 			if ($this->config->get('config_affiliate_status')) {
-
 				$this->load->model('account/affiliate');
 
 				$affiliate_info = $this->model_account_affiliate->getAffiliateByTracking($tracking);
@@ -39,8 +45,8 @@ class Marketing extends \Opencart\System\Engine\Controller {
 					if (!isset($this->request->cookie['tracking'])) {
 						$option = [
 							'expires'  => $this->config->get('config_affiliate_expire') ? time() + (int)$this->config->get('config_affiliate_expire') : 0,
-							'path'     => '/',
-							'SameSite' => $this->config->get('session_samesite')
+							'path'     => $this->config->get('session_path'),
+							'SameSite' => $this->config->get('config_session_samesite')
 						];
 
 						setcookie('tracking', $tracking, $option);

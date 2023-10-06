@@ -6,17 +6,34 @@
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
-
-/**
-* Document class
-*/
 namespace Opencart\System\Library;
+/**
+ * Class Document
+ */
 class Document {
+	/**
+	 * @var string
+	 */
 	private string $title = '';
+	/**
+	 * @var string
+	 */
 	private string $description = '';
+	/**
+	 * @var string
+	 */
 	private string $keywords = '';
+	/**
+	 * @var array
+	 */
 	private array $links = [];
+	/**
+	 * @var array
+	 */
 	private array $styles = [];
+	/**
+	 * @var array
+	 */
 	private array $scripts = [];
 
 	/**
@@ -29,7 +46,7 @@ class Document {
 	}
 
 	/**
-     *
+     * getTitle
 	 *
 	 * @return	string
      */
@@ -93,7 +110,7 @@ class Document {
 	 *
 	 * @return	array
      */
-	public function getLinks() {
+	public function getLinks(): array {
 		return $this->links;
 	}
 
@@ -128,7 +145,7 @@ class Document {
 	 * @param	string	$position
      */
 	public function addScript(string $href, $position = 'header'): void {
-		$this->scripts[$position][$href] = $href;
+		$this->scripts[$position][$href] = ['href' => $href];
 	}
 
 	/**

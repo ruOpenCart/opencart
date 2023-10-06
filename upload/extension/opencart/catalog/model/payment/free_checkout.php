@@ -1,7 +1,17 @@
 <?php
 namespace Opencart\Catalog\Model\Extension\Opencart\Payment;
+/**
+ * Class FreeCheckout
+ *
+ * @package
+ */
 class FreeCheckout extends \Opencart\System\Engine\Model {
-	public function getMethod(array $address): array {
+	/**
+	 * @param array $address
+	 *
+	 * @return array
+	 */
+	public function getMethods(array $address = []): array {
 		$this->load->language('extension/opencart/payment/free_checkout');
 
 		$total = $this->cart->getTotal();
@@ -25,9 +35,15 @@ class FreeCheckout extends \Opencart\System\Engine\Model {
 		$method_data = [];
 
 		if ($status) {
+			$option_data['free_checkout'] = [
+				'code' => 'free_checkout.free_checkout',
+				'name' => $this->language->get('heading_title')
+			];
+
 			$method_data = [
 				'code'       => 'free_checkout',
-				'title'      => $this->language->get('heading_title'),
+				'name'       => $this->language->get('heading_title'),
+				'option'     => $option_data,
 				'sort_order' => $this->config->get('payment_free_checkout_sort_order')
 			];
 		}

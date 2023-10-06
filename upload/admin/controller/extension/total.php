@@ -1,24 +1,35 @@
 <?php
 namespace Opencart\Admin\Controller\Extension;
+/**
+ * Class Total
+ *
+ * @package Opencart\Admin\Controller\Extension
+ */
 class Total extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->response->setOutput($this->getList());
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getList(): string {
 		$this->load->language('extension/total');
 
 		$available = [];
 
-		$this->load->model('setting/extension');
-
-		$results = $this->model_setting_extension->getPaths('%/admin/controller/total/%.php');
+		$results = glob(DIR_EXTENSION . '*/admin/controller/total/*.php');
 
 		foreach ($results as $result) {
-			$available[] = basename($result['path'], '.php');
+			$available[] = basename($result, '.php');
 		}
 
 		$installed = [];
+
+		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('total');
 
@@ -34,9 +45,11 @@ class Total extends \Opencart\System\Engine\Controller {
 
 		if ($results) {
 			foreach ($results as $result) {
-				$extension = substr($result['path'], 0, strpos($result['path'], '/'));
+				$path = substr($result, strlen(DIR_EXTENSION));
 
-				$code = basename($result['path'], '.php');
+				$extension = substr($path, 0, strpos($path, '/'));
+
+				$code = basename($result, '.php');
 
 				$this->load->language('extension/' . $extension . '/total/' . $code, $code);
 
@@ -44,8 +57,8 @@ class Total extends \Opencart\System\Engine\Controller {
 					'name'       => $this->language->get($code . '_heading_title'),
 					'status'     => $this->config->get('total_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 					'sort_order' => $this->config->get('total_' . $code . '_sort_order'),
-					'install'    => $this->url->link('extension/total|install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
-					'uninstall'  => $this->url->link('extension/total|uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'install'    => $this->url->link('extension/total.install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'uninstall'  => $this->url->link('extension/total.uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'installed'  => in_array($code, $installed),
 					'edit'       => $this->url->link('extension/' . $extension . '/total/' . $code, 'user_token=' . $this->session->data['user_token'])
 				];
@@ -57,6 +70,9 @@ class Total extends \Opencart\System\Engine\Controller {
 		return $this->load->view('extension/total', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->language('extension/total');
 
@@ -109,7 +125,7 @@ class Total extends \Opencart\System\Engine\Controller {
 			$this->config->addPath('extension/' . $extension, DIR_EXTENSION . $extension . '/system/config/');
 
 			// Call install method if it exists
-			$this->load->controller('extension/' . $extension . '/total/' . $code . '|install');
+			$this->load->controller('extension/' . $extension . '/total/' . $code . '.install');
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -118,6 +134,9 @@ class Total extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->language('extension/total');
 
@@ -133,7 +152,7 @@ class Total extends \Opencart\System\Engine\Controller {
 			$this->model_setting_extension->uninstall('total', $this->request->get['code']);
 
 			// Call uninstall method if it exists
-			$this->load->controller('extension/' . $this->request->get['extension'] . '/total/' . $this->request->get['code'] . '|uninstall');
+			$this->load->controller('extension/' . $this->request->get['extension'] . '/total/' . $this->request->get['code'] . '.uninstall');
 
 			$json['success'] = $this->language->get('text_success');
 		}

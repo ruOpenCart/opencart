@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Total;
+/**
+ * Class Low Order Fee
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Total
+ */
 class LowOrderFee extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/total/low_order_fee');
 
@@ -23,7 +31,7 @@ class LowOrderFee extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/total/low_order_fee', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/total/low_order_fee|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/total/low_order_fee.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total');
 
 		$data['total_low_order_fee_total'] = $this->config->get('total_low_order_fee_total');
@@ -44,6 +52,9 @@ class LowOrderFee extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/total/low_order_fee', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/total/low_order_fee');
 

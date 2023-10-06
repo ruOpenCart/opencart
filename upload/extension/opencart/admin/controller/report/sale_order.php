@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Report;
+/**
+ * Class SaleOrder
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Report
+ */
 class SaleOrder extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/report/sale_order');
 
@@ -23,7 +31,7 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/report/sale_order', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/report/sale_order|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/report/sale_order.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report');
 
 		$data['report_sale_order_status'] = $this->config->get('report_sale_order_status');
@@ -36,6 +44,9 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/report/sale_order_form', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/report/sale_order');
 
@@ -56,10 +67,59 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
-		
+
+	/**
+	 * @return void
+	 */
 	public function report(): void {
 		$this->load->language('extension/opencart/report/sale_order');
 
+		$data['list'] = $this->getReport();
+
+		$this->load->model('localisation/order_status');
+
+		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
+		$data['groups'] = [];
+
+		$data['groups'][] = [
+			'text'  => $this->language->get('text_year'),
+			'value' => 'year',
+		];
+
+		$data['groups'][] = [
+			'text'  => $this->language->get('text_month'),
+			'value' => 'month',
+		];
+
+		$data['groups'][] = [
+			'text'  => $this->language->get('text_week'),
+			'value' => 'week',
+		];
+
+		$data['groups'][] = [
+			'text'  => $this->language->get('text_day'),
+			'value' => 'day',
+		];
+
+		$data['user_token'] = $this->session->data['user_token'];
+
+		$this->response->setOutput($this->load->view('extension/opencart/report/sale_order', $data));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function list(): void {
+		$this->load->language('extension/opencart/report/sale_order');
+
+		$this->response->setOutput($this->getReport());
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getReport(): string {
 		if (isset($this->request->get['filter_date_start'])) {
 			$filter_date_start = $this->request->get['filter_date_start'];
 		} else {
@@ -113,36 +173,10 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 				'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
 				'orders'     => $result['orders'],
 				'products'   => $result['products'],
-				'tax'        => $this->currency->format($result['tax'], $this->config->get('config_currency')),
-				'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				'tax'        => $this->currency->format((float)$result['tax'], $this->config->get('config_currency')),
+				'total'      => $this->currency->format((float)$result['total'], $this->config->get('config_currency'))
 			];
 		}
-
-		$this->load->model('localisation/order_status');
-
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-
-		$data['groups'] = [];
-
-		$data['groups'][] = [
-			'text'  => $this->language->get('text_year'),
-			'value' => 'year',
-		];
-
-		$data['groups'][] = [
-			'text'  => $this->language->get('text_month'),
-			'value' => 'month',
-		];
-
-		$data['groups'][] = [
-			'text'  => $this->language->get('text_week'),
-			'value' => 'week',
-		];
-
-		$data['groups'][] = [
-			'text'  => $this->language->get('text_day'),
-			'value' => 'day',
-		];
 
 		$url = '';
 
@@ -178,6 +212,6 @@ class SaleOrder extends \Opencart\System\Engine\Controller {
 
 		$data['user_token'] = $this->session->data['user_token'];
 
-		$this->response->setOutput($this->load->view('extension/opencart/report/sale_order', $data));
+		return $this->load->view('extension/opencart/report/sale_order_list', $data);
 	}
 }

@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\Opencart\Total;
+/**
+ * Class Reward
+ *
+ * @package
+ */
 class Reward extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		if ($this->config->get('total_reward_status')) {
 			$available = $this->customer->getRewardPoints();
@@ -20,8 +28,8 @@ class Reward extends \Opencart\System\Engine\Controller {
 
 				$data['entry_reward'] = sprintf($this->language->get('entry_reward'), $points_total);
 
-				$data['save'] = $this->url->link('extension/opencart/total/reward|save', 'language=' . $this->config->get('config_language'), true);
-				$data['list'] = $this->url->link('checkout/cart|list', 'language=' . $this->config->get('config_language'), true);
+				$data['save'] = $this->url->link('extension/opencart/total/reward.save', 'language=' . $this->config->get('config_language'), true);
+				$data['list'] = $this->url->link('checkout/cart.list', 'language=' . $this->config->get('config_language'), true);
 
 				if (isset($this->session->data['reward'])) {
 					$data['reward'] = $this->session->data['reward'];
@@ -36,6 +44,9 @@ class Reward extends \Opencart\System\Engine\Controller {
 		return '';
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/total/reward');
 
@@ -71,14 +82,19 @@ class Reward extends \Opencart\System\Engine\Controller {
 
 		if (!$json) {
 			if ($reward) {
-				$this->session->data['reward'] = $reward;
-
 				$json['success'] = $this->language->get('text_success');
-			} else {
-				unset($this->session->data['reward']);
 
+				$this->session->data['reward'] = $reward;
+			} else {
 				$json['success'] = $this->language->get('text_remove');
+
+				unset($this->session->data['reward']);
 			}
+
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

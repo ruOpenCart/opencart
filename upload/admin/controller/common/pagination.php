@@ -1,6 +1,16 @@
 <?php
 namespace Opencart\Admin\Controller\Common;
+/**
+ * Class Pagination
+ *
+ * @package Opencart\Admin\Controller\Common
+ */
 class Pagination extends \Opencart\System\Engine\Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
 	public function index(array $setting): string {
 		if (isset($setting['total'])) {
 			$total = $setting['total'];
@@ -14,7 +24,7 @@ class Pagination extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		if (isset($setting['limit'])) {
+		if (isset($setting['limit']) && (int)$setting['limit']) {
 			$limit = (int)$setting['limit'];
 		} else {
 			$limit = 10;

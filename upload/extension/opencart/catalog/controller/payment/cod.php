@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\Opencart\Payment;
+/**
+ * Class Cod
+ *
+ * @package
+ */
 class Cod extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->language('extension/opencart/payment/cod');
 
@@ -9,6 +17,9 @@ class Cod extends \Opencart\System\Engine\Controller {
 		return $this->load->view('extension/opencart/payment/cod', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function confirm(): void {
 		$this->load->language('extension/opencart/payment/cod');
 
@@ -18,7 +29,7 @@ class Cod extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_order');
 		}
 
-		if (!isset($this->session->data['payment_method']) || $this->session->data['payment_method'] != 'cod') {
+		if (!isset($this->session->data['payment_method']) || $this->session->data['payment_method']['code'] != 'cod.cod') {
 			$json['error'] = $this->language->get('error_payment_method');
 		}
 

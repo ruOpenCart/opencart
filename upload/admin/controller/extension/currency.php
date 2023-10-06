@@ -1,24 +1,35 @@
 <?php
 namespace Opencart\Admin\Controller\Extension;
+/**
+ * Class Currency
+ *
+ * @package Opencart\Admin\Controller\Extension
+ */
 class Currency extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->response->setOutput($this->getList());
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getList(): string {
 		$this->load->language('extension/currency');
 
 		$available = [];
 
-		$this->load->model('setting/extension');
-
-		$results = $this->model_setting_extension->getPaths('%/admin/controller/currency/%.php');
+		$results = glob(DIR_EXTENSION . '*/admin/controller/currency/*.php');
 
 		foreach ($results as $result) {
-			$available[] = basename($result['path'], '.php');
+			$available[] = basename($result, '.php');
 		}
 
 		$installed = [];
+
+		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('currency');
 
@@ -34,17 +45,19 @@ class Currency extends \Opencart\System\Engine\Controller {
 
 		if ($results) {
 			foreach ($results as $result) {
-				$extension = substr($result['path'], 0, strpos($result['path'], '/'));
+				$path = substr($result, strlen(DIR_EXTENSION));
 
-				$code = basename($result['path'], '.php');
+				$extension = substr($path, 0, strpos($path, '/'));
+
+				$code = basename($result, '.php');
 
 				$this->load->language('extension/' . $extension . '/currency/' . $code, $code);
 
 				$data['extensions'][] = [
 					'name'      => $this->language->get($code . '_heading_title') . ($code == $this->config->get('config_currency') ? $this->language->get('text_default') : ''),
 					'status'    => $this->config->get('currency_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'install'   => $this->url->link('extension/currency|install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
-					'uninstall' => $this->url->link('extension/currency|uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'install'   => $this->url->link('extension/currency.install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
+					'uninstall' => $this->url->link('extension/currency.uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'installed' => in_array($code, $installed),
 					'edit'      => $this->url->link('extension/' . $extension . '/currency/' . $code, 'user_token=' . $this->session->data['user_token'])
 				];
@@ -56,6 +69,9 @@ class Currency extends \Opencart\System\Engine\Controller {
 		return $this->load->view('extension/currency', $data);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function install(): void {
 		$this->load->language('extension/currency');
 
@@ -108,7 +124,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$this->config->addPath('extension/' . $extension, DIR_EXTENSION . $extension . '/system/config/');
 
 			// Call install method if it exists
-			$this->load->controller('extension/' . $extension . '/currency/' . $code . '|install');
+			$this->load->controller('extension/' . $extension . '/currency/' . $code . '.install');
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -117,6 +133,9 @@ class Currency extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function uninstall(): void {
 		$this->load->language('extension/currency');
 
@@ -132,7 +151,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 			$this->model_setting_extension->uninstall('currency', $this->request->get['code']);
 
 			// Call uninstall method if it exists
-			$this->load->controller('extension/' . $this->request->get['extension'] . '/currency/' . $this->request->get['code'] . '|uninstall');
+			$this->load->controller('extension/' . $this->request->get['extension'] . '/currency/' . $this->request->get['code'] . '.uninstall');
 
 			$json['success'] = $this->language->get('text_success');
 		}

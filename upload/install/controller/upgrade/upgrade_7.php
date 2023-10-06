@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Install\Controller\Upgrade;
+/**
+ * Class Upgrade7
+ *
+ * @package Opencart\Install\Controller\Upgrade
+ */
 class Upgrade7 extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('upgrade/upgrade');
 
@@ -61,12 +69,6 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 			// Drop Fields
 			$remove = [];
 
-			// product_option
-			$remove[] = [
-				'table' => 'product_option',
-				'field' => 'option_value'
-			];
-
 			// custom_field
 			$remove[] = [
 				'table' => 'custom_field',
@@ -99,6 +101,46 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 				'field' => 'title'
 			];
 
+			$remove[] = [
+				'table' => 'extension_path',
+				'field' => 'date_added'
+			];
+
+			$remove[] = [
+				'table' => 'geo_zone',
+				'field' => 'date_added'
+			];
+
+			$remove[] = [
+				'table' => 'geo_zone',
+				'field' => 'date_modified'
+			];
+
+			$remove[] = [
+				'table' => 'product_option',
+				'field' => 'option_value'
+			];
+
+			$remove[] = [
+				'table' => 'tax_class',
+				'field' => 'date_added'
+			];
+
+			$remove[] = [
+				'table' => 'tax_class',
+				'field' => 'date_modified'
+			];
+
+			$remove[] = [
+				'table' => 'tax_rate',
+				'field' => 'date_added'
+			];
+
+			$remove[] = [
+				'table' => 'tax_rate',
+				'field' => 'date_modified'
+			];
+
 			foreach ($remove as $result) {
 				$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $result['table'] . "' AND COLUMN_NAME = '" . $result['field'] . "'");
 
@@ -128,7 +170,7 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$json['text'] = sprintf($this->language->get('text_progress'), 7, 7, 8);
+			$json['text'] = sprintf($this->language->get('text_progress'), 7, 7, 9);
 
 			$url = '';
 
@@ -148,6 +190,12 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 	}
 
 	// Function to repair any erroneous categories that are not in the category path table.
+
+	/**
+	 * @param int $parent_id
+	 *
+	 * @return void
+	 */
 	private function repairCategories(int $parent_id = 0): void {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category` WHERE `parent_id` = '" . (int)$parent_id . "'");
 

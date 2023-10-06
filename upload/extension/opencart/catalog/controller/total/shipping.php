@@ -1,35 +1,39 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\Opencart\Total;
+/**
+ * Class Shipping
+ *
+ * @package
+ */
 class Shipping extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		if ($this->config->get('total_shipping_status') && $this->config->get('total_shipping_estimator') && $this->cart->hasShipping()) {
 			$this->load->language('extension/opencart/total/shipping');
 
 			if (isset($this->session->data['shipping_address'])) {
-				$shipping_address = $this->session->data['shipping_address'];
-
-				$data['postcode'] = $shipping_address['postcode'];
-				$data['country_id'] = $shipping_address['country_id'];
-				$data['zone_id'] = $shipping_address['zone_id'];
+				$data['postcode'] = $this->session->data['shipping_address']['postcode'];
+				$data['country_id'] = $this->session->data['shipping_address']['country_id'];
+				$data['zone_id'] = $this->session->data['shipping_address']['zone_id'];
 			} else {
 				$data['postcode'] = '';
 				$data['country_id'] = (int)$this->config->get('config_country_id');
 				$data['zone_id'] = '';
 			}
 
-			$data['shipping_method'] = '';
-
 			if (isset($this->session->data['shipping_method'])) {
-				$shipping = explode('.', $this->session->data['shipping_method']);
-
-				if (isset($shipping[0]) && isset($shipping[1]) && isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
-					$data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]]['code'];
-				}
+				$data['code'] = $this->session->data['shipping_method']['code'];
+			} else {
+				$data['code'] = '';
 			}
 
 			$this->load->model('localisation/country');
 
 			$data['countries'] = $this->model_localisation_country->getCountries();
+
+			$data['language'] = $this->config->get('config_language');
 
 			return $this->load->view('extension/opencart/total/shipping', $data);
 		}
@@ -37,6 +41,9 @@ class Shipping extends \Opencart\System\Engine\Controller {
 		return '';
 	}
 
+	/**
+	 * @return void
+	 */
 	public function quote(): void {
 		$this->load->language('extension/opencart/total/shipping');
 
@@ -66,7 +73,7 @@ class Shipping extends \Opencart\System\Engine\Controller {
 
 		$country_info = $this->model_localisation_country->getCountry((int)$this->request->post['country_id']);
 
-		if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
+		if ($country_info && $country_info['postcode_required'] && (oc_strlen($this->request->post['postcode']) < 2 || oc_strlen($this->request->post['postcode']) > 10)) {
 			$json['error']['postcode'] = $this->language->get('error_postcode');
 		}
 
@@ -104,22 +111,14 @@ class Shipping extends \Opencart\System\Engine\Controller {
 			}
 
 			$this->session->data['shipping_address'] = [
-				'firstname'      => '',
-				'lastname'       => '',
-				'company'        => '',
-				'address_1'      => '',
-				'address_2'      => '',
-				'postcode'       => $this->request->post['postcode'],
-				'city'           => '',
-				'zone_id'        => $this->request->post['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $this->request->post['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
-				'custom_field'   => []
+				'postcode'   => $this->request->post['postcode'],
+				'zone_id'    => $this->request->post['zone_id'],
+				'zone'       => $zone,
+				'zone_code'  => $zone_code,
+				'country_id' => $this->request->post['country_id'],
+				'country'    => $country,
+				'iso_code_2' => $iso_code_2,
+				'iso_code_3' => $iso_code_3
 			];
 
 			$this->tax->setShippingAddress($this->request->post['country_id'], $this->request->post['zone_id']);
@@ -129,10 +128,8 @@ class Shipping extends \Opencart\System\Engine\Controller {
 
 			$shipping_methods = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
-			$this->session->data['shipping_methods'] = $shipping_methods;
-
 			if ($shipping_methods) {
-				$json['shipping_method'] = $shipping_methods;
+				$json['shipping_methods'] = $this->session->data['shipping_methods'] = $shipping_methods;
 			} else {
 				$json['error']['warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact', 'language=' . $this->config->get('config_language')));
 			}
@@ -142,6 +139,9 @@ class Shipping extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/total/shipping');
 
@@ -158,9 +158,12 @@ class Shipping extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$this->session->data['shipping_method'] = $this->request->post['shipping_method'];
+			$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
 
 			$json['success'] = $this->language->get('text_success');
+
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

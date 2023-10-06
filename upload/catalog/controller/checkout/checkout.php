@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Checkout;
+/**
+ * Class Checkout
+ *
+ * @package Opencart\Catalog\Controller\Checkout
+ */
 class Checkout extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		// Validate cart has products and has stock.
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
@@ -21,11 +29,6 @@ class Checkout extends \Opencart\System\Engine\Controller {
 		$this->load->language('checkout/checkout');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment-with-locales.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/daterangepicker.js');
-		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/daterangepicker.css');
 
 		$data['breadcrumbs'] = [];
 
@@ -50,7 +53,7 @@ class Checkout extends \Opencart\System\Engine\Controller {
 			$data['register'] = '';
 		}
 
-		if ($this->customer->isLogged() && $this->config->get('config_checkout_address')) {
+		if ($this->customer->isLogged() && $this->config->get('config_checkout_payment_address')) {
 			$data['payment_address'] = $this->load->controller('checkout/payment_address');
 		} else {
 			$data['payment_address'] = '';

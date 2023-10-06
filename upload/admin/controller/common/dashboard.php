@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Common;
+/**
+ * Class Dashboard
+ *
+ * @package Opencart\Admin\Controller\Common
+ */
 class Dashboard extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('common/dashboard');
 
@@ -29,7 +37,7 @@ class Dashboard extends \Opencart\System\Engine\Controller {
 		// Add all the modules which have multiple settings for each module
 		foreach ($extensions as $extension) {
 			if ($this->config->get('dashboard_' . $extension['code'] . '_status') && $this->user->hasPermission('access', 'extension/' . $extension['extension'] . '/dashboard/' . $extension['code'])) {
-				$output = $this->load->controller('extension/' . $extension['extension'] . '/dashboard/' . $extension['code'] . '|dashboard');
+				$output = $this->load->controller('extension/' . $extension['extension'] . '/dashboard/' . $extension['code'] . '.dashboard');
 
 				//if (!$output instanceof \Exception) {
 				if ($output) {

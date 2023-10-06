@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Catalog\Controller\Common;
+/**
+ * Class Content Bottom
+ *
+ * @package Opencart\Catalog\Controller\Common
+ */
 class ContentBottom extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->model('design/layout');
 
@@ -17,25 +25,31 @@ class ContentBottom extends \Opencart\System\Engine\Controller {
 
 			$path = explode('_', (string)$this->request->get['path']);
 
-			$layout_id = $this->model_catalog_category->getLayoutId(end($path));
+			$layout_id = $this->model_catalog_category->getLayoutId((int)end($path));
 		}
 
 		if ($route == 'product/product' && isset($this->request->get['product_id'])) {
 			$this->load->model('catalog/product');
 
-			$layout_id = $this->model_catalog_product->getLayoutId($this->request->get['product_id']);
+			$layout_id = $this->model_catalog_product->getLayoutId((int)$this->request->get['product_id']);
 		}
 
-		if ($route == 'product/manufacturer/info' && isset($this->request->get['manufacturer_id'])) {
+		if ($route == 'product/manufacturer.info' && isset($this->request->get['manufacturer_id'])) {
 			$this->load->model('catalog/manufacturer');
 
-			$layout_id = $this->model_catalog_manufacturer->getLayoutId($this->request->get['manufacturer_id']);
+			$layout_id = $this->model_catalog_manufacturer->getLayoutId((int)$this->request->get['manufacturer_id']);
 		}
 
 		if ($route == 'information/information' && isset($this->request->get['information_id'])) {
 			$this->load->model('catalog/information');
 
-			$layout_id = $this->model_catalog_information->getLayoutId($this->request->get['information_id']);
+			$layout_id = $this->model_catalog_information->getLayoutId((int)$this->request->get['information_id']);
+		}
+
+		if ($route == 'cms/blog.info' && isset($this->request->get['blog_id'])) {
+			$this->load->model('cms/blog');
+
+			$layout_id = $this->model_cms_blog->getLayoutId((int)$this->request->get['blog_id']);
 		}
 
 		if (!$layout_id) {

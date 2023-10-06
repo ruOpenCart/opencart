@@ -2,20 +2,34 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
-
-/**
-* Request class
-*/
 namespace Opencart\System\Library;
+/**
+ * Class Request
+ */
 class Request {
+	/**
+	 * @var array|mixed
+	 */
 	public array $get = [];
+	/**
+	 * @var array|mixed
+	 */
 	public array $post = [];
+	/**
+	 * @var array|mixed
+	 */
 	public array $cookie = [];
+	/**
+	 * @var array|mixed
+	 */
 	public array $files = [];
+	/**
+	 * @var array|mixed
+	 */
 	public array $server = [];
 	
 	/**
@@ -24,17 +38,17 @@ class Request {
 	public function __construct() {
 		$this->get = $this->clean($_GET);
 		$this->post = $this->clean($_POST);
-		$this->request = $this->clean($_REQUEST);
 		$this->cookie = $this->clean($_COOKIE);
 		$this->files = $this->clean($_FILES);
 		$this->server = $this->clean($_SERVER);
 	}
 	
 	/**
-     * 
-	 * @param	array	$data
+     * Clean
 	 *
-     * @return	array
+	 * @param	mixed	$data
+	 *
+     * @return	mixed
      */
 	public function clean(mixed $data): mixed {
 		if (is_array($data)) {

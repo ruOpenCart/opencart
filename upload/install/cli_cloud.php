@@ -1,5 +1,4 @@
 <?php
-namespace Install;
 //
 // Command line tool for installing cloud version of opencart
 //
@@ -12,25 +11,34 @@ namespace Install;
 //                             --password password
 //
 
+namespace Install;
+
 ini_set('display_errors', 1);
 
 error_reporting(E_ALL);
 
+// APPLICATION
+define('APPLICATION', 'Install');
+
+// DIR
 define('DIR_OPENCART', str_replace('\\', '/', realpath(dirname(__FILE__) . '/../')) . '/');
 define('DIR_SYSTEM', DIR_OPENCART . 'system/');
 
 // Startup
+require_once(DIR_SYSTEM . 'startup.php');
+
+// Engine
 require_once(DIR_SYSTEM . 'engine/controller.php');
 require_once(DIR_SYSTEM . 'engine/registry.php');
 
+// Library
 require_once(DIR_SYSTEM . 'library/request.php');
 require_once(DIR_SYSTEM . 'library/response.php');
 require_once(DIR_SYSTEM . 'library/db.php');
 require_once(DIR_SYSTEM . 'library/db/mysqli.php');
 
-require_once(DIR_SYSTEM . 'helper/general.php');
+// Helper
 require_once(DIR_SYSTEM . 'helper/db_schema.php');
-require_once(DIR_SYSTEM . 'helper/utf8.php');
 
 // Registry
 $registry = new \Opencart\System\Engine\Registry();
@@ -43,17 +51,31 @@ $response = new \Opencart\System\Library\Response();
 $response->addHeader('Content-Type: text/plain; charset=utf-8');
 $registry->set('response', $response);
 
-set_error_handler(function($code, $message, $file, $line, array $errcontext) {
+set_error_handler(/**
+ * @param       $code
+ * @param       $message
+ * @param       $file
+ * @param       $line
+ * @param array $errcontext
+ *
+ * @return false
+ * @throws \ErrorException
+ */ function($code, $message, $file, $line, array $errcontext) {
 	// error was suppressed with the @-operator
 	if (error_reporting() === 0) {
 		return false;
 	}
 
-	echo 'ERROR: ' . $code . ' ' . $message . ' in ' . $file . ' on line ' . $line . "\n";
-	exit();
+	throw new \ErrorException($message, 0, $code, $file, $line);
 });
 
+/**
+ *
+ */
 class CliCloud extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		if (isset($this->request->server['argv'])) {
 			$argv = $this->request->server['argv'];
@@ -80,6 +102,11 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($output);
 	}
 
+	/**
+	 * @param $argv
+	 *
+	 * @return string
+	 */
 	public function install($argv): string {
 		// Options
 		$option = [];
@@ -124,11 +151,11 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 		// Pre-installation check
 		$error = '';
 
-		if ((utf8_strlen($option['username']) < 3) || (utf8_strlen($option['username']) > 20)) {
+		if ((oc_strlen($option['username']) < 3) || (oc_strlen($option['username']) > 20)) {
 			$error .= 'ERROR: Username must be between 3 and 20 characters!' . "\n";
 		}
 
-		if ((utf8_strlen($option['email']) > 96) || !filter_var($option['email'], FILTER_VALIDATE_EMAIL)) {
+		if ((oc_strlen($option['email']) > 96) || !filter_var($option['email'], FILTER_VALIDATE_EMAIL)) {
 			$error .= 'ERROR: E-Mail Address does not appear to be valid!' . "\n";
 		}
 
@@ -154,19 +181,22 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 		$db_hostname = getenv('DB_HOSTNAME', true);
 		$db_username = getenv('DB_USERNAME', true);
 		$db_password = getenv('DB_PASSWORD', true);
+		$db_ssl_key  = getenv('DB_SSL_KEY', true);
+		$db_ssl_cert = getenv('DB_SSL_CERT', true);
+		$db_ssl_ca   = getenv('DB_SSL_CA', true);
 		$db_database = getenv('DB_DATABASE', true);
 		$db_port     = getenv('DB_PORT', true);
 		$db_prefix   = getenv('DB_PREFIX', true);
 
 		try {
 			// Database
-			$db = new \Opencart\System\Library\DB($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port);
+			$db = new \Opencart\System\Library\DB($db_driver, $db_hostname, $db_username, $db_password, $db_database, $db_port, $db_ssl_key, $db_ssl_cert, $db_ssl_ca);
 		} catch (\Exception $e) {
 			return 'ERROR: Could not make a database link using ' . $db_username . '@' . $db_hostname . '!' . "\n";
 		}
 
 		// Set up Database structure
-		$tables = db_schema();
+		$tables = oc_db_schema();
 
 		foreach ($tables as $table) {
 			$table_query = $db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . $db_database . "' AND TABLE_NAME = '" . $db_prefix . $table['name'] . "'");
@@ -239,7 +269,7 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 
 			$db->query("SET @@session.sql_mode = ''");
 
-			$db->query("DELETE FROM `" . $db_prefix . "user` WHERE user_id = '1'");
+			$db->query("DELETE FROM `" . $db_prefix . "user` WHERE `user_id` = '1'");
 
 			// If cloud we do not need to hash the password as we will be passing the password hash
 			$db->query("INSERT INTO `" . $db_prefix . "user` SET `user_id` = '1', `user_group_id` = '1', `username` = '" . $db->escape($option['username']) . "', `password` = '" . $db->escape($option['password']) . "', `firstname` = 'John', `lastname` = 'Doe', `email` = '" . $db->escape($option['email']) . "', `status` = '1', `date_added` = NOW()");
@@ -248,11 +278,9 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 			$db->query("INSERT INTO `" . $db_prefix . "setting` SET `code` = 'config', `key` = 'config_email', `value` = '" . $db->escape($option['email']) . "'");
 
 			$db->query("DELETE FROM `" . $db_prefix . "setting` WHERE `key` = 'config_encryption'");
-			$db->query("INSERT INTO `" . $db_prefix . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(token(1024)) . "'");
+			$db->query("INSERT INTO `" . $db_prefix . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(oc_token(1024)) . "'");
 
-			$db->query("UPDATE `" . $db_prefix . "product` SET `viewed` = '0'");
-
-			$db->query("INSERT INTO `" . $db_prefix . "api` SET `username` = 'Default', `key` = '" . $db->escape(token(256)) . "', `status` = 1, `date_added` = NOW(), `date_modified` = NOW()");
+			$db->query("INSERT INTO `" . $db_prefix . "api` SET `username` = 'Default', `key` = '" . $db->escape(oc_token(256)) . "', `status` = 1, `date_added` = NOW(), `date_modified` = NOW()");
 
 			$last_id = $db->getLastId();
 
@@ -269,6 +297,9 @@ class CliCloud extends \Opencart\System\Engine\Controller {
 		return $output;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function usage(): string {
 		$option = implode(' ', [
 			'--username',

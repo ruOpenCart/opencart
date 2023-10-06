@@ -1,6 +1,6 @@
 <?php
 // Version
-define('VERSION', '4.0.0.0');
+define('VERSION', '4.0.2.3');
 
 // Configuration
 if (is_file('config.php')) {
@@ -15,3 +15,18 @@ if (!defined('DIR_APPLICATION')) {
 
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
+
+// Framework
+require_once(DIR_SYSTEM . 'framework.php');
+
+use Doctum\Doctum;
+use Symfony\Component\Finder\Finder;
+
+$iterator = Finder::create()
+	->files()
+	->name('*.php')
+	->exclude('Resources')
+	->exclude('Tests')
+	->in(DIR_OPENCART);
+
+return new Doctum($iterator);

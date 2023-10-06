@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Fraud;
+/**
+ * Class IP
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Fraud
+ */
 class Ip extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/fraud/ip');
 
@@ -23,7 +31,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/fraud/ip', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/fraud/ip|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/fraud/ip.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud');
 
 		$data['fraud_ip_order_status_id'] = $this->config->get('fraud_ip_order_status_id');
@@ -43,6 +51,9 @@ class Ip extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/fraud/ip', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/fraud/ip');
 
@@ -64,18 +75,31 @@ class Ip extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function install(): void {
-		$this->load->model('extension/opencart/fraud/ip');
+		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			$this->load->model('extension/opencart/fraud/ip');
 
-		$this->model_extension_opencart_fraud_ip->install();
+			$this->model_extension_opencart_fraud_ip->install();
+		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function uninstall(): void {
-		$this->load->model('extension/opencart/fraud/ip');
+		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			$this->load->model('extension/opencart/fraud/ip');
 
-		$this->model_extension_opencart_fraud_ip->uninstall();
+			$this->model_extension_opencart_fraud_ip->uninstall();
+		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function ip(): void {
 		$this->load->language('extension/opencart/fraud/ip');
 
@@ -85,12 +109,14 @@ class Ip extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
+		$limit = 10;
+
 		$data['ips'] = [];
 
 		$this->load->model('extension/opencart/fraud/ip');
 		$this->load->model('customer/customer');
 
-		$results = $this->model_extension_opencart_fraud_ip->getIps(($page - 1) * 10, 10);
+		$results = $this->model_extension_opencart_fraud_ip->getIps(($page - 1) * $limit, $limit);
 
 		foreach ($results as $result) {
 			$data['ips'][] = [
@@ -106,15 +132,18 @@ class Ip extends \Opencart\System\Engine\Controller {
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $ip_total,
 			'page'  => $page,
-			'limit' => 10,
-			'url'   => $this->url->link('extension/opencart/fraud/ip|ip', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
+			'limit' => $limit,
+			'url'   => $this->url->link('extension/opencart/fraud/ip.ip', 'user_token=' . $this->session->data['user_token'] . '&page={page}')
 		]);
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($ip_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($ip_total - 10)) ? $ip_total : ((($page - 1) * 10) + 10), $ip_total, ceil($ip_total / 10));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($ip_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($ip_total - $limit)) ? $ip_total : ((($page - 1) * $limit) + $limit), $ip_total, ceil($ip_total / $limit));
 
 		$this->response->setOutput($this->load->view('extension/opencart/fraud/ip_ip', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function addIp(): void {
 		$this->load->language('extension/opencart/fraud/ip');
 
@@ -144,6 +173,9 @@ class Ip extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function removeIp(): void {
 		$this->load->language('extension/opencart/fraud/ip');
 

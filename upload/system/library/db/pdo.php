@@ -1,27 +1,62 @@
 <?php
 namespace Opencart\System\Library\DB;
+/**
+ * Class PDO
+ *
+ * @package
+ */
 class PDO {
-	private object $connection;
+	/**
+	 * @var object|\PDO|null
+	 */
+	private object|null $connection;
+	/**
+	 * @var array
+	 */
 	private array $data = [];
+	/**
+	 * @var int
+	 */
 	private int $affected;
-
-	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
+	
+	/**
+	 * Constructor
+	 *
+	 * @param    string  $hostname
+	 * @param    string  $username
+	 * @param    string  $password
+	 * @param    string  $database
+	 * @param    string  $port
+	 */
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '', string $sslKey='', string $sslCert='', string $sslCa='') {
 		if (!$port) {
 			$port = '3306';
 		}
 
 		try {
-			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => false));
+			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database . ';charset=utf8mb4', $username, $password, array(\PDO::ATTR_PERSISTENT => false, \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'));
 		} catch (\PDOException $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
 		}
 
 		if ($pdo) {
 			$this->connection = $pdo;
-			$this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION'");
+
+			$this->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
+			$this->query("SET FOREIGN_KEY_CHECKS = 0");
+
+			// Sync PHP and DB time zones
+			$this->query("SET `time_zone` = '" . $this->escape(date('P')) . "'");
 		}
 	}
-
+	
+	/**
+	 * Query
+	 *
+	 * @param    string  $sql
+	 *
+	 * @return   bool|object
+	 */
 	public function query(string $sql): bool|object {
 		$sql = preg_replace('/(?:\'\:)([a-z0-9]*.)(?:\')/', ':$1', $sql);
 
@@ -52,13 +87,20 @@ class PDO {
 				return true;
 			}
 		} catch (\PDOException $e) {
-			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
+			throw new \Exception('Error: ' . $e->getMessage() . ' <br/>Error Code : ' . $e->getCode() . ' <br/>' . $sql);
 		}
 
 		return false;
 	}
 
-	public function escape(string $value) {
+	/**
+	 * Escape
+	 *
+	 * @param    string  value
+	 *
+	 * @return   string
+	 */
+	public function escape(string $value): string {
 		$key = ':' . count($this->data);
 
 		$this->data[$key] = $value;
@@ -66,29 +108,40 @@ class PDO {
 		return $key;
 	}
 
+	/**
+	 * countAffected
+	 *
+	 * @return   int
+	 */
 	public function countAffected(): int {
 		return $this->affected;
 	}
 
+	/**
+	 * getLastId
+	 *
+	 * @return   int
+	 */
 	public function getLastId(): int {
 		return $this->connection->lastInsertId();
 	}
 
+	/**
+	 * isConnected
+	 *
+	 * @return   bool
+	 */
 	public function isConnected(): bool {
-		if ($this->connection) {
-			return true;
-		} else {
-			return false;
-		}
+		return $this->connection;
 	}
 
 	/**
-	 * __destruct
+	 * Destructor
 	 *
 	 * Closes the DB connection when this object is destroyed.
 	 *
 	 */
 	public function __destruct() {
-		unset($this->connection);
+		$this->connection = null;
 	}
 }

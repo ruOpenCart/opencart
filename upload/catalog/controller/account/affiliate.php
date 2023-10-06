@@ -1,21 +1,26 @@
 <?php
 namespace Opencart\Catalog\Controller\Account;
+/**
+ * Class Affiliate
+ *
+ * @package Opencart\Catalog\Controller\Account
+ */
 class Affiliate extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('account/affiliate');
 
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			$this->session->data['redirect'] = $this->url->link('account/returns', 'language=' . $this->config->get('config_language'));
+			$this->customer->logout();
+
+			$this->session->data['redirect'] = $this->url->link('account/affiliate', 'language=' . $this->config->get('config_language'));
 
 			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment-with-locales.min.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/daterangepicker.js');
-		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/daterangepicker.css');
 
 		$data['error_upload_size'] = sprintf($this->language->get('error_upload_size'), $this->config->get('config_file_max_size'));
 
@@ -38,7 +43,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('account/affiliate', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'])
 		];
 
-		$data['save'] = $this->url->link('account/affiliate|save', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+		$data['save'] = $this->url->link('account/affiliate.save', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 		$data['upload'] = $this->url->link('tool/upload', 'language=' . $this->config->get('config_language'));
 
 		$this->load->model('account/affiliate');
@@ -64,9 +69,9 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!empty($affiliate_info)) {
-			$data['payment'] = $affiliate_info['payment'];
+			$data['payment_method'] = $affiliate_info['payment_method'];
 		} else {
-			$data['payment'] = 'cheque';
+			$data['payment_method'] = 'cheque';
 		}
 
 		if (!empty($affiliate_info)) {
@@ -136,7 +141,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_affiliate_id'));
 
 			if ($information_info) {
-				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information|info', 'language=' . $this->config->get('config_language') . '&information_id=' . $this->config->get('config_affiliate_id')), $information_info['title']);
+				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information.info', 'language=' . $this->config->get('config_language') . '&information_id=' . $this->config->get('config_affiliate_id')), $information_info['title']);
 			} else {
 				$data['text_agree'] = '';
 			}
@@ -145,6 +150,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+
+		$data['language'] = $this->config->get('config_language');
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -156,6 +163,9 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('account/affiliate', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('account/affiliate');
 
@@ -172,7 +182,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		$keys = [
-			'payment',
+			'payment_method',
 			'cheque',
 			'paypal',
 			'bank_account_name',
@@ -187,11 +197,16 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			if ($this->request->post['payment'] == 'cheque' && !$this->request->post['cheque']) {
+			// Payment validation
+			if (empty($this->request->post['payment_method'])) {
+				$json['error']['payment_method'] = $this->language->get('error_payment_method');
+			}
+
+			if ($this->request->post['payment_method'] == 'cheque' && !$this->request->post['cheque']) {
 				$json['error']['cheque'] = $this->language->get('error_cheque');
-			} elseif (($this->request->post['payment'] == 'paypal') && ((utf8_strlen($this->request->post['paypal']) > 96) || !filter_var($this->request->post['paypal'], FILTER_VALIDATE_EMAIL))) {
+			} elseif ($this->request->post['payment_method'] == 'paypal' && ((oc_strlen($this->request->post['paypal']) > 96) || !filter_var($this->request->post['paypal'], FILTER_VALIDATE_EMAIL))) {
 				$json['error']['paypal'] = $this->language->get('error_paypal');
-			} elseif ($this->request->post['payment'] == 'bank') {
+			} elseif ($this->request->post['payment_method'] == 'bank') {
 				if ($this->request->post['bank_account_name'] == '') {
 					$json['error']['bank_account_name'] = $this->language->get('error_bank_account_name');
 				}

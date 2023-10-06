@@ -1,12 +1,16 @@
 <?php
 namespace Opencart\Catalog\Controller\Product;
+/**
+ * Class Compare
+ *
+ * @package Opencart\Catalog\Controller\Product
+ */
 class Compare extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('product/compare');
-
-		$this->load->model('catalog/product');
-
-		$this->load->model('tool/image');
 
 		if (!isset($this->session->data['compare'])) {
 			$this->session->data['compare'] = [];
@@ -38,8 +42,8 @@ class Compare extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('product/compare', 'language=' . $this->config->get('config_language'))
 		];
 
-		$data['add_to_cart'] = $this->url->link('checkout/cart|add', 'language=' . $this->config->get('config_language'));
-		$data['cart'] = $this->url->link('common/cart|info', 'language=' . $this->config->get('config_language'));
+		$data['add_to_cart'] = $this->url->link('checkout/cart.add', 'language=' . $this->config->get('config_language'));
+		$data['cart'] = $this->url->link('common/cart.info', 'language=' . $this->config->get('config_language'));
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -53,10 +57,21 @@ class Compare extends \Opencart\System\Engine\Controller {
 
 		$data['attribute_groups'] = [];
 
+		$this->load->model('catalog/product');
+		$this->load->model('catalog/manufacturer');
+		$this->load->model('localisation/stock_status');
+		$this->load->model('tool/image');
+
 		foreach ($this->session->data['compare'] as $key => $product_id) {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
 
 			if ($product_info) {
+				$description = trim(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')));
+
+				if (oc_strlen($description) > $this->config->get('config_product_description_length')) {
+					$description = oc_substr($description, 0, $this->config->get('config_product_description_length')) . '..';
+				}
+
 				if (is_file(DIR_IMAGE . html_entity_decode($product_info['image'], ENT_QUOTES, 'UTF-8'))) {
 					$image = $this->model_tool_image->resize(html_entity_decode($product_info['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_compare_width'), $this->config->get('config_image_compare_height'));
 				} else {
@@ -75,8 +90,22 @@ class Compare extends \Opencart\System\Engine\Controller {
 					$special = false;
 				}
 
+				$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+
+				if ($manufacturer_info) {
+					$manufacturer = $manufacturer_info['name'];
+				} else {
+					$manufacturer = '';
+				}
+
 				if ($product_info['quantity'] <= 0) {
-					$availability = $product_info['stock_status'];
+					$stock_status_info = $this->model_localisation_stock_status->getStockStatus($product_info['stock_status_id']);
+
+					if ($stock_status_info) {
+						$availability = $stock_status_info['name'];
+					} else {
+						$availability = '';
+					}
 				} elseif ($this->config->get('config_stock_display')) {
 					$availability = $product_info['quantity'];
 				} else {
@@ -96,12 +125,12 @@ class Compare extends \Opencart\System\Engine\Controller {
 				$data['products'][$product_id] = [
 					'product_id'   => $product_info['product_id'],
 					'name'         => $product_info['name'],
+					'description'  => $description,
 					'thumb'        => $image,
 					'price'        => $price,
 					'special'      => $special,
-					'description'  => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
 					'model'        => $product_info['model'],
-					'manufacturer' => $product_info['manufacturer'],
+					'manufacturer' => $manufacturer,
 					'availability' => $availability,
 					'minimum'      => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
 					'rating'       => (int)$product_info['rating'],
@@ -139,6 +168,9 @@ class Compare extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('product/compare', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function add(): void {
 		$this->load->language('product/compare');
 
@@ -149,7 +181,7 @@ class Compare extends \Opencart\System\Engine\Controller {
 		}
 
 		if (isset($this->request->post['product_id'])) {
-			$product_id = $this->request->post['product_id'];
+			$product_id = (int)$this->request->post['product_id'];
 		} else {
 			$product_id = 0;
 		}
@@ -170,7 +202,7 @@ class Compare extends \Opencart\System\Engine\Controller {
 				unset($this->session->data['compare'][$key]);
 			}
 
-			// If greater than 4 products then remove the first one
+			// If we count a numeric value that is greater than 4 products, we remove the first one
 			if (count($this->session->data['compare']) >= 4) {
 				array_shift($this->session->data['compare']);
 			}

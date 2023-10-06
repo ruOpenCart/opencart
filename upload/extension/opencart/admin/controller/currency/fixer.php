@@ -1,6 +1,14 @@
 <?php
 namespace Opencart\Admin\Controller\Extension\Opencart\Currency;
+/**
+ * Class Fixer
+ *
+ * @package Opencart\Admin\Controller\Extension\Opencart\Currency
+ */
 class Fixer extends \Opencart\System\Engine\Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/opencart/currency/fixer');
 
@@ -15,7 +23,7 @@ class Fixer extends \Opencart\System\Engine\Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=captcha')
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency')
 		];
 
 		$data['breadcrumbs'][] = [
@@ -23,7 +31,7 @@ class Fixer extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('extension/opencart/currency/fixer', 'user_token=' . $this->session->data['user_token'])
 		];
 
-		$data['save'] = $this->url->link('extension/opencart/currency/fixer|save', 'user_token=' . $this->session->data['user_token']);
+		$data['save'] = $this->url->link('extension/opencart/currency/fixer.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency');
 
 		$data['currency_fixer_api'] = $this->config->get('currency_fixer_api');
@@ -36,6 +44,9 @@ class Fixer extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput($this->load->view('extension/opencart/currency/fixer', $data));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function save(): void {
 		$this->load->language('extension/opencart/currency/fixer');
 
@@ -61,6 +72,11 @@ class Fixer extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * @param string $default
+	 *
+	 * @return void
+	 */
 	public function currency(string $default = ''): void {
 		if ($this->config->get('currency_fixer_status')) {
 			$curl = curl_init();
