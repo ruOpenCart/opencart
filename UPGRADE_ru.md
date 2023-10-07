@@ -1,54 +1,54 @@
-# Upgrading from version 2.x.x
+# Обновление с версии 2.x.x
 
-* For existing installs only
-* Don't use with previous versions
+* Только для существующих установок
+* Не использовать с предыдущими версиями
 
-## For previous versions
+## Для предыдущих версий
 
-If you have __1.5.x__ and want to upgrade __to 3.0.x__, You may try to [contact our dedicated support](https://dedicated.opencart.com/)
+Если у вас есть __1.5.x__ и вы хотите обновить __до 3.0.x__, вы можете попробовать [обратиться в нашу специальную службу поддержки](https://dedicated.opencart.com/)
 
 
-## Step by step
+## Шаг за шагом
 
-1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
+1. СДЕЛАЙТЕ РЕЗЕРВНОЕ КОПИРОВАНИЕ СУЩЕСТВУЮЩИХ ФАЙЛОВ И БАЗ ДАННЫХ МАГАЗИНА!!!
     * Резервное копирование __базы данных__ через ваш магазин `Администратор -> Система -> инструменты -> Резервное копирование`
-    * Backup your __files__ using FTP file copy or use cPanel filemanager to create a zip of all the existing opencart files and folders
-2. Download the __latest version__ of OpenCart and __upload all__ new files on top of your current install __except__ your `config.php` and `admin/config.php`.
-    1. Backup and Remove all of 2.x.x views files. Because OpenCart 3 is start to use TWIG to replace the TPL format.
-    2. Watch this video to understand how to properly upload folder using FTP: http://docs.opencart.com/en-gb/upgrading/
-    3. Before upgrade the latest version, you should double check the existing extensions (in your store) are compatibility with latest version or not. Please contact the developer for enquiry before you upgrade.
-    4. Not only the extensions, all the themes in OpenCart 2 cannot use in OpenCart 3. You should set your store theme to default theme and disabled all of the extensions first.
+    * Создайте резервную копию своих __файлов__ с помощью копирования файлов по FTP или используйте файловый менеджер cPanel, чтобы создать ZIP-архив всех существующих файлов и папок OpenCart.
+2. Скачайте __последнюю версию__ OpenCart и__загрузите все__ новые файлы поверх текущей установки __кроме__ ваших `config.php` и `admin/config.php`.
+    1. Резервное копирование и удаление всех файлов просмотра 2.x.x. Потому что OpenCart 3 начинает использовать TWIG для замены формата TPL.
+    2. Смотрите это видео, чтобы понять, как правильно загружать папку с помощью FTP: http://docs.opencart.com/en-gb/upgrading/
+    3. Перед обновлением последней версии проверьте, что существующие расширения (в вашем магазине) совместимы с последней версией или нет. Перед обновлением свяжитесь с разработчиком .
+    4. Не только расширения, все темы в OpenCart 2 не могут использоваться в OpenCart 3. Выберите шаблон магазина по умолчанию и сначала отключите все расширения.
 
-3. Browse to `http://<yourstore.com>/install` Replacing `<yourstore.com>` with your actual site (and subdirectory if applicable).
+3. Обзор на `http://<yourstore.com>/install` Замена `<yourstore.com>` на ваш сайт (и подкаталог, если это применимо).
 
-4. You should see the OpenCart Upgrade script.
-    * If you see the OpenCart Install page, then that means you overwrote your `config.php` files. Restore them from your backup first. Then try again.
+4. Вы должны увидеть скрипт обновления OpenCart.
+    * Если вы видите страницу установки OpenCart, то это означает, что вы переписали ваши файлы `config.php` файлов. Сначала восстановите их из резервной копии. Затем попробуйте еще раз.
 
-5. Click "Upgrade". After a few seconds you should see the upgrade success page.
-    * If you see any errors, report them immediately in the forum before continuing.
+5. Нажмите "Обновить". Через несколько секунд вы увидите страницу успеха обновления.
+    * Если вы видите какие-либо ошибки, немедленно сообщите о них на форуме перед продолжением.
 
-6. Clear any cookies in your browser
+6. Очистить cookies в вашем браузере
 
-7. Goto the admin side of your store and press `Ctrl+F5` or `Ctrl+Shift+R` for several times to refresh your browser cache. That will prevent oddly shifted elements due to stylesheet changes. Login to your admin as the main administrator.
+7. Перейдите в админку вашего магазина и нажмите `Ctrl+F5` или `Ctrl+Shift+R` несколько раз, чтобы обновить кэш вашего браузера. Это предотвратит странное смещение элементов в результате изменения стилей. Войдите в свой администратор как главный администратор.
 
-8. Goto `Admin -> Users -> User Groups` and Edit the Top Administrator group. Check All boxes.
-    * This will ensure you have permissions for all the new files
+8. Goto `Администратор -> Пользователи -> Группы пользователей` и Редактировать группу Топ Администраторов. Отметить все флажки.
+    * Это обеспечит вам права доступа для всех новых файлов
 
-9. Goto `Admin -> Extensions -> Extensions -> Theme` enabled and save the default theme again.
+9. Goto `Администратор -> Расширения -> Расширения -> Тема` включена и снова сохранить тему по умолчанию.
 
-10. Goto `Admin -> System Settings`
-    * Update any blank fields and click save.
-    * Even if you do not see any new fields, click save anyway to update the database with any new field names.
+10. Goto `Администратор -> Системные настройки`
+    * Обновите любые пустые поля и нажмите кнопку Сохранить.
+    * Даже если вы не видите никаких новых полей, нажмите Сохранить все равно чтобы обновить базу данных с любыми новыми именами.
 
-11. Other Adjustments that may need to be made, depending on which version you are upgrading from and to. These are broken down by which version they were added in. So if you are not currently at that version, you may need to make changes
+11. Другие корректировки, которые могут быть сделаны, в зависимости от того, какую версию вы обновляете и к какой версии. Они разбиты, по каким версиям они были добавлены. Так что если вы сейчас не используете эту версию, вам может потребоваться внести изменения
 
-12. Load the store front and again press CTRL+F5 3x times to refresh your browser cache. That will prevent oddly shifted elements due to stylesheet. (If you skip step 9, you will get the error message.)
+12. Загрузите магазин и снова нажмите CTRL+F5 3x раз, чтобы обновить кэш браузера. Это позволит избежать странного смещения элементов из-за стиля. (Если вы пропустите шаг 9, вы получите сообщение об ошибке.)
 
-## Troubleshooting:
+## Устранение проблем:
 
-1. If you have any upgrade script errors, post them in the forum
-2. If you have 3rd party addon errors, contact the mod author for an update.
-3. If you find bugs, check the "official" bug thread for this version of Opencart
+1. Если у вас есть ошибки сценария обновления, отправьте их на форум
+2. Если у вас есть ошибки в аддоне, свяжитесь с автором мода для обновления.
+3. Если вы обнаружили ошибки, проверьте "официальный" поток ошибок для этой версии Opencart
 
 
 Многие сообщения об ошибках уже были сообщены и исправления будут предложены в первом сообщении этой темы. Вы должны всегда заходить в эту тему сразу после обновления и убедиться, что есть ли немедленные исправления ошибок Если никто не сообщил о вашей ошибке, пожалуйста, сообщите об этом.
