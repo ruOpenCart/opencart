@@ -22,6 +22,7 @@ $_['text_transaction_add']  = 'Добавление транзакции';
 $_['text_reward']           = 'Бонусные баллы';
 $_['text_reward_add']       = 'Добавление бонусных баллов';
 $_['text_ip']               = 'История IP';
+$_['text_authorize']        = 'История авторизации';
 $_['text_option']           = 'Опции';
 $_['text_login']            = 'Войти в магазин';
 $_['text_unlock']           = 'Разблокировать учетную запись';
@@ -45,6 +46,7 @@ $_['column_payment_method'] = 'Название оплаты';
 $_['column_image']          = 'Изображение';
 $_['column_type']           = 'Тип';
 $_['column_date_expire']    = 'Дата истечения';
+$_['column_user_agent']     = 'Пользовательский Агент';
 $_['column_action']         = 'Действие';
 
 // Entry
@@ -75,6 +77,9 @@ $_['entry_name']            = 'Имя покупателя';
 $_['entry_ip']              = 'IP-адрес';
 $_['entry_date_from']       = 'Дата от';
 $_['entry_date_to']         = 'Дата до';
+
+// Tab
+$_['tab_authorize']         = 'Авторизация';
 
 // Button
 $_['button_order']          = 'Заказы';
