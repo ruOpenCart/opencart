@@ -15,15 +15,15 @@ $_['text_plesk']             = 'Настройка базы данных в Ples
 
 // Entry
 $_['entry_db_driver']        = 'Драйвер БД';
-$_['entry_db_driver_select'] = 'Select a DB driver';
+$_['entry_db_driver_select'] = 'Выберите драйвер БД';
 $_['entry_db_hostname']      = 'Хост';
 $_['entry_db_username']      = 'Имя пользователя';
 $_['entry_db_password']      = 'Пароль';
-$_['entry_db_advanced']      = 'Advanced';
-$_['entry_db_ssl_key']       = 'SSL Key';
-$_['entry_db_ssl_cert']      = 'SSL Cert';
-$_['entry_db_ssl_ca']        = 'SSL CA';
-$_['entry_db_ssl_info']      = 'Certificate inputs should be added as a single line like: "MIIDrzCCApegAwIBAgIQ....=="';
+$_['entry_db_advanced']      = 'Дополнительно';
+$_['entry_db_ssl_key']       = 'SSL-ключ';
+$_['entry_db_ssl_cert']      = 'SSL-сертификат';
+$_['entry_db_ssl_ca']        = 'Корневой SSL-сертификат (CA)';
+$_['entry_db_ssl_info']      = 'Входные данные сертификата следует добавлять в виде одной строки, например: "MIIDrzCCApegAwIBAgIQ....=="';
 $_['entry_db_database']      = 'База данных';
 $_['entry_db_port']          = 'Порт';
 $_['entry_db_prefix']        = 'Префикс';
