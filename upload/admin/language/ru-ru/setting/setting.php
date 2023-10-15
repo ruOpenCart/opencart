@@ -48,7 +48,6 @@ $_['text_language']                       = 'Язык';
 $_['text_currency']                       = 'Валюта';
 $_['text_measurement']                    = 'Измерения';
 
-
 // Entry
 $_['entry_meta_title']                    = 'Мета-тег Title';
 $_['entry_meta_description']              = 'Мета-тег Description';
