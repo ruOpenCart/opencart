@@ -1847,6 +1847,14 @@ function oc_db_schema() {
 				'field' => 'language_id'
 			]
 		],
+		'index'   => [
+			[
+				'name' => 'email',
+				'key'  => [
+					'email'
+				]
+			]
+		],
 		'engine'  => 'InnoDB',
 		'charset' => 'utf8mb4',
 		'collate' => 'utf8mb4_general_ci'
@@ -2153,7 +2161,7 @@ function oc_db_schema() {
 			]
 		],
 		'primary' => [
-			'user_authorize_id'
+			'customer_authorize_id'
 		],
 		'foreign' => [
 			[
@@ -4727,6 +4735,14 @@ function oc_db_schema() {
 				'key'   => 'currency_id',
 				'table' => 'currency',
 				'field' => 'currency_id'
+			]
+		],
+		'index'   => [
+			[
+				'name' => 'email',
+				'key'  => [
+					'email'
+				]
 			]
 		],
 		'engine'  => 'InnoDB',
@@ -8335,16 +8351,6 @@ function oc_db_schema() {
 			[
 				'name'     => 'geo_zone_id',
 				'type'     => 'int(11)',
-				'not_null' => true
-			],
-			[
-				'name'     => 'date_added',
-				'type'     => 'datetime',
-				'not_null' => true
-			],
-			[
-				'name'     => 'date_modified',
-				'type'     => 'datetime',
 				'not_null' => true
 			]
 		],
