@@ -23,13 +23,17 @@ $_['entry_db_advanced']      = 'Дополнительно';
 $_['entry_db_ssl_key']       = 'SSL-ключ';
 $_['entry_db_ssl_cert']      = 'SSL-сертификат';
 $_['entry_db_ssl_ca']        = 'Корневой SSL-сертификат (CA)';
-$_['entry_db_ssl_info']      = 'Входные данные сертификата следует добавлять в виде одной строки, например: "MIIDrzCCApegAwIBAgIQ....=="';
+
 $_['entry_db_database']      = 'База данных';
 $_['entry_db_port']          = 'Порт';
 $_['entry_db_prefix']        = 'Префикс';
 $_['entry_username']         = 'Имя пользователя';
 $_['entry_password']         = 'Пароль';
 $_['entry_email']            = 'Эл. почта';
+
+// Help
+$_['entry_db_ssl_info']      = 'Входные данные сертификата следует добавлять в виде одной строки, например: "MIIDrzCCApegAwIBAgIQ....=="';
+
 
 // Error
 $_['error_db_driver']        = 'Драйвер базы данных обязателен!';
