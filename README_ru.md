@@ -68,7 +68,7 @@ OpenCart объявит разработчикам за 1 неделю до пу
 
 ## Лицензия
 
-[Общедоступная лицензия GNU 3-ей версии (GPLv3)](https://github.com/opencart/opencart/blob/master/license.txt)
+[Общедоступная лицензия GNU 3-ей версии (GPLv3)](https://github.com/opencart/opencart/blob/master/LICENSE.md)
 
 ## Ссылки
 
