@@ -20,7 +20,7 @@ $_['column_action']          = 'Действие';
 // Entry
 $_['entry_cache']            = 'Кэш';
 
-// Button
+// Buttons
 $_['button_on']              = 'Вкл';
 $_['button_off']             = 'Выкл';
 
