@@ -42,7 +42,20 @@ class Registry {
 	public function __set(string $key, object $value): void {
 		$this->set($key, $value);
 	}
-	
+
+	/**
+	 * __isset
+	 *
+	 * https://www.php.net/manual/en/language.oop5.overloading.php#object.set
+	 *
+	 * @param    string  $key
+	 *
+	 * @return   bool
+	 */
+	public function __isset(string $key): bool {
+		return $this->has($key);
+	}
+
 	/**
      * Get
      *
