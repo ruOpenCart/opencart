@@ -20,7 +20,7 @@ $_['column_action']          = 'Action';
 // Entry
 $_['entry_cache']            = 'Cache';
 
-// Buttons
+// Button
 $_['button_on']              = 'On';
 $_['button_off']             = 'Off';
 
