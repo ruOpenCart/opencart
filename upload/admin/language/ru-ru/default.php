@@ -44,7 +44,7 @@ $_['text_months_ago']               = '%s месяцев назад';
 $_['text_year_ago']                 = '%s год назад';
 $_['text_years_ago']                = '%s лет назад';
 
-// Buttons
+// Button
 $_['button_add']                    = 'Добавить новое';
 $_['button_delete']                 = 'Удалить';
 $_['button_save']                   = 'Сохранить';
@@ -126,7 +126,7 @@ $_['button_calculate']              = 'Рассчитать платежи';
 $_['button_csv']                    = 'Скачать CSV';
 $_['button_complete']               = 'Завершить платежи';
 
-// Tabs
+// Tab
 $_['tab_address']                   = 'Адреса';
 $_['tab_additional']                = 'Дополнительно';
 $_['tab_attribute']                 = 'Атрибут';
