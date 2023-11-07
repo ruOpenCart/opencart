@@ -56,13 +56,13 @@ $_['text_refresh']       = 'обновить';
 // Entry
 $_['entry_pin']          = 'PIN';
 
-// Tabs
+// Tab
 $_['tab_description']    = 'Описание';
 $_['tab_documentation']  = 'Документация';
 $_['tab_download']       = 'Скачать';
 $_['tab_comment']        = 'Комментарий';
 
-// Buttons
+// Button
 $_['button_api']         = 'Marketplace API';
 $_['button_purchase']    = 'Купить';
 $_['button_view_all']    = 'Посмотреть все расширения';
