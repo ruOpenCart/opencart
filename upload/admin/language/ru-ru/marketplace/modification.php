@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']     = 'Modifications';
+$_['heading_title']     = 'Модификации';
 
 // Text
-$_['text_success']      = 'Success: You have modified modifications!';
-$_['text_refresh']      = 'Whenever you enable / disable or delete a modification you need to click the refresh button to rebuild your modification cache!';
-$_['text_list']         = 'Modification List';
-$_['text_info']         = 'Modification Information';
+$_['text_success']      = 'Успех: Вы изменили модификации!';
+$_['text_refresh']      = 'Всякий раз, когда вы включаете/отключаете или удаляете модификацию, вам нужно нажать кнопку обновления, чтобы перестроить кеш модификаций!';
+$_['text_list']         = 'Список модификаций';
+$_['text_info']         = 'Информация о модификации';
 
 // Column
-$_['column_name']       = 'Modification Name';
+$_['column_name']       = 'Название модификации';
 $_['column_author']     = 'Автор';
 $_['column_version']    = 'Версия';
 $_['column_status']     = 'Статус';
@@ -20,4 +20,4 @@ $_['column_action']     = 'Действие';
 $_['entry_description'] = 'Описание';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify modifications!';
+$_['error_permission']  = 'Внимание: У вас нет прав для изменения модификаций!';

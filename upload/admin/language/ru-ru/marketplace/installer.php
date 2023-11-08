@@ -7,7 +7,6 @@ $_['text_upload']            = 'Успех: Расширение было заг
 $_['text_success']           = 'Успех: Вы изменили расширения!';
 $_['text_progress']          = 'Прогресс установки';
 $_['text_installed']         = 'Установленные расширения';
-$_['text_info']              = 'Extension Information';
 
 // Column
 $_['column_image']           = 'Изображение';
@@ -18,8 +17,6 @@ $_['column_action']          = 'Действие';
 
 // Entry
 $_['entry_progress']         = 'Прогресс';
-$_['entry_name']             = 'Название расширения';
-$_['entry_description']      = 'Описание';
 
 // Error
 $_['error_permission']       = 'Внимание: У вас нет прав на изменение расширений!';

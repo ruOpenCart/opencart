@@ -1,14 +1,14 @@
 <?php
 // Heading
-$_['heading_title']    = 'German Language';
+$_['heading_title']    = 'Немецкий язык';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified German language!';
-$_['text_edit']        = 'Edit German Language';
+$_['text_success']     = 'Успех: Вы изменили немецкий язык!';
+$_['text_edit']        = 'Редактировать немецкий язык';
 
 // Entry
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify German language!';
+$_['error_permission'] = 'Внимание: У вас нет разрешения на изменение немецкого языка!';
