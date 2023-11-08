@@ -20,7 +20,7 @@ $_['entry_path_current']        = 'Текущий путь';
 $_['entry_path_new']            = 'Новый путь';
 $_['entry_name']                = 'Название каталога';
 
-// Button
+// Buttons
 $_['button_move']               = 'Переместить';
 $_['button_rename']             = 'Переименовать';
 
