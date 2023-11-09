@@ -13,7 +13,9 @@ $_['text_customer']         = 'Сведения о покупателе';
 $_['text_password']         = 'Пароль';
 $_['text_other']            = 'Другие';
 $_['text_balance']          = 'Баланс';
-$_['text_address']          = 'Адрес';
+$_['text_address']          = 'Адреса';
+$_['text_address_add']      = 'Добавление адреса';
+$_['text_address_edit']     = 'Изменить адрес';
 $_['text_payment_method']   = 'Методы оплаты';
 $_['text_history']          = 'История';
 $_['text_history_add']      = 'Добавление истории';
@@ -47,6 +49,7 @@ $_['column_image']          = 'Изображение';
 $_['column_type']           = 'Тип';
 $_['column_date_expire']    = 'Дата истечения';
 $_['column_user_agent']     = 'Пользовательский Агент';
+$_['column_address']        = 'Адрес';
 $_['column_action']         = 'Действие';
 
 // Entry
@@ -59,6 +62,7 @@ $_['entry_telephone']       = 'Телефон';
 $_['entry_newsletter']      = 'Рассылка';
 $_['entry_status']          = 'Статус';
 $_['entry_safe']            = 'Безопасный';
+$_['entry_commenter']       = 'Комментатор';
 $_['entry_password']        = 'Пароль';
 $_['entry_confirm']         = 'Подтвердить';
 $_['entry_company']         = 'Компания';
@@ -86,6 +90,7 @@ $_['button_order']          = 'Заказы';
 
 // Help
 $_['help_safe']             = 'Включите, чтобы избежать попадания этого покупателя в систему по борьбе с мошенничеством';
+$_['help_commenter']        = 'Включите, чтобы разрешить клиенту не попадать в систему защиты от спама';
 $_['help_points']           = 'Используйте минус для удаления баллов';
 
 // Error
