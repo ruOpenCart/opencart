@@ -9,7 +9,7 @@ class PgSQL {
 	/**
 	 * @var object|resource|null
 	 */
-	private object|null $connection;
+	private $connection;
 
 	/**
 	 * Constructor
@@ -20,7 +20,7 @@ class PgSQL {
 	 * @param    string  $database
 	 * @param    string  $port
 	 */
-	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '', string $sslKey='', string $sslCert='', string $sslCa='') {
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '', string $ssl_key = '', string $ssl_cert = '', string $ssl_ca = '') {
 		if (!$port) {
 			$port = '5432';
 		}
@@ -47,7 +47,7 @@ class PgSQL {
 	 *
 	 * @return   bool|object
 	 */
-	public function query(string $sql): bool|object {
+	public function query(string $sql) {
 		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {

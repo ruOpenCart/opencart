@@ -108,15 +108,19 @@ class Twig {
 			$config = [
 				'charset'     => 'utf-8',
 				'autoescape'  => false,
-				'debug'       => false,
+				'debug'       => true,
 				'auto_reload' => true,
 				'cache'       => DIR_CACHE . 'template/'
 			];
 
 			$twig = new \Twig\Environment($loader, $config);
 
+			if ($config['debug']) {
+				$twig->addExtension(new \Twig\Extension\DebugExtension());
+			}
+
 			return $twig->render($file, $data);
-		} catch (Twig_Error_Syntax $e) {
+		} catch (\Twig\Error\SyntaxError $e) {
 			throw new \Exception('Error: Could not load template ' . $filename . '!');
 		}
 	}

@@ -169,7 +169,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 		return $this->load->view('marketplace/modification_list', $data);
 	}
 
-	public function refresh() {
+	public function refresh(): void {
 		$this->load->language('marketplace/modification');
 
 		$json = [];
@@ -184,7 +184,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 
 			$this->load->model('setting/setting');
 
-			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
+			$this->model_setting_setting->editValue('config', 'config_maintenance', true);
 
 			// Clear all modification files
 			$files = [];
@@ -227,16 +227,17 @@ class Modification extends \Opencart\System\Engine\Controller {
 			// Begin
 			$xml = [];
 
-			// This is purly for developers so they can run mods directly and have them run without upload after each change.
+			// This is purely so developers they can run mods directly and have them run without upload after each change.
 			$files = glob(DIR_SYSTEM . '*.ocmod.xml');
 
 			if ($files) {
 				foreach ($files as $file) {
-					$xml[] = file_get_contents($file);
+				//	$xml[] = file_get_contents($file);
 				}
 			}
 
-			// Get the default modification file
+			$this->load->model('setting/modification');
+
 			$results = $this->model_setting_modification->getModifications();
 
 			foreach ($results as $result) {
@@ -255,9 +256,13 @@ class Modification extends \Opencart\System\Engine\Controller {
 					continue;
 				}
 
-				$dom = new DOMDocument('1.0', 'UTF-8');
+
+
+				$dom = new \DOMDocument('1.0', 'UTF-8');
 				$dom->preserveWhiteSpace = false;
 				$dom->loadXml($xml);
+
+				echo $xml;
 
 				// Log
 				$log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
@@ -287,6 +292,10 @@ class Modification extends \Opencart\System\Engine\Controller {
 
 						if ((substr($file, 0, 5) == 'admin')) {
 							$path = DIR_APPLICATION . substr($file, 6);
+						}
+
+						if ((substr($file, 0, 9) == 'extension')) {
+							$path = DIR_EXTENSION . substr($file, 9);
 						}
 
 						if ((substr($file, 0, 6) == 'system')) {
@@ -513,7 +522,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 			}
 
 			// Log
-			$ocmod = new Log('ocmod.log');
+			$ocmod = new \Opencart\System\Library\Log('ocmod.log');
 			$ocmod->write(implode("\n", $log));
 
 			// Write all modification files
@@ -541,7 +550,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 			}
 
 			// Maintance mode back to original settings
-			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', $maintenance);
+			$this->model_setting_setting->editValue('config', 'config_maintenance', $maintenance);
 
 			// Do not return success message if refresh() was called with $data
 			$json['success'] = $this->language->get('text_success');
@@ -551,7 +560,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function clear() {
+	public function clear(): void {
 		$this->load->language('marketplace/modification');
 
 		$json = [];
@@ -686,7 +695,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('setting/modification');
 
-			$this->model_setting_modification->editStatus($modification_id, 0);
+
 
 			$json['success'] = $this->language->get('text_success');
 		}

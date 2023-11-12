@@ -572,9 +572,22 @@ var chain = new Chain();
     }
 }(jQuery);
 
-// Button
+// Observe
++function($) {
+    $.fn.observe = function(callback) {
+        observer = new MutationObserver(callback);
+
+        observer.observe($(this)[0], {
+            characterData: false,
+            childList: true,
+            attributes: false
+        });
+    };
+}(jQuery);
+
 $(document).ready(function() {
     +function($) {
+        // Button
         $.fn.button = function(state) {
             return this.each(function() {
                 var element = this;
@@ -590,6 +603,8 @@ $(document).ready(function() {
                     $(element).prop('disabled', this.state).width('').html(this.html);
                 }
             });
-        }
+        };
     }(jQuery);
 });
+
+
