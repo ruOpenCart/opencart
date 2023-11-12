@@ -17,7 +17,9 @@ $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
+$_['entry_name']        = 'Название модификации';
 $_['entry_description'] = 'Описание';
+$_['entry_code']        = 'Код';
 
 // Error
 $_['error_permission']  = 'Внимание: У вас нет прав для изменения модификаций!';
