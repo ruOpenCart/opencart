@@ -9,6 +9,12 @@ $_['text_progress']          = 'Прогресс установки';
 $_['text_installed']         = 'Установленные расширения';
 $_['text_info']              = 'Информация о расширении';
 
+$_['text_install']           = 'Refresh Vendor Files';
+$_['text_vendor']            = 'Refresh Vendor Files';
+$_['text_xml']               = 'Install OCMOD files';
+
+
+
 // Column
 $_['column_image']           = 'Изображение';
 $_['column_name']            = 'Название расширения';
@@ -20,6 +26,7 @@ $_['column_action']          = 'Действие';
 $_['entry_progress']         = 'Прогресс';
 $_['entry_name']             = 'Название расширения';
 $_['entry_description']      = 'Описание';
+$_['entry_code']             = 'Код';
 
 // Error
 $_['error_permission']       = 'Внимание: У вас нет прав на изменение расширений!';
