@@ -8,12 +8,9 @@ $_['text_success']           = 'Успех: Вы изменили расшире
 $_['text_progress']          = 'Прогресс установки';
 $_['text_installed']         = 'Установленные расширения';
 $_['text_info']              = 'Информация о расширении';
-
-$_['text_install']           = 'Refresh Vendor Files';
-$_['text_vendor']            = 'Refresh Vendor Files';
+$_['text_install']           = 'Installing files %s to %s of %s';
+$_['text_vendor']            = 'Refresh vendor files';
 $_['text_xml']               = 'Install OCMOD files';
-
-
 
 // Column
 $_['column_image']           = 'Изображение';
