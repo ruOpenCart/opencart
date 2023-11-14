@@ -8,6 +8,9 @@ $_['text_success']           = 'Успех: Вы изменили расшире
 $_['text_progress']          = 'Прогресс установки';
 $_['text_installed']         = 'Установленные расширения';
 $_['text_info']              = 'Информация о расширении';
+$_['text_install']           = 'Installing files %s to %s of %s';
+$_['text_vendor']            = 'Refresh vendor files';
+$_['text_xml']               = 'Install OCMOD files';
 
 // Column
 $_['column_image']           = 'Изображение';
@@ -20,6 +23,7 @@ $_['column_action']          = 'Действие';
 $_['entry_progress']         = 'Прогресс';
 $_['entry_name']             = 'Название расширения';
 $_['entry_description']      = 'Описание';
+$_['entry_code']             = 'Код';
 
 // Error
 $_['error_permission']       = 'Внимание: У вас нет прав на изменение расширений!';
