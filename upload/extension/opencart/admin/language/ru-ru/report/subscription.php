@@ -1,0 +1,33 @@
+<?php
+// Heading
+$_['heading_title']             = 'Subscriptions Report';
+
+// Text
+$_['text_extension']            = 'Расширения';
+$_['text_edit']                 = 'Edit Subscriptions Report';
+$_['text_success']              = 'Success: You have modified subscriptions report!';
+$_['text_filter']               = 'Фильтр';
+$_['text_year']                 = 'Годы';
+$_['text_month']                = 'Месяцы';
+$_['text_week']                 = 'Недели';
+$_['text_day']                  = 'Дней';
+$_['text_all_status']           = 'Все статусы';
+
+// Column
+$_['column_date_start']         = 'Дата начала';
+$_['column_date_end']           = 'Дата окончания';
+$_['column_subscriptions']      = 'No. Subscriptions';
+$_['column_products']           = 'Кол-во товаров';
+$_['column_tax']                = 'Налог';
+$_['column_total']              = 'Всего';
+
+// Entry
+$_['entry_date_start']          = 'Дата начала';
+$_['entry_date_end']            = 'Дата окончания';
+$_['entry_group']               = 'Группировать по';
+$_['entry_subscription_status'] = 'Статус подписки';
+$_['entry_status']              = 'Статус';
+$_['entry_sort_order']          = 'Порядок сортировки';
+
+// Error
+$_['error_permission']          = 'Warning: You do not have permission to modify subscriptions report!';
