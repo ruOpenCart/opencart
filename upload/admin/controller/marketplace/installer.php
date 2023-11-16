@@ -520,7 +520,7 @@ class Installer extends \Opencart\System\Engine\Controller {
 									$description = $dom->getElementsByTagName('description')->item(0);
 
 									if ($description) {
-										$description = $name->nodeValue;
+										$description = $description->nodeValue;
 									} else {
 										$description = '';
 									}
@@ -702,6 +702,8 @@ class Installer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {
