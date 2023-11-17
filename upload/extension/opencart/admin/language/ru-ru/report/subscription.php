@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']             = 'Subscriptions Report';
+$_['heading_title']             = 'Отчет о подписках';
 
 // Text
 $_['text_extension']            = 'Расширения';
-$_['text_edit']                 = 'Edit Subscriptions Report';
-$_['text_success']              = 'Success: You have modified subscriptions report!';
+$_['text_edit']                 = 'Редактировать отчет о подписках';
+$_['text_success']              = 'Успех: Вы изменили отчет о подписках!';
 $_['text_filter']               = 'Фильтр';
 $_['text_year']                 = 'Годы';
 $_['text_month']                = 'Месяцы';
@@ -30,4 +30,4 @@ $_['entry_status']              = 'Статус';
 $_['entry_sort_order']          = 'Порядок сортировки';
 
 // Error
-$_['error_permission']          = 'Warning: You do not have permission to modify subscriptions report!';
+$_['error_permission']          = 'Внимание: У вас нет разрешения на изменение отчета о подписках!';
