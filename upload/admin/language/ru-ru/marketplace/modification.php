@@ -20,6 +20,7 @@ $_['column_action']     = 'Действие';
 $_['entry_name']        = 'Название модификации';
 $_['entry_description'] = 'Описание';
 $_['entry_code']        = 'Код';
+$_['entry_xml']         = 'XML';
 
 // Error
 $_['error_permission']  = 'Внимание: У вас нет прав для изменения модификаций!';
