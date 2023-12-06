@@ -9,6 +9,7 @@ $_['text_blog']       = 'Блог';
 $_['text_by']         = 'от';
 $_['text_tags']       = 'Тэги:';
 $_['text_comment']    = 'комментарии';
+
 $_['text_no_results'] = 'Нет статей.';
 
 // Entry
@@ -16,3 +17,4 @@ $_['entry_search']    = 'Искать';
 
 // Button
 $_['button_continue'] = 'Читать далее';
+$_['button_comment']  = 'Оставить комментарий';
