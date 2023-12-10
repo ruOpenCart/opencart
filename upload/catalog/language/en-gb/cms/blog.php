@@ -17,4 +17,3 @@ $_['entry_search']    = 'Search';
 
 // Button
 $_['button_continue'] = 'Continue Reading';
-$_['button_comment']  = 'Post Comment';

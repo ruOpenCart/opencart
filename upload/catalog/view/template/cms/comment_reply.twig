@@ -1,0 +1,27 @@
+{% if replies %}
+
+<div id="reply-{{ reply.article_comment_id }}">
+
+  {% for reply in replies %}
+    <div class="p-2">
+      <p>{{ text_by }} {{ reply.author }} - {{ reply.date_added }}</p>
+      <p>{{ reply.comment }}</p>
+    </div>
+  {% endfor %}
+
+
+
+
+
+
+  {% if next %}
+    <div class="text-center"><a href="{{ next }}" class="btn btn-outline-secondary">{{ button_more }}</a></div>
+  {% endif %}
+
+
+
+  <button type="button" data-bs-toggle="refresh" data-bs-target="#reply-{{ comment.article_comment_id }}" data-bs-url="{{ refresh }}" class="btn btn-outline-secondary"><i class="fa fa-sync"></i></button>
+</div>
+
+
+{% endif %}
