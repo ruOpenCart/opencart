@@ -293,3 +293,4 @@ $_['error_mime']                          = 'PHP загрузки запреще
 $_['error_log_required']                  = 'Необходимо ввести имя журнала ошибок!';
 $_['error_log_invalid']                   = 'Недопустимое имя файла журнала ошибок!';
 $_['error_log_extension']                 = 'Расширение для файла журнала ошибок должно быть .log!';
+$_['error_encryption']                    = 'Encryption Key must be between 32 and 1024 characters!';
