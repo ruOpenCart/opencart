@@ -17,3 +17,4 @@ $_['entry_search']    = 'Искать';
 
 // Button
 $_['button_continue'] = 'Читать далее';
+$_['button_comment']  = 'Оставить комментарий';
