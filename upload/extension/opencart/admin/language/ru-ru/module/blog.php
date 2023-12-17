@@ -4,9 +4,9 @@ $_['heading_title']    = 'Блог';
 
 // Text
 $_['text_extension']   = 'Расширения';
-$_['text_success']     = 'Success: You have modified blog module!';
-$_['text_next']        = 'Success: You have modified %s blog out of %s!';
-$_['text_edit']        = 'Edit Blog Module';
+$_['text_success']     = 'Успех: Вы изменили модуль блога!';
+$_['text_next']        = 'Успех: Вы изменили %s блогов из %s!';
+$_['text_edit']        = 'Редактирование модуля блога';
 
 // Column
 $_['column_total']     = 'Всего';
@@ -19,7 +19,7 @@ $_['entry_height']     = 'Высота изображения';
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify blog module!';
+$_['error_permission'] = 'Внимание: У вас нет прав для изменения модуля блога!';
 $_['error_name']       = 'Название модуля должно быть от 3 до 64 символов!';
 $_['error_width']      = 'Необходимо указать ширину!';
 $_['error_height']     = 'Необходимо указать высоту!';
