@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']       = 'Comments (%s)';
+$_['heading_title']       = 'Комментарии (%s)';
 
 // Text
 $_['text_by']             = 'от';
@@ -10,7 +10,7 @@ $_['text_no_results']     = 'Будьте первым, кто напишет к
 $_['text_sort']           = 'Сортировать по';
 $_['text_queue']          = 'Ваш комментарий был добавлен в нашу очередь модерации!';
 $_['text_success']        = 'Спасибо за ваш комментарий. Он был отправлен веб-мастеру на утверждение.';
-$_['text_success_rating'] = 'Thank you for your rating!';
+$_['text_success_rating'] = 'Спасибо за вашу оценку!';
 $_['text_rating']         = 'Рейтинг';
 $_['text_date_added']     = 'Дата добавления';
 $_['text_like']           = 'Нравится!';
@@ -23,7 +23,7 @@ $_['entry_comment']       = 'Комментарий';
 // Buttons
 $_['button_comment']      = 'Оставить комментарий';
 $_['button_reply']        = 'Ответ на запись';
-$_['button_replies']      = 'Show Replies';
+$_['button_replies']      = 'Показать ответы';
 $_['button_more']         = 'Посмотреть больше ответов...';
 
 // Error
