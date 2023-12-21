@@ -10,11 +10,11 @@ $_['text_no_results'] = 'Будьте первым, кто напишет ком
 $_['text_sort'] = 'Сортировать по';
 $_['text_rating_asc'] = 'Рейтинг (по убыванию)';
 $_['text_rating_desc'] = 'Рейтинг (по возрастанию)';
-$_['text_date_added_asc'] = 'Date Added (Oldest)';
-$_['text_date_added_desc'] = 'Date Added (Latest)';
+$_['text_date_added_asc'] = 'Дата добавления (старее)';
+$_['text_date_added_desc'] = 'Дата добавления (новее)';
 $_['text_like'] = 'Нравится!';
 $_['text_dislike'] = 'Не нравится!';
-$_['text_success_comment'] = 'Thank you for your comment. It has been submitted to the webmaster for approval.';
+$_['text_success_comment'] = 'Спасибо за ваш комментарий. Он был отправлен веб-мастеру на утверждение.';
 $_['text_success_rating'] = 'Спасибо за вашу оценку!';
 $_['text_queue'] = 'Ваш комментарий был добавлен в нашу очередь модерации!';
 
