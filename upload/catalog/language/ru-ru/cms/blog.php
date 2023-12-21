@@ -13,8 +13,8 @@ $_['text_no_results'] = 'Нет статей.';
 $_['text_sort'] = 'Сортировать по';
 $_['text_rating_asc'] = 'Рейтинг (по убыванию)';
 $_['text_rating_desc'] = 'Рейтинг (по возрастанию)';
-$_['text_date_added_asc'] = 'Date Added (Oldest)';
-$_['text_date_added_desc'] = 'Date Added (Latest)';
+$_['text_date_added_asc'] = 'Дата добавления (старее)';
+$_['text_date_added_desc'] = 'Дата добавления (новее)';
 
 // Entry
 $_['entry_search'] = 'Искать';
