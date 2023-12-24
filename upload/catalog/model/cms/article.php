@@ -73,7 +73,22 @@ class Article extends \Opencart\System\Engine\Model {
 			$sql .= " AND `a`.`author` = '" . $this->db->escape($data['filter_author']) . "'";
 		}
 
-		$sql .= " ORDER BY `a`.`date_added` DESC";
+		$sort_data = [
+			'rating',
+			'date_added'
+		];
+
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY `date_added`";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -192,7 +207,6 @@ class Article extends \Opencart\System\Engine\Model {
 	 *
 	 * @return array
 	 */
-
 	public function getComments(int $article_id, array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "article_comment` WHERE `article_id` = '" . (int)$article_id . "'";
 
@@ -241,7 +255,6 @@ class Article extends \Opencart\System\Engine\Model {
 			$comment_data = $query->rows;
 
 			$this->cache->set('comment.' . $key, $comment_data);
-
 		}
 
 		return $comment_data;
