@@ -3,7 +3,7 @@
 $_['text_name']       = 'Русский (Russian)';
 $_['text_loading']    = 'Загрузка...';
 
-// Buttons
+// Button
 $_['button_continue'] = 'Продолжить';
 $_['button_back']     = 'Назад';
 
