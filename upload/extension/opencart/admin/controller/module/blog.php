@@ -76,6 +76,18 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$data['height'] = 200;
 		}
 
+		if (isset($module_info['order'])) {
+			$data['order'] = $module_info['order'];
+		} else {
+			$data['order'] = 'DESC';
+		}
+
+		if (isset($module_info['order_by'])) {
+			$data['order_by'] = $module_info['order_by'];
+		} else {
+			$data['order_by'] = 'a.date_added';
+		}
+
 		if (isset($module_info['status'])) {
 			$data['status'] = $module_info['status'];
 		} else {
@@ -136,5 +148,4 @@ class Blog extends \Opencart\System\Engine\Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
-
 }

@@ -262,7 +262,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 		return $this->load->view('cms/comment_reply', $data);
 	}
 
-	/*
+	/**
 	 * Add
 	 *
 	 * @return void
@@ -351,10 +351,10 @@ class Comment extends \Opencart\System\Engine\Controller {
 			}
 
 			$comment_data = $this->request->post + [
-					'parent_id' => $parent_id,
-					'ip'        => $this->request->server['REMOTE_ADDR'],
-					'status'    => $status
-				];
+				'parent_id' => $parent_id,
+				'ip'        => $this->request->server['REMOTE_ADDR'],
+				'status'    => $status
+			];
 
 			$this->model_cms_article->addComment($article_id, $comment_data);
 

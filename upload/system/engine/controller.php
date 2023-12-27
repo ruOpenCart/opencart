@@ -1,10 +1,12 @@
 <?php
 /**
  * @package      OpenCart
+ *
  * @author       Daniel Kerr
  * @copyright    Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
  * @license      https://opensource.org/licenses/GPL-3.0
- * @link         https://www.opencart.com
+ *
+ * @see         https://www.opencart.com
  */
 namespace Opencart\System\Engine;
 /**
@@ -16,7 +18,7 @@ class Controller {
 	/**
 	 * @var object|\Opencart\System\Engine\Registry
 	 */
-	protected $registry;
+	protected \Opencart\System\Engine\Registry $registry;
 
 	/**
 	 * Constructor

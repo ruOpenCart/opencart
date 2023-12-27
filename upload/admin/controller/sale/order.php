@@ -179,6 +179,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -188,6 +190,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
 	protected function getList(): string {
@@ -467,7 +471,10 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Info
+	 *
 	 * @return void
+	 *
 	 * @throws \Exception
 	 */
 	public function info(): void {
@@ -1239,6 +1246,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	// Method to call the store front API and return a response.
 
 	/**
+	 * Call
+	 *
 	 * @return void
 	 */
 	public function call(): void {
@@ -1303,6 +1312,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Invoice
+	 *
 	 * @return void
 	 */
 	public function invoice(): void {
@@ -1559,6 +1570,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Shipping
+	 *
 	 * @return void
 	 */
 	public function shipping(): void {
@@ -1750,6 +1763,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
 	public function history(): void {
@@ -1759,6 +1774,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get History
+	 *
 	 * @return string
 	 */
 	public function getHistory(): string {
@@ -1806,6 +1823,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Create Invoice No
+	 *
 	 * @return void
 	 */
 	public function createInvoiceNo(): void {
@@ -1848,6 +1867,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Add Reward
+	 *
 	 * @return void
 	 */
 	public function addReward(): void {
@@ -1896,6 +1917,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Remove Reward
+	 *
 	 * @return void
 	 */
 	public function removeReward(): void {
@@ -1934,6 +1957,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Add Commission
+	 *
 	 * @return void
 	 */
 	public function addCommission(): void {
@@ -1984,6 +2009,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Remove Commission
+	 *
 	 * @return void
 	 */
 	public function removeCommission(): void {
