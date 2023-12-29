@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']        = 'Comments';
+$_['heading_title']        = 'Comments (%s)';
 
 // Text
 $_['text_by']              = 'By';
