@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']        = 'Комментарии (%s)';
+$_['heading_title']        = 'Комментарии';
 
 // Text
 $_['text_by']              = 'от';
