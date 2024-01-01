@@ -27,6 +27,9 @@ class PDO {
 	 * @param string $password
 	 * @param string $database
 	 * @param string $port
+	 * @param string $sslKey
+	 * @param string $sslCert
+	 * @param string $sslCa
 	 */
 	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '', string $sslKey = '', string $sslCert = '', string $sslCa = '') {
 		if (!$port) {
@@ -70,7 +73,7 @@ class PDO {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
-					$result->row = isset($data[0]) ? $data[0] : [];
+					$result->row = $data[0] ?? [];
 					$result->rows = $data;
 					$result->num_rows = count($data);
 					$this->affected = 0;
