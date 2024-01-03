@@ -18,12 +18,10 @@ $_['entry_keyword']    = 'Keyword';
 $_['entry_article']    = 'Article';
 $_['entry_customer']   = 'Customer';
 $_['entry_status']     = 'Status';
-$_['entry_date_from']  = 'Date From';
-$_['entry_date_to']    = 'Date To';
+$_['entry_date_added'] = 'Date Added';
 
 // Button
 $_['button_spam']      = 'Spam';
-$_['button_refresh']   = 'Calculating ratings';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify article comments!';
