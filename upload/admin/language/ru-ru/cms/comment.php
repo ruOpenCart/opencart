@@ -18,10 +18,12 @@ $_['entry_keyword']    = 'Ключевое слово';
 $_['entry_article']    = 'Статья';
 $_['entry_customer']   = 'Покупатель';
 $_['entry_status']     = 'Статус';
-$_['entry_date_added'] = 'Дата добавления';
+$_['entry_date_from']  = 'Дата от';
+$_['entry_date_to']    = 'Дата до';
 
 // Button
 $_['button_spam']      = 'Спам';
+$_['button_refresh']   = 'Calculating ratings';
 
 // Error
 $_['error_permission'] = 'У вас нет прав для изменения комментариев к статьям!';
