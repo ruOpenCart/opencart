@@ -12,9 +12,13 @@ $_['text_password']         = 'Пароль';
 $_['text_other']            = 'Другие';
 $_['text_login']            = 'История входов в систему';
 $_['text_authorize']        = 'История авторизации';
+$_['text_filter']           = 'Фильтр';
 
 // Column
 $_['column_username']       = 'Имя пользователя';
+$_['column_name']           = 'Название';
+$_['column_email']          = 'Эл. почта';
+$_['column_user_group']     = 'Группа пользователя';
 $_['column_status']         = 'Статус';
 $_['column_ip']             = 'IP-адрес';
 $_['column_user_agent']     = 'Пользовательский Агент';
@@ -31,6 +35,10 @@ $_['entry_lastname']        = 'Фамилия';
 $_['entry_email']           = 'Эл. почта';
 $_['entry_image']           = 'Изображение';
 $_['entry_status']          = 'Статус';
+$_['entry_name']            = 'Название';
+$_['entry_ip']              = 'IP-адрес';
+$_['entry_date_from']       = 'Дата от';
+$_['entry_date_to']         = 'Дата до';
 
 // Tabs
 $_['tab_authorize']         = 'Авторизация';
