@@ -14,3 +14,4 @@ $_['column_action']    = 'Действие';
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения языков!';
 $_['error_extension']  = 'Внимание: Расширение не существует!';
+$_['error_default']    = 'Warning: This extension cannot be uninstalled as it is currently assigned as the administration language!';
