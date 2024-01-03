@@ -107,9 +107,9 @@ class Order extends \Opencart\System\Engine\Controller {
 	/**
 	 * Info
 	 *
-	 * @return object|\Opencart\System\Engine\Action|null
+	 * @return \Opencart\System\Engine\Action|null
 	 */
-	public function info(): ?object {
+	public function info(): ?\Opencart\System\Engine\Action {
 		$this->load->language('account/order');
 
 		if (isset($this->request->get['order_id'])) {
@@ -391,7 +391,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['comment'] = nl2br($order_info['comment']);
 
 			// History
-			$data['history'] = $this->getHistory($order_info['order_id']);
+			$data['history'] = $this->getHistory();
 
 			$data['continue'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 

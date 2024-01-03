@@ -307,7 +307,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$this->load->model('cms/article');
+	 	$this->load->model('cms/article');
 
 		$article_info = $this->model_cms_article->getArticle($article_id);
 
@@ -325,6 +325,25 @@ class Comment extends \Opencart\System\Engine\Controller {
 
 		if ((oc_strlen($this->request->post['comment']) < 2) || (oc_strlen($this->request->post['comment']) > 1000)) {
 			$json['error']['comment'] = $this->language->get('error_comment');
+		}
+
+		if ($this->config->get('config_comment_interval')) {
+			$filter_data = [
+				'sort'  => 'date_added',
+				'order' => 'DESC',
+				'start' => 1,
+				'limit' => 1
+			];
+
+			$results = $this->model_cms_article->getArticleComments($article_id, $filter_data);
+
+			foreach ($results as $result) {
+				if (strtotime('+' . $this->config->get('config_comment_interval') . ' minute', strtotime($result['date_added'])) <= time()) {
+					$json['error']['interval'] = $this->language->get('error_interval');
+
+					break;
+				}
+			}
 		}
 
 		// Captcha
@@ -345,17 +364,18 @@ class Comment extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$comment_approve = (int)$this->config->get('config_comment_approve');
-
 			// Anti-Spam
 			$this->load->model('cms/antispam');
 
 			$spam = $this->model_cms_antispam->getSpam($this->request->post['comment']);
 
-			if (!$this->customer->isCommenter() && $spam) {
-				$status = 0;
-			} else {
+			// If auto approve comments and
+			if ($this->customer->isCommenter()) {
 				$status = 1;
+			} elseif ($this->config->get('config_comment_approve') && !$spam) {
+				$status = 1;
+			} else {
+				$status = 0;
 			}
 
 			$comment_data = $this->request->post + [
@@ -366,14 +386,10 @@ class Comment extends \Opencart\System\Engine\Controller {
 
 			$this->model_cms_article->addComment($article_id, $comment_data);
 
-			if (!$status) {
-				$json['success'] = $this->language->get('text_queue');
+			if ($status) {
+				$json['success'] = $this->language->get('text_success');
 			} else {
-				if ($comment_approve) {
-					$json['success'] = $this->language->get('text_success_comment');
-				} else {
-					$json['success'] = $this->language->get('text_success_comment_approve');
-				}
+				$json['success'] = $this->language->get('text_queue');
 			}
 		}
 
@@ -433,7 +449,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 				'ip'     => $this->request->server['REMOTE_ADDR']
 			];
 
-			$this->load->model('cms/antispam');
+			$this->load->model('cms/article');
 
 			$this->model_cms_article->addRating($article_id, $rating_data);
 
