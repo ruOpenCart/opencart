@@ -5,6 +5,7 @@ $_['text_affiliate']           = 'Партнер';
 $_['text_api']                 = 'API';
 $_['text_attribute']           = 'Атрибуты';
 $_['text_attribute_group']     = 'Группы атрибутов';
+$_['text_antifraud']           = 'Защита от мошенничества';
 $_['text_antispam']            = 'Анти-спам';
 $_['text_article']             = 'Статьи';
 $_['text_topic']               = 'Темы';
