@@ -23,7 +23,7 @@ $_['entry_date_to']    = 'Дата до';
 
 // Button
 $_['button_spam']      = 'Спам';
-$_['button_refresh']   = 'Calculating ratings';
+$_['button_refresh']   = 'Расчет рейтинга';
 
 // Error
 $_['error_permission'] = 'У вас нет прав для изменения комментариев к статьям!';
