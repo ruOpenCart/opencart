@@ -9,7 +9,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Return Action
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
 	 * @return int
 	 */
@@ -32,8 +32,8 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Return Action
 	 *
-	 * @param int   $return_action_id
-	 * @param array $data
+	 * @param int                  $return_action_id
+	 * @param array<string, mixed> $data
 	 *
 	 * @return void
 	 */
@@ -65,7 +65,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_action_id
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getReturnAction(int $return_action_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -76,9 +76,9 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Return Actions
 	 *
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array
+	 * @return array<int, array<string, mixed>>
 	 */
 	public function getReturnActions(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`";
@@ -121,7 +121,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_action_id
 	 *
-	 * @return array
+	 * @return array<int, array<string, string>>
 	 */
 	public function getDescriptions(int $return_action_id): array {
 		$return_action_data = [];

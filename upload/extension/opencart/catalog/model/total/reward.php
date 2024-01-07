@@ -66,21 +66,21 @@ class Reward extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 * @param array $order_info
-	 * @param array $order_total
+	 * @param array<string, mixed> $order_info
+	 * @param array<string, mixed> $order_total
 	 *
 	 * @return int
 	 */
 	public function confirm(array $order_info, array $order_total): int {
 		$this->load->language('extension/opencart/total/reward');
 
-		$points = 0;
+		$points = 0.0;
 
 		$start = strpos($order_total['title'], '(') + 1;
 		$end = strrpos($order_total['title'], ')');
 
 		if ($start && $end) {
-			$points = substr($order_total['title'], $start, $end - $start);
+			$points = (float)substr($order_total['title'], $start, $end - $start);
 		}
 
 		$this->load->model('account/customer');

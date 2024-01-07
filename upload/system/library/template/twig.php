@@ -19,14 +19,12 @@ class Twig {
 	 */
 	protected string $directory;
 	/**
-	 * @var array
+	 * @var array<string, string>
 	 */
 	protected array $path = [];
 
 	/**
 	 * Constructor
-	 *
-	 * @param string $adaptor
 	 */
 	public function __construct() {
 		// Unfortunately, we have to set the web root directory as the base since Twig confuses which template cache to use.
@@ -57,9 +55,9 @@ class Twig {
 	/**
 	 * Render
 	 *
-	 * @param string $filename
-	 * @param array  $data
-	 * @param string $code
+	 * @param string               $filename
+	 * @param array<string, mixed> $data
+	 * @param string               $code
 	 *
 	 * @return string
 	 */
