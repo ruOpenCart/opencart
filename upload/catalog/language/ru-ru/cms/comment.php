@@ -14,9 +14,9 @@ $_['text_date_added_asc']   = 'Дата добавления (старее)';
 $_['text_date_added_desc']  = 'Дата добавления (новее)';
 $_['text_like']             = 'Нравится!';
 $_['text_dislike']          = 'Не нравится!';
-$_['text_success']          = 'Success: Thank you for your comment!';
-$_['text_queue']            = 'Success: Your comment has been added to our moderation queue!';
-$_['text_rating']           = 'Success: Thank you for your rating!';
+$_['text_success']          = 'Успех: Спасибо за ваш комментарий!';
+$_['text_queue']            = 'Успех: Ваш комментарий был добавлен в нашу очередь модерации!';
+$_['text_rating']           = 'Успех: Спасибо за вашу оценку!';
 
 // Entry
 $_['entry_author']          = 'Ваше имя';
@@ -27,12 +27,12 @@ $_['button_comment']        = 'Оставить комментарий';
 $_['button_reply']          = 'Ответ на запись';
 $_['button_replies']        = 'Показать ответы';
 $_['button_more']           = 'Посмотреть больше ответов...';
-$_['button_login']          = 'Login to Comment';
-$_['button_login_reply']    = 'Login to Reply';
+$_['button_login']          = 'Войдите, чтобы оставить комментарий';
+$_['button_login_reply']    = 'Войдите, чтобы ответить';
 
 // Error
 $_['error_article']         = 'Внимание: Статья не найдена!';
-$_['error_article_comment'] = 'Warning: Article comment could not be found!';
+$_['error_article_comment'] = 'Внимание: Комментарий к статье не найден!';
 $_['error_token']           = 'Внимание: Токен комментария недействителен!';
 $_['error_author']          = 'Ваше имя должно быть от 3 до 25 символов!';
 $_['error_comment']         = 'Комментарий должен быть от 25 до 1000 символов!';
