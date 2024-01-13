@@ -32,9 +32,9 @@ class Factory {
 	 *
 	 * @param string $route
 	 *
-	 * @return \Opencart\System\Engine\Controller
+	 * @return \Exception|\Opencart\System\Engine\Controller
 	 */
-	public function controller(string $route): ?object {
+	public function controller(string $route): object {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
@@ -44,7 +44,7 @@ class Factory {
 		if (class_exists($class)) {
 			return new $class($this->registry);
 		} else {
-			throw new \Exception('Error: Could not load controller ' . $route . '!');
+			return new \Exception('Error: Could not load controller ' . $route . '!');
 		}
 	}
 
@@ -55,7 +55,7 @@ class Factory {
 	 *
 	 * @return \Opencart\System\Engine\Model
 	 */
-	public function model(string $route): ?object {
+	public function model(string $route): object {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
