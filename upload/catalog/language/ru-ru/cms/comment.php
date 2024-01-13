@@ -29,6 +29,8 @@ $_['button_replies']        = 'Показать ответы';
 $_['button_more']           = 'Посмотреть больше ответов...';
 $_['button_login']          = 'Войдите, чтобы оставить комментарий';
 $_['button_login_reply']    = 'Войдите, чтобы ответить';
+$_['button_like']           = 'Like';
+$_['button_dislike']        = 'Dislike';
 
 // Error
 $_['error_article']         = 'Внимание: Статья не найдена!';
