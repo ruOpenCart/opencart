@@ -8,6 +8,8 @@ $_['text_list']        = 'Список комментариев к статье'
 $_['text_filter']      = 'Фильтр';
 $_['text_by']          = 'от';
 $_['text_info']        = 'Информация о комментарии';
+$_['text_rating']      = 'Success: You have modified article ratings!';
+$_['text_next']        = 'Success: You have modified %s to %s of %s comment ratings!';
 
 // Column
 $_['column_comment']   = 'Комментарий';
@@ -23,7 +25,7 @@ $_['entry_date_to']    = 'Дата до';
 
 // Button
 $_['button_spam']      = 'Спам';
-$_['button_refresh']   = 'Расчет рейтинга';
+$_['button_rating']    = 'Calculate Ratings';
 
 // Error
 $_['error_permission'] = 'У вас нет прав для изменения комментариев к статьям!';
