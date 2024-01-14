@@ -4,12 +4,12 @@ $_['heading_title']    = 'Комментарии к статье';
 
 // Text
 $_['text_success']     = 'Успех: Вы изменили комментарии к статьям!';
+$_['text_next']        = 'Успех: Вы изменили %s на %s из %s оценок комментариев!';
 $_['text_list']        = 'Список комментариев к статье';
 $_['text_filter']      = 'Фильтр';
 $_['text_by']          = 'от';
 $_['text_info']        = 'Информация о комментарии';
-$_['text_rating']      = 'Success: You have modified article ratings!';
-$_['text_next']        = 'Success: You have modified %s to %s of %s comment ratings!';
+$_['text_rating']      = 'Рейтинг:';
 
 // Column
 $_['column_comment']   = 'Комментарий';
@@ -25,7 +25,7 @@ $_['entry_date_to']    = 'Дата до';
 
 // Button
 $_['button_spam']      = 'Спам';
-$_['button_rating']    = 'Calculate Ratings';
+$_['button_rating']    = 'Рассчитать рейтинги';
 
 // Error
 $_['error_permission'] = 'У вас нет прав для изменения комментариев к статьям!';
