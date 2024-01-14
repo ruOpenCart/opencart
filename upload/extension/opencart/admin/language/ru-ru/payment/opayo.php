@@ -4,64 +4,64 @@ $_['heading_title']		 				= 'Opayo';
 
 // Text
 $_['text_extensions']     				= 'Расширения';
-$_['text_edit']          				= 'Edit Opayo';
+$_['text_edit']          				= 'Редактирование Opayo';
 $_['text_tab_general']				 	= 'Общее';
-$_['text_tab_cron']						= 'Cron';
-$_['text_test']				  			= 'Test';
-$_['text_live']				  			= 'Live';
-$_['text_defered']			  			= 'Defered';
-$_['text_authenticate']		  			= 'Authenticate';
+$_['text_tab_cron']						= 'Планировщик';
+$_['text_test']				  			= 'Тест';
+$_['text_live']				  			= 'Живой';
+$_['text_defered']			  			= 'Отложенный';
+$_['text_authenticate']		  			= 'Аутентификация';
 $_['text_payment']		  				= 'Оплата';
-$_['text_payment_info']		  			= 'Payment information';
-$_['text_release_status']	  			= 'Payment released';
-$_['text_void_status']		 			= 'Payment voided';
-$_['text_rebate_status']	  			= 'Payment rebated';
-$_['text_order_ref']		  			= 'Order ref';
-$_['text_order_total']		  			= 'Total authorised';
-$_['text_total_released']	  			= 'Total released';
+$_['text_payment_info']		  			= 'Информация об оплате';
+$_['text_release_status']	  			= 'Платеж выполнен';
+$_['text_void_status']		 			= 'Платеж аннулирован';
+$_['text_rebate_status']	  			= 'Платеж возвращен';
+$_['text_order_ref']		  			= 'Код заказа';
+$_['text_order_total']		  			= 'Всего авторизировано';
+$_['text_total_released']	  			= 'Всего выпущено';
 $_['text_transactions']		  			= 'Транзакции';
 $_['text_column_amount']	  			= 'Сумма';
 $_['text_column_type']		  			= 'Тип';
-$_['text_column_date_added']  			= 'Created';
-$_['text_confirm_void']		  			= 'Are you sure you want to void the payment?';
-$_['text_confirm_release']	  			= 'Are you sure you want to release the payment?';
-$_['text_confirm_rebate']	  			= 'Are you sure you want to rebate the payment?';
+$_['text_column_date_added']  			= 'Создано';
+$_['text_confirm_void']		  			= 'Вы уверены, что хотите аннулировать платеж?';
+$_['text_confirm_release']	  			= 'Вы уверены, что хотите выпустить платеж?';
+$_['text_confirm_rebate']	  			= 'Вы уверены, что хотите аннулировать платеж?';
 
 // Entry
 $_['entry_vendor']			  			= 'Поставщик';
-$_['entry_environment']			  		= 'Environment';
-$_['entry_transaction_method']		  	= 'Transaction Method';
+$_['entry_environment']			  		= 'Среда';
+$_['entry_transaction_method']		  	= 'Метод транзакции';
 $_['entry_order_status']	  			= 'Статус заказа';
 $_['entry_geo_zone']		  			= 'Гео-зона';
 $_['entry_status']			  			= 'Статус';
 $_['entry_sort_order']		  			= 'Порядок сортировки';
-$_['entry_debug']			  			= 'Debug logging';
-$_['entry_card_save']			  		= 'Store Cards';
-$_['entry_cron_token']	  				= 'Secret Token';
-$_['entry_cron_url']	  				= 'URL';
-$_['entry_cron_last_run']	 			= 'Last run time:';
+$_['entry_debug']			  			= 'Журнал отладки';
+$_['entry_card_save']			  		= 'Карты магазина';
+$_['entry_cron_token']	  				= 'Секретный токен';
+$_['entry_cron_url']	  				= 'URL-адрес';
+$_['entry_cron_last_run']	 			= 'Время последнего запуска:';
 
 // Help
-$_['help_debug']			  			= 'Enabling debug will write sensitive data to a log file. You should always disable unless instructed otherwise.';
-$_['help_transaction_method']  			= 'Transaction method MUST be set to Payment to allow subscription payments.';
-$_['help_card_save']			  		= 'In order for buyer can save card details for subsequent payments, MID TOKEN must be subscribed. You will need to contact Opayo customer support to discuss enabling the token system for your account.';
-$_['help_cron_token']	  				= 'Make this long and hard to guess.';
-$_['help_cron_url']		  				= 'Set a cron to call this URL.';
+$_['help_debug']			  			= 'Включение отладки запишет конфиденциальные данные в файл журнала. Вы всегда должны отключать, если не указано иное.';
+$_['help_transaction_method']  			= 'Для метода транзакции ДОЛЖНО быть установлено значение Оплата, чтобы разрешить оплату подписки.';
+$_['help_card_save']			  		= 'Чтобы покупатель мог сохранить данные карты для последующих платежей, необходимо оформить подписку на MID TOKEN. Вам нужно будет связаться со службой поддержки Opayo, чтобы обсудить включение системы токенов для вашей учетной записи.';
+$_['help_cron_token']	  				= 'Сделайте это долгим и трудно угадываемым.';
+$_['help_cron_url']		  				= 'Задайте cron для вызова этого URL-адреса.';
 
 // Button
-$_['button_release']		  			= 'Release';
-$_['button_rebate']			  			= 'Rebate / refund';
-$_['button_void']			  			= 'Void';
+$_['button_release']		  			= 'Выпустить';
+$_['button_rebate']			  			= 'Скидка / Вернуть';
+$_['button_void']			  			= 'Аннулировать';
 
 // Success
-$_['success_save']		 				= 'Success: You have modified Opayo!';
-$_['success_release_ok']		  		= 'Release was successful';
-$_['success_release_ok_order']	  		= 'Release was successful, order status updated to success - settled';
-$_['success_rebate_ok']		  			= 'Rebate was successful';
-$_['success_rebate_ok_order']	  		= 'Rebate was successful, order status updated to rebated';
-$_['success_void_ok']			  		= 'Void was successful, order status updated to voided';
+$_['success_save']		 				= 'Успех: Вы изменили Opayo!';
+$_['success_release_ok']		  		= 'Выпуск прошел успешно';
+$_['success_release_ok_order']	  		= 'Выпуск выполнен успешно, статус заказа обновлен до успешного завершения';
+$_['success_rebate_ok']		  			= 'Скидка прошла успешно';
+$_['success_rebate_ok_order']	  		= 'Скидка прошла успешно, статус заказа обновлен до скидки';
+$_['success_void_ok']			  		= 'Аннулирование прошло успешно, статус заказа обновлен до аннулированного';
 
 // Error
 $_['error_warning']          			= 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
-$_['error_permission']		  			= 'Warning: You do not have permission to modify payment Opayo!';
-$_['error_vendor']			  			= 'Vendor ID Required!';
+$_['error_permission']		  			= 'Внимание: Вы не имеете разрешения на изменение оплаты Opayo!';
+$_['error_vendor']			  			= 'Требуется ID поставщика!';

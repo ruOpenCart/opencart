@@ -87,7 +87,7 @@ $_['error_upload_size']     = 'Внимание: Загруженный файл
 $_['error_curl']            = 'CURL: Код ошибки(%s): %s';
 $_['error_session']         = 'Внимание: Сессия истекла, пожалуйста, отправьте форму снова!';
 
-/* When doing translations only include the matching language code */
+// When doing translations only include the matching language code
 // Datepicker
 //$_['datepicker']            = 'af';
 //$_['datepicker']            = 'ar-dz';

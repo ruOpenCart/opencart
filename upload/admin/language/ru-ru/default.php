@@ -175,7 +175,7 @@ $_['error_format_kb']				= 'Внимание: Загруженный файл п
 $_['error_format_mb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s мегабайт!';
 $_['error_format_gb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s гигабайт!';
 
-/* When doing translations only include the matching language code */
+// When doing translations only include the matching language code
 
 // CKEditor
 //$_['ckeditor']                    = 'af';
