@@ -1,8 +1,10 @@
 <div id="security">{{ list }}</div>
-<button type="button" id="button-refresh" class="btn btn-danger hide"><i class="fa-solid fa-sync"></i></button>
+<button type="button" id="button-refresh" class="btn btn-danger d-none"><i class="fa-solid fa-sync"></i></button>
 <script type="text/javascript"><!--
 $(document).ready(function() {
-    $('#button-refresh').trigger('click');
+    $('#modal-security').modal('show');
+
+    $('#accordion .accordion-header:first button').trigger('click');
 });
 
 $('#button-refresh').on('click', function() {
@@ -18,6 +20,8 @@ $('#button-refresh').on('click', function() {
             $(element).button('reset');
         },
         success: function(html) {
+            $('#modal-security').modal('dispose');
+
             $('#security').html(html);
 
             $('#modal-security').modal('show');
@@ -30,7 +34,7 @@ $('#button-refresh').on('click', function() {
     });
 });
 
-$('#button-install').on('click', function() {
+$('#security').on('click', '#button-install', function() {
     var element = this;
 
     $.ajax({
@@ -43,6 +47,8 @@ $('#button-install').on('click', function() {
             $(element).button('reset');
         },
         success: function(json) {
+            console.log(json);
+
             $('.alert-dismissible').remove();
 
             if (json['error']) {
@@ -52,11 +58,7 @@ $('#button-install').on('click', function() {
             if (json['success']) {
                 $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
 
-                $('#modal-security').modal('dispose');
-
                 $('#button-refresh').trigger('click');
-
-                $('#accordion .accordion-header:first button').trigger('click');
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -65,7 +67,7 @@ $('#button-install').on('click', function() {
     });
 });
 
-$('#button-storage').on('click', function() {
+$('#security').on('click', '#button-storage', function() {
     var element = this;
 
     $(element).button('loading');
@@ -97,8 +99,6 @@ $('#button-storage').on('click', function() {
 
                     $(element).button('reset');
 
-                    $('#modal-security').modal('dispose');
-
                     $('#button-refresh').trigger('click');
                 }
 
@@ -119,7 +119,7 @@ $('#button-storage').on('click', function() {
     chain.attach(storage);
 });
 
-$('#button-storage-delete').on('click', function() {
+$('#security').on('click', '#button-storage-delete', function() {
     var element = this;
 
     $.ajax({
@@ -132,6 +132,8 @@ $('#button-storage-delete').on('click', function() {
             $(element).button('reset');
         },
         success: function(json) {
+            console.log(json);
+
             $('.alert-dismissible').remove();
 
             if (json['error']) {
@@ -140,10 +142,6 @@ $('#button-storage-delete').on('click', function() {
 
             if (json['success']) {
                 $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                $('#security').load('index.php?route=common/security.list&token={{ user_token }}');
-
-                $('#modal-security').modal('dispose');
 
                 $('#button-refresh').trigger('click');
             }
@@ -154,7 +152,7 @@ $('#button-storage-delete').on('click', function() {
     });
 });
 
-$('#button-admin').on('click', function() {
+$('#security').on('click', '#button-admin', function() {
     var element = this;
 
     $(element).button('loading');
@@ -190,8 +188,6 @@ $('#button-admin').on('click', function() {
 
                     $(element).button('reset');
 
-                    $('#modal-security').modal('dispose');
-
                     $('#button-refresh').trigger('click');
                 }
 
@@ -212,7 +208,7 @@ $('#button-admin').on('click', function() {
     chain.attach(admin);
 });
 
-$('#button-admin-delete').on('click', function() {
+$('#security').on('click', '#button-admin-delete', function() {
     var element = this;
 
     $.ajax({
@@ -225,6 +221,8 @@ $('#button-admin-delete').on('click', function() {
             $(element).button('reset');
         },
         success: function(json) {
+            console.log(json);
+
             $('.alert-dismissible').remove();
 
             if (json['error']) {
@@ -233,8 +231,6 @@ $('#button-admin-delete').on('click', function() {
 
             if (json['success']) {
                 $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                $('#modal-security').modal('dispose');
 
                 $('#button-refresh').trigger('click');
             }
