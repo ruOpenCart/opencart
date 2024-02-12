@@ -159,33 +159,44 @@ class Category extends \Opencart\System\Engine\Model {
 		}
 
 		// Seo urls on categories need to be done differently to they include the full keyword path
-		$path_new = $this->getPath($data['parent_id']);
+		$seo_urls = [];
 
-		if (!$path_new) {
-			$path = $category_id;
-		} else {
-			$path = $path_new . '_' . $category_id;
-		}
-
-		$seo_url_new = [];
+		$value = '';
 
 		$this->load->model('design/seo_url');
 
-		// Get the SEO url of the old path
-		$seo_url_old = $this->model_design_seo_url->getSeoUrlsByKeyValue('path', $path_old);
+		foreach ($paths as $path_id) {
+			// Get all sub paths
+			if (!$value) {
+				$value = $path_id;
+			} else {
+				$value = $value . '_' . $path_id;
+			}
 
-		// Delete the old SEO url paths
+			$results = $this->model_design_seo_url->getSeoUrlsByKeyValue('path', $value);
+
+			$this->model_design_seo_url->deleteSeoUrlsByKeyValue('path', $value);
+
+			foreach ($results as $store_id => $language) {
+				foreach ($language as $language_id => $keyword) {
+					$pos = strrpos($keyword, '/');
+
+					if ($pos !== false) {
+						$keyword = substr($keyword, $pos + 1);
+					}
+
+					$seo_urls[$store_id][$language_id][$path_id] = $keyword;
+				}
+			}
+		}
+
+		// Delete the old path
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('path', $path_old);
 
+		// Current SEO URL
 		foreach ($data['category_seo_url'] as $store_id => $language) {
 			foreach ($language as $language_id => $keyword) {
-				$parent_info = $this->model_design_seo_url->getSeoUrlByKeyValue('path', $path, $store_id, $language_id);
-
-				if ($parent_info) {
-					$keyword = $parent_info['keyword'] . '/' . $keyword;
-				}
-
-				$seo_url_new[$category_id][$store_id][$language_id] = $keyword;
+				$seo_urls[$store_id][$language_id][$category_id] = $keyword;
 			}
 		}
 
@@ -197,91 +208,46 @@ class Category extends \Opencart\System\Engine\Model {
 
 		$results = $this->model_design_seo_url->getSeoUrls($filter_data);
 
+		// Delete the old SEO URL paths
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('path', $path_old . '\_%');
 
 		foreach ($results as $result) {
-			$seo_url_new[$result['store_id']][$result['language_id']][substr($result['value'], strrpos($result['value'], '_') + 1)] = substr($result['keyword'], strrpos($result['keyword'], '/') + 1);
+			$keyword = $result['keyword'];
+
+			$pos = strrpos($keyword, '/');
+
+			if ($pos !== false) {
+				$keyword = substr($keyword, $pos + 1);
+			}
+
+			$seo_urls[$result['store_id']][$result['language_id']][substr($result['value'], strrpos($result['value'], '_') + 1)] = $keyword;
 		}
 
-		foreach ($data['category_seo_url'] as $store_id => $language) {
-			foreach ($language as $language_id => $keyword) {
+		// Get all sub paths
+		foreach ($seo_urls as $store_id => $language) {
+			foreach ($language as $language_id => $path) {
+				$value = '';
 
-				$path = '';
+				$string = '';
 
-				$keyword = '';
-
-				$parts = explode('_', $path);
-
-				foreach ($parts as $path_id) {
-					$results = $this->model_design_seo_url->getSeoUrlsByKeyValue('path', '%_' . $path_id);
-
-
-					if ($seo_url_new[$store_id][$language_id][$path_id]) {
-						$keyword .= '/' . $seo_url_new[$store_id][$language_id][$path_id];
-					}
-
-					if (!$path) {
-						$path = $path_id;
+				foreach ($path as $path_id => $keyword) {
+					// Get all sub paths
+					if (!$value) {
+						$value = $path_id;
 					} else {
-						$path = $path_new . '_' . $path_id;
+						$value = $value . '_' . $path_id;
 					}
 
-					$this->model_design_seo_url->addSeoUrl('path', $path, $keyword, $store_id, $language_id);
-
-					if (!$keyword) {
-						$path = $keyword;
+					if (!$string) {
+						$string = $keyword;
 					} else {
-						$path = $path_new . '_' . $path_id;
+						$string = $string . '/' . $keyword;
 					}
 
-					if (isset($seo_url_new[$path])) {
-						//foreach () {
-						//}
-					}
-
-					//$seo_url_new[$result['value']][$store_id][$language_id]
+					$this->model_design_seo_url->addSeoUrl('path', $value, $string, $store_id, $language_id);
 				}
 			}
 		}
-
-		$results = $this->getPaths($category_id);
-
-
-		$this->model_design_seo_url->addSeoUrl('path', $path, $keyword, $store_id, $language_id);
-
-		print_r($seo_url_new);
-
-		/*
-		foreach ($parts as $path_id) {
-			if (!$path) {
-				$path = $path_id;
-			} else {
-				$path = $path_new . '_' . $path_id;
-			}
-
-			if (isset($seo_url_new[$path])) {
-			//	foreach () {
-				//	$this->model_design_seo_url->addSeoUrl('path', $path, $keyword, $store_id, $language_id);
-			//	}
-			}
-
-			//$seo_url_new[$result['value']][$store_id][$language_id]
-		}
-		*/
-
-		//$url_path[$result['value']][$result['store_id']][$result['language_id']] = substr($result['value'], strrpos($result['value'], '/') + 1);
-
-		//if (isset($seo_url_new[$result['store_id']][$result['language_id']])) {
-			//$keyword .= $seo_url_new[$result['store_id']][$result['language_id']];
-		//}
-		// Get old Length
-		//if (isset($seo_url_old[$result['store_id']][$result['language_id']])) {
-			//$keyword .= '/' . substr($result['keyword'], strlen($seo_url_old[$result['store_id']][$result['language_id']]) + 1);
-		//}
-		//foreach ($results as $result) {
-			//$this->model_design_seo_url->addSeoUrl('path', $path . '_' . substr($result['value'], strlen($path_old) + 1), $keyword, $store_id, $language_id);
-			//$this->model_design_seo_url->addSeoUrl('path', $path, $keyword, $store_id, $language_id);
-		//}
 
 		// Layouts
 		$this->deleteLayout($category_id);
@@ -439,6 +405,8 @@ class Category extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Categories
 	 *
+	 * @param array<string, mixed> $data
+	 *
 	 * @return int
 	 */
 	public function getTotalCategories($data = []): int {
@@ -454,12 +422,11 @@ class Category extends \Opencart\System\Engine\Model {
 			$sql .= " AND `parent_id` = '" . (int)$data['filter_parent_id'] . "'";
 		}
 
-	// `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND category_description
+		// `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND category_description
 
 		if ($implode) {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
-
 
 		$query = $this->db->query($sql);
 
@@ -467,26 +434,27 @@ class Category extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 *	Add Description
+	 *    Add Description
 	 *
 	 *
-	 * @param int $category_id primary key of the attribute record to be fetched
+	 * @param int                  $category_id primary key of the attribute record to be fetched
+	 * @param array<string, mixed> $data
 	 *
-	 * @return array<int, array<string, string>> Descriptions sorted by language_id
+	 * @return void
 	 */
 	public function addDescription(int $category_id, int $language_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "category_description` SET `category_id` = '" . (int)$category_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `meta_title` = '" . $this->db->escape($data['meta_title']) . "', `meta_description` = '" . $this->db->escape($data['meta_description']) . "', `meta_keyword` = '" . $this->db->escape($data['meta_keyword']) . "'");
 	}
 
 	/**
-	 *	Delete Description
+	 *    Delete Description
 	 *
 	 *
-	 * @param int $attribute_id primary key of the attribute record to be fetched
+	 * @param int $category_id
 	 *
-	 * @return array<int, array<string, string>> Descriptions sorted by language_id
+	 * @return void
 	 */
-	public function deleteDescription(int $category_id) : void {
+	public function deleteDescription(int $category_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "category_description` WHERE `category_id` = '" . (int)$category_id . "'");
 	}
 
@@ -527,6 +495,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * Delete Filter
 	 *
 	 * @param int $category_id
+	 * @param int $level
 	 *
 	 * @return void
 	 */
@@ -538,6 +507,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * Delete Filter
 	 *
 	 * @param int $category_id
+	 * @param int $level
 	 *
 	 * @return void
 	 */
@@ -569,28 +539,31 @@ class Category extends \Opencart\System\Engine\Model {
 		return $query->rows;
 	}
 
+	/**
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getPathsByPathId(int $path_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_path` WHERE `path_id` = '" . (int)$path_id . "' ORDER BY `level` ASC");
 
 		return $query->rows;
 	}
+
 	/**
 	 * Add Filter
 	 *
-	 * @param int $information_id
-	 * @param int $store_id
-	 * @param int $layout_id
+	 * @param int $category_id
+	 * @param int $filter_id
 	 *
 	 * @return void
 	 */
-	public function addFilter(int $category_id, int $filter_id): array {
+	public function addFilter(int $category_id, int $filter_id): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "category_filter` SET `category_id` = '" . (int)$category_id . "', `filter_id` = '" . (int)$filter_id . "'");
 	}
 
 	/**
 	 * Delete Filter
 	 *
-	 * @param int $information_id
+	 * @param int $category_id
 	 *
 	 * @return void
 	 */
@@ -620,7 +593,7 @@ class Category extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Store
 	 *
-	 * @param int $information_id
+	 * @param int $category_id
 	 * @param int $store_id
 	 *
 	 * @return void
@@ -632,7 +605,7 @@ class Category extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Store
 	 *
-	 * @param int $information_id
+	 * @param int $category_id
 	 *
 	 * @return void
 	 */
@@ -672,7 +645,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 *
 	 * @return void
 	 */
-	public function addLayout(int $category_id, int $store_id, int $layout_id): array {
+	public function addLayout(int $category_id, int $store_id, int $layout_id): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "category_to_layout` SET `category_id` = '" . (int)$category_id . "', store_id = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
 	}
 

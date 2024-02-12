@@ -9,8 +9,6 @@ class SeoUrl extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Seo Url
 	 *
-	 * @param array<string, mixed> $data
-	 *
 	 * @return int
 	 */
 	public function addSeoUrl(string $key, string $value, string $keyword, int $store_id, int $language_id, int $sort_order = 0): int {
@@ -22,8 +20,7 @@ class SeoUrl extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Seo Url
 	 *
-	 * @param int                  $seo_url_id
-	 * @param array<string, mixed> $data
+	 * @param int $seo_url_id
 	 *
 	 * @return void
 	 */
@@ -45,7 +42,10 @@ class SeoUrl extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Seo Url by Key Value pair
 	 *
-	 * @param int $seo_url_id
+	 * @param string $key
+	 * @param string $value
+	 * @param int    $store_id
+	 * @param int    $language_id
 	 *
 	 * @return void
 	 */
@@ -208,7 +208,8 @@ class SeoUrl extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Seo Urls
 	 *
-	 * @param int $information_id
+	 * @param string $key
+	 * @param string $value
 	 *
 	 * @return array<int, array<int, string>>
 	 */
@@ -225,6 +226,9 @@ class SeoUrl extends \Opencart\System\Engine\Model {
 		return $seo_url_data;
 	}
 
+	/**
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getSeoUrlsByStoreId(int $store_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `store_id` = '" . (int)$store_id . "'");
 

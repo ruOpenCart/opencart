@@ -346,7 +346,7 @@ class Download extends \Opencart\System\Engine\Controller {
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $download_id) {
-			$product_total = $this->model_catalog_product->getTotalProductsByDownloadId($download_id);
+			$product_total = $this->model_catalog_product->getTotalDownloadsByDownloadId($download_id);
 
 			if ($product_total) {
 				$json['error'] = sprintf($this->language->get('error_product'), $product_total);
@@ -547,7 +547,7 @@ class Download extends \Opencart\System\Engine\Controller {
 				header('Pragma: public');
 				header('Content-Length: ' . filesize($file));
 
-				readfile($file, 'rb');
+				readfile($file);
 				exit;
 			} else {
 				exit($this->language->get('error_headers_sent'));
