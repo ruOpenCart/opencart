@@ -385,7 +385,7 @@ class Product extends \Opencart\System\Engine\Model {
 
 		$this->model_marketing_coupon->deleteProductByProductId($product_id);
 
-		$this->model_catalog_product->resetMasterId($product_id);
+		$this->model_catalog_product->editMasterId($product_id, 0);
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `master_id` = '0' WHERE `master_id` = '" . (int)$product_id . "'");
 
@@ -823,7 +823,7 @@ class Product extends \Opencart\System\Engine\Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `rating` = '" . (int)$rating . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
 	}
 
-	public function resetMasterId(int $product_id): void {
+	public function editMasterId(int $product_id, int $master_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `master_id` = '0', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
 	}
 
@@ -1819,6 +1819,11 @@ class Product extends \Opencart\System\Engine\Model {
 		return (int)$query->row['total'];
 	}
 
+	/**
+	 * Delete Report
+	 *
+	 * @param int $product_id
+	 */
 	public function deleteReport(int $product_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_report` WHERE `product_id` = '" . (int)$product_id . "'");
 	}
