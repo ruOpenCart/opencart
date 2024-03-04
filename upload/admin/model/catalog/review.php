@@ -21,7 +21,7 @@ class Review extends \Opencart\System\Engine\Model {
 		// Update product rating
 		$this->load->model('catalog/product');
 
-		$this->model_catalog_product->editRating($data['product_id'], $this->getRating($data['product_id']));
+		$this->model_catalog_product->editRating($data['product_id'], $this->model_catalog_review->getRating($data['product_id']));
 
 		$this->cache->delete('product');
 
@@ -42,7 +42,7 @@ class Review extends \Opencart\System\Engine\Model {
 		// Update product rating
 		$this->load->model('catalog/product');
 
-		$this->model_catalog_product->editRating($data['product_id'], $this->getRating($data['product_id']));
+		$this->model_catalog_product->editRating($data['product_id'], $this->model_catalog_review->getRating($data['product_id']));
 
 		$this->cache->delete('product');
 	}
@@ -63,12 +63,19 @@ class Review extends \Opencart\System\Engine\Model {
 			// Update product rating
 			$this->load->model('catalog/product');
 
-			$this->model_catalog_product->editRating($review_info['product_id'], $this->getRating($review_info['product_id']));
+			$this->model_catalog_product->editRating($review_info['product_id'], $this->model_catalog_review->getRating($review_info['product_id']));
 
 			$this->cache->delete('product');
 		}
 	}
 
+	/**
+	 * Delete Reviews By Product ID
+	 *
+	 * @param int $product_id
+	 *
+	 * @return void
+	 */
 	public function deleteReviewsByProductId(int $product_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "review` WHERE `product_id` = '" . (int)$product_id . "'");
 

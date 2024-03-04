@@ -29,6 +29,7 @@ class Address extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Address
 	 *
+	 * @param int                  $customer_id
 	 * @param int                  $address_id
 	 * @param array<string, mixed> $data
 	 *
@@ -43,6 +44,9 @@ class Address extends \Opencart\System\Engine\Model {
 	}
 
 	/**
+	 * Delete Address
+	 *
+	 * @param int $customer_id
 	 * @param int $address_id
 	 *
 	 * @return void
@@ -51,7 +55,7 @@ class Address extends \Opencart\System\Engine\Model {
 		$sql = "DELETE FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'";
 
 		if ($address_id) {
-			$sql = " AND `address_id` = '" . (int)$address_id . "'";
+			$sql .= " AND `address_id` = '" . (int)$address_id . "'";
 		}
 
 		$this->db->query($sql);
