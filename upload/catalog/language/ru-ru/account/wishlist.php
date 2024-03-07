@@ -21,4 +21,4 @@ $_['column_action']   = 'Действие';
 
 // Error
 $_['error_product']   = 'Внимание: Товар не может быть найден!';
-$_['error_login']     = 'Warning: You must <a href="%s">login</a> or <a href="%s">create an account</a> to remove items from your <a href="%s">wish list</a>!';
+$_['error_login']     = 'Внимание: Вы должны <a href="%s">войти</a> или <a href="%s">создать учетную запись</a>, чтобы удалить элементы из вашего <a href="%s">списка желаний</a>!';
