@@ -29,6 +29,9 @@ class Cart extends \Opencart\System\Engine\Controller {
 		if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
 			if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
 				$data['error_warning'] = $this->language->get('error_stock');
+			} elseif (!$this->cart->hasMinimum()) {
+				echo 'hi';
+				$data['error_warning'] = $this->language->get('error_minimum');
 			} elseif (isset($this->session->data['error'])) {
 				$data['error_warning'] = $this->session->data['error'];
 
@@ -50,6 +53,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			} else {
 				$data['success'] = '';
 			}
+
 
 			if ($this->config->get('config_cart_weight')) {
 				$data['weight'] = $this->weight->format($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point'));
@@ -119,7 +123,12 @@ class Cart extends \Opencart\System\Engine\Controller {
 	 * @return string
 	 */
 	public function getList(): string {
-		$data['list'] = $this->url->link(' ', 'language=' . $this->config->get('config_language'));
+
+
+
+
+
+
 		$data['product_edit'] = $this->url->link('checkout/cart.edit', 'language=' . $this->config->get('config_language'));
 		$data['product_remove'] = $this->url->link('checkout/cart.remove', 'language=' . $this->config->get('config_language'));
 		$data['voucher_remove'] = $this->url->link('checkout/voucher.remove', 'language=' . $this->config->get('config_language'));
@@ -141,6 +150,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$products = $this->model_checkout_cart->getProducts();
 
 		foreach ($products as $product) {
+			print_r($product);
+
 			if (!$product['minimum']) {
 				$data['error_warning'] = sprintf($this->language->get('error_minimum'), $product['name'], $product['minimum']);
 			}
