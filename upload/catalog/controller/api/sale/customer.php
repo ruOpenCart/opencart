@@ -9,7 +9,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 	/**
 	 * @return void
 	 */
-	public function index(): string {
+	public function index(): void {
 		$this->load->language('api/sale/customer');
 
 		$json = [];
@@ -29,6 +29,9 @@ class Customer extends \Opencart\System\Engine\Controller {
 				$this->request->post[$key] = '';
 			}
 		}
+
+		// Load order if there is one
+		$this->load->controller('api/sale/order.load');
 
 		$this->load->model('account/customer');
 
@@ -98,20 +101,11 @@ class Customer extends \Opencart\System\Engine\Controller {
 			];
 
 			$json['success'] = $this->language->get('text_success');
+
+			$this->load->controller('api/sale/order.confirm');
+
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
 		}
-
-		return $json;
-	}
-
-	/**
-	 * Save
-	 * 
-	 * @return void
-	 */
-	public function save(): void {
-
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
 	}
 }
