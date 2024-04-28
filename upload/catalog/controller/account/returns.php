@@ -74,7 +74,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			'total' => $return_total,
 			'page'  => $page,
 			'limit' => $limit,
-			'url'   => $this->url->link('account/returns', 'language=' . $this->config->get('config_language') . '&page={page}')
+			'url'   => $this->url->link('account/returns', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($return_total - $limit)) ? $return_total : ((($page - 1) * $limit) + $limit), $return_total, ceil($return_total / $limit));
@@ -304,7 +304,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('catalog/information');
 
-		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_return_id'));
+		$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_return_id'));
 
 		if ($information_info) {
 			$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information.info', 'language=' . $this->config->get('config_language') . '&information_id=' . $this->config->get('config_return_id')), $information_info['title']);
@@ -312,7 +312,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			$data['text_agree'] = '';
 		}
 
-		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
+		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -405,7 +405,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			if ($this->config->get('config_return_id')) {
 				$this->load->model('catalog/information');
 
-				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_return_id'));
+				$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_return_id'));
 
 				if ($information_info && !isset($this->request->post['agree'])) {
 					$json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);

@@ -815,7 +815,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$store->request->post = $this->request->post;
 
 			// 5. Load the order data
-			$store->request->get['route'] = 'api/sale/order.load';
+			$store->request->get['route'] = 'api/order.load';
 			$store->request->get['language'] = $language;
 
 			unset($store->request->get['user_token']);
@@ -1244,12 +1244,60 @@ class Order extends \Opencart\System\Engine\Controller {
 	 *
 	 * Method to call the storefront API and return a response.
 	 *
+	 * @Example
+	 *
+	 * $url = 'https://www.yourdomain.com/index.php?route=api/account/login&language=en-gb&store_id=0';
+	 *
+	 * $request_data = [
+	 * 		'username' => 'Default',
+	 *		'key'      => ''
+	 * ];
+	 *
+	 * $curl = curl_init();
+	 *
+	 * curl_setopt($curl, CURLOPT_URL, $url);
+	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	 * curl_setopt($curl, CURLOPT_HEADER, false);
+	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 * curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
+	 * curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+	 * curl_setopt($curl, CURLOPT_POST, 1);
+	 * curl_setopt($curl, CURLOPT_POSTFIELDS, $request_data);
+	 *
+	 * $response = curl_exec($curl);
+	 *
+	 * $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	 *
+	 * curl_close($curl);
+	 *
+	 * if ($status == 200) {
+	 *		$api_token = json_decode($response, true);
+	 *
+	 * 		if (isset($api_token['api_token'])) {
+	 *
+	 * 			// You can now store the session cookie as a var in the your current session or some of persistent storage
+	 * 			$session_id = $api_token['api_token'];
+	 * 		}
+	 * }
+	 *
 	 * @return void
 	 */
 	public function call(): void {
 		$this->load->language('sale/order');
 
 		$json = [];
+
+		if (isset($this->request->get['call'])) {
+			$call = (string)$this->request->get['call'];
+		} else {
+			$call = '';
+		}
+
+		if (isset($this->session->data['api_session'])) {
+			$session_id = (string)$this->session->data['api_session'];
+		} else {
+			$session_id = '';
+		}
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
@@ -1258,41 +1306,78 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (isset($this->request->get['language'])) {
-			$language = $this->request->get['language'];
+			$language = (string)$this->request->get['language'];
 		} else {
 			$language = $this->config->get('config_language');
-		}
-
-		if (isset($this->request->get['action'])) {
-			$action = $this->request->get['action'];
-		} else {
-			$action = '';
-		}
-
-		if (isset($this->session->data['api_session'])) {
-			$session_id = $this->session->data['api_session'];
-		} else {
-			$session_id = '';
 		}
 
 		if (!$this->user->hasPermission('modify', 'sale/order')) {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
+		$this->load->model('user/api');
+
+		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+
+		if (!$api_info) {
+			$json['error']['warning'] = $this->language->get('error_api');
+		}
+
 		if (!$json) {
+			$time = time();
+
+			// We create a hash from the data in a similar method to how amazon does things.
+			$string  = 'api/' . $call . "\n";
+			$string .= $api_info['username'] . "\n";
+			$string .= $this->request->server['HTTP_HOST'] . "\n";
+			$string .= $store_id . "\n";
+			$string .= $language . "\n";
+			$string .= json_encode($this->reqest->post) . "\n";
+			$string .= $time . "\n";
+
+			$signature = base64_encode(hash_hmac('sha1', $string, $api_info['key'], true));
+
+			$url  = '?route=api/' . $call;
+			$url .= '&username=' . urlencode($api_info['username']);
+			$url .= '&store_id=' . $store_id . "\n";
+			$url .= '&language=' . $language . "\n";
+			$url .= '&time=' . $time;
+			$url .= '&signature=' . rawurlencode($signature);
+
+			/*
+			$curl = curl_init(OPENCART_SERVER . 'index.php' . $url);
+
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+			curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+
+			$response = curl_exec($curl);
+
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+			curl_close($curl);
+			*/
+
 			// 1. Create a store instance using loader class to call controllers, models, views, libraries
 			$this->load->model('setting/store');
 
 			$store = $this->model_setting_store->createStoreInstance($store_id, $language, $session_id);
 
+			$store->config->set('config_store_id', $store_id);
+
 			// 2. Add the request vars and remove the unneeded ones
 			$store->request->get = $this->request->get;
 			$store->request->post = $this->request->post;
 
-			$store->request->get['route'] = 'api/' . $action;
+			$store->request->get['route'] = 'api/' . $call;
+
+
+			$store->request->get = string;
+
 
 			// 3. Remove the unneeded keys
-			unset($store->request->get['action']);
+			unset($store->request->get['call']);
 			unset($store->request->get['user_token']);
 
 			// Call the required API controller
@@ -1321,7 +1406,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		$data['direction'] = $this->language->get('direction');
 		$data['lang'] = $this->language->get('code');
 
-		// Hard coding css so they can be replaced via the events system.
+		// Hard coding css paths so that they can be replaced via the event's system.
 		$data['bootstrap_css'] = 'view/stylesheet/bootstrap.css';
 		$data['icons'] = 'view/stylesheet/fonts/fontawesome/css/all.min.css';
 		$data['stylesheet'] = 'view/stylesheet/stylesheet.css';
