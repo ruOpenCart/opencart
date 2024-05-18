@@ -65,8 +65,6 @@ class Order extends \Opencart\System\Engine\Controller {
 			$this->session->data['order_id'] = 0;
 		}
 
-
-
 		// Customer
 		$this->load->model('account/customer');
 
@@ -138,7 +136,6 @@ class Order extends \Opencart\System\Engine\Controller {
 			// Customer Group
 			$this->config->set('config_customer_group_id', $this->request->post['customer_group_id']);
 		}
-
 
 		// Products
 		if (!$json) {
@@ -626,7 +623,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$order_data['currency_code'] = $this->session->data['currency'];
 			$order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
 
-			$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
+			$order_data['ip'] = oc_get_ip();
 
 			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
 				$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -666,7 +663,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			if (isset($this->request->post['order_status_id'])) {
 				$order_status_id = (int)$this->request->post['order_status_id'];
 			} else {
-				$order_status_id = $this->config->get('config_order_status_id');
+				$order_status_id = (int)$this->config->get('config_order_status_id');
 			}
 
 			$this->model_checkout_order->addHistory($json['order_id'], $order_status_id);
@@ -1165,7 +1162,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$order_data['currency_code'] = $this->session->data['currency'];
 			$order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
 
-			$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
+			$order_data['ip'] = oc_get_ip();
 
 			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
 				$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -1205,7 +1202,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			if (isset($this->request->post['order_status_id'])) {
 				$order_status_id = (int)$this->request->post['order_status_id'];
 			} else {
-				$order_status_id = $this->config->get('config_order_status_id');
+				$order_status_id = (int)$this->config->get('config_order_status_id');
 			}
 
 			$this->model_checkout_order->addHistory($json['order_id'], $order_status_id);
