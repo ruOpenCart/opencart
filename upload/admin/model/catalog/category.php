@@ -14,7 +14,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function addCategory(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW(), `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW(), `date_added` = NOW()");
 
 		$category_id = $this->db->getLastId();
 
@@ -91,7 +91,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * @return void
 	 */
 	public function editCategory(int $category_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW() WHERE `category_id` = '" . (int)$category_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW() WHERE `category_id` = '" . (int)$category_id . "'");
 
 		$this->model_catalog_category->deleteDescriptions($category_id);
 
@@ -412,22 +412,14 @@ class Category extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function getTotalCategories(array $data = []): int {
-		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "category`";
-
-		$implode = [];
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "category` `c` LEFT JOIN `" . DB_PREFIX . "category_description` `cd` ON (`c`.`category_id` = `cd`.`category_id`) WHERE `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND LCASE(`cd2`.`name`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_name'])) . "'";
+			$sql .= " AND LCASE(`cd`.`name`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_name'])) . "'";
 		}
 
 		if (isset($data['filter_parent_id'])) {
-			$sql .= " AND `parent_id` = '" . (int)$data['filter_parent_id'] . "'";
-		}
-
-		// `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND category_description
-
-		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
+			$sql .= " AND `c`.`parent_id` = '" . (int)$data['filter_parent_id'] . "'";
 		}
 
 		$query = $this->db->query($sql);

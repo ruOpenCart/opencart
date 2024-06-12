@@ -695,20 +695,20 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		// Custom field validation
-		$this->load->model('customer/custom_field');
-
 		$filter_data = [
 			'filter_location'          => 'account',
 			'filter_customer_group_id' => $this->request->post['customer_group_id'],
 			'filter_status'            => 1
 		];
 
+		$this->load->model('customer/custom_field');
+
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 				$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+			} elseif ($custom_field['type'] == 'text' && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['custom_field'][$custom_field['custom_field_id']], $custom_field['validation'])) {
 				$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 			}
 		}

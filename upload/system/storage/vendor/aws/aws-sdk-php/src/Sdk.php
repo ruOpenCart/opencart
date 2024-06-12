@@ -440,6 +440,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMachineLearning(array $args = [])
  * @method \Aws\Macie2\Macie2Client createMacie2(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMacie2(array $args = [])
+ * @method \Aws\MailManager\MailManagerClient createMailManager(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMailManager(array $args = [])
  * @method \Aws\MainframeModernization\MainframeModernizationClient createMainframeModernization(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMainframeModernization(array $args = [])
  * @method \Aws\ManagedBlockchain\ManagedBlockchainClient createManagedBlockchain(array $args = [])
@@ -702,6 +704,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSwf(array $args = [])
  * @method \Aws\Synthetics\SyntheticsClient createSynthetics(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSynthetics(array $args = [])
+ * @method \Aws\TaxSettings\TaxSettingsClient createTaxSettings(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionTaxSettings(array $args = [])
  * @method \Aws\Textract\TextractClient createTextract(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionTextract(array $args = [])
  * @method \Aws\TimestreamInfluxDB\TimestreamInfluxDBClient createTimestreamInfluxDB(array $args = [])
@@ -767,7 +771,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.306.7';
+    const VERSION = '3.311.0';
 
     /** @var array Arguments for creating clients */
     private $args;
