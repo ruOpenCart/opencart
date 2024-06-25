@@ -1,2 +1,2 @@
 <?php
-$_['error_language'] = 'Внимание: Язык не найден!';
+$_['error_language'] = 'Warning: Language could not be found!';

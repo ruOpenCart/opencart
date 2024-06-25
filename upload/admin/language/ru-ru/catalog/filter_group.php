@@ -21,3 +21,4 @@ $_['entry_sort_order']  = 'Порядок сортировки';
 $_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Внимание: У вас нет прав на изменение фильтров!';
 $_['error_name']        = 'Название группы фильтра должно быть от 1 до 64 символов!';
+$_['error_filter']      = 'Warning: This filter group cannot be deleted as it is currently assigned to %s filters!';
