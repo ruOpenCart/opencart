@@ -32,7 +32,9 @@ $_['text_image']              = 'Изображение';
 $_['text_image_additional']   = 'Дополнительные изображения';
 $_['text_reward']             = 'Купить баллы';
 $_['text_points']             = 'Бонусные баллы';
-$_['text_report']             = 'Отчеты по товарам';
+$_['text_report']             = 'Отчеты';
+$_['text_from']               = 'От';
+$_['text_to']                 = 'Кому';
 
 // Column
 $_['column_name']             = 'Название товара';

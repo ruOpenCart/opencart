@@ -63,7 +63,6 @@ $_['button_search']         = 'Искать';
 $_['button_submit']         = 'Отправить';
 $_['button_guest']          = 'Оформить заказ без регистрации';
 $_['button_view']           = 'Посмотреть';
-$_['button_voucher']        = 'Применить сертификат';
 $_['button_upload']         = 'Загрузить файл';
 $_['button_reward']         = 'Применить бонусы';
 $_['button_choose']         = 'Выберите';

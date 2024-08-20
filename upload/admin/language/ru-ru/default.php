@@ -95,7 +95,6 @@ $_['button_approve']                = 'Одобрить';
 $_['button_deny']                   = 'Отклонить';
 $_['button_reset']                  = 'Сбросить';
 $_['button_generate']               = 'Генерировать';
-$_['button_voucher_add']            = 'Добавить подарочный сертификат';
 $_['button_view']                   = 'Посмотреть';
 $_['button_reward_add']             = 'Добавить бонусные баллы';
 $_['button_reward_remove']          = 'Удалить бонусные баллы';
@@ -154,7 +153,6 @@ $_['tab_payment_method']            = 'Методы оплаты';
 $_['tab_product']                   = 'Товары';
 $_['tab_reward']                    = 'Бонусные баллы';
 $_['tab_transaction']               = 'Транзакции';
-$_['tab_voucher']                   = 'Сертификат';
 $_['tab_subscription']              = 'Подписка';
 $_['tab_report']                    = 'Отчет';
 
