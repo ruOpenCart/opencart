@@ -1,3 +1,3 @@
 <?php
 // Text
-$_['text_error'] = 'Запрашиваемая вами страница не найдена.';
+$_['text_error'] = 'You do not have permission to access this page.';
