@@ -32,7 +32,9 @@ $_['text_image']              = 'Image';
 $_['text_image_additional']   = 'Additional Images';
 $_['text_reward']             = 'Buy Points';
 $_['text_points']             = 'Reward Points';
-$_['text_report']             = 'Product Reports';
+$_['text_report']             = 'Reports';
+$_['text_from']               = 'From';
+$_['text_to']                 = 'To';
 
 // Column
 $_['column_name']             = 'Product Name';
