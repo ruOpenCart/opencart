@@ -8,6 +8,8 @@ namespace Opencart\Catalog\Controller\Mail;
 class Gdpr extends \Opencart\System\Engine\Controller {
 	// catalog/model/account/gdpr/addGdpr
 	/**
+	 * Index
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 * @param mixed             $output
@@ -55,7 +57,7 @@ class Gdpr extends \Opencart\System\Engine\Controller {
 
 		$data['confirm'] = $this->url->link('information/gdpr.success', 'language=' . $this->config->get('config_language') . '&code=' . $code, true);
 
-		$data['ip'] = $this->request->server['REMOTE_ADDR'];
+		$data['ip'] = oc_get_ip();
 
 		$data['store_name'] = $store_name;
 		$data['store_url'] = $this->config->get('config_url');

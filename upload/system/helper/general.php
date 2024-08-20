@@ -1,5 +1,34 @@
 <?php
-// String
+// @return string
+function oc_get_ip(): string {
+	$headers = [
+		'HTTP_CF_CONNECTING_IP', // CloudFlare
+		'HTTP_X_FORWARDED_FOR',  // AWS LB and other reverse-proxies
+		'HTTP_X_REAL_IP',
+		'HTTP_X_CLIENT_IP',
+		'HTTP_CLIENT_IP',
+		'HTTP_X_CLUSTER_CLIENT_IP',
+	];
+
+	foreach ($headers as $header) {
+		if (array_key_exists($header, $_SERVER)) {
+			$ip = $_SERVER[$header];
+
+			// This line might or might not be used.
+			$ip = trim(explode(',', $ip)[0]);
+
+			return $ip;
+		}
+	}
+
+	return $_SERVER['REMOTE_ADDR'];
+}
+
+/**
+ * @param string $string
+ *
+ * @return string
+ */
 function oc_strlen(string $string): int {
 	return mb_strlen($string);
 }

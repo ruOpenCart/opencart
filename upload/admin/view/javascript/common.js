@@ -94,61 +94,6 @@ $(document).ready(function () {
         $('.tooltip').remove();
     });
 
-    // Date
-    var oc_datetimepicker = function () {
-        $(this).daterangepicker({
-            singleDatePicker: true,
-            autoApply: true,
-            autoUpdateInput: false,
-            locale: {
-                format: 'YYYY-MM-DD'
-            }
-        }, function (start, end) {
-            $(this.element).val(start.format('YYYY-MM-DD'));
-        });
-    }
-
-    $(document).on('focus', '.date', oc_datetimepicker);
-
-    // Time
-    var oc_datetimepicker = function () {
-        $(this).daterangepicker({
-            singleDatePicker: true,
-            datePicker: false,
-            autoApply: true,
-            autoUpdateInput: false,
-            timePicker: true,
-            timePicker24Hour: true,
-            locale: {
-                format: 'HH:mm'
-            }
-        }, function (start, end) {
-            $(this.element).val(start.format('HH:mm'));
-        }).on('show.daterangepicker', function (ev, picker) {
-            picker.container.find('.calendar-table').hide();
-        });
-    }
-
-    $(document).on('focus', '.time', oc_datetimepicker);
-
-    // Date Time
-    var oc_datetimepicker = function () {
-        $(this).daterangepicker({
-            singleDatePicker: true,
-            autoApply: true,
-            autoUpdateInput: false,
-            timePicker: true,
-            timePicker24Hour: true,
-            locale: {
-                format: 'YYYY-MM-DD HH:mm'
-            }
-        }, function (start, end) {
-            $(this.element).val(start.format('YYYY-MM-DD HH:mm'));
-        });
-    }
-
-    $(document).on('focus', '.datetime', oc_datetimepicker);
-
     // Alert Fade
     var oc_alert = function () {
         window.setTimeout(function () {
@@ -481,7 +426,9 @@ var chain = new Chain();
             // Focus out
             $(element).on('focusout', function (e) {
                 if (!e.relatedTarget || !$(e.relatedTarget).hasClass('dropdown-item')) {
-                    $dropdown.removeClass('show');
+                    this.timer = setTimeout(function (object) {
+                        object.removeClass('show');
+                    }, 50, $dropdown);
                 }
             });
 

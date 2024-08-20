@@ -29,19 +29,8 @@ class Confirm extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate cart has products and has stock.
-		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+		if (!$this->cart->hasProducts() || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout')) || !$this->cart->hasMinimum()) {
 			$status = false;
-		}
-
-		// Validate minimum quantity requirements.
-		$products = $this->model_checkout_cart->getProducts();
-
-		foreach ($products as $product) {
-			if (!$product['minimum']) {
-				$status = false;
-
-				break;
-			}
 		}
 
 		// Shipping
@@ -74,6 +63,16 @@ class Confirm extends \Opencart\System\Engine\Controller {
 		// Validate checkout terms
 		if ($this->config->get('config_checkout_id') && empty($this->session->data['agree'])) {
 			$status = false;
+		}
+
+		if (isset($this->session->data['order_id'])) {
+			$this->load->model('checkout/order');
+
+			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+
+			if (!$order_info) {
+				unset($this->session->data['order_id']);
+			}
 		}
 
 		// Generate order if payment method is set
@@ -220,7 +219,7 @@ class Confirm extends \Opencart\System\Engine\Controller {
 			$order_data['currency_code'] = $this->session->data['currency'];
 			$order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
 
-			$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
+			$order_data['ip'] = oc_get_ip();
 
 			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
 				$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -244,6 +243,9 @@ class Confirm extends \Opencart\System\Engine\Controller {
 
 			// Products
 			$order_data['products'] = [];
+
+			// Use cart products to get data for order
+			$products = $this->cart->getProducts();
 
 			foreach ($products as $product) {
 				$option_data = [];
@@ -298,23 +300,12 @@ class Confirm extends \Opencart\System\Engine\Controller {
 				];
 			}
 
-			// Gift Voucher
-			$order_data['vouchers'] = [];
-
-			if (!empty($this->session->data['vouchers'])) {
-				$order_data['vouchers'] = $this->session->data['vouchers'];
-			}
-
 			$this->load->model('checkout/order');
 
 			if (!isset($this->session->data['order_id'])) {
 				$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
-			} else {
-				$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-
-				if ($order_info && !$order_info['order_status_id']) {
-					$this->model_checkout_order->editOrder($this->session->data['order_id'], $order_data);
-				}
+			} elseif ($order_info && !$order_info['order_status_id']) {
+				$this->model_checkout_order->editOrder($this->session->data['order_id'], $order_data);
 			}
 		}
 
@@ -328,6 +319,9 @@ class Confirm extends \Opencart\System\Engine\Controller {
 		$this->load->model('tool/upload');
 
 		$data['products'] = [];
+
+		// Use model cart products to get data for template
+		$products = $this->model_checkout_cart->getProducts();
 
 		foreach ($products as $product) {
 			if ($product['option']) {
@@ -372,18 +366,6 @@ class Confirm extends \Opencart\System\Engine\Controller {
 				'total'        => $price_status ? $this->currency->format($this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']) : '',
 				'reward'       => $product['reward'],
 				'href'         => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
-			];
-		}
-
-		// Gift Voucher
-		$data['vouchers'] = [];
-
-		$vouchers = $this->model_checkout_cart->getVouchers();
-
-		foreach ($vouchers as $voucher) {
-			$data['vouchers'][] = [
-				'description' => $voucher['description'],
-				'amount'      => $this->currency->format($voucher['amount'], $this->session->data['currency'])
 			];
 		}
 

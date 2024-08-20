@@ -14,8 +14,6 @@ class Returns extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('sale/returns');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		if (isset($this->request->get['filter_return_id'])) {
 			$filter_return_id = (int)$this->request->get['filter_return_id'];
 		} else {
@@ -63,6 +61,8 @@ class Returns extends \Opencart\System\Engine\Controller {
 		} else {
 			$filter_date_to = '';
 		}
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
 
@@ -659,7 +659,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			$json['error']['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((oc_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if (!oc_validate_email($this->request->post['email'])) {
 			$json['error']['email'] = $this->language->get('error_email');
 		}
 

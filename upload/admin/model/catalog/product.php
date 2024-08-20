@@ -156,11 +156,7 @@ class Product extends \Opencart\System\Engine\Model {
 	 * @return void
 	 */
 	public function editProduct(int $product_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `model` = '" . $this->db->escape((string)$data['model']) . "', `sku` = '" . $this->db->escape((string)$data['sku']) . "', `upc` = '" . $this->db->escape((string)$data['upc']) . "', `ean` = '" . $this->db->escape((string)$data['ean']) . "', `jan` = '" . $this->db->escape((string)$data['jan']) . "', `isbn` = '" . $this->db->escape((string)$data['isbn']) . "', `mpn` = '" . $this->db->escape((string)$data['mpn']) . "', `location` = '" . $this->db->escape((string)$data['location']) . "', `variant` = '" . $this->db->escape(!empty($data['variant']) ? json_encode($data['variant']) : '') . "', `override` = '" . $this->db->escape(!empty($data['override']) ? json_encode($data['override']) : '') . "', `quantity` = '" . (int)$data['quantity'] . "', `minimum` = '" . (int)$data['minimum'] . "', `subtract` = '" . (isset($data['subtract']) ? (bool)$data['subtract'] : 0) . "', `stock_status_id` = '" . (int)$data['stock_status_id'] . "', `date_available` = '" . $this->db->escape((string)$data['date_available']) . "', `manufacturer_id` = '" . (int)$data['manufacturer_id'] . "', `shipping` = '" . (isset($data['shipping']) ? (bool)$data['shipping'] : 0) . "', `price` = '" . (float)$data['price'] . "', `points` = '" . (int)$data['points'] . "', `weight` = '" . (float)$data['weight'] . "', `weight_class_id` = '" . (int)$data['weight_class_id'] . "', `length` = '" . (float)$data['length'] . "', `width` = '" . (float)$data['width'] . "', `height` = '" . (float)$data['height'] . "', `length_class_id` = '" . (int)$data['length_class_id'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `tax_class_id` = '" . (int)$data['tax_class_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
-
-		if ($data['image']) {
-			$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `image` = '" . $this->db->escape((string)$data['image']) . "' WHERE `product_id` = '" . (int)$product_id . "'");
-		}
+		$this->db->query("UPDATE `" . DB_PREFIX . "product` SET `model` = '" . $this->db->escape((string)$data['model']) . "', `sku` = '" . $this->db->escape((string)$data['sku']) . "', `upc` = '" . $this->db->escape((string)$data['upc']) . "', `ean` = '" . $this->db->escape((string)$data['ean']) . "', `jan` = '" . $this->db->escape((string)$data['jan']) . "', `isbn` = '" . $this->db->escape((string)$data['isbn']) . "', `mpn` = '" . $this->db->escape((string)$data['mpn']) . "', `location` = '" . $this->db->escape((string)$data['location']) . "', `variant` = '" . $this->db->escape(!empty($data['variant']) ? json_encode($data['variant']) : '') . "', `override` = '" . $this->db->escape(!empty($data['override']) ? json_encode($data['override']) : '') . "', `quantity` = '" . (int)$data['quantity'] . "', `minimum` = '" . (int)$data['minimum'] . "', `subtract` = '" . (isset($data['subtract']) ? (bool)$data['subtract'] : 0) . "', `stock_status_id` = '" . (int)$data['stock_status_id'] . "', `image` = '" . $this->db->escape((string)$data['image']) . "', `date_available` = '" . $this->db->escape((string)$data['date_available']) . "', `manufacturer_id` = '" . (int)$data['manufacturer_id'] . "', `shipping` = '" . (isset($data['shipping']) ? (bool)$data['shipping'] : 0) . "', `price` = '" . (float)$data['price'] . "', `points` = '" . (int)$data['points'] . "', `weight` = '" . (float)$data['weight'] . "', `weight_class_id` = '" . (int)$data['weight_class_id'] . "', `length` = '" . (float)$data['length'] . "', `width` = '" . (float)$data['width'] . "', `height` = '" . (float)$data['height'] . "', `length_class_id` = '" . (int)$data['length_class_id'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `tax_class_id` = '" . (int)$data['tax_class_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `date_modified` = NOW() WHERE `product_id` = '" . (int)$product_id . "'");
 
 		// Description
 		$this->model_catalog_product->deleteDescriptions($product_id);
@@ -877,12 +873,28 @@ class Product extends \Opencart\System\Engine\Model {
 			$sql .= " AND LCASE(`p`.`model`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_model']) . '%') . "'";
 		}
 
-		if (!empty($data['filter_price'])) {
-			$sql .= " AND `p`.`price` LIKE '" . (float)$data['filter_price'] . "'";
+		if (isset($data['filter_category_id']) && $data['filter_category_id'] !== '') {
+			$sql .= " AND `p`.`product_id` IN (SELECT `p2c`.`product_id` FROM `" . DB_PREFIX . "product_to_category` `p2c` WHERE `p2c`.`category_id` = '" . (int)$data['filter_category_id'] . "')";
 		}
 
-		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-			$sql .= " AND `p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
+		if (isset($data['filter_manufacturer_id']) && $data['filter_manufacturer_id'] !== '') {
+			$sql .= " AND `p`.`manufacturer_id` = '" . (int)$data['filter_manufacturer_id'] . "'";
+		}
+
+		if (isset($data['filter_price_from']) && $data['filter_price_from'] !== '') {
+			$sql .= " AND `p`.`price` >= '" . (float)$data['filter_price_from'] . "'";
+		}
+
+		if (isset($data['filter_price_to']) && $data['filter_price_to'] !== '') {
+			$sql .= " AND `p`.`price` <= '" . (float)$data['filter_price_to'] . "'";
+		}
+
+		if (isset($data['filter_quantity_from']) && $data['filter_quantity_from'] !== '') {
+			$sql .= " AND `p`.`quantity` >= '" . (int)$data['filter_quantity_from'] . "'";
+		}
+
+		if (isset($data['filter_quantity_to']) && $data['filter_quantity_to'] !== '') {
+			$sql .= " AND `p`.`quantity` <= '" . (int)$data['filter_quantity_to'] . "'";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
@@ -960,12 +972,28 @@ class Product extends \Opencart\System\Engine\Model {
 			$sql .= " AND LCASE(`p`.`model`) LIKE '" . $this->db->escape(oc_strtolower($data['filter_model']) . '%') . "'";
 		}
 
-		if (isset($data['filter_price']) && $data['filter_price'] !== '') {
-			$sql .= " AND `p`.`price` LIKE '" . (float)$data['filter_price'] . "'";
+		if (isset($data['filter_category_id']) && $data['filter_category_id'] !== '') {
+			$sql .= " AND `p`.`product_id` IN (SELECT `p2c`.`product_id` FROM `" . DB_PREFIX . "product_to_category` `p2c` WHERE `p2c`.`category_id` = '" . (int)$data['filter_category_id'] . "')";
 		}
 
-		if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-			$sql .= " AND `p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
+		if (isset($data['filter_manufacturer_id']) && $data['filter_manufacturer_id'] !== '') {
+			$sql .= " AND `p`.`manufacturer_id` = '" . (int)$data['filter_manufacturer_id'] . "'";
+		}
+
+		if (isset($data['filter_price_from']) && $data['filter_price_from'] !== '') {
+			$sql .= " AND `p`.`price` >= '" . (float)$data['filter_price_from'] . "'";
+		}
+
+		if (isset($data['filter_price_to']) && $data['filter_price_to'] !== '') {
+			$sql .= " AND `p`.`price` <= '" . (float)$data['filter_price_to'] . "'";
+		}
+
+		if (isset($data['filter_quantity_from']) && $data['filter_quantity_from'] !== '') {
+			$sql .= " AND `p`.`quantity` >= '" . (int)$data['filter_quantity_from'] . "'";
+		}
+
+		if (isset($data['filter_quantity_to']) && $data['filter_quantity_to'] !== '') {
+			$sql .= " AND `p`.`quantity` <= '" . (int)$data['filter_quantity_to'] . "'";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
@@ -1193,6 +1221,17 @@ class Product extends \Opencart\System\Engine\Model {
 	}
 
 	/**
+	 * Delete Filters By Filter ID
+	 *
+	 * @param int $filter_id
+	 *
+	 * @return void
+	 */
+	public function deleteFiltersByFilterId(int $filter_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_filter` WHERE `filter_id` = '" . (int)$filter_id . "'");
+	}
+
+	/**
 	 * Get Filters
 	 *
 	 * @param int $product_id
@@ -1381,13 +1420,27 @@ class Product extends \Opencart\System\Engine\Model {
 				];
 			}
 
+			$value = $product_option['value'];
+
+			if ($product_option['type'] == 'date') {
+				$value = date('Y-m-d', strtotime($product_option['value']));
+			}
+
+			if ($product_option['type'] == 'time') {
+				$value = date('H:i:s', strtotime($product_option['value']));
+			}
+
+			if ($product_option['type'] == 'datetime') {
+				$value = date('Y-m-d H:i:s', strtotime($product_option['value']));
+			}
+
 			$product_option_data[] = [
 				'product_option_id'    => $product_option['product_option_id'],
 				'product_option_value' => $product_option_value_data,
 				'option_id'            => $product_option['option_id'],
 				'name'                 => $product_option['name'],
 				'type'                 => $product_option['type'],
-				'value'                => $product_option['value'],
+				'value'                => $value,
 				'required'             => $product_option['required']
 			];
 		}
@@ -1526,12 +1579,23 @@ class Product extends \Opencart\System\Engine\Model {
 	/**
 	 *	Delete Discounts
 	 *
-	 * @param int $product_id primary key of the product record to be fetched
+	 * @param int $product_id primary key of the product record to be deleted
 	 *
 	 * @return void
 	 */
 	public function deleteDiscounts(int $product_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_discount` WHERE `product_id` = '" . (int)$product_id . "'");
+	}
+
+	/**
+	 * Delete Discounts By Customer ID
+	 *
+	 * @param int $customer_group_id primary key of the customer group record to be deleted
+	 *
+	 * @return void
+	 */
+	public function deleteDiscountsByCustomerGroupId(int $customer_group_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_discount` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 	}
 
 	/**
@@ -1571,6 +1635,17 @@ class Product extends \Opencart\System\Engine\Model {
 	}
 
 	/**
+	 * Delete Specials By Customer Group ID
+	 *
+	 * @param int $customer_group_id primary key of the customer group record to be fetched
+	 *
+	 * @return void
+	 */
+	public function deleteSpecialsByCustomerGroupId(int $customer_group_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_special` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+	}
+
+	/**
 	 * Get Specials
 	 *
 	 * @param int $product_id
@@ -1605,6 +1680,17 @@ class Product extends \Opencart\System\Engine\Model {
 	 */
 	public function deleteRewards(int $product_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_reward` WHERE `product_id` = '" . (int)$product_id . "'");
+	}
+
+	/**
+	 * Delete Rewards By Customer Group ID
+	 *
+	 * @param int $customer_group_id primary key of the customer group record to be deleted
+	 *
+	 * @return void
+	 */
+	public function deleteRewardsByCustomerGroupId(int $customer_group_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_reward` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 	}
 
 	/**
@@ -1702,6 +1788,17 @@ class Product extends \Opencart\System\Engine\Model {
 	 */
 	public function deleteStores(int $product_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_store` WHERE `product_id` = '" . (int)$product_id . "'");
+	}
+
+	/**
+	 * Delete Stores By Store ID
+	 *
+	 * @param int $store_id
+	 *
+	 * @return void
+	 */
+	public function deleteStoresByStoreId(int $store_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_store` WHERE `store_id` = '" . (int)$store_id . "'");
 	}
 
 	/**

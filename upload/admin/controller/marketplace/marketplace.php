@@ -14,8 +14,6 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('marketplace/marketplace');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		if (isset($this->request->get['filter_search'])) {
 			$filter_search = (string)$this->request->get['filter_search'];
 		} else {
@@ -63,6 +61,8 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 		} else {
 			$page = 1;
 		}
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
 
@@ -173,7 +173,11 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		curl_close($curl);
 
-		$response_info = json_decode($response, true);
+		if ($status == 200) {
+			$response_info = json_decode($response, true);
+		} else {
+			$response_info = [];
+		}
 
 		if (isset($response_info['extension_total'])) {
 			$extension_total = (int)$response_info['extension_total'];
@@ -576,7 +580,11 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		curl_close($curl);
 
-		$response_info = json_decode($response, true);
+		if ($status == 200) {
+			$response_info = json_decode($response, true);
+		} else {
+			$response_info = [];
+		}
 
 		if ($response_info) {
 			$this->load->language('marketplace/marketplace');
@@ -829,9 +837,15 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$response = curl_exec($curl);
 
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 			curl_close($curl);
 
-			$response_info = json_decode($response, true);
+			if ($status == 200) {
+				$response_info = json_decode($response, true);
+			} else {
+				$response_info = [];
+			}
 
 			if (isset($response_info['success'])) {
 				// If purchase complete we update the status for all downloads to be available.
@@ -912,9 +926,15 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$response = curl_exec($curl);
 
-			$response_info = json_decode($response, true);
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 			curl_close($curl);
+
+			if ($status == 200) {
+				$response_info = json_decode($response, true);
+			} else {
+				$response_info = [];
+			}
 
 			if (isset($response_info['download'])) {
 				if (substr($response_info['filename'], -10) == '.ocmod.zip') {
@@ -1020,9 +1040,15 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$response = curl_exec($curl);
 
+			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 			curl_close($curl);
 
-			$response_info = json_decode($response, true);
+			if ($status == 200) {
+				$response_info = json_decode($response, true);
+			} else {
+				$response_info = [];
+			}
 
 			if (isset($response_info['success'])) {
 				$json['success'] = $response_info['success'];
@@ -1069,9 +1095,15 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$response = curl_exec($curl);
 
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 		curl_close($curl);
 
-		$json = json_decode($response, true);
+		if ($status == 200) {
+			$json = json_decode($response, true);
+		} else {
+			$json = [];
+		}
 
 		$data['comments'] = [];
 
@@ -1148,7 +1180,15 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$response = curl_exec($curl);
 
-		$json = json_decode($response, true);
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		curl_close($curl);
+
+		if ($status == 200) {
+			$json = json_decode($response, true);
+		} else {
+			$json = [];
+		}
 
 		$data['replies'] = [];
 

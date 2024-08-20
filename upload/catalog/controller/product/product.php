@@ -267,19 +267,21 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
 
 			if ($product_info['quantity'] <= 0) {
-				$this->load->model('localisation/stock_status');
-
-				$stock_status_info = $this->model_localisation_stock_status->getStockStatus($product_info['stock_status_id']);
-
-				if ($stock_status_info) {
-					$data['stock'] = $stock_status_info['name'];
-				} else {
-					$data['stock'] = '';
-				}
-			} elseif ($this->config->get('config_stock_display')) {
-				$data['stock'] = $product_info['quantity'];
+				$stock_status_id = $product_info['stock_status_id'];
+			} elseif (!$this->config->get('config_stock_display')) {
+				$stock_status_id = (int)$this->config->get('config_stock_status_id');
 			} else {
-				$data['stock'] = $this->language->get('text_instock');
+				$stock_status_id = 0;
+			}
+
+			$this->load->model('localisation/stock_status');
+
+			$stock_status_info = $this->model_localisation_stock_status->getStockStatus($stock_status_id);
+
+			if ($stock_status_info) {
+				$data['stock'] = $stock_status_info['name'];
+			} else {
+				$data['stock'] = $product_info['quantity'];
 			}
 
 			$data['rating'] = (int)$product_info['rating'];
@@ -361,7 +363,7 @@ class Product extends \Opencart\System\Engine\Controller {
 					foreach ($option['product_option_value'] as $option_value) {
 						if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
 							if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-								$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
+								$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 							} else {
 								$price = false;
 							}
@@ -505,7 +507,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 
 			if ($this->config->get('config_product_report_status')) {
-				$this->model_catalog_product->addReport($this->request->get['product_id'], $this->request->server['REMOTE_ADDR']);
+				$this->model_catalog_product->addReport($this->request->get['product_id'], oc_get_ip());
 			}
 
 			$data['language'] = $this->config->get('config_language');

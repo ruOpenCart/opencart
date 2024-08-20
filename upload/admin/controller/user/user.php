@@ -545,7 +545,7 @@ class User extends \Opencart\System\Engine\Controller {
 			$json['error']['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((oc_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if (!oc_validate_email($this->request->post['email'])) {
 			$json['error']['email'] = $this->language->get('error_email');
 		}
 
@@ -830,7 +830,7 @@ class User extends \Opencart\System\Engine\Controller {
 				'filter_name'     => $filter_name,
 				'filter_email'    => $filter_email,
 				'start'           => 0,
-				'limit'           => 5
+				'limit'           => $this->config->get('config_autocomplete_limit')
 			];
 
 			$this->load->model('user/user');

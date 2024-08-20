@@ -38,7 +38,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			$customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
 			foreach ($customer_groups as $customer_group) {
-				if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
+				if (in_array($customer_group['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
 					$data['customer_groups'][] = $customer_group;
 				}
 			}
@@ -153,7 +153,7 @@ class Register extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('catalog/information');
 
-		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+		$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
 
 		if ($information_info) {
 			$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information.info', 'language=' . $this->config->get('config_language') . '&information_id=' . $this->config->get('config_account_id')), $information_info['title']);
@@ -218,19 +218,8 @@ class Register extends \Opencart\System\Engine\Controller {
 		}
 
 		// Validate cart has products and has stock.
-		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+		if (!$this->cart->hasProducts() || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout')) || !$this->cart->hasMinimum()) {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
-		}
-
-		// Validate minimum quantity requirements.
-		$products = $this->cart->getProducts();
-
-		foreach ($products as $product) {
-			if (!$product['minimum']) {
-				$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
-
-				break;
-			}
 		}
 
 		if (!$json) {
@@ -262,7 +251,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['lastname'] = $this->language->get('error_lastname');
 			}
 
-			if ((oc_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+			if (!oc_validate_email($this->request->post['email'])) {
 				$json['error']['email'] = $this->language->get('error_email');
 			}
 
@@ -294,7 +283,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				if ($custom_field['location'] == 'account') {
 					if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+					} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], $custom_field['validation'])) {
 						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 					}
 				}
@@ -330,7 +319,7 @@ class Register extends \Opencart\System\Engine\Controller {
 					if ($custom_field['location'] == 'address') {
 						if ($custom_field['required'] && empty($this->request->post['payment_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 							$json['error']['payment_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['payment_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['payment_custom_field'][$custom_field['location']][$custom_field['custom_field_id']], $custom_field['validation'])) {
 							$json['error']['payment_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 						}
 					}
@@ -378,7 +367,7 @@ class Register extends \Opencart\System\Engine\Controller {
 					if ($custom_field['location'] == 'address') {
 						if ($custom_field['required'] && empty($this->request->post['shipping_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 							$json['error']['shipping_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['shipping_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+						} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['shipping_custom_field'][$custom_field['location']][$custom_field['custom_field_id']], $custom_field['validation'])) {
 							$json['error']['shipping_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 						}
 					}
@@ -393,7 +382,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			if ($this->request->post['account']) {
 				$this->load->model('catalog/information');
 
-				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+				$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
 
 				if ($information_info && !$this->request->post['agree']) {
 					$json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);

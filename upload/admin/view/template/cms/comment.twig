@@ -38,7 +38,7 @@
               </div>
               <div class="mb-3">
                 <label for="input-status" class="form-label">{{ entry_status }}</label>
-                <select name="filter_status" id="input-status" class="form-control">
+                <select name="filter_status" id="input-status" class="form-control"/>
                   <option value=""></option>
                   <option value="0">{{ text_disabled }}</option>
                   <option value="1">{{ text_enabled }}</option>
@@ -46,17 +46,11 @@
               </div>
               <div class="mb-3">
                 <label for="input-date-from" class="form-label">{{ entry_date_from }}</label>
-                <div class="input-group">
-                  <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" id="input-date-from" class="form-control date"/>
-                  <div class="input-group-text"><i class="fa-regular fa-calendar"></i></div>
-                </div>
+                <input type="date" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" id="input-date-from" class="form-control"/>
               </div>
               <div class="mb-3">
                 <label for="input-date-to" class="form-label">{{ entry_date_to }}</label>
-                <div class="input-group">
-                  <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" id="input-date-to" class="form-control date"/>
-                  <div class="input-group-text"><i class="fa-regular fa-calendar"></i></div>
-                </div>
+                <input type="date" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" id="input-date-to" class="form-control"/>
               </div>
               <div class="text-end">
                 <button type="button" id="button-filter" class="btn btn-light"><i class="fa fa-filter"></i> {{ button_filter }}</button>
@@ -195,18 +189,18 @@ $('#input-email').autocomplete({
     }
 });
 
-$('#button-rating').on('click', function () {
+$('#button-rating').on('click', function() {
     var element = this;
 
     $(element).button('loading');
 
     var next = 'index.php?route=cms/comment.rating&user_token={{ user_token }}';
 
-    var rate = function () {
+    var rate = function() {
         return $.ajax({
             url: next,
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 console.log(json);
 
                 $('.alert-dismissible').remove();
@@ -236,7 +230,7 @@ $('#button-rating').on('click', function () {
                     chain.attach(rate);
                 }
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function(xhr, ajaxOptions, thrownError) {
                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 
                 $(element).button('reset');

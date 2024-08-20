@@ -7,7 +7,7 @@ namespace Opencart\Catalog\Controller\Mail;
  */
 class Order extends \Opencart\System\Engine\Controller {
 	/**
-	 * Mail class for orders
+	 * Index
 	 *
 	 * Trigger catalog/model/checkout/order/addHistory/before
 	 *
@@ -58,6 +58,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Add
+	 *
 	 * @param array<string, mixed> $order_info
 	 * @param int                  $order_status_id
 	 * @param string               $comment
@@ -319,18 +321,6 @@ class Order extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		// Vouchers
-		$data['vouchers'] = [];
-
-		$order_vouchers = $this->model_checkout_order->getVouchers($order_info['order_id']);
-
-		foreach ($order_vouchers as $order_voucher) {
-			$data['vouchers'][] = [
-				'description' => $order_voucher['description'],
-				'amount'      => $this->currency->format($order_voucher['amount'], $order_info['currency_code'], $order_info['currency_value']),
-			];
-		}
-
 		// Order Totals
 		$data['totals'] = [];
 
@@ -372,6 +362,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * History
+	 *
 	 * catalog/model/checkout/order/addHistory/before
 	 *
 	 * @param array<string, mixed> $order_info
@@ -475,6 +467,8 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Alert
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 *
@@ -593,17 +587,6 @@ class Order extends \Opencart\System\Engine\Controller {
 				];
 			}
 
-			$data['vouchers'] = [];
-
-			$order_vouchers = $this->model_checkout_order->getVouchers($order_id);
-
-			foreach ($order_vouchers as $order_voucher) {
-				$data['vouchers'][] = [
-					'description' => $order_voucher['description'],
-					'amount'      => html_entity_decode($this->currency->format($order_voucher['amount'], $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8')
-				];
-			}
-
 			$data['totals'] = [];
 
 			$order_totals = $this->model_checkout_order->getTotals($order_id);
@@ -639,7 +622,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				$mail->send();
 
 				// Send to additional alert emails
-				$emails = explode(',', $this->config->get('config_mail_alert_email'));
+				$emails = explode(',', (string)$this->config->get('config_mail_alert_email'));
 
 				foreach ($emails as $email) {
 					if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {

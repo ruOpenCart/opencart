@@ -315,9 +315,7 @@ class Order extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function getTotalProductsByProductId(int $product_id): int {
-		$sql = "SELECT SUM(`op`.`quantity`) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`op`.`order_id` = `o`.`order_id`) WHERE `op`.`product_id` = '" . (int)$product_id . "' AND `order_status_id` > '0'";
-
-		$query = $this->db->query($sql);
+		$query = $this->db->query("SELECT SUM(`op`.`quantity`) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`op`.`order_id` = `o`.`order_id`) WHERE `op`.`product_id` = '" . (int)$product_id . "' AND `order_status_id` > '0'");
 
 		return (int)$query->row['total'];
 	}
@@ -349,33 +347,7 @@ class Order extends \Opencart\System\Engine\Model {
 
 		return $query->row;
 	}
-
-	/**
-	 * Get Vouchers
-	 *
-	 * @param int $order_id
-	 *
-	 * @return array<int, array<string, mixed>>
-	 */
-	public function getVouchers(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
-
-		return $query->rows;
-	}
-
-	/**
-	 * Get Voucher By Voucher ID
-	 *
-	 * @param int $voucher_id
-	 *
-	 * @return array<string, mixed>
-	 */
-	public function getVoucherByVoucherId(int $voucher_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
-
-		return $query->row;
-	}
-
+	
 	/**
 	 * Get Totals
 	 *
@@ -489,7 +461,7 @@ class Order extends \Opencart\System\Engine\Model {
 	public function getTotalOrdersByProcessingStatus(): int {
 		$implode = [];
 
-		$order_statuses = $this->config->get('config_processing_status');
+		$order_statuses = (array)$this->config->get('config_processing_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "`order_status_id` = '" . (int)$order_status_id . "'";
@@ -512,14 +484,14 @@ class Order extends \Opencart\System\Engine\Model {
 	public function getTotalOrdersByCompleteStatus(): int {
 		$implode = [];
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "`order_status_id` = '" . (int)$order_status_id . "'";
 		}
 
 		if ($implode) {
-			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode) . "");
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode));
 
 			return (int)$query->row['total'];
 		} else {
@@ -654,7 +626,7 @@ class Order extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function getRewardTotal(int $order_id): int {
-		$query = $this->db->query("SELECT SUM(reward) AS `total` FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT SUM(`reward`) AS `total` FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return (int)$query->row['total'];
 	}

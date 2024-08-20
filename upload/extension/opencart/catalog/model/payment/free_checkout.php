@@ -9,7 +9,7 @@ class FreeCheckout extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Methods
 	 *
-	 * @param array<mixed> $address
+	 * @param array<string, mixed> $address
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -24,14 +24,6 @@ class FreeCheckout extends \Opencart\System\Engine\Model {
 		$this->load->model('checkout/cart');
 
 		($this->model_checkout_cart->getTotals)($totals, $taxes, $total);
-
-		if (!empty($this->session->data['vouchers'])) {
-			$amounts = array_column($this->session->data['vouchers'], 'amount');
-		} else {
-			$amounts = [];
-		}
-
-		$total += array_sum($amounts);
 
 		if ($this->currency->format($total, $this->config->get('config_currency'), false, false) <= 0.00) {
 			$status = true;

@@ -46,7 +46,6 @@ class Footer extends \Opencart\System\Engine\Controller {
 
 		$data['sitemap'] = $this->url->link('information/sitemap', 'language=' . $this->config->get('config_language'));
 		$data['manufacturer'] = $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'));
-		$data['voucher'] = $this->url->link('checkout/voucher', 'language=' . $this->config->get('config_language'));
 
 		if ($this->config->get('config_affiliate_status')) {
 			$data['affiliate'] = $this->url->link('account/affiliate', 'language=' . $this->config->get('config_language') . (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''));
@@ -66,14 +65,6 @@ class Footer extends \Opencart\System\Engine\Controller {
 		if ($this->config->get('config_customer_online')) {
 			$this->load->model('tool/online');
 
-			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
-				$ip = $this->request->server['HTTP_X_REAL_IP'];
-			} elseif (isset($this->request->server['REMOTE_ADDR'])) {
-				$ip = $this->request->server['REMOTE_ADDR'];
-			} else {
-				$ip = '';
-			}
-
 			if (isset($this->request->server['HTTP_HOST']) && isset($this->request->server['REQUEST_URI'])) {
 				$url = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . $this->request->server['HTTP_HOST'] . $this->request->server['REQUEST_URI'];
 			} else {
@@ -86,7 +77,7 @@ class Footer extends \Opencart\System\Engine\Controller {
 				$referer = '';
 			}
 
-			$this->model_tool_online->addOnline($ip, $this->customer->getId(), $url, $referer);
+			$this->model_tool_online->addOnline(oc_get_ip(), $this->customer->getId(), $url, $referer);
 		}
 
 		$data['bootstrap'] = 'catalog/view/javascript/bootstrap/js/bootstrap.bundle.min.js';

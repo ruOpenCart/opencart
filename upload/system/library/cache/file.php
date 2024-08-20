@@ -28,16 +28,21 @@ class File {
 	 * @return mixed
 	 */
 	public function get(string $key) {
-		//$key = md5($key);
-		//sprintf();
-
 		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
-		if ($files) {
-			return json_decode(file_get_contents($files[0]), true);
-		} else {
-			return [];
+		foreach ($files as $file) {
+			$time = substr(strrchr($file, '.'), 1);
+
+			if ($time < time()) {
+				if (!@unlink($file)) {
+					clearstatcache(false, $file);
+				}
+			} else {
+				return json_decode(file_get_contents($file), true);
+			}
 		}
+
+		return [];
 	}
 
 	/**

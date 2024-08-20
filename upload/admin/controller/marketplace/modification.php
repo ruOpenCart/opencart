@@ -306,7 +306,7 @@ class Modification extends \Opencart\System\Engine\Controller {
 						}
 
 						if ((substr($file, 0, 9) == 'extension')) {
-							$path = DIR_EXTENSION . substr($file, 9);
+							$path = DIR_EXTENSION . substr($file, 10);
 						}
 
 						if ((substr($file, 0, 6) == 'system')) {
@@ -344,11 +344,9 @@ class Modification extends \Opencart\System\Engine\Controller {
 
 										// Log
 										$log[] = PHP_EOL . 'FILE: ' . $key;
-
 									} else {
 										// Log
 										$log[] = PHP_EOL . 'FILE: (sub modification) ' . $key;
-
 									}
 
 									foreach ($operations as $operation) {

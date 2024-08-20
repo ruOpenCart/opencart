@@ -14,8 +14,6 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('marketing/affiliate');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		if (isset($this->request->get['filter_customer'])) {
 			$filter_customer = $this->request->get['filter_customer'];
 		} else {
@@ -63,6 +61,8 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 		} else {
 			$limit = $this->config->get('config_pagination');
 		}
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
 
@@ -349,7 +349,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 				'name'        => $result['name'],
 				'tracking'    => $result['tracking'],
 				'commission'  => $result['commission'],
-				'balance'     => $this->currency->format((int)$result['balance'], $this->config->get('config_currency')),
+				'balance'     => $this->currency->format(is_numeric($result['balance']) ? (float)$result['balance'] : 0, $this->config->get('config_currency')),
 				'status'      => $result['status'],
 				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'customer'    => $this->url->link('customer/customer.form', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id']),
@@ -758,13 +758,13 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 
 		// Custom field validation
 		if ($customer_info) {
-			$this->load->model('customer/custom_field');
-
 			$filter_data = [
 				'filter_location'          => 'account',
 				'filter_customer_group_id' => $this->request->post['customer_group_id'],
 				'filter_status'            => 1
 			];
+
+			$this->load->model('customer/custom_field');
 
 			$custom_fields = $this->model_customer_custom_field->getCustomFields(['filter_customer_group_id' => $customer_info['customer_group_id']]);
 
@@ -772,7 +772,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 				if ($custom_field['status']) {
 					if (($custom_field['location'] == 'affiliate') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-					} elseif (($custom_field['location'] == 'affiliate') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+					} elseif (($custom_field['location'] == 'affiliate') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['custom_field'][$custom_field['custom_field_id']], $custom_field['validation'])) {
 						$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 					}
 				}
@@ -1059,7 +1059,7 @@ class Affiliate extends \Opencart\System\Engine\Controller {
 			'filter_name'  => $filter_name,
 			'filter_email' => $filter_email,
 			'start'        => 0,
-			'limit'        => 5
+			'limit'        => $this->config->get('config_autocomplete_limit')
 		];
 
 		$this->load->model('marketing/affiliate');

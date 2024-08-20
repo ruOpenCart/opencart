@@ -1,4 +1,20 @@
 <?php
+/**
+ * DB Create
+ *
+ * @param string $db_driver
+ * @param string $db_hostname
+ * @param string $db_username
+ * @param string $db_password
+ * @param string $db_database
+ * @param string $db_port
+ * @param string $db_prefix
+ * @param string $db_ssl_key
+ * @param string $db_ssl_cert
+ * @param string $db_ssl_ca
+ *
+ * @return bool
+ */
 function oc_db_create(string $db_driver, string $db_hostname, string $db_username, string $db_password, string $db_database, string $db_port, string $db_prefix, string $db_ssl_key, string $db_ssl_cert, string $db_ssl_ca): bool {
 	try {
 		// Database
@@ -55,6 +71,8 @@ function oc_db_create(string $db_driver, string $db_hostname, string $db_usernam
 }
 
 /**
+ * DB Schema
+ *
  * @return array<int, array<string, mixed>>
  */
 function oc_db_schema() {
@@ -532,8 +550,9 @@ function oc_db_schema() {
 				'type' => 'varchar(64)'
 			],
 			[
-				'name' => 'rating',
-				'type' => 'int(11)'
+				'name'    => 'rating',
+				'type'    => 'int(11)',
+				'default' => 0
 			],
 			[
 				'name' => 'status',
@@ -585,8 +604,9 @@ function oc_db_schema() {
 				'type' => 'text'
 			],
 			[
-				'name' => 'rating',
-				'type' => 'int(11)'
+				'name'    => 'rating',
+				'type'    => 'int(11)',
+				'default' => 0
 			],
 			[
 				'name' => 'ip',
@@ -731,8 +751,9 @@ function oc_db_schema() {
 				'type' => 'int(11)'
 			],
 			[
-				'name' => 'rating',
-				'type' => 'tinyint(1)'
+				'name'    => 'rating',
+				'type'    => 'tinyint(1)',
+				'default' => 0
 			],
 			[
 				'name' => 'ip',
@@ -851,7 +872,7 @@ function oc_db_schema() {
 			[
 				'name'    => 'store_id',
 				'type'    => 'int(11)',
-				'default' => '0'
+				'default' => 0
 			]
 		],
 		'primary' => [
@@ -971,7 +992,7 @@ function oc_db_schema() {
 			[
 				'name'    => 'store_id',
 				'type'    => 'int(11)',
-				'default' => '0'
+				'default' => 0
 			]
 		],
 		'primary' => [
@@ -1004,12 +1025,19 @@ function oc_db_schema() {
 				'auto_increment' => true
 			],
 			[
-				'name' => 'api_id',
-				'type' => 'int(11)'
+				'name'    => 'store_id',
+				'type'    => 'int(11)',
+				'default' => 0
 			],
 			[
-				'name' => 'customer_id',
-				'type' => 'int(11)'
+				'name'    => 'api_id',
+				'type'    => 'int(11)',
+				'default' => 0
+			],
+			[
+				'name'    => 'customer_id',
+				'type'    => 'int(11)',
+				'default' => 0
 			],
 			[
 				'name' => 'session_id',
@@ -1020,8 +1048,9 @@ function oc_db_schema() {
 				'type' => 'int(11)'
 			],
 			[
-				'name' => 'subscription_plan_id',
-				'type' => 'int(11)'
+				'name'    => 'subscription_plan_id',
+				'type'    => 'int(11)',
+				'default' => 0
 			],
 			[
 				'name' => 'option',
@@ -1048,6 +1077,11 @@ function oc_db_schema() {
 			'cart_id'
 		],
 		'foreign' => [
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
+			],
 			[
 				'key'   => 'api_id',
 				'table' => 'api',
@@ -2479,6 +2513,10 @@ function oc_db_schema() {
 				'type' => 'int(11)'
 			],
 			[
+				'name' => 'store_id',
+				'type' => 'int(11)'
+			],
+			[
 				'name' => 'product_id',
 				'type' => 'int(11)'
 			],
@@ -2489,6 +2527,7 @@ function oc_db_schema() {
 		],
 		'primary' => [
 			'customer_id',
+			'store_id',
 			'product_id'
 		],
 		'foreign' => [
@@ -2496,6 +2535,11 @@ function oc_db_schema() {
 				'key'   => 'customer_id',
 				'table' => 'customer',
 				'field' => 'customer_id'
+			],
+			[
+				'key'   => 'store_id',
+				'table' => 'store',
+				'field' => 'store_id'
 			],
 			[
 				'key'   => 'product_id',
@@ -4795,79 +4839,6 @@ function oc_db_schema() {
 	];
 
 	$tables[] = [
-		'name'  => 'order_voucher',
-		'field' => [
-			[
-				'name'           => 'order_voucher_id',
-				'type'           => 'int(11)',
-				'auto_increment' => true
-			],
-			[
-				'name' => 'order_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'voucher_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'description',
-				'type' => 'varchar(255)'
-			],
-			[
-				'name' => 'code',
-				'type' => 'varchar(10)'
-			],
-			[
-				'name' => 'from_name',
-				'type' => 'varchar(64)'
-			],
-			[
-				'name' => 'from_email',
-				'type' => 'varchar(96)'
-			],
-			[
-				'name' => 'to_name',
-				'type' => 'varchar(64)'
-			],
-			[
-				'name' => 'to_email',
-				'type' => 'varchar(96)'
-			],
-			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'message',
-				'type' => 'text'
-			],
-			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)'
-			]
-		],
-		'primary' => [
-			'order_voucher_id'
-		],
-		'foreign' => [
-			[
-				'key'   => 'order_id',
-				'table' => 'order',
-				'field' => 'order_id'
-			],
-			[
-				'key'   => 'voucher_id',
-				'table' => 'voucher',
-				'field' => 'voucher_id'
-			]
-		],
-		'engine'  => 'InnoDB',
-		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
-	];
-
-	$tables[] = [
 		'name'  => 'product',
 		'field' => [
 			[
@@ -5003,8 +4974,9 @@ function oc_db_schema() {
 				'default' => '1'
 			],
 			[
-				'name' => 'rating',
-				'type' => 'int(1)'
+				'name'    => 'rating',
+				'type'    => 'int(1)',
+				'default' => 0
 			],
 			[
 				'name'    => 'sort_order',
@@ -6170,8 +6142,10 @@ function oc_db_schema() {
 				'type' => 'text'
 			],
 			[
-				'name' => 'rating',
-				'type' => 'int(1)'
+				'name'    => 'rating',
+				'type'    => 'int(1)',
+				'default' => 0
+
 			],
 			[
 				'name'    => 'status',
@@ -7107,6 +7081,18 @@ function oc_db_schema() {
 		],
 		'index' => [
 			[
+				'name' => 'store',
+				'key'  => [
+					'store_id'
+				]
+			],
+			[
+				'name' => 'language',
+				'key'  => [
+					'language_id'
+				]
+			],
+			[
 				'name' => 'keyword',
 				'key'  => [
 					'keyword'
@@ -7306,172 +7292,6 @@ function oc_db_schema() {
 				'key'   => 'user_id',
 				'table' => 'user',
 				'field' => 'user_id'
-			]
-		],
-		'engine'  => 'InnoDB',
-		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
-	];
-
-	$tables[] = [
-		'name'  => 'voucher',
-		'field' => [
-			[
-				'name'           => 'voucher_id',
-				'type'           => 'int(11)',
-				'auto_increment' => true
-			],
-			[
-				'name' => 'order_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'code',
-				'type' => 'varchar(10)'
-			],
-			[
-				'name' => 'from_name',
-				'type' => 'varchar(64)'
-			],
-			[
-				'name' => 'from_email',
-				'type' => 'varchar(96)'
-			],
-			[
-				'name' => 'to_name',
-				'type' => 'varchar(64)'
-			],
-			[
-				'name' => 'to_email',
-				'type' => 'varchar(96)'
-			],
-			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'message',
-				'type' => 'text'
-			],
-			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)'
-			],
-			[
-				'name' => 'status',
-				'type' => 'tinyint(1)'
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime'
-			]
-		],
-		'primary' => [
-			'voucher_id'
-		],
-		'foreign' => [
-			[
-				'key'   => 'order_id',
-				'table' => 'order',
-				'field' => 'order_id'
-			]
-		],
-		'engine'  => 'InnoDB',
-		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
-	];
-
-	$tables[] = [
-		'name'  => 'voucher_history',
-		'field' => [
-			[
-				'name'           => 'voucher_history_id',
-				'type'           => 'int(11)',
-				'auto_increment' => true
-			],
-			[
-				'name' => 'voucher_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'order_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'amount',
-				'type' => 'decimal(15,4)'
-			],
-			[
-				'name' => 'date_added',
-				'type' => 'datetime'
-			]
-		],
-		'primary' => [
-			'voucher_history_id'
-		],
-		'foreign' => [
-			[
-				'key'   => 'voucher_id',
-				'table' => 'voucher',
-				'field' => 'voucher_id'
-			],
-			[
-				'key'   => 'order_id',
-				'table' => 'order',
-				'field' => 'order_id'
-			]
-		],
-		'engine'  => 'InnoDB',
-		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
-	];
-
-	$tables[] = [
-		'name'  => 'voucher_theme',
-		'field' => [
-			[
-				'name'           => 'voucher_theme_id',
-				'type'           => 'int(11)',
-				'auto_increment' => true
-			],
-			[
-				'name' => 'image',
-				'type' => 'varchar(255)'
-			]
-		],
-		'primary' => [
-			'voucher_theme_id'
-		],
-		'engine'  => 'InnoDB',
-		'charset' => 'utf8mb4',
-		'collate' => 'utf8mb4_general_ci'
-	];
-
-	$tables[] = [
-		'name'  => 'voucher_theme_description',
-		'field' => [
-			[
-				'name' => 'voucher_theme_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'language_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'name',
-				'type' => 'varchar(32)'
-			]
-		],
-		'primary' => [
-			'voucher_theme_id',
-			'language_id'
-		],
-		'foreign' => [
-			[
-				'key'   => 'language_id',
-				'table' => 'language',
-				'field' => 'language_id'
 			]
 		],
 		'engine'  => 'InnoDB',

@@ -672,7 +672,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$json['error']['lastname'] = $this->language->get('error_lastname');
 		}
 
-		if ((oc_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+		if (!oc_validate_email($this->request->post['email'])) {
 			$json['error']['email'] = $this->language->get('error_email');
 		}
 
@@ -690,25 +690,25 @@ class Customer extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if ($this->config->get('config_telephone_required') && oc_validate_length($this->request->post['telephone'], 3, 32)) {
+		if ($this->config->get('config_telephone_required') && !oc_validate_length($this->request->post['telephone'], 3, 32)) {
 			$json['error']['telephone'] = $this->language->get('error_telephone');
 		}
 
 		// Custom field validation
-		$this->load->model('customer/custom_field');
-
 		$filter_data = [
 			'filter_location'          => 'account',
 			'filter_customer_group_id' => $this->request->post['customer_group_id'],
 			'filter_status'            => 1
 		];
 
+		$this->load->model('customer/custom_field');
+
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
 				$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-			} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+			} elseif ($custom_field['type'] == 'text' && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['custom_field'][$custom_field['custom_field_id']], $custom_field['validation'])) {
 				$json['error']['custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 			}
 		}
@@ -1455,7 +1455,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 				'filter_name'  => $filter_name,
 				'filter_email' => $filter_email,
 				'start'        => 0,
-				'limit'        => 5
+				'limit'        => $this->config->get('config_autocomplete_limit')
 			];
 
 			$this->load->model('customer/customer');

@@ -48,22 +48,15 @@ class Cart {
 		$this->tax = $registry->get('tax');
 		$this->weight = $registry->get('weight');
 
-		// Remove all the expired carts with no customer ID
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE (`api_id` > '0' OR `customer_id` = '0') AND `date_added` < DATE_SUB(NOW(), INTERVAL 1 HOUR)");
+		// Remove all the expired carts for visitors who never registered
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '0' AND `date_added` < DATE_SUB(NOW(), INTERVAL " . (int)$this->config->get('config_session_expire') . " SECOND)");
 
 		if ($this->customer->isLogged()) {
 			// We want to change the session ID on all the old items in the customers cart
-			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `session_id` = '" . $this->db->escape($this->session->getId()) . "' WHERE `api_id` = '0' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `session_id` = '" . $this->db->escape($this->session->getId()) . "', `date_added` = NOW() WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 			// Once the customer is logged in we want to update the customers cart
-			$cart_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '0' AND `customer_id` = '0' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
-
-			foreach ($cart_query->rows as $cart) {
-				$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart['cart_id'] . "'");
-
-				// The advantage of using $this->add is that it will check if the products already exist and increase the quantity if necessary.
-				$this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option'], true), $cart['subscription_plan_id'], $cart['override'], $cart['price']);
-			}
+			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `customer_id` = '" . (int)$this->customer->getId() . "', `date_added` = NOW() WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '0' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 		}
 
 		// Populate the cart data
@@ -71,13 +64,13 @@ class Cart {
 	}
 
 	/**
-	 * getProducts
+	 * Get Products
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getProducts(): array {
 		if (!$this->data) {
-			$cart_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+			$cart_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cart` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
 			foreach ($cart_query->rows as $cart) {
 				$stock = true;
@@ -256,6 +249,12 @@ class Cart {
 						}
 					}
 
+					// Stock
+					if (!$product_query->row['quantity'] || ($product_query->row['quantity'] < $product_total)) {
+						$stock = false;
+					}
+
+					// Minimum quantity
 					if ($product_query->row['minimum'] > $product_total) {
 						$minimum = false;
 					} else {
@@ -283,11 +282,6 @@ class Cart {
 							'filename'    => $download['filename'],
 							'mask'        => $download['mask']
 						];
-					}
-
-					// Stock
-					if (!$product_query->row['quantity'] || ($product_query->row['quantity'] < $cart['quantity'])) {
-						$stock = false;
 					}
 
 					$subscription_data = [];
@@ -320,6 +314,8 @@ class Cart {
 
 					if ($cart['override']) {
 						$price = $cart['price'];
+					} else {
+						$price += $option_price;
 					}
 
 					$this->data[$cart['cart_id']] = [
@@ -334,13 +330,14 @@ class Cart {
 						'subscription'    => $subscription_data,
 						'download'        => $download_data,
 						'quantity'        => $cart['quantity'],
-						'minimum'         => $minimum,
+						'minimum'         => $product_query->row['minimum'],
+						'minimum_status'  => $minimum,
 						'subtract'        => $product_query->row['subtract'],
 						'stock'           => $stock,
-						'price'           => ($price + $option_price),
-						'total'           => ($price + $option_price) * $cart['quantity'],
+						'price'           => $price,
+						'total'           => $price * $cart['quantity'],
 						'reward'          => $reward * $cart['quantity'],
-						'points'          => ($product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0),
+						'points'          => $product_query->row['points'] ? ($product_query->row['points'] + $option_points) * $cart['quantity'] : 0,
 						'tax_class_id'    => $product_query->row['tax_class_id'],
 						'weight'          => ($product_query->row['weight'] + $option_weight) * $cart['quantity'],
 						'weight_class_id' => $product_query->row['weight_class_id'],
@@ -371,12 +368,12 @@ class Cart {
 	 * @return void
 	 */
 	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0, bool $override = false, float $price = 0): void {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		if (!$query->row['total']) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `override` = '" . (bool)$override . "', `price` = '" . (float)($override ? $price : 0) . "', `date_added` = NOW()");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `store_id` = '" . (int)$this->config->get('config_store_id') . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `override` = '" . (bool)$override . "', `price` = '" . (float)($override ? $price : 0) . "', `date_added` = NOW()");
 		} else {
-			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = (`quantity` + " . (int)$quantity . ") WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = (`quantity` + " . (int)$quantity . ") WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 		}
 
 		// Clear cart data
@@ -395,7 +392,7 @@ class Cart {
 	 * @return void
 	 */
 	public function update(int $cart_id, int $quantity): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
 		// Clear cart data
 		$this->data = [];
@@ -423,7 +420,7 @@ class Cart {
 	 * @return void
 	 */
 	public function remove(int $cart_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart_id . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
 		unset($this->data[$cart_id]);
 	}
@@ -434,13 +431,13 @@ class Cart {
 	 * @return void
 	 */
 	public function clear(): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
 
 		$this->data = [];
 	}
 
 	/**
-	 * getSubscriptions
+	 * Get Subscriptions
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -457,7 +454,7 @@ class Cart {
 	}
 
 	/**
-	 * getWeight
+	 * Get Weight
 	 *
 	 * @return float
 	 */
@@ -474,7 +471,7 @@ class Cart {
 	}
 
 	/**
-	 * getSubTotal
+	 * Get Sub Total
 	 *
 	 * @return float
 	 */
@@ -489,7 +486,7 @@ class Cart {
 	}
 
 	/**
-	 * getTaxes
+	 * Get Taxes
 	 *
 	 * @return array<int, float>
 	 */
@@ -514,7 +511,7 @@ class Cart {
 	}
 
 	/**
-	 * getTotal
+	 * Get Total
 	 *
 	 * @return float
 	 */
@@ -529,7 +526,7 @@ class Cart {
 	}
 
 	/**
-	 * countProducts
+	 * Count Products
 	 *
 	 * @return int
 	 */
@@ -546,7 +543,7 @@ class Cart {
 	}
 
 	/**
-	 * hadProducts
+	 * Has Products
 	 *
 	 * @return bool
 	 */
@@ -555,7 +552,7 @@ class Cart {
 	}
 
 	/**
-	 * hasSubscription
+	 * Has Subscription
 	 *
 	 * @return bool
 	 */
@@ -564,7 +561,7 @@ class Cart {
 	}
 
 	/**
-	 * hasStock
+	 * Has Stock
 	 *
 	 * @return bool
 	 */
@@ -579,7 +576,24 @@ class Cart {
 	}
 
 	/**
-	 * hasShipping
+	 * Has Minimum
+	 *
+	 * Check if any products have a minimum order quantity amount and do not meet the requirement
+	 *
+	 * @return bool
+	 */
+	public function hasMinimum() {
+		foreach ($this->getProducts() as $product) {
+			if (!$product['minimum_status']) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Has Shipping
 	 *
 	 * @return bool
 	 */
@@ -594,7 +608,7 @@ class Cart {
 	}
 
 	/**
-	 * hasDownload
+	 * Has Download
 	 *
 	 * @return bool
 	 */

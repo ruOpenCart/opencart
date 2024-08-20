@@ -51,9 +51,15 @@ class Upgrade extends \Opencart\System\Engine\Controller {
 
 		$response = curl_exec($curl);
 
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 		curl_close($curl);
 
-		$response_info = json_decode($response, true);
+		if ($status == 200) {
+			$response_info = json_decode($response, true);
+		} else {
+			$response_info = [];
+		}
 
 		if ($response_info) {
 			$data['latest_version'] = $response_info['version'];

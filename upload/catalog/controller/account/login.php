@@ -53,8 +53,6 @@ class Login extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['order_id']);
 			unset($this->session->data['coupon']);
 			unset($this->session->data['reward']);
-			unset($this->session->data['voucher']);
-			unset($this->session->data['vouchers']);
 			unset($this->session->data['customer_token']);
 		} elseif (isset($this->session->data['error'])) {
 			$data['error_warning'] = $this->session->data['error'];
@@ -179,7 +177,7 @@ class Login extends \Opencart\System\Engine\Controller {
 			}
 
 			// Log the IP info
-			$this->model_account_customer->addLogin($this->customer->getId(), $this->request->server['REMOTE_ADDR']);
+			$this->model_account_customer->addLogin($this->customer->getId(), oc_get_ip());
 
 			// Create customer token
 			$this->session->data['customer_token'] = oc_token(26);
@@ -238,8 +236,6 @@ class Login extends \Opencart\System\Engine\Controller {
 		unset($this->session->data['comment']);
 		unset($this->session->data['coupon']);
 		unset($this->session->data['reward']);
-		unset($this->session->data['voucher']);
-		unset($this->session->data['vouchers']);
 		unset($this->session->data['customer_token']);
 
 		$this->load->model('account/customer');

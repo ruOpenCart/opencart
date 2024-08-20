@@ -14,8 +14,6 @@ class Review extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('catalog/review');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		if (isset($this->request->get['filter_product'])) {
 			$filter_product = $this->request->get['filter_product'];
 		} else {
@@ -45,6 +43,8 @@ class Review extends \Opencart\System\Engine\Controller {
 		} else {
 			$filter_date_to = '';
 		}
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
 
@@ -433,9 +433,9 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!empty($review_info)) {
-			$data['date_added'] = ($review_info['date_added'] != '0000-00-00 00:00' ? $review_info['date_added'] : date('Y-m-d'));
+			$data['date_added'] = ($review_info['date_added'] != '0000-00-00 00:00:00' ? $review_info['date_added'] : date('Y-m-d H:i:s'));
 		} else {
-			$data['date_added'] = date('Y-m-d');
+			$data['date_added'] = date('Y-m-d H:i:s');
 		}
 
 		if (!empty($review_info)) {

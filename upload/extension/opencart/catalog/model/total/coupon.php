@@ -54,7 +54,7 @@ class Coupon extends \Opencart\System\Engine\Model {
 					}
 
 					if ($status) {
-						if ($coupon_info['type'] == 'F') {
+						if ($coupon_info['type'] == 'F' && $sub_total) {
 							$discount = $coupon_info['discount'] * ($product['total'] / $sub_total);
 						} elseif ($coupon_info['type'] == 'P') {
 							$discount = $product['total'] / 100 * $coupon_info['discount'];
@@ -171,6 +171,6 @@ class Coupon extends \Opencart\System\Engine\Model {
 	public function unconfirm(array $order_info): void {
 		$this->load->model('marketing/coupon');
 
-		$this->model_marketing_coupon->deleteHistoryByOrderId($order_info['order_id']);
+		$this->model_marketing_coupon->deleteHistoriesByOrderId($order_info['order_id']);
 	}
 }

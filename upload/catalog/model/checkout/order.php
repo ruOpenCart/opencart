@@ -19,21 +19,14 @@ class Order extends \Opencart\System\Engine\Model {
 		$order_id = $this->db->getLastId();
 
 		// Products
-		if (isset($data['products'])) {
+		if (!empty($data['products'])) {
 			foreach ($data['products'] as $product) {
 				$this->model_checkout_order->addProduct($order_id, $product);
 			}
 		}
 
-		// Vouchers
-		if (isset($data['vouchers'])) {
-			foreach ($data['vouchers'] as $voucher) {
-				$this->model_checkout_order->addVoucher($order_id, $voucher);
-			}
-		}
-
 		// Totals
-		if (isset($data['totals'])) {
+		if (!empty($data['totals'])) {
 			foreach ($data['totals'] as $total) {
 				$this->model_checkout_order->addTotal($order_id, $total);
 			}
@@ -69,25 +62,16 @@ class Order extends \Opencart\System\Engine\Model {
 			// Products
 			$this->model_checkout_order->deleteProducts($order_id);
 
-			if (isset($data['products'])) {
+			if (!empty($data['products'])) {
 				foreach ($data['products'] as $product) {
 					$this->model_checkout_order->addProduct($order_id, $product);
-				}
-			}
-
-			// Vouchers
-			$this->model_checkout_order->deleteVouchers($order_id);
-
-			if (isset($data['vouchers'])) {
-				foreach ($data['vouchers'] as $voucher) {
-					$this->model_checkout_order->addVoucher($order_id, $voucher);
 				}
 			}
 
 			// Totals
 			$this->model_checkout_order->deleteTotals($order_id);
 
-			if (isset($data['totals'])) {
+			if (!empty($data['totals'])) {
 				foreach ($data['totals'] as $total) {
 					$this->model_checkout_order->addTotal($order_id, $total);
 				}
@@ -145,7 +129,6 @@ class Order extends \Opencart\System\Engine\Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		$this->model_checkout_order->deleteProducts($order_id);
-		$this->model_checkout_order->deleteVouchers($order_id);
 		$this->model_checkout_order->deleteTotals($order_id);
 		$this->model_checkout_order->deleteHistories($order_id);
 
@@ -156,11 +139,6 @@ class Order extends \Opencart\System\Engine\Model {
 		$this->load->model('account/reward');
 
 		$this->model_account_reward->deleteRewardsByOrderId($order_id);
-
-		// Gift Voucher
-		$this->load->model('checkout/voucher');
-
-		$this->model_checkout_voucher->deleteVouchersByOrderId($order_id);
 	}
 
 	/**
@@ -208,6 +186,9 @@ class Order extends \Opencart\System\Engine\Model {
 				$order_data[$column . '_method'] = json_decode($order_query->row[$column . '_method'], true);
 			}
 
+			$order_data['products'] = $this->getProducts($order_id);
+			$order_data['totals'] = $this->getTotals($order_id);
+
 			return $order_data;
 		}
 
@@ -227,12 +208,14 @@ class Order extends \Opencart\System\Engine\Model {
 
 		$order_product_id = $this->db->getLastId();
 
-		foreach ($data['option'] as $option) {
-			$this->model_checkout_order->addOption($order_id, $order_product_id, $option);
+		if (!empty($data['option'])) {
+			foreach ($data['option'] as $option) {
+				$this->model_checkout_order->addOption($order_id, $order_product_id, $option);
+			}
 		}
 
 		// If subscription add details
-		if ($data['subscription']) {
+		if (!empty($data['subscription'])) {
 			$this->model_checkout_order->addSubscription($order_id, $order_product_id, $data['subscription']);
 		}
 
@@ -271,7 +254,7 @@ class Order extends \Opencart\System\Engine\Model {
 	public function getProduct(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
-		return $query->rows;
+		return $query->row;
 	}
 
 	/**
@@ -453,73 +436,6 @@ class Order extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 * Add Voucher
-	 *
-	 * @param int                  $order_id
-	 * @param array<string, mixed> $data
-	 *
-	 * @return int
-	 */
-	public function addVoucher(int $order_id, array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_voucher` SET `order_id` = '" . (int)$order_id . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `from_name` = '" . $this->db->escape($data['from_name']) . "', `from_email` = '" . $this->db->escape($data['from_email']) . "', `to_name` = '" . $this->db->escape($data['to_name']) . "', `to_email` = '" . $this->db->escape($data['to_email']) . "', `voucher_theme_id` = '" . (int)$data['voucher_theme_id'] . "', `message` = '" . $this->db->escape($data['message']) . "', `amount` = '" . (float)$data['amount'] . "'");
-
-		$order_voucher_id = $this->db->getLastId();
-
-		$this->load->model('checkout/voucher');
-
-		$voucher_id = $this->model_checkout_voucher->addVoucher($order_id, $data);
-
-		$this->db->query("UPDATE `" . DB_PREFIX . "order_voucher` SET `voucher_id` = '" . (int)$voucher_id . "' WHERE `order_voucher_id` = '" . (int)$order_voucher_id . "'");
-
-		return $order_voucher_id;
-	}
-
-	/**
-	 * Delete Vouchers
-	 *
-	 * @param int $order_id
-	 * @param int $order_voucher_id
-	 *
-	 * @return void
-	 */
-	public function deleteVouchers(int $order_id, int $order_voucher_id = 0): void {
-		$sql = "DELETE FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'";
-
-		if ($order_voucher_id) {
-			$sql .= " AND `order_voucher_id` = '" . (int)$order_voucher_id . "'";
-		}
-
-		$this->db->query($sql);
-	}
-
-	/**
-	 * Get Voucher By Voucher ID
-	 *
-	 * @param int $order_id
-	 * @param int $voucher_id
-	 *
-	 * @return array<int, array<string, mixed>>
-	 */
-	public function getVoucherByVoucherId(int $order_id, int $voucher_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "' AND `voucher_id` = '" . (int)$voucher_id . "'");
-
-		return $query->rows;
-	}
-
-	/**
-	 * Get Vouchers
-	 *
-	 * @param int $order_id
-	 *
-	 * @return array<int, array<string, mixed>>
-	 */
-	public function getVouchers(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
-
-		return $query->rows;
-	}
-
-	/**
 	 * Add Total
 	 *
 	 * @param int                  $order_id
@@ -591,10 +507,10 @@ class Order extends \Opencart\System\Engine\Model {
 					if ($this->config->get('fraud_' . $extension['code'] . '_status')) {
 						$this->load->model('extension/' . $extension['extension'] . '/fraud/' . $extension['code']);
 
-						$model_extension_fraud = ($this->{'model_extension_' . $extension['extension'] . '_fraud_' . $extension['code']}) ?? null;
+						$key = 'model_extension_' . $extension['extension'] . '_fraud_' . $extension['code'];
 
-						if ($model_extension_fraud && isset($model_extension_fraud->check)) {
-							$fraud_status_id = $model_extension_fraud->check($order_info);
+						if (isset($this->{$key}->check)) {
+							$fraud_status_id = $this->{$key}->check($order_info);
 
 							if ($fraud_status_id) {
 								$order_status_id = $fraud_status_id;
@@ -612,17 +528,17 @@ class Order extends \Opencart\System\Engine\Model {
 
 			// If current order status is not processing or complete but new status is processing or complete then commence completing the order
 			if (!in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status') + (array)$this->config->get('config_complete_status')) && in_array($order_status_id, (array)$this->config->get('config_processing_status') + (array)$this->config->get('config_complete_status'))) {
-				// Redeem coupon, vouchers and reward points
+				// Redeem coupon and reward points
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/' . $order_total['extension'] . '/total/' . $order_total['code']);
 
-					$model_extension_total = $this->{'model_extension_' . $order_total['extension'] . '_total_' . $order_total['code']} ?? null;
+					$key = 'model_extension_' . $order_total['extension'] . '_total_' . $order_total['code'];
 
-					if ($model_extension_total && isset($model_extension_total->confirm)) {
-						// Confirm coupon, vouchers and reward points
-						$fraud_status_id = $model_extension_total->confirm($order_info, $order_total);
+					if (isset($this->{$key}->confirm)) {
+						// Confirm coupon and reward points
+						$fraud_status_id = $this->{$key}->confirm($order_info, $order_total);
 
-						// If the balance on the coupon, vouchers and reward points is not enough to cover the transaction or has already been used then the fraud order status is returned.
+						// If the balance on the coupon and reward points is not enough to cover the transaction or has already been used then the fraud order status is returned.
 						if ($fraud_status_id) {
 							$order_status_id = $fraud_status_id;
 						}
@@ -696,7 +612,7 @@ class Order extends \Opencart\System\Engine\Model {
 				}
 			}
 
-			// If old order status is the processing or complete status but new status is not then commence restock, and remove coupon, voucher and reward history
+			// If old order status is the processing or complete status but new status is not then commence restock, and remove coupon and reward history
 			if (in_array($order_info['order_status_id'], (array)$this->config->get('config_processing_status') + (array)$this->config->get('config_complete_status')) && !in_array($order_status_id, (array)$this->config->get('config_processing_status') + (array)$this->config->get('config_complete_status'))) {
 				// Restock
 				foreach ($order_products as $order_product) {
@@ -714,14 +630,14 @@ class Order extends \Opencart\System\Engine\Model {
 					}
 				}
 
-				// Remove coupon, vouchers and reward points history
+				// Remove coupon and reward points history
 				foreach ($order_totals as $order_total) {
 					$this->load->model('extension/' . $order_total['extension'] . '/total/' . $order_total['code']);
 
-					$model_extension_total = $this->{'model_extension_' . $order_total['extension'] . '_total_' . $order_total['code']} ?? null;
+					$key = 'model_extension_' . $order_total['extension'] . '_total_' . $order_total['code'];
 
-					if ($model_extension_total && isset($model_extension_total->unconfirm)) {
-						$model_extension_total->unconfirm($order_info);
+					if (isset($this->{$key}->unconfirm)) {
+						$this->{$key}->unconfirm($order_info);
 					}
 				}
 			}

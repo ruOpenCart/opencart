@@ -13,12 +13,12 @@ $registry->set('autoloader', $autoloader);
 
 // Config
 $config = new \Opencart\System\Engine\Config();
-$registry->set('config', $config);
-$config->addPath(DIR_CONFIG);
 
+$config->addPath(DIR_CONFIG);
 // Load the default config
 $config->load('default');
 $config->load(strtolower(APPLICATION));
+$registry->set('config', $config);
 
 // Set the default application
 $config->set('application', APPLICATION);
@@ -162,8 +162,8 @@ $registry->set('cache', new \Opencart\System\Library\Cache($config->get('cache_e
 
 // Template
 $template = new \Opencart\System\Library\Template($config->get('template_engine'));
-$registry->set('template', $template);
 $template->addPath(DIR_TEMPLATE);
+$registry->set('template', $template);
 
 // Language
 $language = new \Opencart\System\Library\Language($config->get('language_code'));
@@ -179,7 +179,6 @@ $registry->set('document', new \Opencart\System\Library\Document());
 
 $action = '';
 $args = [];
-$output = '';
 
 // Action error object to execute if any other actions cannot be executed.
 $error = new \Opencart\System\Engine\Action($config->get('action_error'));
@@ -188,7 +187,7 @@ $error = new \Opencart\System\Engine\Action($config->get('action_error'));
 foreach ($config->get('action_pre_action') as $pre_action) {
 	$pre_action = new \Opencart\System\Engine\Action($pre_action);
 
-	$result = $pre_action->execute($registry);
+	$result = $pre_action->execute($registry, $args);
 
 	if ($result instanceof \Opencart\System\Engine\Action) {
 		$action = $result;
@@ -198,7 +197,6 @@ foreach ($config->get('action_pre_action') as $pre_action) {
 
 	// If action cannot be executed, we return an action error object.
 	if ($result instanceof \Exception) {
-		// Execute action
 		$action = $error;
 
 		// In case there is an error we only want to execute once.
@@ -215,12 +213,19 @@ if (isset($request->get['route'])) {
 	$route = (string)$config->get('action_default');
 }
 
+if ($action) {
+	$route = $action->getId();
+}
+
 // Keep the original trigger
 $trigger = $route;
+
+$args = [];
 
 // Trigger the pre events
 $event->trigger('controller/' . $trigger . '/before', [&$route, &$args]);
 
+// Action to execute
 if (!$action) {
 	$action = new \Opencart\System\Engine\Action($route);
 }

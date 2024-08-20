@@ -14,13 +14,13 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('common/authorize');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		if (isset($this->request->cookie['authorize'])) {
 			$token = $this->request->cookie['authorize'];
 		} else {
 			$token = '';
 		}
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		// Check to see if user is using incorrect token
 		if (isset($this->session->data['error'])) {
@@ -49,7 +49,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 
 			$authorize_data = [
 				'token'      => $token,
-				'ip'         => $this->request->server['REMOTE_ADDR'],
+				'ip'         => oc_get_ip(),
 				'user_agent' => $this->request->server['HTTP_USER_AGENT']
 			];
 

@@ -127,13 +127,6 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="input-column" class="col-sm-2 col-form-label">{{ entry_column }}</label>
-                <div class="col-sm-10">
-                  <input type="text" name="column" value="{{ column }}" placeholder="{{ entry_column }}" id="input-column" class="form-control"/>
-                  <div class="form-text">{{ help_column }}</div>
-                </div>
-              </div>
-              <div class="row mb-3">
                 <label for="input-sort-order" class="col-sm-2 col-form-label">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
@@ -144,7 +137,7 @@
                 <div class="col-sm-10">
                   <div class="form-check form-switch form-switch-lg">
                     <input type="hidden" name="status" value="0"/>
-                    <input type="checkbox" name="status" value="1" id="input-status" class="form-check-input"{% if status %} checked{% endif %}/>
+                    <input type="checkbox" name="status" value="1" id="input-status" class="form-check-input" {% if status %} checked{% endif %}/>
                   </div>
                 </div>
               </div>
@@ -214,17 +207,17 @@ $('textarea[data-oc-toggle=\'ckeditor\']').ckeditor({
 });
 
 $('#input-parent').autocomplete({
-    'source': function (request, response) {
+    'source': function(request, response) {
         $.ajax({
             url: 'index.php?route=catalog/category.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
             dataType: 'json',
-            success: function (json) {
+            success: function(json) {
                 json.unshift({
-                    'name': '{{ text_none }}',
-                    'category_id': '0'
+                    'category_id': '0',
+                    'name': '{{ text_none }}'
                 });
 
-                response($.map(json, function (item) {
+                response($.map(json, function(item) {
                     return {
                         value: item['category_id'],
                         label: item['name']
@@ -233,19 +226,19 @@ $('#input-parent').autocomplete({
             }
         });
     },
-    'select': function (item) {
+    'select': function(item) {
         $('#input-parent').val(item['label']);
         $('#input-parent-id').val(item['value']);
     }
 });
 
 $('#input-filter').autocomplete({
-    'source': function (request, response) {
+    'source': function(request, response) {
         $.ajax({
             url: 'index.php?route=catalog/filter.autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
             dataType: 'json',
-            success: function (json) {
-                response($.map(json, function (item) {
+            success: function(json) {
+                response($.map(json, function(item) {
                     return {
                         label: item['name'],
                         value: item['filter_id']
@@ -254,7 +247,7 @@ $('#input-filter').autocomplete({
             }
         });
     },
-    'select': function (item) {
+    'select': function(item) {
         $('#input-filter').val('');
 
         $('#category-filter-' + item['value']).remove();
@@ -268,7 +261,7 @@ $('#input-filter').autocomplete({
     }
 });
 
-$('#category-filter').on('click', '.btn', function () {
+$('#category-filter').on('click', '.btn', function() {
     $(this).parent().parent().remove();
 });
 //--></script>

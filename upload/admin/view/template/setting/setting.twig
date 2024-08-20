@@ -61,6 +61,19 @@
                   </div>
                 </div>
               </div>
+            <div class="row mb-3">
+                <label for="input-icon" class="col-sm-2 col-form-label">{{ entry_icon }}</label>
+                <div class="col-sm-10">
+                  <div class="border rounded d-block" style="max-width: 300px;">
+                    <img src="{{ icon }}" alt="" title="" id="thumb-icon" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon"/>
+                    <div class="d-grid">
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
+                    </div>
+				        	 <div class="form-text">{{ help_icon }}</div>
+                  </div>
+                </div>
+              </div>
               <div class="row mb-3">
                 <label for="input-theme" class="col-sm-2 col-form-label">{{ entry_theme }}</label>
                 <div class="col-sm-10">
@@ -249,7 +262,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_currency_auto }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_currency_auto" value="0"/> <input type="checkbox" name="config_currency_auto" value="1" id="input-currency-auto" class="form-check-input"{% if config_currency_auto %} checked{% endif %}/>
+                      <input type="hidden" name="config_currency_auto" value="0"/>
+                      <input type="checkbox" name="config_currency_auto" value="1" id="input-currency-auto" class="form-check-input"{% if config_currency_auto %} checked{% endif %}/>
                     </div>
                     <div class="form-text">{{ help_currency_auto }}</div>
                   </div>
@@ -311,7 +325,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_product_count }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_product_count" value="0"/> <input type="checkbox" name="config_product_count" value="1" id="input-product-count" class="form-check-input"{% if config_product_count %} checked{% endif %}/>
+                            <input type="hidden" name="config_product_count" value="0"/>
+                            <input type="checkbox" name="config_product_count" value="1" id="input-product-count" class="form-check-input"{% if config_product_count %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_product_count }}</div>
                         </div>
@@ -325,10 +340,19 @@
                         </div>
                       </div>
                       <div class="row mb-3 required">
+                        <label for="input-autocomplete-limit" class="col-sm-2 col-form-label">{{ entry_autocomplete_limit }}</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="config_autocomplete_limit" value="{{ config_autocomplete_limit }}" placeholder="{{ entry_autocomplete_limit }}" id="input-autocomplete-limit" class="form-control"/>
+                          <div class="form-text">{{ help_autocomplete_limit }}</div>
+                          <div id="error-autocomplete-limit" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                      <div class="row mb-3 required">
                         <label class="col-sm-2 col-form-label">{{ entry_product_report }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_product_report_status" value="0"/> <input type="checkbox" name="config_product_report_status" value="1" id="input-product-report" class="form-check-input"{% if config_product_report_status %} checked{% endif %}/>
+                            <input type="hidden" name="config_product_report_status" value="0"/>
+                            <input type="checkbox" name="config_product_report_status" value="1" id="input-product-report" class="form-check-input"{% if config_product_report_status %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_product_report }}</div>
                         </div>
@@ -344,7 +368,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_review_status }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_review_status" value="0"/> <input type="checkbox" name="config_review_status" value="1" id="input-review-status" class="form-check-input"{% if config_review_status %} checked{% endif %}/>
+                            <input type="hidden" name="config_review_status" value="0"/>
+                            <input type="checkbox" name="config_review_status" value="1" id="input-review-status" class="form-check-input"{% if config_review_status %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_review }}</div>
                         </div>
@@ -353,7 +378,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_review_purchased }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_review_purchased" value="0"/> <input type="checkbox" name="config_review_purchased" value="1" id="input-review-purchased" class="form-check-input"{% if config_review_purchased %} checked{% endif %}/>
+                            <input type="hidden" name="config_review_purchased" value="0"/>
+                            <input type="checkbox" name="config_review_purchased" value="1" id="input-review-purchased" class="form-check-input"{% if config_review_purchased %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_review_purchased }}</div>
                         </div>
@@ -362,7 +388,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_review_guest }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_review_guest" value="0"/> <input type="checkbox" name="config_review_guest" value="1" id="input-review-guest" class="form-check-input"{% if config_review_guest %} checked{% endif %}/>
+                            <input type="hidden" name="config_review_guest" value="0"/>
+                            <input type="checkbox" name="config_review_guest" value="1" id="input-review-guest" class="form-check-input"{% if config_review_guest %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_review_guest }}</div>
                         </div>
@@ -413,30 +440,6 @@
                   </div>
                 </div>
                 <div class="accordion-item">
-                  <h2 class="accordion-header"><button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-voucher">{{ text_voucher }}</button></h2>
-                  <div id="collapse-voucher" class="accordion-collapse collapse" data-bs-parent="#accordion-option">
-                    <div class="accordion-body">
-                      <div class="row mt-2 mb-3 required">
-                        <label for="input-voucher-min" class="col-sm-2 col-form-label">{{ entry_voucher_min }}</label>
-                        <div class="col-sm-10">
-                          <input type="text" name="config_voucher_min" value="{{ config_voucher_min }}" placeholder="{{ entry_voucher_min }}" id="input-voucher-min" class="form-control"/>
-                          <div class="form-text">{{ help_voucher_min }}</div>
-                          <div id="error-voucher-min" class="invalid-feedback"></div>
-                        </div>
-                      </div>
-                      <div class="row mb-3 required">
-                        <label for="input-voucher-max" class="col-sm-2 col-form-label">{{ entry_voucher_max }}</label>
-                        <div class="col-sm-10">
-                          <input type="text" name="config_voucher_max" value="{{ config_voucher_max }}" placeholder="{{ entry_voucher_max }}" id="input-voucher-max" class="form-control"/>
-                          <div class="form-text">{{ help_voucher_max }}</div>
-                          <div id="error-voucher-max" class="invalid-feedback"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="accordion-item">
                   <h2 class="accordion-header"><button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-legal">{{ text_legal }}</button></h2>
                   <div id="collapse-legal" class="accordion-collapse collapse" data-bs-parent="#accordion-option">
                     <div class="accordion-body">
@@ -483,7 +486,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_tax }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_tax" value="0"/> <input type="checkbox" name="config_tax" value="1" id="input-tax" class="form-check-input"{% if config_tax %} checked{% endif %}/>
+                            <input type="hidden" name="config_tax" value="0"/>
+                            <input type="checkbox" name="config_tax" value="1" id="input-tax" class="form-check-input"{% if config_tax %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -521,7 +525,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_customer_online }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_customer_online" value="0"/> <input type="checkbox" name="config_customer_online" value="1" id="input-customer-online" class="form-check-input"{% if config_customer_online %} checked{% endif %}/>
+                            <input type="hidden" name="config_customer_online" value="0"/>
+                            <input type="checkbox" name="config_customer_online" value="1" id="input-customer-online" class="form-check-input"{% if config_customer_online %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_customer_online }}</div>
                         </div>
@@ -540,7 +545,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_customer_activity }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_customer_activity" value="0"/> <input type="checkbox" name="config_customer_activity" value="1" id="input-customer-activity" class="form-check-input"{% if config_customer_activity %} checked{% endif %}/>
+                            <input type="hidden" name="config_customer_activity" value="0"/>
+                            <input type="checkbox" name="config_customer_activity" value="1" id="input-customer-activity" class="form-check-input"{% if config_customer_activity %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_customer_activity }}</div>
                         </div>
@@ -549,7 +555,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_customer_search }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_customer_search" value="0"/> <input type="checkbox" name="config_customer_search" value="1" id="input-customer-search" class="form-check-input"{% if config_customer_search %} checked{% endif %}/>
+                            <input type="hidden" name="config_customer_search" value="0"/>
+                            <input type="checkbox" name="config_customer_search" value="1" id="input-customer-search" class="form-check-input"{% if config_customer_search %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -582,7 +589,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_customer_price }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_customer_price" value="0"/> <input type="checkbox" name="config_customer_price" value="1" id="input-customer-price" class="form-check-input"{% if config_customer_price %} checked{% endif %}/>
+                            <input type="hidden" name="config_customer_price" value="0"/>
+                            <input type="checkbox" name="config_customer_price" value="1" id="input-customer-price" class="form-check-input"{% if config_customer_price %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_customer_price }}</div>
                         </div>
@@ -591,7 +599,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_telephone_display }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_telephone_display" value="0"/> <input type="checkbox" name="config_telephone_display" value="1" id="input-telephone-display" class="form-check-input"{% if config_telephone_display %} checked{% endif %}/>
+                            <input type="hidden" name="config_telephone_display" value="0"/>
+                            <input type="checkbox" name="config_telephone_display" value="1" id="input-telephone-display" class="form-check-input"{% if config_telephone_display %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -599,7 +608,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_telephone_required }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_telephone_required" value="0"/> <input type="checkbox" name="config_telephone_required" value="1" id="input-telephone-required" class="form-check-input"{% if config_telephone_required %} checked{% endif %}/>
+                            <input type="hidden" name="config_telephone_required" value="0"/>
+                            <input type="checkbox" name="config_telephone_required" value="1" id="input-telephone-required" class="form-check-input"{% if config_telephone_required %} checked{% endif %}/>
                           </div>
                         </div>
                       </div>
@@ -859,7 +869,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_stock_display }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_stock_display" value="0"/> <input type="checkbox" name="config_stock_display" value="1" id="input-stock-display" class="form-check-input"{% if config_stock_display %} checked{% endif %}/>
+                            <input type="hidden" name="config_stock_display" value="0"/>
+                            <input type="checkbox" name="config_stock_display" value="1" id="input-stock-display" class="form-check-input"{% if config_stock_display %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_stock_display }}</div>
                         </div>
@@ -868,7 +879,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_stock_warning }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_stock_warning" value="0"/> <input type="checkbox" name="config_stock_warning" value="1" id="input-stock-warning" class="form-check-input"{% if config_stock_warning %} checked{% endif %}/>
+                            <input type="hidden" name="config_stock_warning" value="0"/>
+                            <input type="checkbox" name="config_stock_warning" value="1" id="input-stock-warning" class="form-check-input"{% if config_stock_warning %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_stock_warning }}</div>
                         </div>
@@ -877,9 +889,21 @@
                         <label class="col-sm-2 col-form-label">{{ entry_stock_checkout }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_stock_checkout" value="0"/> <input type="checkbox" name="config_stock_checkout" value="1" id="input-stock-checkout" class="form-check-input"{% if config_stock_checkout %} checked{% endif %}/>
+                            <input type="hidden" name="config_stock_checkout" value="0"/>
+                            <input type="checkbox" name="config_stock_checkout" value="1" id="input-stock-checkout" class="form-check-input"{% if config_stock_checkout %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_stock_checkout }}</div>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="input-stock-status" class="col-sm-2 col-form-label">{{ entry_stock_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="config_stock_status_id" id="input-stock-status" class="form-select">
+                            {% for stock_status in stock_statuses %}
+                              <option value="{{ stock_status.stock_status_id }}"{% if stock_status.stock_status_id == config_stock_status_id %} selected{% endif %}>{{ stock_status.name }}</option>
+                            {% endfor %}
+                          </select>
+                          <div class="form-text">{{ help_stock_status }}</div>
                         </div>
                       </div>
                     </div>
@@ -893,7 +917,8 @@
                         <label class="col-sm-2 col-form-label">{{ entry_affiliate_status }}</label>
                         <div class="col-sm-10">
                           <div class="form-check form-switch form-switch-lg">
-                            <input type="hidden" name="config_affiliate_status" value="0"/> <input type="checkbox" name="config_affiliate_status" value="1" id="input-affiliate-status" class="form-check-input"{% if config_affiliate_status %} checked{% endif %}/>
+                            <input type="hidden" name="config_affiliate_status" value="0"/>
+                            <input type="checkbox" name="config_affiliate_status" value="1" id="input-affiliate-status" class="form-check-input"{% if config_affiliate_status %} checked{% endif %}/>
                           </div>
                           <div class="form-text">{{ help_affiliate_status }}</div>
                         </div>
@@ -1299,7 +1324,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_maintenance }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_maintenance" value="0"/> <input type="checkbox" name="config_maintenance" value="1" id="input-maintenance" class="form-check-input"{% if config_maintenance %} checked{% endif %}/>
+                      <input type="hidden" name="config_maintenance" value="0"/>
+                      <input type="checkbox" name="config_maintenance" value="1" id="input-maintenance" class="form-check-input"{% if config_maintenance %} checked{% endif %}/>
                     </div>
                     <div class="form-text">{{ help_maintenance }}</div>
                   </div>
@@ -1326,7 +1352,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_seo_url }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_seo_url" value="0"/> <input type="checkbox" name="config_seo_url" value="1" id="input-seo-url" class="form-check-input"{% if config_seo_url %} checked{% endif %}/>
+                      <input type="hidden" name="config_seo_url" value="0"/>
+                      <input type="checkbox" name="config_seo_url" value="1" id="input-seo-url" class="form-check-input"{% if config_seo_url %} checked{% endif %}/>
                     </div>
                     <div class="form-text">{{ help_seo_url }}</div>
                   </div>
@@ -1362,7 +1389,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_shared }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_shared" value="0"/> <input type="checkbox" name="config_shared" value="1" id="input-shared" class="form-check-input"{% if config_shared %} checked{% endif %}/>
+                      <input type="hidden" name="config_shared" value="0"/>
+                      <input type="checkbox" name="config_shared" value="1" id="input-shared" class="form-check-input"{% if config_shared %} checked{% endif %}/>
                     </div>
                     <div class="form-text">{{ help_shared }}</div>
                   </div>
@@ -1401,7 +1429,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_error_display }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_error_display" value="0"/> <input type="checkbox" name="config_error_display" value="1" id="input-error-display" class="form-check-input"{% if config_error_display %} checked{% endif %}/>
+                      <input type="hidden" name="config_error_display" value="0"/>
+                      <input type="checkbox" name="config_error_display" value="1" id="input-error-display" class="form-check-input"{% if config_error_display %} checked{% endif %}/>
                     </div>
                   </div>
                 </div>
@@ -1409,7 +1438,8 @@
                   <label class="col-sm-2 col-form-label">{{ entry_error_log }}</label>
                   <div class="col-sm-10">
                     <div class="form-check form-switch form-switch-lg">
-                      <input type="hidden" name="config_error_log" value="0"/> <input type="checkbox" name="config_error_log" value="1" id="input-error-log" class="form-check-input"{% if config_error_log %} checked{% endif %}/>
+                      <input type="hidden" name="config_error_log" value="0"/>
+                      <input type="checkbox" name="config_error_log" value="1" id="input-error-log" class="form-check-input"{% if config_error_log %} checked{% endif %}/>
                     </div>
                   </div>
                 </div>

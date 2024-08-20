@@ -37,7 +37,7 @@ class Setting extends \Opencart\System\Engine\Controller {
 		// Settings
 		$this->load->model('setting/setting');
 
-		$results = $this->model_setting_setting->getSettings($this->config->get('config_store_id'));
+		$results = $this->model_setting_setting->getSettings((int)$this->config->get('config_store_id'));
 
 		foreach ($results as $result) {
 			if (!$result['serialized']) {
@@ -55,7 +55,7 @@ class Setting extends \Opencart\System\Engine\Controller {
 			date_default_timezone_set($this->config->get('config_timezone'));
 
 			// Sync PHP and DB time zones.
-			$this->db->query("SET time_zone = '" . $this->db->escape(date('P')) . "'");
+			$this->db->query("SET `time_zone` = '" . $this->db->escape(date('P')) . "'");
 		}
 
 		// Response output compression level
