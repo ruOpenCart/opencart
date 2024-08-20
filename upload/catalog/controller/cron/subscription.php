@@ -62,7 +62,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 				if (!$error) {
 					$this->load->model('setting/store');
 
-					$store = $this->model_setting_store->createStoreInstance($result['store_id'], $language_info['code']);
+					$store = $this->model_setting_store->createStoreInstance($result['store_id'], $language_info['code'], $currency_info['code']);
 
 					// Login
 					$this->load->model('account/customer');
@@ -281,9 +281,6 @@ class Subscription extends \Opencart\System\Engine\Controller {
 							'reward'       => $product['reward']
 						];
 					}
-
-					// Vouchers can not be in subscriptions
-					$order_data['vouchers'] = [];
 
 					// Order Totals
 					$totals = [];

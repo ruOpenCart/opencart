@@ -10,26 +10,31 @@ class Customer extends \Opencart\System\Engine\Controller {
 	 * @return void
 	 */
 	public function index(): void {
-		$this->load->language('api/sale/customer');
+		$this->load->language('api/customer');
 
 		$json = [];
 
 		$keys = [
-			'customer_id',
-			'customer_group_id',
-			'firstname',
-			'lastname',
-			'email',
-			'telephone',
-			'custom_field'
+			'customer_id'       => 0,
+			'customer_group_id' => 0,
+			'firstname'         => '',
+			'lastname'          => '',
+			'email'             => '',
+			'telephone'         => '',
+			'custom_field'      => []
 		];
 
-		foreach ($keys as $key) {
+		foreach ($keys as $key => $Value) {
 			if (!isset($this->request->post[$key])) {
-				$this->request->post[$key] = '';
+				$this->request->post[$key] = $Value;
 			}
 		}
 
+		// Force types to avoid hacking
+		//\oc_filter_types($keys, $this->request->post);
+		// $this->request->filter('post', $keys);
+
+		// Customer
 		$this->load->model('account/customer');
 
 		if ($this->request->post['customer_id']) {
@@ -94,13 +99,13 @@ class Customer extends \Opencart\System\Engine\Controller {
 				'lastname'          => $this->request->post['lastname'],
 				'email'             => $this->request->post['email'],
 				'telephone'         => $this->request->post['telephone'],
-				'custom_field'      => !empty($this->request->post['custom_field']) && is_array($this->request->post['custom_field']) ? $this->request->post['custom_field'] : []
+				'custom_field'      => $this->request->post['custom_field'] ?? []
 			];
 
 			$json['success'] = $this->language->get('text_success');
-
-			$this->response->addHeader('Content-Type: application/json');
-			$this->response->setOutput(json_encode($json));
 		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }

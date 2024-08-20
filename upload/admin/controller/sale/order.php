@@ -687,19 +687,23 @@ class Order extends \Opencart\System\Engine\Controller {
 			foreach ($options as $option) {
 				if ($option['type'] != 'file') {
 					$option_data[] = [
-						'name'  => $option['name'],
-						'value' => $option['value'],
-						'type'  => $option['type']
+						'product_option_id'       => $option['product_option_id'],
+						'product_option_value_id' => $option['product_option_value_id'],
+						'name'                    => $option['name'],
+						'value'                   => $option['value'],
+						'type'                    => $option['type']
 					];
 				} else {
 					$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
 
 					if ($upload_info) {
 						$option_data[] = [
-							'name'  => $option['name'],
-							'value' => $upload_info['name'],
-							'type'  => $option['type'],
-							'href'  => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
+							'product_option_id'       => $option['product_option_id'],
+							'product_option_value_id' => $option['product_option_value_id'],
+							'name'                    => $option['name'],
+							'value'                   => $upload_info['name'],
+							'type'                    => $option['type'],
+							'href'                    => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
 						];
 					}
 				}
@@ -754,19 +758,6 @@ class Order extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		// Vouchers
-		$data['order_vouchers'] = [];
-
-		$vouchers = $this->model_sale_order->getVouchers($order_id);
-
-		foreach ($vouchers as $voucher) {
-			$data['order_vouchers'][] = [
-				'description' => $voucher['description'],
-				'amount'      => $this->currency->format($voucher['amount'], $data['currency_code'], $currency_value),
-				'href'        => $this->url->link('sale/voucher.form', 'user_token=' . $this->session->data['user_token'] . '&voucher_id=' . $voucher['voucher_id'])
-			];
-		}
-
 		// Totals
 		$data['order_totals'] = [];
 
@@ -815,74 +806,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['language_code'] = $this->config->get('config_language');
 		}
 
-		// Voucher themes
-		$this->load->model('sale/voucher_theme');
-
-		$data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
-
 		// Currency
 		$this->load->model('localisation/currency');
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
-
-		// Coupon, Voucher, Reward
-		$data['total_coupon'] = '';
-		$data['total_voucher'] = '';
-		$data['total_reward'] = 0;
-
-		if ($order_id) {
-			$order_totals = $this->model_sale_order->getTotals($order_id);
-
-			foreach ($order_totals as $order_total) {
-				// If coupon, voucher or reward points
-				$start = strpos($order_total['title'], '(');
-				$end = strrpos($order_total['title'], ')');
-
-				if ($start !== false && $end !== false) {
-					$data['total_' . $order_total['code']] = substr($order_total['title'], $start + 1, $end - ($start + 1));
-				}
-			}
-		}
-
-		// Reward Points
-		if (!empty($order_info)) {
-			$data['points'] = $this->model_sale_order->getRewardTotal($order_id);
-		} else {
-			$data['points'] = 0;
-		}
-
-		// Reward Points
-		if (!empty($order_info)) {
-			$data['reward_total'] = $this->model_customer_customer->getTotalRewardsByOrderId($order_id);
-		} else {
-			$data['reward_total'] = 0;
-		}
-
-		// Affiliate
-		if (!empty($order_info)) {
-			$data['affiliate_id'] = $order_info['affiliate_id'];
-		} else {
-			$data['affiliate_id'] = 0;
-		}
-
-		if (!empty($order_info)) {
-			$data['affiliate'] = $order_info['affiliate'];
-		} else {
-			$data['affiliate'] = '';
-		}
-
-		// Commission
-		if (!empty($order_info) && (float)$order_info['commission']) {
-			$data['commission'] = $this->currency->format($order_info['commission'], $this->config->get('config_currency'));
-		} else {
-			$data['commission'] = '';
-		}
-
-		if (!empty($order_info)) {
-			$data['commission_total'] = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
-		} else {
-			$data['commission_total'] = '';
-		}
 
 		// Addresses
 		if (!empty($order_info)) {
@@ -1082,6 +1009,64 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['shipping_code'] = '';
 		}
 
+		// Coupon, Reward
+		$data['total_coupon'] = '';
+		$data['total_reward'] = 0;
+
+		if ($order_id) {
+			$order_totals = $this->model_sale_order->getTotals($order_id);
+
+			foreach ($order_totals as $order_total) {
+				// If coupon or reward points
+				$start = strpos($order_total['title'], '(');
+				$end = strrpos($order_total['title'], ')');
+
+				if ($start !== false && $end !== false) {
+					$data['total_' . $order_total['code']] = substr($order_total['title'], $start + 1, $end - ($start + 1));
+				}
+			}
+		}
+
+		// Reward Points
+		if (!empty($order_info)) {
+			$data['points'] = $this->model_sale_order->getRewardTotal($order_id);
+		} else {
+			$data['points'] = 0;
+		}
+
+		// Reward Points
+		if (!empty($order_info)) {
+			$data['reward_total'] = $this->model_customer_customer->getTotalRewardsByOrderId($order_id);
+		} else {
+			$data['reward_total'] = 0;
+		}
+
+		// Affiliate
+		if (!empty($order_info)) {
+			$data['affiliate_id'] = $order_info['affiliate_id'];
+		} else {
+			$data['affiliate_id'] = 0;
+		}
+
+		if (!empty($order_info)) {
+			$data['affiliate'] = $order_info['affiliate'];
+		} else {
+			$data['affiliate'] = '';
+		}
+
+		// Commission
+		if (!empty($order_info) && (float)$order_info['commission']) {
+			$data['commission'] = $this->currency->format($order_info['commission'], $this->config->get('config_currency'));
+		} else {
+			$data['commission'] = '';
+		}
+
+		if (!empty($order_info)) {
+			$data['commission_total'] = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
+		} else {
+			$data['commission_total'] = '';
+		}
+
 		// Comment
 		if (!empty($order_info)) {
 			$data['comment'] = nl2br($order_info['comment']);
@@ -1182,35 +1167,6 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['date_modified'] = date($this->language->get('date_format_short'), time());
 		}
 
-		// 2. Store the new session ID so we are not creating new session on every page load
-		if (!isset($this->session->data['api_session'])) {
-			$this->session->data['api_session'] = 'api-' . substr(bin2hex(openssl_random_pseudo_bytes(26)), 0, 26);
-		}
-
-		$this->load->model('setting/store');
-
-		// 1. Create a store instance using loader class to call controllers, models, views, libraries
-		$store = $this->model_setting_store->createStoreInstance($data['store_id'], $data['language_code'], $this->session->data['api_session']);
-
-		// 2. Remove the unneeded keys
-		$request_data = $this->request->get;
-
-		unset($request_data['call']);
-		unset($request_data['user_token']);
-
-		$store->request->get = $request_data;
-
-		// 3. Add the request GET vars
-		$store->request->get['route'] = 'api/order.load';
-
-		// 4. Add the request POST var
-		$store->request->post = $this->request->post;
-
-		// Call the required API controller
-		$store->load->controller($store->request->get['route']);
-
-		$output = $store->response->getOutput();
-
 		// Histories
 		$data['history'] = $this->getHistory();
 
@@ -1257,6 +1213,7 @@ class Order extends \Opencart\System\Engine\Controller {
 	 * $url  = '&username=' . urlencode($username);
 	 * $url .= '&store_id=' . $store_id;
 	 * $url .= '&language=' . $language;
+	 * $url .= '&currency=' . $currency;
 	 * $url .= '&time=' . $time;
 	 * $url .= '&signature=' . rawurlencode($signature);
 	 *
@@ -1295,6 +1252,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		} else {
 			$call = '';
 		}
+
 		if (isset($this->request->get['store_id'])) {
 			$store_id = (int)$this->request->get['store_id'];
 		} else {
@@ -1305,6 +1263,12 @@ class Order extends \Opencart\System\Engine\Controller {
 			$language = (string)$this->request->get['language'];
 		} else {
 			$language = (string)$this->config->get('config_language');
+		}
+
+		if (isset($this->request->get['currency'])) {
+			$currency = (string)$this->request->get['currency'];
+		} else {
+			$currency = (string)$this->config->get('config_currency');
 		}
 
 		if (!$this->user->hasPermission('modify', 'sale/order')) {
@@ -1320,20 +1284,17 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// 1. Store the new session ID so not creating new session on every page load
-			if (!isset($this->session->data['api_session'])) {
-				$this->session->data['api_session'] = 'api-' . substr(bin2hex(openssl_random_pseudo_bytes(26)), 0, 26);
-			}
-
+			// 1. Create a store instance using loader class to call controllers, models, views, libraries.
 			$this->load->model('setting/store');
 
-			// 2. Create a store instance using loader class to call controllers, models, views, libraries
-			$store = $this->model_setting_store->createStoreInstance($store_id, $language, $this->session->data['api_session']);
+			$store = $this->model_setting_store->createStoreInstance($store_id, $language, $currency);
 
-			// Set the store ID
+			// Set the store ID.
 			$store->config->set('config_store_id', $store_id);
 
-			// 3. Remove the unneeded keys
+			$store->session->data['currency'] = $currency;
+
+			// 2. Remove the unneeded keys.
 			$request_data = $this->request->get;
 
 			unset($request_data['call']);
@@ -1341,16 +1302,23 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			$store->request->get = $request_data;
 
-			// 4. Add the request GET vars
+			// 3. Add the request GET vars.
 			$store->request->get['route'] = 'api/' . $call;
 
-			// 5. Add the request POST var
+			// 4. Add the request POST var
 			$store->request->post = $this->request->post;
 
-			// Call the required API controller
+			// 5. Call the required API controller.
 			$store->load->controller($store->request->get['route']);
 
+			// 6. Call the required API controller and get the output.
 			$output = $store->response->getOutput();
+
+			// 7. Clean up data by clearing cart.
+			$store->cart->clear();
+
+			// 8. Deleting the current session so we are not creating infinite sessions.
+			$store->session->destroy();
 		} else {
 			$output = json_encode($json);
 		}
@@ -1569,17 +1537,6 @@ class Order extends \Opencart\System\Engine\Controller {
 					];
 				}
 
-				$voucher_data = [];
-
-				$vouchers = $this->model_sale_order->getVouchers($order_id);
-
-				foreach ($vouchers as $voucher) {
-					$voucher_data[] = [
-						'description' => $voucher['description'],
-						'amount'      => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value'])
-					];
-				}
-
 				$total_data = [];
 
 				$totals = $this->model_sale_order->getTotals($order_id);
@@ -1607,7 +1564,6 @@ class Order extends \Opencart\System\Engine\Controller {
 					'payment_address'  => $payment_address,
 					'payment_method'   => $order_info['payment_method']['name'],
 					'product'          => $product_data,
-					'voucher'          => $voucher_data,
 					'total'            => $total_data,
 					'comment'          => nl2br($order_info['comment'])
 				];
@@ -1995,7 +1951,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('customer/customer');
 
-			$this->model_customer_customer->deleteRewardByOrderId($order_id);
+			$this->model_customer_customer->deleteRewardsByOrderId($order_id);
 
 			$json['success'] = $this->language->get('text_reward_remove');
 		}

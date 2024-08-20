@@ -61,6 +61,19 @@
                   </div>
                 </div>
               </div>
+            <div class="row mb-3">
+                <label for="input-icon" class="col-sm-2 col-form-label">{{ entry_icon }}</label>
+                <div class="col-sm-10">
+                  <div class="border rounded d-block" style="max-width: 300px;">
+                    <img src="{{ icon }}" alt="" title="" id="thumb-icon" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/> <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon"/>
+                    <div class="d-grid">
+                      <button type="button" data-oc-toggle="image" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i> {{ button_edit }}</button>
+                      <button type="button" data-oc-toggle="clear" data-oc-target="#input-icon" data-oc-thumb="#thumb-icon" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i> {{ button_clear }}</button>
+                    </div>
+				        	 <div class="form-text">{{ help_icon }}</div>
+                  </div>
+                </div>
+              </div>
               <div class="row mb-3">
                 <label for="input-theme" class="col-sm-2 col-form-label">{{ entry_theme }}</label>
                 <div class="col-sm-10">
@@ -426,30 +439,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header"><button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-voucher">{{ text_voucher }}</button></h2>
-                  <div id="collapse-voucher" class="accordion-collapse collapse" data-bs-parent="#accordion-option">
-                    <div class="accordion-body">
-                      <div class="row mt-2 mb-3 required">
-                        <label for="input-voucher-min" class="col-sm-2 col-form-label">{{ entry_voucher_min }}</label>
-                        <div class="col-sm-10">
-                          <input type="text" name="config_voucher_min" value="{{ config_voucher_min }}" placeholder="{{ entry_voucher_min }}" id="input-voucher-min" class="form-control"/>
-                          <div class="form-text">{{ help_voucher_min }}</div>
-                          <div id="error-voucher-min" class="invalid-feedback"></div>
-                        </div>
-                      </div>
-                      <div class="row mb-3 required">
-                        <label for="input-voucher-max" class="col-sm-2 col-form-label">{{ entry_voucher_max }}</label>
-                        <div class="col-sm-10">
-                          <input type="text" name="config_voucher_max" value="{{ config_voucher_max }}" placeholder="{{ entry_voucher_max }}" id="input-voucher-max" class="form-control"/>
-                          <div class="form-text">{{ help_voucher_max }}</div>
-                          <div id="error-voucher-max" class="invalid-feedback"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="accordion-item">
                   <h2 class="accordion-header"><button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-legal">{{ text_legal }}</button></h2>
                   <div id="collapse-legal" class="accordion-collapse collapse" data-bs-parent="#accordion-option">

@@ -91,9 +91,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$data['weight'] = '';
 		}
 
-		$data['product_edit'] = $this->url->link('checkout/cart.edit', 'language=' . $this->config->get('config_language'));
-		$data['product_remove'] = $this->url->link('checkout/cart.remove', 'language=' . $this->config->get('config_language'));
-		$data['voucher_remove'] = $this->url->link('checkout/voucher.remove', 'language=' . $this->config->get('config_language'));
+		$data['edit'] = $this->url->link('checkout/cart.edit', 'language=' . $this->config->get('config_language'));
 
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -114,7 +112,19 @@ class Cart extends \Opencart\System\Engine\Controller {
 		foreach ($products as $product) {
 			if ($product['option']) {
 				foreach ($product['option'] as $key => $option) {
-					$product['option'][$key]['value'] = (oc_strlen($option['value']) > 20 ? oc_substr($option['value'], 0, 20) . '..' : $option['value']);
+					if ($option['type'] != 'file') {
+						$value = $option['value'];
+					} else {
+						$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+						if ($upload_info) {
+							$value = $upload_info['name'];
+						} else {
+							$value = '';
+						}
+					}
+					
+					$product['option'][$key]['value'] = (oc_strlen($value) > 20 ? oc_substr($value, 0, 20) . '..' : $value);
 				}
 			}
 
@@ -161,20 +171,6 @@ class Cart extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		// Gift Voucher
-		$data['vouchers'] = [];
-
-		$vouchers = $this->model_checkout_cart->getVouchers();
-
-		foreach ($vouchers as $key => $voucher) {
-			$data['vouchers'][] = [
-				'key'         => $key,
-				'description' => $voucher['description'],
-				'amount'      => $this->currency->format($voucher['amount'], $this->session->data['currency']),
-				'remove'      => $this->url->link('checkout/voucher.remove', 'language=' . $this->config->get('config_language') . '&key=' . $key)
-			];
-		}
-
 		$data['totals'] = [];
 
 		$totals = [];
@@ -207,7 +203,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if ($products || $vouchers) {
+		if ($products) {
 			$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
 			$data['checkout'] = $this->url->link('checkout/checkout', 'language=' . $this->config->get('config_language'));
 		} else {
@@ -287,16 +283,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 			// Validate subscription products
 			$subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
 
-			if ($subscriptions) {
-				$subscription_plan_ids = [];
-
-				foreach ($subscriptions as $subscription) {
-					$subscription_plan_ids[] = $subscription['subscription_plan_id'];
-				}
-
-				if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
-					$json['error']['subscription'] = $this->language->get('error_subscription');
-				}
+			if ($subscriptions && !in_array($subscription_plan_id, array_column($subscriptions, 'subscription_plan_id'))) {
+				$json['error']['subscription_' . $key] = $this->language->get('error_subscription');
 			}
 		} else {
 			$json['error']['warning'] = $this->language->get('error_product');
@@ -345,7 +333,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 		// Handles single item update
 		$this->cart->update($key, $quantity);
 
-		if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
+		if ($this->cart->hasProducts()) {
 			$json['success'] = $this->language->get('text_edit');
 		} else {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);
@@ -380,7 +368,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 		// Remove
 		$this->cart->remove($key);
 
-		if ($this->cart->hasProducts() || !empty($this->session->data['vouchers'])) {
+		if ($this->cart->hasProducts()) {
 			$json['success'] = $this->language->get('text_remove');
 		} else {
 			$json['redirect'] = $this->url->link('checkout/cart', 'language=' . $this->config->get('config_language'), true);

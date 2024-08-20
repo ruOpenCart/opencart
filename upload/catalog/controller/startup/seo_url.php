@@ -6,6 +6,8 @@ namespace Opencart\Catalog\Controller\Startup;
  * @package Opencart\Catalog\Controller\Startup
  */
 class SeoUrl extends \Opencart\System\Engine\Controller {
+	private $data = [];
+
 	/**
 	 * @return null
 	 */
@@ -96,10 +98,12 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 				$value = '';
 			}
 
-			$result = $this->model_design_seo_url->getSeoUrlByKeyValue((string)$key, (string)$value);
+			if (!isset($this->data[$key])) {
+				$this->data[$key] = $this->model_design_seo_url->getSeoUrlByKeyValue((string)$key, (string)$value);
+			}
 
-			if ($result) {
-				$paths[] = $result;
+			if ($this->data[$key]) {
+				$paths[] = $this->data[$key];
 
 				unset($query[$key]);
 			}
