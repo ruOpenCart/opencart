@@ -10,5 +10,5 @@ $_['error_shipping_method']  = 'Внимание: Способ доставки 
 $_['error_payment_address']  = 'Внимание: Платежный адрес обязателен!';
 $_['error_no_payment']       = 'Внимание: Нет доступных вариантов оплаты!';
 $_['error_payment_method']   = 'Внимание: Способ оплаты обязателен!';
-$_['error_name']             = 'Warning: Payment name required!';
-$_['error_code']             = 'Warning: Payment code required!';
+$_['error_name']             = 'Внимание: Название платежа обязательно!';
+$_['error_code']             = 'Внимание: Код оплаты обязателен!';
