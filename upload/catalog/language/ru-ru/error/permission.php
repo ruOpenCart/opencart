@@ -1,3 +1,3 @@
 <?php
 // Text
-$_['text_error'] = 'You do not have permission to access this page.';
+$_['text_error'] = 'У вас нет разрешения на доступ к этой странице.';
