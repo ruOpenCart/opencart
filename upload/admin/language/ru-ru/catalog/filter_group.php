@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']     = 'Filter Groups';
+$_['heading_title']     = 'Группы фильтра';
 
 // Text
-$_['text_success']      = 'Success: You have modified filter groups!';
-$_['text_list']         = 'Filter Group List';
-$_['text_add']          = 'Add Filter Group';
-$_['text_edit']         = 'Edit Filter Group';
+$_['text_success']      = 'Успех: Вы изменили группы фильтра!';
+$_['text_list']         = 'Список группы фильтра';
+$_['text_add']          = 'Добавление группы фильтра';
+$_['text_edit']         = 'Редактирование группы фильтра';
 
 // Column
 $_['column_name']       = 'Название группы фильтра';
@@ -21,4 +21,4 @@ $_['entry_sort_order']  = 'Порядок сортировки';
 $_['error_warning']     = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
 $_['error_permission']  = 'Внимание: У вас нет прав на изменение фильтров!';
 $_['error_name']        = 'Название группы фильтра должно быть от 1 до 64 символов!';
-$_['error_filter']      = 'Warning: This filter group cannot be deleted as it is currently assigned to %s filters!';
+$_['error_filter']      = 'Внимание: Эту группу фильтров невозможно удалить, поскольку в настоящее время она назначена фильтрам %s!';
