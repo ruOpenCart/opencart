@@ -16,14 +16,20 @@ class Api extends \Opencart\System\Engine\Controller {
 			$route = '';
 		}
 
-		if (substr($route, 0, 4) == 'api/') {
+		// Block direct access to other methods
+		if (substr($route, 0, 4) == 'api/' && $route != 'api/api') {
+			return new \Opencart\System\Engine\Action('startup/api.permission');
+		}
+
+		if ($route == 'api/api') {
 			$status = true;
 
 			$required = [
-				'route',
+				'call',
 				'username',
 				'store_id',
 				'language',
+				'currency',
 				'time',
 				'signature'
 			];
@@ -35,15 +41,15 @@ class Api extends \Opencart\System\Engine\Controller {
 			}
 
 			if ($status) {
-				$this->load->model('account/api');
+				$this->load->model('user/api');
 
-				$api_info = $this->model_account_api->getApiByUsername((string)$this->request->get['username']);
+				$api_info = $this->model_user_api->getApiByUsername((string)$this->request->get['username']);
 
 				if ($api_info) {
 					// Check if IP is allowed
 					$ip_data = [];
 
-					$results = $this->model_account_api->getIps($api_info['api_id']);
+					$results = $this->model_user_api->getIps($api_info['api_id']);
 
 					foreach ($results as $result) {
 						$ip_data[] = trim($result['ip']);
@@ -67,12 +73,13 @@ class Api extends \Opencart\System\Engine\Controller {
 			}
 
 			if ($status) {
-				$string  = (string)$route . "\n";
+				$string = (string)$this->request->get['call'] . "\n";
 				$string .= $api_info['username'] . "\n";
 				$string .= (string)$this->request->server['HTTP_HOST'] . "\n";
 				$string .= (!empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/') . "\n";
 				$string .= (int)$this->request->get['store_id'] . "\n";
 				$string .= (string)$this->request->get['language'] . "\n";
+				$string .= (string)$this->request->get['currency'] . "\n";
 				$string .= md5(http_build_query($this->request->post)) . "\n";
 				$string .= $time . "\n";
 
@@ -81,7 +88,9 @@ class Api extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			if (!$status) {
+			if ($status) {
+				$this->model_user_api->addHistory($api_info['api_id'], $this->request->get['call'], oc_get_ip());
+			} else {
 				return new \Opencart\System\Engine\Action('startup/api.permission');
 			}
 		}
@@ -89,6 +98,9 @@ class Api extends \Opencart\System\Engine\Controller {
 		return null;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function permission(): void {
 		$this->language->load('error/permission');
 
