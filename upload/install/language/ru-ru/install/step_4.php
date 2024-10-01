@@ -1,26 +1,26 @@
 <?php
 // Heading
-$_['heading_title']               = 'Установка завершена';
+$_['heading_title']               = 'Installation complete';
 
 // Text
-$_['text_step_4']                 = 'Все готово для начала продаж!';
-$_['text_catalog']                = 'Перейти в Интернет-магазин';
-$_['text_admin']                  = 'Войти в панель администрирования';
-$_['text_extension']              = 'Посетить магазин расширений';
-$_['text_mail']                   = 'Подписаться на рассылку';
-$_['text_mail_description']       = 'Будьте в курсе обновлений и событий OpenCart.';
-$_['text_facebook']               = 'Оценить нас на Facebook';
-$_['text_facebook_description']   = 'Расскажите нам, насколько вам нравится OpenCart!';
-$_['text_facebook_visit']         = 'Посетить страницу на Facebook';
-$_['text_forum']                  = 'Форум сообщества';
-$_['text_forum_description']      = 'Получить помощь от других пользователей OpenCart';
-$_['text_forum_visit']            = 'Посетить наш форум';
-$_['text_commercial']             = 'Платная поддержка';
-$_['text_commercial_description'] = 'Услуги по разработке от партнеров OpenCart';
-$_['text_commercial_visit']       = 'Посетить страницу наших партнеров';
+$_['text_step_4']                 = 'Ready to start selling!';
+$_['text_catalog']                = 'Go to your Online Shop';
+$_['text_admin']                  = 'Login to your Administration';
+$_['text_extension']              = 'Visit the extensions store';
+$_['text_mail']                   = 'Join the mailing list';
+$_['text_mail_description']       = 'Stay informed of OpenCart updates and events.';
+$_['text_facebook']               = 'Like us on Facebook';
+$_['text_facebook_description']   = 'Tell us how much you like OpenCart!';
+$_['text_facebook_visit']         = 'Visit our Facebook page';
+$_['text_forum']                  = 'Community forums';
+$_['text_forum_description']      = 'Get help from other OpenCart users';
+$_['text_forum_visit']            = 'Visit our forums';
+$_['text_commercial']             = 'Commercial support';
+$_['text_commercial_description'] = 'Development services from OpenCart partners';
+$_['text_commercial_visit']       = 'Visit our partner page';
 
 // Button
-$_['button_mail']                 = 'Подписаться здесь';
+$_['button_mail']                 = 'Join here';
 
 // Error
-$_['error_warning']               = 'Не забудьте удалить каталог установки!';
+$_['error_warning']               = 'Don\'t forget to delete your installation directory!';
