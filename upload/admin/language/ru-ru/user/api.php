@@ -14,7 +14,7 @@ $_['text_history']      = 'История';
 $_['column_username']   = 'Имя пользователя API';
 $_['column_status']     = 'Статус';
 $_['column_ip']         = 'IP-адрес';
-$_['column_call']       = 'Call';
+$_['column_call']       = 'Вызов';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
