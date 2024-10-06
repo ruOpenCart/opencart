@@ -54,6 +54,7 @@ $_['column_action']         = 'Действие';
 
 // Entry
 $_['entry_store']           = 'Магазин';
+$_['entry_language']        = 'Язык';
 $_['entry_customer_group']  = 'Группа покупателя';
 $_['entry_firstname']       = 'Имя';
 $_['entry_lastname']        = 'Фамилия';
