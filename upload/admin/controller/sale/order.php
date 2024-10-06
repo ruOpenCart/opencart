@@ -344,6 +344,12 @@ class Order extends \Opencart\System\Engine\Controller {
 		$results = $this->model_sale_order->getOrders($filter_data);
 
 		foreach ($results as $result) {
+			if (isset($result['shipping_method']['name'])) {
+				$shipping_method = $result['shipping_method']['name'];
+			} else {
+				$shipping_method = '';
+			}
+
 			$data['orders'][] = [
 				'order_id'        => $result['order_id'],
 				'store_name'      => $result['store_name'],
@@ -352,7 +358,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				'total'           => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'date_modified'   => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
-				'shipping_method' => $result['shipping_method'],
+				'shipping_method' => $shipping_method,
 				'view'            => $this->url->link('sale/order.info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'] . $url)
 			];
 		}
@@ -793,8 +799,10 @@ class Order extends \Opencart\System\Engine\Controller {
 				'subscription'             => $subscription,
 				'subscription_description' => $description,
 				'quantity'                 => $product['quantity'],
-				'price'                    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
-				'total'                    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
+				'price_text'               => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
+				'price'                    => $product['price'],
+				'total_text'               => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
+				'total'                    => $product['total'],
 				'reward'                   => $product['reward']
 			];
 		}
@@ -905,7 +913,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		// Payment Method
-		if (isset($order_info['payment_method'])) {
+		if (!empty($order_info['payment_method'])) {
 			$data['payment_method_name'] = $order_info['payment_method']['name'];
 			$data['payment_method_code'] = $order_info['payment_method']['code'];
 		} else {
@@ -993,7 +1001,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		// Shipping method
-		if (isset($order_info['shipping_method'])) {
+		if (!empty($order_info['shipping_method'])) {
 			$data['shipping_method_name'] = $order_info['shipping_method']['name'];
 			$data['shipping_method_code'] = $order_info['shipping_method']['code'];
 			$data['shipping_method_cost'] = $order_info['shipping_method']['cost'];
@@ -1094,6 +1102,9 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['order_status_id'] = $this->config->get('config_order_status_id');
 		}
 
+		$data['complete_status'] = in_array($data['order_status_id'], $this->config->get('config_complete_status'));
+
+
 		// Additional tabs that are payment gateway specific
 		$data['tabs'] = [];
 
@@ -1183,7 +1194,7 @@ class Order extends \Opencart\System\Engine\Controller {
 	 *
 	 * We create a hash from the data in a similar method to how amazon does things.
 	 *
-	 * $call     = 'order.confirm';
+	 * $call     = 'order';
 	 * $username = 'API username';
 	 * $key      = 'API Key';
 	 * $domain   = 'www.yourdomain.com';

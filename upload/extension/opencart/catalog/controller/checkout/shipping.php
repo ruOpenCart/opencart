@@ -1,9 +1,9 @@
 <?php
-namespace Opencart\Catalog\Controller\Extension\Opencart\Total;
+namespace Opencart\Catalog\Controller\Extension\Opencart\Checkout;
 /**
  * Class Shipping
  *
- * @package Opencart\Catalog\Controller\Extension\Opencart\Total
+ * @package Opencart\Catalog\Controller\Extension\Opencart\Checkout
  */
 class Shipping extends \Opencart\System\Engine\Controller {
 	/**
@@ -37,7 +37,7 @@ class Shipping extends \Opencart\System\Engine\Controller {
 
 			$data['language'] = $this->config->get('config_language');
 
-			return $this->load->view('extension/opencart/total/shipping', $data);
+			return $this->load->view('extension/opencart/checkout/shipping', $data);
 		}
 
 		return '';

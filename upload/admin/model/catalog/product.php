@@ -1118,14 +1118,7 @@ class Product extends \Opencart\System\Engine\Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_description` WHERE `product_id` = '" . (int)$product_id . "'");
 
 		foreach ($query->rows as $result) {
-			$product_description_data[$result['language_id']] = [
-				'name'             => $result['name'],
-				'description'      => $result['description'],
-				'meta_title'       => $result['meta_title'],
-				'meta_description' => $result['meta_description'],
-				'meta_keyword'     => $result['meta_keyword'],
-				'tag'              => $result['tag']
-			];
+			$product_description_data[$result['language_id']] = $result;
 		}
 
 		return $product_description_data;
@@ -1864,6 +1857,25 @@ class Product extends \Opencart\System\Engine\Model {
 	 */
 	public function deleteLayoutsByStoreId(int $store_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_layout` WHERE `store_id` = '" . (int)$store_id . "'");
+	}
+
+	/**
+	 * Get Seo Urls
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array<int, string>
+	 */
+	public function getSeoUrls(int $product_id): array {
+		$product_seo_url_data = [];
+
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `key` = 'product_id' AND `value` = '" . (int)$product_id . "'");
+
+		foreach ($query->rows as $result) {
+			$product_seo_url_data[$result['store_id']][$result['language_id']] = $result['keyword'];
+		}
+
+		return $product_seo_url_data;
 	}
 
 	/**
