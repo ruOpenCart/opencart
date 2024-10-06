@@ -16,7 +16,7 @@ $_['text_db_ssl']            = 'Входные данные сертификат
 
 // Entry
 $_['entry_db_driver']        = 'Драйвер БД';
-$_['entry_db_hostname']      = 'Хост';
+$_['entry_db_hostname']      = 'Имя хоста';
 $_['entry_db_username']      = 'Имя пользователя';
 $_['entry_db_password']      = 'Пароль';
 $_['entry_db_database']      = 'База данных';

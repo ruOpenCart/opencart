@@ -4,7 +4,7 @@
 
 [![Минимальная версия PHP](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/) [![GitHub релиз](https://img.shields.io/github/v/release/opencart/opencart)](https://github.com/opencart/opencart) [![Lint](https://github.com/opencart/opencart/actions/workflows/Lint.yml/badge.svg)](https://github.com/opencart/opencart/actions/workflows/Lint.yml)
 
-OpenCart is a free open source e-commerce platform for online merchants. OpenCart обеспечивает профессиональную и надежную основу для создания успешного интернет-магазина.
+OpenCart - это бесплатная платформа электронной коммерции с открытым исходным кодом для онлайн-продавцов. OpenCart обеспечивает профессиональную и надежную основу для создания успешного интернет-магазина.
 
 ## Как установить
 
@@ -40,12 +40,12 @@ OpenCart is a free open source e-commerce platform for online merchants. OpenCar
 
 Стандарты вашего кода должны соответствовать стандартам кодирования [OpenCart](https://github.com/opencart/opencart/wiki/Coding-standards). Мы используем автоматизированный сканер кода для проверки большинства основных ошибок - если тест завершится неудачей, ваш запрос на слияние будет отклонен.
 
-## How to run the application Locally (Docker Image)
+## Как запустить приложение локально (Docker Image)
 
-### Windows OS
+### ОС Windows
 
-* make sure you have Docker Desktop installed on your Local Machine
-* in the terminal in the file containing the projects run `docker-compose up -d`
+* Убедитесь, что на вашей локальной машине установлен Docker Desktop
+* на терминале в файле, содержащем проекты, запустите `docker-compose up -d`
 
 ## Управление версиями
 
