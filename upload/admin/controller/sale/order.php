@@ -756,7 +756,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			$description = '';
+			$subscription = '';
 
 			$subscription_info = $this->model_sale_order->getSubscription($order_id, $product['order_product_id']);
 
@@ -767,7 +767,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					$trial_frequency = $this->language->get('text_' . $subscription_info['trial_frequency']);
 					$trial_duration = $subscription_info['trial_duration'];
 
-					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 				}
 
 				$price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
@@ -776,34 +776,39 @@ class Order extends \Opencart\System\Engine\Controller {
 				$duration = $subscription_info['duration'];
 
 				if ($subscription_info['duration']) {
-					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
 				} else {
-					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
 				}
+
+				$subscription_plan_id = $subscription_info['subscription_plan_id'];
+			} else {
+				$subscription_plan_id = 0;
 			}
 
 			$subscription_info = $this->model_sale_subscription->getSubscriptionByOrderProductId($order_id, $product['order_product_id']);
 
 			if ($subscription_info) {
-				$subscription = $this->url->link('sale/subscription.info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_info['subscription_id']);
+				$subscription_edit = $this->url->link('sale/subscription.info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_info['subscription_id']);
 			} else {
-				$subscription = '';
+				$subscription_edit = '';
 			}
 
 			$data['order_products'][] = [
-				'order_product_id'         => $product['order_product_id'],
-				'product_id'               => $product['product_id'],
-				'name'                     => $product['name'],
-				'model'                    => $product['model'],
-				'option'                   => $option_data,
-				'subscription'             => $subscription,
-				'subscription_description' => $description,
-				'quantity'                 => $product['quantity'],
-				'price_text'               => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
-				'price'                    => $product['price'],
-				'total_text'               => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
-				'total'                    => $product['total'],
-				'reward'                   => $product['reward']
+				'order_product_id'     => $product['order_product_id'],
+				'product_id'           => $product['product_id'],
+				'name'                 => $product['name'],
+				'model'                => $product['model'],
+				'option'               => $option_data,
+				'subscription'         => $subscription,
+				'subscription_plan_id' => $subscription_plan_id,
+				'subscription_edit'    => $subscription_edit,
+				'quantity'             => $product['quantity'],
+				'price_text'           => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
+				'price'                => $product['price'],
+				'total_text'           => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
+				'total'                => $product['total'],
+				'reward'               => $product['reward']
 			];
 		}
 
@@ -1103,7 +1108,6 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		$data['complete_status'] = in_array($data['order_status_id'], $this->config->get('config_complete_status'));
-
 
 		// Additional tabs that are payment gateway specific
 		$data['tabs'] = [];

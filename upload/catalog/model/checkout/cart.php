@@ -54,20 +54,26 @@ class Cart extends \Opencart\System\Engine\Model {
 					}
 				}
 
-				$option_data[] = [
-					'product_option_id'       => $option['product_option_id'],
-					'product_option_value_id' => $option['product_option_value_id'],
-					'option_id'               => $option['option_id'],
-					'option_value_id'         => $option['option_value_id'],
-					'name'                    => $option['name'],
-					'value'                   => $value,
-					'type'                    => $option['type']
-				];
+				$option_data[] = ['value' => $value] + $option;
+			}
+
+			$subscription_data = [];
+
+			if ($product['subscription']) {
+				$subscription_data = [
+					'trial_frequency_text' => $this->language->get('text_' . $product['subscription']['trial_frequency']),
+					'trial_price_text'     => $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+					'frequency'            => $this->language->get('text_' . $product['subscription']['frequency']),
+					'price_text'           => $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
+				] + $product['subscription'];
 			}
 
 			$product_data[] = [
-				'image'  => $this->model_tool_image->resize($image, $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height')),
-				'option' => $option_data
+				'image'        => $image,
+				'subscription' => $subscription_data,
+				'option'       => $option_data,
+				'price_text'   => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+				'total_text'   => $this->currency->format($this->tax->calculate($product['total'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
 			] + $product;
 		}
 

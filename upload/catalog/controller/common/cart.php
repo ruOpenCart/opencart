@@ -18,8 +18,13 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('checkout/cart');
 
+		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			($this->model_checkout_cart->getTotals)($totals, $taxes, $total);
+
+			$price_status = true;
+		} else {
+			$price_status = false;
 		}
 
 		$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts(), $this->currency->format($total, $this->session->data['currency']));
@@ -48,57 +53,27 @@ class Cart extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			// Display prices
-			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-				$unit_price = (float)$this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-
-				$price = $this->currency->format($unit_price, $this->session->data['currency']);
-				$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-			} else {
-				$price = false;
-				$total = false;
-			}
-
-			$description = '';
+			$subscription = '';
 
 			if ($product['subscription']) {
 				if ($product['subscription']['trial_status']) {
-					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-					$trial_cycle = $product['subscription']['trial_cycle'];
-					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-					$trial_duration = $product['subscription']['trial_duration'];
-
-					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
 				}
 
-				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-					$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				}
-
-				$cycle = $product['subscription']['cycle'];
-				$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-				$duration = $product['subscription']['duration'];
-
-				if ($duration) {
-					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+				if ($product['subscription']['duration']) {
+					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency'], $product['subscription']['duration']);
 				} else {
-					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency']);
 				}
 			}
 
 			$data['products'][] = [
-				'cart_id'      => $product['cart_id'],
-				'thumb'        => $product['image'],
-				'name'         => $product['name'],
-				'model'        => $product['model'],
-				'option'       => $product['option'],
-				'subscription' => $description,
-				'quantity'     => $product['quantity'],
-				'price'        => $price,
-				'total'        => $total,
-				'reward'       => $product['reward'],
+				'thumb'        => $this->model_tool_image->resize($product['image'], $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height')),
+				'subscription' => $subscription,
+				'price'        => $price_status ?? $product['price_text'],
+				'total'        => $price_status ?? $product['total_text'],
 				'href'         => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
-			];
+			] + $product;
 		}
 
 		// Totals

@@ -6,8 +6,6 @@ namespace Opencart\catalog\controller\api;
  * @package Opencart\Catalog\Controller\Api\Sale
  */
 class Cart extends \Opencart\System\Engine\Controller {
-	private array $products = [];
-
 	public function index(): array {
 		$this->load->language('api/cart');
 
@@ -21,18 +19,10 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($products as $product) {
-			$error = [];
-
+		foreach ($products as $key => $product) {
 			$product_info = $this->model_catalog_product->getProduct((int)$product['product_id']);
 
 			if ($product_info) {
-				if (isset($product['quantity'])) {
-					$quantity = (int)$product['quantity'];
-				} else {
-					$quantity = 1;
-				}
-
 				if (isset($product['option'])) {
 					$option = array_filter((array)$product['option']);
 				} else {
@@ -52,10 +42,10 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 				// Validate that the options we are selecting exist
 				foreach ($option as $product_option_id => $value) {
-					$product_option = $this->model_catalog_product->getOption($product['product_id'], $product_option_id);
+					$product_option_info = $this->model_catalog_product->getOption($product['product_id'], $product_option_id);
 
-					if ($product_option) {
-						$error['option_' . $product_option_id] = sprintf($this->language->get('error_option'), $value['name']);
+					if (!$product_option_info) {
+						$output['error']['product'][$key]['option_' . $product_option_id] = $this->language->get('error_option');
 					}
 				}
 
@@ -64,25 +54,27 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 				foreach ($product_options as $product_option) {
 					if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
-						$error['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+						$output['error']['product'][$key]['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
 					}
 				}
 
-				// Validate Subscription plan
+				// Validate subscription plan
 				$subscriptions = $this->model_catalog_product->getSubscriptions($product['product_id']);
 
 				if ($subscriptions && !in_array($product['subscription_plan_id'], array_column($subscriptions, 'subscription_plan_id'))) {
-					$error['subscription'] = $this->language->get('error_subscription');
+					$output['error']['product'][$key]['subscription'] = $this->language->get('error_subscription');
 				}
 			} else {
-				$error['product'] = $this->language->get('error_product');
+				$output['error']['product'][$key]['product'] = $this->language->get('error_product');
+			}
+		}
+
+		if (!$output) {
+			foreach ($products as $product) {
+				$this->cart->add($product['product_id'], (int)$product['quantity'], array_filter((array)$product['option']), (int)$product['subscription_plan_id']);
 			}
 
-			if (!$error) {
-				$this->cart->add($product['product_id'], $quantity, $option, $subscription_plan_id);
-			} else {
-				$this->products[] = $product + ['error' => $error];
-			}
+			$output['success'] = $this->language->get('text_success');
 		}
 
 		return $output;
@@ -93,7 +85,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 	 *
 	 * Add any single product
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function addProduct(): array {
 		$this->load->language('api/cart');
@@ -174,97 +166,45 @@ class Cart extends \Opencart\System\Engine\Controller {
 	 * @return array
 	 */
 	public function getProducts(): array {
-		$product_data = [];
+		// We fetch any products that have an error
 
 		// Stock
 		if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
-			$json['error']['stock'] = $this->language->get('error_stock');
+			$output['error']['stock'] = $this->language->get('error_stock');
 		}
+
+		$product_data = [];
 
 		$this->load->model('checkout/cart');
 
 		$products = $this->model_checkout_cart->getProducts();
 
+		//'stock' => $product['stock'] ? $this->language->get('error_stock') : '',
+		//'minimum' => $product['minimum'] ? $this->language->get('error_minimum') : ''
+
 		foreach ($products as $product) {
-			$description = '';
+			$subscription = '';
 
 			if ($product['subscription']) {
 				if ($product['subscription']['trial_status']) {
-					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-					$trial_cycle = $product['subscription']['trial_cycle'];
-					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-					$trial_duration = $product['subscription']['trial_duration'];
-
-					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
 				}
 
-				$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				$cycle = $product['subscription']['cycle'];
-				$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-				$duration = $product['subscription']['duration'];
-
-				if ($duration) {
-					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+				if ($product['subscription']['duration']) {
+					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency'], $product['subscription']['duration']);
 				} else {
-					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency']);
 				}
 			}
 
 			$product_data[] = [
-				'cart_id'              => $product['cart_id'],
-				'product_id'           => $product['product_id'],
-				'name'                 => $product['name'],
-				'model'                => $product['model'],
-				'option'               => $product['option'],
 				'subscription_plan_id' => $product['subscription'] ? $product['subscription']['subscription_plan_id'] : 0,
-				'subscription'         => $description,
-				'quantity'             => $product['quantity'],
-				'stock'                => $product['stock'],
-				'minimum'              => $product['minimum'],
-				'reward'               => $product['reward'],
-				'price_text'           => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+				'subscription'         => $subscription,
+				'price_text'           => $product['price_text'],
 				'price'                => $product['price'],
-				'total_text'           => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']),
-				'total'                => $product['total'],
-				'error'                => ['stock' => $product['stock']]
-			];
-		}
-
-		// We fetch any products that have an error
-		foreach ($this->products as $product) {
-			$description = '';
-
-			if ($product['subscription']) {
-				if ($product['subscription']['trial_status']) {
-					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-					$trial_cycle = $product['subscription']['trial_cycle'];
-					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-					$trial_duration = $product['subscription']['trial_duration'];
-
-					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
-				}
-
-				$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				$cycle = $product['subscription']['cycle'];
-				$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-				$duration = $product['subscription']['duration'];
-
-				if ($duration) {
-					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
-				} else {
-					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
-				}
-			}
-
-			$product_data[] = [
-				'product_id'           => $product['product_id'],
-				'name'                 => $product['name'],
-				'model'                => $product['model'],
-				'option'               => $product['option'],
-				'subscription_plan_id' => $product['subscription_plan_id'],
-
-				'error'                => $product['error']
-			];
+				'total_text'           => $product['total_text'],
+				'total'                => $product['total']
+			] + $product;
 		}
 
 		return $product_data;
