@@ -4678,10 +4678,6 @@ function oc_db_schema() {
 				'type' => 'smallint(6)'
 			],
 			[
-				'name' => 'trial_remaining',
-				'type' => 'smallint(6)'
-			],
-			[
 				'name' => 'trial_status',
 				'type' => 'tinyint(1)'
 			],
@@ -6396,10 +6392,6 @@ function oc_db_schema() {
 				'type' => 'int(11)'
 			],
 			[
-				'name' => 'order_product_id',
-				'type' => 'int(11)'
-			],
-			[
 				'name' => 'store_id',
 				'type' => 'int(11)'
 			],
@@ -6422,18 +6414,6 @@ function oc_db_schema() {
 			[
 				'name' => 'shipping_method',
 				'type' => 'text'
-			],
-			[
-				'name' => 'product_id',
-				'type' => 'int(11)'
-			],
-			[
-				'name' => 'option',
-				'type' => 'text'
-			],
-			[
-				'name' => 'quantity',
-				'type' => 'int(4)'
 			],
 			[
 				'name' => 'subscription_plan_id',
@@ -6516,22 +6496,6 @@ function oc_db_schema() {
 				'type' => 'int(11)'
 			],
 			[
-				'name' => 'ip',
-				'type' => 'varchar(40)'
-			],
-			[
-				'name' => 'forwarded_ip',
-				'type' => 'varchar(40)'
-			],
-			[
-				'name' => 'user_agent',
-				'type' => 'varchar(255)'
-			],
-			[
-				'name' => 'accept_language',
-				'type' => 'varchar(255)'
-			],
-			[
 				'name' => 'date_added',
 				'type' => 'datetime'
 			],
@@ -6575,6 +6539,85 @@ function oc_db_schema() {
 				'name' => 'order_id',
 				'key'  => [
 					'order_id'
+				]
+			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_general_ci'
+	];
+
+	$tables[] = [
+		'name'  => 'subscription_product',
+		'field' => [
+			[
+				'name'           => 'subscription_product_id',
+				'type'           => 'int(11)',
+				'auto_increment' => true
+			],
+			[
+				'name' => 'subscription_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'order_product_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'order_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'product_id',
+				'type' => 'int(11)'
+			],
+			[
+				'name' => 'option',
+				'type' => 'text'
+			],
+			[
+				'name' => 'quantity',
+				'type' => 'int(4)'
+			],
+			[
+				'name' => 'trial_price',
+				'type' => 'decimal(10,4)'
+			],
+			[
+				'name' => 'price',
+				'type' => 'decimal(10,4)'
+			]
+		],
+		'primary' => [
+			'subscription_product_id'
+		],
+		'foreign' => [
+			[
+				'key'   => 'subscription_id',
+				'table' => 'subscription',
+				'field' => 'subscription_id'
+			],
+			[
+				'key'   => 'order_product_id',
+				'table' => 'order_product',
+				'field' => 'order_product_id'
+			],
+			[
+				'key'   => 'order_id',
+				'table' => 'order',
+				'field' => 'order_id'
+			],
+			[
+				'key'   => 'product_id',
+				'table' => 'product',
+				'field' => 'product_id'
+			]
+		],
+		'index' => [
+			[
+				'name' => 'subscription_id',
+				'key'  => [
+					'subscription_id'
 				]
 			]
 		],

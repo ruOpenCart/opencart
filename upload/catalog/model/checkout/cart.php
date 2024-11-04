@@ -14,7 +14,6 @@ class Cart extends \Opencart\System\Engine\Model {
 	public function getProducts(): array {
 		$this->load->language('checkout/cart');
 
-		$this->load->model('tool/image');
 		$this->load->model('tool/upload');
 
 		// Products
@@ -63,7 +62,7 @@ class Cart extends \Opencart\System\Engine\Model {
 				$subscription_data = [
 					'trial_frequency_text' => $this->language->get('text_' . $product['subscription']['trial_frequency']),
 					'trial_price_text'     => $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
-					'frequency'            => $this->language->get('text_' . $product['subscription']['frequency']),
+					'frequency_text'       => $this->language->get('text_' . $product['subscription']['frequency']),
 					'price_text'           => $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'])
 				] + $product['subscription'];
 			}

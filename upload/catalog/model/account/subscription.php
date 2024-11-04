@@ -14,43 +14,16 @@ class Subscription extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed>
 	 */
 	public function getSubscription(int $subscription_id): array {
-		$subscription_data = [];
-
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` `s` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		if ($query->num_rows) {
-			$subscription_data = $query->row;
-
-			$subscription_data['option'] = ($query->row['option'] ? json_decode($query->row['option'], true) : '');
-			$subscription_data['payment_method'] = ($query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '');
-			$subscription_data['shipping_method'] = ($query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : '');
+			return [
+				'payment_method'  => $query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '',
+				'shipping_method' => $query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : ''
+			] + $query->row;
 		}
 
-		return $subscription_data;
-	}
-
-	/**
-	 * Get Subscription By Order Product ID
-	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
-	 *
-	 * @return array<string, mixed>
-	 */
-	public function getSubscriptionByOrderProductId(int $order_id, int $order_product_id): array {
-		$subscription_data = [];
-
-		$query = $this->db->query("SELECT * FROM  `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
-
-		if ($query->num_rows) {
-			$subscription_data = $query->row;
-
-			$subscription_data['option'] = ($query->row['option'] ? json_decode($query->row['option'], true) : '');
-			$subscription_data['payment_method'] = ($query->row['payment_method'] ? json_decode($query->row['payment_method'], true) : '');
-			$subscription_data['shipping_method'] = ($query->row['shipping_method'] ? json_decode($query->row['shipping_method'], true) : '');
-		}
-
-		return $subscription_data;
+		return [];
 	}
 
 	/**
@@ -114,6 +87,56 @@ class Subscription extends \Opencart\System\Engine\Model {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `payment_address_id` = '" . (int)$address_id . "'");
 
 		return (int)$query->row['total'];
+	}
+
+	/**
+	 * Get Subscription By Order Product ID
+	 *
+	 * @param int $order_id
+	 * @param int $order_product_id
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
+		$query = $this->db->query("SELECT * FROM  `" . DB_PREFIX . "subscription_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
+
+		if ($query->num_rows) {
+			return ['option' => $query->row['option'] ? json_decode($query->row['option'], true) : ''] + $query->row;
+		}
+
+		return [];
+	}
+
+	/**
+     * Get Subscription Products
+	 *
+	 * @param int $address_id
+	 *
+	 * @return int
+	 */
+	public function getProducts(int $subscription_id): array {
+		$subscription_product_data = [];
+
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+
+		foreach ($query->rows as $result) {
+			$subscription_product_data[] = ['option' => $query->row['option'] ? json_decode($query->row['option'], true) : ''] + $result;
+		}
+
+		return $subscription_product_data;
+	}
+
+	/**
+	 * Get Total Products
+	 *
+	 * @param int $subscription_id
+	 *
+	 * @return int
+	 */
+	public function getTotalProducts(int $subscription_id): int {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+
+		return $query->row['total'];
 	}
 
 	/**

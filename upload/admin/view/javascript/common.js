@@ -22,60 +22,6 @@ function getURLVar(key) {
     }
 }
 
-// On August 17 2021, Internet Explorer 11 (IE11) will no longer be supported by Microsoft's 365 applications and services.
-function isIE() {
-    if (!!window.ActiveXObject || "ActiveXObject" in window) return true;
-}
-
-// Header
-$(document).ready(function () {
-    // Header
-    $('#header-notification [data-bs-toggle=\'modal\']').on('click', function (e) {
-        e.preventDefault();
-
-        var element = this;
-
-        $('#modal-notification').remove();
-
-        $.ajax({
-            url: $(element).attr('href'),
-            dataType: 'html',
-            success: function (html) {
-                $('body').append(html);
-
-                $('#modal-notification').modal('show');
-            }
-        });
-    });
-});
-
-// Menu
-$(document).ready(function () {
-    $('#button-menu').on('click', function (e) {
-        e.preventDefault();
-
-        $('#column-left').toggleClass('active');
-    });
-
-    // Set last page opened on the menu
-    $('#menu a[href]').on('click', function () {
-        sessionStorage.setItem('menu', $(this).attr('href'));
-    });
-
-    if (!sessionStorage.getItem('menu')) {
-        $('#menu #menu-dashboard').addClass('active');
-    } else {
-        // Sets active and open to selected page in the left column menu.
-        $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parent().addClass('active');
-    }
-
-    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').children('a').removeClass('collapsed');
-
-    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('show');
-
-    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
-});
-
 $(document).ready(function () {
     // Tooltip
     var oc_tooltip = function () {
@@ -94,17 +40,92 @@ $(document).ready(function () {
         $('.tooltip').remove();
     });
 
+    $(document).on('click', '[data-bs-toggle=\'pagination\'] a', function(e) {
+        e.preventDefault();
+
+        var element = this;
+
+        //[data-bs-target='pagination']
+
+        $('#history').load(this.href);
+    });
+
     // Alert Fade
-    var oc_alert = function () {
-        window.setTimeout(function () {
-            $('.alert-dismissible').fadeTo(1000, 0, function () {
+    $('#alert').observe(function() {
+        window.setTimeout(function() {
+            $('#alert .alert-dismissible').fadeTo(3000, 0, function() {
                 $(this).remove();
             });
-        }, 6000);
+        }, 3000);
+    });
+
+    // Button
+    +function($) {
+        $.fn.button = function(state) {
+            return this.each(function() {
+                var element = this;
+
+                if (state == 'loading') {
+                    this.html = $(element).html();
+                    this.state = $(element).prop('disabled');
+
+                    $(element).prop('disabled', true).width($(element).width()).html('<i class="fa-solid fa-circle-notch fa-spin text-light"></i>');
+                }
+
+                if (state == 'reset') {
+                    $(element).prop('disabled', this.state).width('').html(this.html);
+                }
+            });
+        }
+    }(jQuery);
+});
+
+// Observe
++function($) {
+    $.fn.observe = function(callback) {
+        observer = new MutationObserver(callback);
+
+        observer.observe($(this)[0], {
+            characterData: false,
+            childList: true,
+            attributes: false
+        });
+    };
+}(jQuery);
+
+// Chain ajax calls.
+class Chain {
+    constructor() {
+        this.start = false;
+        this.data = [];
     }
 
-    $(document).on('click', 'button', oc_alert);
-});
+    attach(call) {
+        this.data.push(call);
+
+        if (!this.start) {
+            this.execute();
+        }
+    }
+
+    execute() {
+        if (this.data.length) {
+            this.start = true;
+
+            var call = this.data.shift();
+
+            var jqxhr = call();
+
+            jqxhr.done(function () {
+                chain.execute();
+            });
+        } else {
+            this.start = false;
+        }
+    }
+}
+
+var chain = new Chain();
 
 // Forms
 $(document).on('submit', 'form', function (e) {
@@ -372,40 +393,6 @@ $(document).on('click', '[data-oc-toggle=\'image\']', function (e) {
     });
 });
 
-// Chain ajax calls.
-class Chain {
-    constructor() {
-        this.start = false;
-        this.data = [];
-    }
-
-    attach(call) {
-        this.data.push(call);
-
-        if (!this.start) {
-            this.execute();
-        }
-    }
-
-    execute() {
-        if (this.data.length) {
-            this.start = true;
-
-            var call = this.data.shift();
-
-            var jqxhr = call();
-
-            jqxhr.done(function () {
-                chain.execute();
-            });
-        } else {
-            this.start = false;
-        }
-    }
-}
-
-var chain = new Chain();
-
 // Autocomplete
 +function ($) {
     $.fn.autocomplete = function (option) {
@@ -509,24 +496,48 @@ var chain = new Chain();
     }
 }(jQuery);
 
-// Button
-$(document).ready(function() {
-    +function($) {
-        $.fn.button = function(state) {
-            return this.each(function() {
-                var element = this;
+$(document).ready(function () {
+    // Header
+    $('#header-notification [data-bs-toggle=\'modal\']').on('click', function (e) {
+        e.preventDefault();
 
-                if (state == 'loading') {
-                    this.html = $(element).html();
-                    this.state = $(element).prop('disabled');
+        var element = this;
 
-                    $(element).prop('disabled', true).width($(element).width()).html('<i class="fa-solid fa-circle-notch fa-spin text-light"></i>');
-                }
+        $('#modal-notification').remove();
 
-                if (state == 'reset') {
-                    $(element).prop('disabled', this.state).width('').html(this.html);
-                }
-            });
-        }
-    }(jQuery);
+        $.ajax({
+            url: $(element).attr('href'),
+            dataType: 'html',
+            success: function (html) {
+                $('body').append(html);
+
+                $('#modal-notification').modal('show');
+            }
+        });
+    });
+
+    // Menu
+    $('#button-menu').on('click', function (e) {
+        e.preventDefault();
+
+        $('#column-left').toggleClass('active');
+    });
+
+    // Set last page opened on the menu
+    $('#menu a[href]').on('click', function () {
+        sessionStorage.setItem('menu', $(this).attr('href'));
+    });
+
+    if (!sessionStorage.getItem('menu')) {
+        $('#menu #menu-dashboard').addClass('active');
+    } else {
+        // Sets active and open to selected page in the left column menu.
+        $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parent().addClass('active');
+    }
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').children('a').removeClass('collapsed');
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('ul').addClass('show');
+
+    $('#menu a[href=\'' + sessionStorage.getItem('menu') + '\']').parents('li').addClass('active');
 });

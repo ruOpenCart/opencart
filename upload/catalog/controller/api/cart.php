@@ -20,6 +20,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$this->load->model('catalog/product');
 
 		foreach ($products as $key => $product) {
+			$error = [];
+
 			$product_info = $this->model_catalog_product->getProduct((int)$product['product_id']);
 
 			if ($product_info) {
@@ -45,7 +47,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 					$product_option_info = $this->model_catalog_product->getOption($product['product_id'], $product_option_id);
 
 					if (!$product_option_info) {
-						$output['error']['product'][$key]['option_' . $product_option_id] = $this->language->get('error_option');
+						$error['option_' . $product_option_id] = $this->language->get('error_option');
 					}
 				}
 
@@ -54,18 +56,27 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 				foreach ($product_options as $product_option) {
 					if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
-						$output['error']['product'][$key]['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+						$error['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
 					}
 				}
 
 				// Validate subscription plan
 				$subscriptions = $this->model_catalog_product->getSubscriptions($product['product_id']);
 
-				if ($subscriptions && !in_array($product['subscription_plan_id'], array_column($subscriptions, 'subscription_plan_id'))) {
-					$output['error']['product'][$key]['subscription'] = $this->language->get('error_subscription');
+				if ($subscriptions && (!$subscription_plan_id || !in_array($subscription_plan_id, array_column($subscriptions, 'subscription_plan_id')))) {
+					$error['subscription'] = $this->language->get('error_subscription');
 				}
 			} else {
-				$output['error']['product'][$key]['product'] = $this->language->get('error_product');
+				$error['product'] = $this->language->get('error_product');
+			}
+
+			if (!$error) {
+				$products[$key] = [
+					'option'               => $option,
+					'subscription_plan_id' => $subscription_plan_id
+				] + $product;
+			} else {
+				$output['error']['product'][$key] = $error;
 			}
 		}
 
@@ -144,7 +155,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 			// Validate subscription plan
 			$subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
 
-			if ($subscriptions && !in_array($subscription_plan_id, array_column($subscriptions, 'subscription_plan_id'))) {
+			if ($subscriptions && (!$subscription_plan_id || !in_array($subscription_plan_id, array_column($subscriptions, 'subscription_plan_id')))) {
 				$output['error']['subscription'] = $this->language->get('error_subscription');
 			}
 		} else {
@@ -199,11 +210,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			$product_data[] = [
 				'subscription_plan_id' => $product['subscription'] ? $product['subscription']['subscription_plan_id'] : 0,
-				'subscription'         => $subscription,
-				'price_text'           => $product['price_text'],
-				'price'                => $product['price'],
-				'total_text'           => $product['total_text'],
-				'total'                => $product['total']
+				'subscription'         => $subscription
 			] + $product;
 		}
 
@@ -222,10 +229,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$total_data = [];
 
 		foreach ($totals as $total) {
-			$total_data[] = [
-				'title' => $total['title'],
-				'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
-			];
+			$total_data[] = ['text'  => $this->currency->format($total['value'], $this->session->data['currency'])] + $total;
 		}
 
 		return $total_data;

@@ -252,16 +252,11 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['seo_urls'][] = [
-				'seo_url_id' => $result['seo_url_id'],
-				'keyword'    => $result['keyword'],
-				'image'      => $image,
-				'language'   => $code,
-				'key'        => $result['key'],
-				'value'      => $result['value'],
-				'sort_order' => $result['sort_order'],
-				'store'      => $result['store_id'] ? $result['store'] : $this->language->get('text_default'),
-				'edit'       => $this->url->link('design/seo_url.form', 'user_token=' . $this->session->data['user_token'] . '&seo_url_id=' . $result['seo_url_id'] . $url)
-			];
+				'image'    => $image,
+				'language' => $code,
+				'store'    => $result['store_id'] ? $result['store'] : $this->language->get('text_default'),
+				'edit'     => $this->url->link('design/seo_url.form', 'user_token=' . $this->session->data['user_token'] . '&seo_url_id=' . $result['seo_url_id'] . $url)
+			] + $result;
 		}
 
 		$url = '';
@@ -428,14 +423,7 @@ class SeoUrl extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$stores = $this->model_setting_store->getStores();
-
-		foreach ($stores as $store) {
-			$data['stores'][] = [
-				'store_id' => $store['store_id'],
-				'name'     => $store['name']
-			];
-		}
+		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
 
 		if (!empty($seo_url_info)) {
 			$data['store_id'] = $seo_url_info['store_id'];

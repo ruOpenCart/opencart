@@ -148,14 +148,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$stores = $this->model_setting_store->getStores();
-
-		foreach ($stores as $store) {
-			$data['stores'][] = [
-				'store_id' => $store['store_id'],
-				'name'     => $store['name']
-			];
-		}
+		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
 
 		$this->load->model('localisation/order_status');
 
@@ -351,16 +344,13 @@ class Order extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['orders'][] = [
-				'order_id'        => $result['order_id'],
-				'store_name'      => $result['store_name'],
-				'customer'        => $result['customer'],
 				'order_status'    => $result['order_status'] ? $result['order_status'] : $this->language->get('text_missing'),
 				'total'           => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'date_modified'   => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 				'shipping_method' => $shipping_method,
 				'view'            => $this->url->link('sale/order.info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'] . $url)
-			];
+			] + $result;
 		}
 
 		$url = '';
@@ -643,6 +633,12 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['account_custom_field'] = [];
 		}
 
+		if (!empty($order_info)) {
+			$data['customer_edit'] = $this->url->link('customer/customer.form', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $order_info['customer_id']);
+		} else {
+			$data['customer_edit'] = '';
+		}
+
 		// Custom Fields
 		$data['custom_fields'] = [];
 
@@ -657,15 +653,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
-			$data['custom_fields'][] = [
-				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
-			];
+			$data['custom_fields'][] = ['custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id'])] + $custom_field;
 		}
 
 		// Store
@@ -678,14 +666,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = [
-				'store_id' => $result['store_id'],
-				'name'     => $result['name']
-			];
-		}
+		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
 
 		if (!empty($order_info)) {
 			$data['store_id'] = $order_info['store_id'];
@@ -733,30 +714,20 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			foreach ($options as $option) {
 				if ($option['type'] != 'file') {
-					$option_data[] = [
-						'product_option_id'       => $option['product_option_id'],
-						'product_option_value_id' => $option['product_option_value_id'],
-						'name'                    => $option['name'],
-						'value'                   => $option['value'],
-						'type'                    => $option['type']
-					];
+					$option_data[] = $option;
 				} else {
 					$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
 
 					if ($upload_info) {
 						$option_data[] = [
-							'product_option_id'       => $option['product_option_id'],
-							'product_option_value_id' => $option['product_option_value_id'],
-							'name'                    => $option['name'],
-							'value'                   => $upload_info['name'],
-							'type'                    => $option['type'],
-							'href'                    => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
-						];
+							'value' => $upload_info['name'],
+							'href'  => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
+						] + $option;
 					}
 				}
 			}
 
-			$subscription = '';
+			$subscription_plan = '';
 
 			$subscription_info = $this->model_sale_order->getSubscription($order_id, $product['order_product_id']);
 
@@ -767,7 +738,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					$trial_frequency = $this->language->get('text_' . $subscription_info['trial_frequency']);
 					$trial_duration = $subscription_info['trial_duration'];
 
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					$subscription_plan .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 				}
 
 				$price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
@@ -776,9 +747,9 @@ class Order extends \Opencart\System\Engine\Controller {
 				$duration = $subscription_info['duration'];
 
 				if ($subscription_info['duration']) {
-					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					$subscription_plan .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
 				} else {
-					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					$subscription_plan .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
 				}
 
 				$subscription_plan_id = $subscription_info['subscription_plan_id'];
@@ -795,21 +766,14 @@ class Order extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['order_products'][] = [
-				'order_product_id'     => $product['order_product_id'],
-				'product_id'           => $product['product_id'],
-				'name'                 => $product['name'],
-				'model'                => $product['model'],
 				'option'               => $option_data,
-				'subscription'         => $subscription,
+				'subscription_plan'    => $subscription_plan,
 				'subscription_plan_id' => $subscription_plan_id,
 				'subscription_edit'    => $subscription_edit,
-				'quantity'             => $product['quantity'],
 				'price_text'           => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
-				'price'                => $product['price'],
 				'total_text'           => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
-				'total'                => $product['total'],
-				'reward'               => $product['reward']
-			];
+				'product_edit'         => $this->url->link('catalog/product.form', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product['product_id'])
+			] + $product;
 		}
 
 		// Totals
@@ -818,10 +782,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		$totals = $this->model_sale_order->getTotals($order_id);
 
 		foreach ($totals as $total) {
-			$data['order_totals'][] = [
-				'title' => $total['title'],
-				'text'  => $this->currency->format($total['value'], $data['currency_code'], $currency_value)
-			];
+			$data['order_totals'][] = ['text' => $this->currency->format($total['value'], $data['currency_code'], $currency_value)] + $total;
 		}
 
 		// Addresses
@@ -1089,10 +1050,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$totals = $this->model_sale_order->getTotals($order_id);
 
 			foreach ($totals as $total) {
-				$data['order_totals'][] = [
-					'title' => $total['title'],
-					'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])
-				];
+				$data['order_totals'][] = ['text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])] + $total;
 			}
 		}
 
@@ -1339,6 +1297,40 @@ class Order extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Delete
+	 *
+	 * @return void
+	 */
+	public function delete(): void {
+		$this->load->language('sale/order');
+
+		$json = [];
+
+		if (isset($this->request->post['selected'])) {
+			$selected = $this->request->post['selected'];
+		} else {
+			$selected = [];
+		}
+
+		if (!$this->user->hasPermission('modify', 'sale/order')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
+
+		if (!$json) {
+			$this->load->model('sale/order');
+
+			foreach ($selected as $order_id) {
+				$this->model_sale_order->deleteOrder($order_id);
+			}
+
+			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
 	 * Invoice
 	 *
 	 * @return void
@@ -1504,10 +1496,7 @@ class Order extends \Opencart\System\Engine\Controller {
 							}
 						}
 
-						$option_data[] = [
-							'name'  => $option['name'],
-							'value' => $value
-						];
+						$option_data[] = ['value' => $value] + $option;
 					}
 
 					// Subscription
@@ -1553,10 +1542,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				$totals = $this->model_sale_order->getTotals($order_id);
 
 				foreach ($totals as $total) {
-					$total_data[] = [
-						'title' => $total['title'],
-						'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])
-					];
+					$total_data[] = ['text' => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])] + $total;
 				}
 
 				$data['orders'][] = [
@@ -1722,10 +1708,7 @@ class Order extends \Opencart\System\Engine\Controller {
 								}
 							}
 
-							$option_data[] = [
-								'name'  => $option['name'],
-								'value' => $value
-							];
+							$option_data[] = ['value' => $value] + $option;
 
 							$product_option_value_info = $this->model_catalog_product->getOptionValue($product['product_id'], $option['product_option_value_id']);
 
@@ -1739,19 +1722,10 @@ class Order extends \Opencart\System\Engine\Controller {
 						}
 
 						$product_data[] = [
-							'name'     => $product_info['name'],
-							'model'    => $product_info['model'],
 							'option'   => $option_data,
 							'quantity' => $product['quantity'],
-							'location' => $product_info['location'],
-							'sku'      => $product_info['sku'],
-							'upc'      => $product_info['upc'],
-							'ean'      => $product_info['ean'],
-							'jan'      => $product_info['jan'],
-							'isbn'     => $product_info['isbn'],
-							'mpn'      => $product_info['mpn'],
 							'weight'   => $this->weight->format(($product_info['weight'] + (float)$option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
-						];
+						] + $product_info;
 					}
 				}
 
