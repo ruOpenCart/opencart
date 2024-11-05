@@ -34,4 +34,4 @@ $_['error_stock']                = 'Товары отмеченные *** отс
 $_['error_minimum']              = 'Минимальная сумма заказа %s!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_product']              = 'Внимание: Товар не может быть найден!';
-$_['error_subscription']         = 'Subscription Plan is not valid!';
+$_['error_subscription']         = 'План подписки недействителен!';
