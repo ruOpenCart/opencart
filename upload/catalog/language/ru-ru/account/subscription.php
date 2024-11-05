@@ -31,7 +31,7 @@ $_['text_no_subscription']       = 'No subscriptions found!';
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
 $_['column_product']             = 'Товар';
-$_['column_product_total']       = 'No. of Products';
+$_['column_product_total']       = 'Кол-во товаров';
 $_['column_description']         = 'Описание';
 $_['column_order_id']            = 'Номер заказа';
 $_['column_status']              = 'Статус';
