@@ -13,4 +13,4 @@ $_['error_option']       = 'Опция не найдена!';
 
 
 $_['error_required']     = '%s обязательно к заполнению!';
-$_['error_subscription'] = 'Subscription Plan is not valid!';
+$_['error_subscription'] = 'План подписки недействителен!';
