@@ -45,4 +45,4 @@ $_['column_comment']             = 'Комментарий';
 $_['column_action']              = 'Действие';
 
 // Error
-$_['error_reorder']              = 'The product you are trying to purchase again has some issues. Please check the error messages shown below.';
+$_['error_reorder']              = 'У продукта, который вы пытаетесь купить снова, есть некоторые проблемы. Пожалуйста, проверьте сообщения об ошибках, показанные ниже.';
