@@ -24,9 +24,9 @@ $_['text_year']                  = 'год';
 $_['text_quantity']              = 'Количество';
 $_['text_date_next']             = 'Дате Следующая';
 $_['text_remaining']             = 'Осталось';
-$_['text_history']               = 'Subscription History';
+$_['text_history']               = 'История подписки';
 $_['text_order']                 = 'История заказа';
-$_['text_no_subscription']       = 'No subscriptions found!';
+$_['text_no_subscription']       = 'Подписки не найдены!';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
@@ -46,6 +46,6 @@ $_['column_date_added']          = 'Дата добавления';
 $_['button_cancel']              = 'Отменить подписку';
 
 // Error
-$_['error_subscription']         = 'Subscription could not be found!';
-$_['error_duration']             = 'Subscription can not be canceled until %s more orders!';
-$_['error_cancel']               = 'Could not cancel subscription';
+$_['error_subscription']         = 'Подписка не найдена!';
+$_['error_duration']             = 'Подписку нельзя отменить, пока не будет сделано еще %s заказов!';
+$_['error_cancel']               = 'Невозможно отменить подписку';
