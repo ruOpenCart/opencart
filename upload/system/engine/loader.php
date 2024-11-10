@@ -75,20 +75,44 @@ class Loader {
 		// Trigger the pre events
 		$this->event->trigger('controller/' . $trigger . '/before', [&$route, &$args]);
 
-		// Keep the original trigger
-		$action = new \Opencart\System\Engine\Action($route);
+		$pos = strrpos($route, '.');
 
-		while ($action) {
-			// Execute action
-			$output = $action->execute($this->registry, $args);
+		if ($pos !== false) {
+			$controller = substr($route, 0, $pos);
+			$method = substr($route, $pos + 1);
+		} else {
+			$controller = $route;
+			$method = 'index';
+		}
 
-			// Make action a non-object so it's not infinitely looping
-			$action = '';
+		// Stop any magical methods being called
+		if (substr($method, 0, 2) == '__') {
+			return new \Exception('Error: Calls to magic methods are not allowed!');
+		}
 
-			// Action object returned then we keep the loop going
-			if ($output instanceof \Opencart\System\Engine\Action) {
-				$action = $output;
-			}
+		// Create a new key to store the model object
+		$key = 'fallback_controller_' . str_replace('/', '_', $controller);
+
+		if (!$this->registry->has($key)) {
+			$object = $this->factory->controller($controller);
+		} else {
+			$object = $this->registry->get($key);
+		}
+
+		if ($object instanceof \Opencart\System\Engine\Controller) {
+			$this->registry->set($key, $object);
+		} else {
+			// If action cannot be executed, we return an error object.
+			return new \Exception('Error: Could not load controller ' . $controller . '!');
+		}
+
+		$callable = [$object, $method];
+
+		if (is_callable($callable)) {
+			$output = $callable(...$args);
+		} else {
+			// If action cannot be executed, we return an action error object.
+			return new \Exception('Error: Could not call controller ' . $route . '!');
 		}
 
 		// Trigger the post events
@@ -108,69 +132,32 @@ class Loader {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', $route);
 
-		// Create a new key to store the model object
+		// Create a new key to store the model obj
 		$key = 'model_' . str_replace('/', '_', $route);
 
-		if (!$this->registry->has($key)) {
-			// Converting a route path to a class name
-			$class = 'Opencart\\' . $this->config->get('application') . '\Model\\' . str_replace(['_', '/'], ['', '\\'], ucwords($route, '_/'));
+		if (!$this->registry->has('fallback_' . $key)) {
+			$object = $this->factory->model($route);
+		} else {
+			$object = $this->registry->get('fallback_' . $key);
+		}
 
-			if (class_exists($class)) {
-				$proxy = new \Opencart\System\Engine\Proxy();
+		// Initialize the class
+		if ($object instanceof \Opencart\System\Engine\Model) {
+			$this->registry->set('fallback_' . $key, $object);
+		} else {
+			throw new \Exception('Error: Could not load model ' . $route . '!');
+		}
 
-				foreach (get_class_methods($class) as $method) {
-					$reflection = new \ReflectionMethod($class, $method);
+		$proxy = new \Opencart\System\Engine\Proxy();
 
-					if ((substr($method, 0, 2) != '__') && $reflection->isPublic()) {
-						// https://wiki.php.net/rfc/variadics
-						$proxy->{$method} = function(&...$args) use ($route, $method) {
-							$route = $route . '/' . $method;
-
-							$trigger = $route;
-
-							// Trigger the pre events
-							$this->event->trigger('model/' . $trigger . '/before', [&$route, &$args]);
-
-							// Find last `/` so we can remove and find the method
-							$pos = strrpos($route, '/');
-
-							$class = substr($route, 0, $pos);
-							$method = substr($route, $pos + 1);
-
-							// Create a new key to store the model object
-							$key = 'callback_' . str_replace('/', '_', $class);
-
-							if (!$this->registry->has($key)) {
-								// Initialize the class
-								$model = $this->factory->model($class);
-
-								// Store object
-								$this->registry->set($key, $model);
-							} else {
-								$model = $this->registry->get($key);
-							}
-
-							$callable = [$model, $method];
-
-							if (is_callable($callable)) {
-								$output = $callable(...$args);
-							} else {
-								throw new \Exception('Error: Could not call model/' . $route . '!');
-							}
-
-							// Trigger the post events
-							$this->event->trigger('model/' . $trigger . '/after', [&$route, &$args, &$output]);
-
-							return $output;
-						};
-					}
-				}
-
-				$this->registry->set($key, $proxy);
-			} else {
-				throw new \Exception('Error: Could not load model ' . $class . '!');
+		foreach (get_class_methods($object) as $method) {
+			if (substr($method, 0, 2) != '__') {
+				$proxy->{$method} = $this->callback($route . '.' . $method);
 			}
 		}
+
+		// Store proxy object
+		$this->registry->set($key, $proxy);
 	}
 
 	/**
@@ -249,15 +236,18 @@ class Loader {
 
 		if (!$this->registry->has($key)) {
 			// Initialize the class
-			$library = $this->factory->library($route, $args);
+			$object = $this->factory->library($route, $args);
 
-			// Store object
-			$this->registry->set($key, $library);
+			if (!$object instanceof \Exception) {
+				$this->registry->set($key, $object);
+			} else {
+				throw new \Exception('Error: Could not load library ' . $route . '!');
+			}
 		} else {
-			$library = $this->registry->get($key);
+			$object = $this->registry->get($key);
 		}
 
-		return $library;
+		return $object;
 	}
 
 	/**
@@ -309,5 +299,57 @@ class Loader {
 		} else {
 			throw new \Exception('Error: Could not load helper ' . $route . '!');
 		}
+	}
+
+	/**
+	 * Callback
+	 *
+	 * @param string $route
+	 *
+	 * @return callable
+	 */
+	public function callback($route): callable {
+		return function(&...$args) use ($route) {
+			$trigger = $route;
+
+			// Trigger the pre events
+			$this->event->trigger('model/' . $trigger . '/before', [&$route, &$args]);
+
+			// Find last `/` so we can remove and find the method
+			$pos = strrpos($route, '.');
+
+			$model = substr($route, 0, $pos);
+			$method = substr($route, $pos + 1);
+
+			// Create a new key to store the model object
+			$key = 'fallback_model_' . str_replace('/', '_', $model);
+
+			if (!$this->registry->has($key)) {
+				$object = $this->factory->model($model);
+			} else {
+				$object = $this->registry->get($key);
+			}
+
+			if ($object instanceof \Opencart\System\Engine\Model) {
+				$this->registry->set($key, $object);
+			} else {
+				// If action cannot be executed, we return an error object.
+				throw new \Exception('Error: Could not load model ' . $model . '!');
+			}
+
+			$callable = [$object, $method];
+
+			if (is_callable($callable)) {
+				$output = $callable(...$args);
+			} else {
+				// If action cannot be executed, we throw Exception.
+				throw new \Exception('Error: Could not call model ' . $route . '!');
+			}
+
+			// Trigger the post events
+			$this->event->trigger('model/' . $trigger . '/after', [&$route, &$args, &$output]);
+
+			return $output;
+		};
 	}
 }
