@@ -4,7 +4,6 @@ $_['heading_title']              = 'Subscriptions';
 
 // Text
 $_['text_account']               = 'Account';
-$_['text_success']               = 'Success: Your subscription has successfully been canceled!';
 $_['text_subscription']          = 'Subscription #%s';
 $_['text_subscription_id']       = 'Subscription ID';
 $_['text_order_id']              = 'Order ID';
@@ -49,4 +48,4 @@ $_['button_cancel']              = 'Cancel Subscription';
 // Error
 $_['error_subscription']         = 'Subscription could not be found!';
 $_['error_duration']             = 'Subscription can not be canceled until %s more orders!';
-$_['error_canceled']             = 'Subscription already canceled!';
+$_['error_cancel']               = 'Could not cancel subscription';
