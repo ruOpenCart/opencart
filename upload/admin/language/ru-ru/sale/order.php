@@ -12,6 +12,7 @@ $_['text_store']                 = 'Магазин';
 $_['text_date_added']            = 'Дата добавления';
 $_['text_customer']              = 'Покупатель';
 $_['text_product_add']           = 'Добавление товара';
+$_['text_model'] 			     = 'Модель';
 $_['text_reward']                = 'Бонусные баллы';
 $_['text_points']                = 'Баллы';
 $_['text_reward_add']            = 'Успех: Бонусные баллы добавлены!';
