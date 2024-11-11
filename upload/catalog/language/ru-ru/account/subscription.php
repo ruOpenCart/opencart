@@ -4,7 +4,7 @@ $_['heading_title']              = 'Подписки';
 
 // Text
 $_['text_account']               = 'Аккаунт';
-$_['text_success']               = 'Success: Your subscription has successfully been canceled!';
+$_['text_success']               = 'Успех: Ваша подписка успешно отменена!';
 $_['text_subscription']          = 'Подписка #%s';
 $_['text_subscription_id']       = 'Идентификатор подписки';
 $_['text_order_id']              = 'Номер заказа';
@@ -49,4 +49,4 @@ $_['button_cancel']              = 'Отменить подписку';
 // Error
 $_['error_subscription']         = 'Подписка не найдена!';
 $_['error_duration']             = 'Подписку нельзя отменить, пока не будет сделано еще %s заказов!';
-$_['error_canceled']             = 'Subscription already canceled!';
+$_['error_canceled']             = 'Подписка уже отменена!';
