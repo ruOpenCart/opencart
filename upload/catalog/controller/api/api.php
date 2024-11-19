@@ -17,7 +17,7 @@ class Api extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['call'])) {
 			$call = $this->request->get['call'];
 		} else {
-			$call = [];
+			$call = '';
 		}
 
 		// Allowed calls
@@ -66,7 +66,7 @@ class Api extends \Opencart\System\Engine\Controller {
 				break;
 		}
 
-		$output = ['error' => $this->language->get('error_call')]; // JSON error message if call not found
+		//$output = ['error' => $this->language->get('error_call')]; // JSON error message if call not found
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($output));
@@ -96,7 +96,11 @@ class Api extends \Opencart\System\Engine\Controller {
 	 * @return array
 	 */
 	protected function setShippingAddress(): array {
-		$this->load->controller('api/cart');
+		$output = $this->load->controller('api/cart');
+
+		if (isset($output['error'])) {
+			return $output;
+		}
 
 		return $this->load->controller('api/shipping_address');
 	}
@@ -108,7 +112,13 @@ class Api extends \Opencart\System\Engine\Controller {
 	 */
 	protected function getShippingMethods(): array {
 		$this->load->controller('api/customer');
-		$this->load->controller('api/cart');
+
+		$output = $this->load->controller('api/cart');
+
+		if (isset($output['error'])) {
+			return $output;
+		}
+
 		$this->load->controller('api/payment_address');
 		$this->load->controller('api/shipping_address');
 
@@ -123,7 +133,12 @@ class Api extends \Opencart\System\Engine\Controller {
 	protected function setShippingMethod(): array {
 		$this->load->controller('api/customer');
 
-		$this->load->controller('api/cart');
+		$output = $this->load->controller('api/cart');
+
+		if (isset($output['error'])) {
+			return $output;
+		}
+
 		$this->load->controller('api/shipping_address');
 		$this->load->controller('api/payment_address');
 
@@ -151,7 +166,13 @@ class Api extends \Opencart\System\Engine\Controller {
 	 */
 	protected function getPaymentMethods(): array {
 		$this->load->controller('api/customer');
-		$this->load->controller('api/cart');
+
+		$output = $this->load->controller('api/cart');
+
+		if (isset($output['error'])) {
+			return $output;
+		}
+
 		$this->load->controller('api/payment_address');
 		$this->load->controller('api/shipping_address');
 		$this->load->controller('api/shipping_method');
@@ -167,7 +188,12 @@ class Api extends \Opencart\System\Engine\Controller {
 	protected function setPaymentMethod(): array {
 		$this->load->controller('api/customer');
 
-		$this->load->controller('api/cart');
+		$output = $this->load->controller('api/cart');
+
+		if (isset($output['error'])) {
+			return $output;
+		}
+
 		$this->load->controller('api/payment_address');
 		$this->load->controller('api/shipping_address');
 		$this->load->controller('api/shipping_method');
@@ -189,16 +215,9 @@ class Api extends \Opencart\System\Engine\Controller {
 		return $output;
 	}
 
-
 	protected function extension(): array {
 		$this->load->controller('api/customer');
-
-		$output = $this->load->controller('api/cart');
-
-		if (isset($output['error'])) {
-			return $output;
-		}
-
+		$this->load->controller('api/cart');
 		$this->load->controller('api/payment_address');
 		$this->load->controller('api/shipping_address');
 		$this->load->controller('api/shipping_method');
@@ -240,6 +259,7 @@ class Api extends \Opencart\System\Engine\Controller {
 	protected function setAffiliate(): array {
 		return $this->load->controller('api/affiliate');
 	}
+
 	/**
 	 * Get cart
 	 *
@@ -248,12 +268,8 @@ class Api extends \Opencart\System\Engine\Controller {
 	protected function getCart(): array {
 		$this->load->controller('api/customer');
 
-		// If any errors at the cart level such as products dont exist then we want to return the error
+		// If any errors at the cart level such as products don't exist then we want to return the error
 		$output = $this->load->controller('api/cart');
-
-		if (isset($output['error'])) {
-			return $output;
-		}
 
 		$this->load->controller('api/payment_address');
 		$this->load->controller('api/shipping_address');

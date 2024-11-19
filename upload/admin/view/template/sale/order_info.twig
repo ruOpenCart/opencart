@@ -186,10 +186,8 @@
                 <div class="lead"><strong>{{ text_payment_address }}</strong>
                   <br/>
                   <div id="payment-address-value">
-                    {% if payment_firstname %}
-                      {{ payment_firstname }} {{ payment_lastname }}
-                      <br/>
-                    {% endif %}
+                    {{ payment_firstname }} {{ payment_lastname }}
+                    <br/>
                     {% if payment_company %}
                       {{ payment_company }}
                       <br/>
@@ -230,10 +228,8 @@
                 <div class="lead"><strong>{{ text_shipping_address }}</strong>
                   <br/>
                   <div id="shipping-address-value">
-                    {% if shipping_firstname %}
-                      {{ shipping_firstname }} {{ shipping_lastname }}
-                      <br/>
-                    {% endif %}
+                    {{ shipping_firstname }} {{ shipping_lastname }}
+                    <br/>
                     {% if shipping_company %}
                       {{ shipping_company }}
                       <br/>
@@ -643,12 +639,14 @@
       <div class="modal-body">
         <form id="form-product-add">
           <div class="mb-3">
-            <label for="input-product" class="form-label">{{ entry_product }}</label> <input type="text" value="" placeholder="{{ entry_product }}" id="input-product" data-oc-target="autocomplete-product" class="form-control"/>
+            <label for="input-product" class="form-label">{{ entry_product }}</label>
+            <input type="text" value="" placeholder="{{ entry_product }}" id="input-product" data-oc-target="autocomplete-product" class="form-control"/>
             <ul id="autocomplete-product" class="dropdown-menu"></ul>
             <input type="hidden" name="product_id" value="" id="input-product-id"/>
           </div>
           <div class="mb-3">
-            <label for="input-quantity" class="form-label">{{ entry_quantity }}</label> <input type="text" name="quantity" placeholder="{{ entry_quantity }}" value="1" id="input-quantity" class="form-control"/>
+            <label for="input-quantity" class="form-label">{{ entry_quantity }}</label>
+            <input type="text" name="quantity" placeholder="{{ entry_quantity }}" value="1" id="input-quantity" class="form-control"/>
           </div>
           <div id="option"></div>
           <div id="subscription"></div>
@@ -714,7 +712,13 @@
             <div id="error-payment-country" class="invalid-feedback"></div>
           </div>
           <div class="mb-3 required">
-            <label for="input-payment-zone" class="form-label">{{ entry_zone }}</label> <select name="payment_zone_id" id="input-payment-zone" class="form-select"></select>
+            <label for="input-payment-zone" class="form-label">{{ entry_zone }}</label>
+            <select name="payment_zone_id" id="input-payment-zone" class="form-select">
+              <option value="">{{ text_select }}</option>
+              {% for zone in payment_zones %}
+                <option value="{{ zone.zone_id }}"{% if zone.zone_id == payment_zone_id %} selected{% endif %}>{{ zone.name }}</option>
+              {% endfor %}
+            </select>
             <div id="error-payment-zone" class="invalid-feedback"></div>
           </div>
           {% for custom_field in custom_fields %}
@@ -872,7 +876,13 @@
             <div id="error-shipping-country" class="invalid-feedback"></div>
           </div>
           <div class="mb-3 required">
-            <label for="input-shipping-zone" class="form-label">{{ entry_zone }}</label> <select name="shipping_zone_id" id="input-shipping-zone" class="form-select"></select>
+            <label for="input-shipping-zone" class="form-label">{{ entry_zone }}</label>
+            <select name="shipping_zone_id" id="input-shipping-zone" class="form-select">
+              <option value="">{{ text_select }}</option>
+              {% for zone in shipping_zones %}
+                <option value="{{ zone.zone_id }}"{% if zone.zone_id == shipping_zone_id %} selected{% endif %}>{{ zone.name }}</option>
+              {% endfor %}
+            </select>
             <div id="error-shipping-zone" class="invalid-feedback"></div>
           </div>
           {% for custom_field in custom_fields %}
@@ -994,10 +1004,10 @@
             <input type="hidden" name="shipping_method_cost" value="{{ shipping_method_cost }}" id="input-shipping-method-cost"/>
             <input type="hidden" name="shipping_method_tax_class_id" value="{{ shipping_method_tax_class_id }}" id="input-shipping-method-tax-class"/>
           {% endif %}
+          <div class="text-end">
+            <button type="submit" id="button-shipping-method" class="btn btn-primary"><i class="fa-solid fa-check"></i> {{ button_continue }}</button>
+          </div>
         </form>
-        <div class="text-end">
-          <button type="submit" form="form-shipping-method" id="button-shipping-method" class="btn btn-primary"><i class="fa-solid fa-check"></i> {{ button_continue }}</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1014,14 +1024,12 @@
         <p>{{ text_payment }}</p>
         <div id="payment-methods"></div>
         <form id="form-payment-method">
-          {% if payment_method_code %}
-            <input type="hidden" name="payment_method_name" value="{{ payment_method_name }}" id="input-payment-method-name"/>
-            <input type="hidden" name="payment_method_code" value="{{ payment_method_code }}" id="input-payment-method-code"/>
-          {% endif %}
+          <input type="hidden" name="payment_method[name]" value="{{ payment_method_name }}" id="input-payment-method-name"/>
+          <input type="hidden" name="payment_method[code]" value="{{ payment_method_code }}" id="input-payment-method-code"/>
+          <div class="text-end">
+            <button type="submit" id="button-payment-method" class="btn btn-primary">{{ button_continue }}</button>
+          </div>
         </form>
-        <div class="text-end">
-          <button type="submit" form="form-payment-method" id="button-payment-method" class="btn btn-primary">{{ button_continue }}</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1459,8 +1467,6 @@ $('#input-product').autocomplete({
         }
 
         if (item['subscription'] != '') {
-            subscription_data = item['subscription'];
-
             html = '<fieldset class="mb-0">';
             html += '  <legend>{{ entry_subscription|escape('js') }}</legend>';
             html += '  <div class="mb-3 required">';
@@ -1480,6 +1486,22 @@ $('#input-product').autocomplete({
             }
 
             html += '    <div id="error-subscription" class="invalid-feedback"></div>';
+
+            elements = $('#input-customer-group option');
+
+            for (i = 0; i < elements.length; i++) {
+                html += '<datalist id="subscription-plan-' + $(elements[i]).val() + '">';
+                html += '  <option value="">{{ text_select|escape('js') }}</option>';
+
+                for (j = 0; j < item['subscription'].length; j++) {
+                    if (item['subscription'][j]['customer_group_id'] == $(elements[i]).val()) {
+                        html += '<option value="' + item['subscription'][i]['subscription_plan_id'] + '">' + item['subscription'][i]['name'] + '</option>';
+                    }
+                }
+
+                html += '  </datalist>';
+            }
+
             html += '  </div>';
             html += '</fieldset>';
 
@@ -1499,25 +1521,11 @@ $('#form-product-add').on('change', '#input-subscription-plan', function(e) {
 });
 
 $('#input-customer-group').on('change', function(e) {
-    if (subscription_data) {
-        html = '';
-
-        for (i = 0; i < subscription_data.length; i++) {
-            if (subscription_data[i]['customer_group_id'] == this.value) {
-                html += '<option value="' + subscription_data[i]['subscription_plan_id'] + '">' + subscription_data[i]['name'] + '</option>';
-            }
-        }
-
-        $('#input-subscription-plan').html(html);
-    }
+    $('#input-subscription-plan').html($('#subscription-plan-' + this.value).html());
 
     // Change subscription description
     $('#input-subscription-plan').trigger('click');
 });
-
-var products = [];
-var totals = [];
-var shipping_required = false;
 
 $('#form-product-add').on('submit', function(e) {
     e.preventDefault();
@@ -1705,7 +1713,7 @@ $('#form-payment-address').on('submit', function(e) {
     });
 });
 
-var payment_zone_id = '{{ payment_zone_id }}';
+var payment_zone_id = {{ payment_zone_id }};
 
 $('#input-payment-country').on('change', function() {
     var element = this;
@@ -1716,10 +1724,14 @@ $('#input-payment-country').on('change', function() {
         beforeSend: function() {
             $(element).prop('disabled', true);
             $('#button-payment-address').prop('disabled', true);
+            $('#button-confirm').prop('disabled', true);
+            $('#button-refresh').prop('disabled', true);
         },
         complete: function() {
             $(element).prop('disabled', false);
             $('#button-payment-address').prop('disabled', false);
+            $('#button-confirm').prop('disabled', false);
+            $('#button-refresh').prop('disabled', false);
         },
         success: function(json) {
             if (json['postcode_required'] == '1') {
@@ -1751,8 +1763,6 @@ $('#input-payment-country').on('change', function() {
         }
     });
 });
-
-$('#input-payment-country').trigger('change');
 
 // Shipping Address
 $('#input-shipping-address').on('change', function() {
@@ -1884,7 +1894,7 @@ $('#form-shipping-address').on('submit', function(e) {
     });
 });
 
-var shipping_zone_id = '{{ shipping_zone_id }}';
+var shipping_zone_id = {{ shipping_zone_id }};
 
 $('#input-shipping-country').on('change', function() {
     var element = this;
@@ -1895,10 +1905,14 @@ $('#input-shipping-country').on('change', function() {
         beforeSend: function() {
             $(element).prop('disabled', true);
             $('#button-shipping-address').prop('disabled', true);
+            $('#button-confirm').prop('disabled', true);
+            $('#button-refresh').prop('disabled', true);
         },
         complete: function() {
             $(element).prop('disabled', false);
             $('#button-shipping-address').prop('disabled', false);
+            $('#button-confirm').prop('disabled', false);
+            $('#button-refresh').prop('disabled', false);
         },
         success: function(json) {
             if (json['postcode_required'] == '1') {
@@ -1931,8 +1945,6 @@ $('#input-shipping-country').on('change', function() {
     });
 });
 
-$('#input-shipping-country').trigger('change');
-
 // Shipping Method
 var shipping_method = [];
 
@@ -1955,9 +1967,22 @@ $('#button-shipping-methods').on('click', function() {
             console.log(json);
 
             $('.alert-dismissible').remove();
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').removeClass('d-block');
 
-            if (json['error']) {
+            if (typeof json['error'] == 'string') {
                 $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (typeof json['error'] == 'object') {
+                if (json['error']['warning']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
             }
 
             html = '';
@@ -2003,20 +2028,14 @@ $('#button-shipping-methods').on('click', function() {
 });
 
 $('#modal-shipping-method').on('change', 'input[name=\'choose_shipping\']', function() {
-    var element = this;
-
-    var html = '';
-
-    var code = $(element).val();
+    var code = $(this).val();
 
     if (shipping_method[code]) {
-        html += '<input type="hidden" name="shipping_method_name" value="' + shipping_method[code]['name'] + '" id="input-shipping-method-name"/>';
-        html += '<input type="hidden" name="shipping_method_code" value="' + shipping_method[code]['code'] + '" id="input-shipping-method-code"/>';
-        html += '<input type="hidden" name="shipping_method_cost" value="' + shipping_method[code]['cost'] + '" id="input-shipping-method-cost"/>';
-        html += '<input type="hidden" name="shipping_method_tax_class_id" value="' + shipping_method[code]['tax_class_id'] + '" id="input-shipping-method-tax-class"/>';
+        $('#input-shipping-method-name').val(shipping_method[code]['name']);
+        $('#input-shipping-method-code').val(shipping_method[code]['code']);
+        $('#input-shipping-method-cost').val(shipping_method[code]['cost']);
+        $('#input-shipping-method-tax-class').val(shipping_method[code]['tax_class_id']);
     }
-
-    $('#form-shipping-method').html(html);
 });
 
 $('#form-shipping-method').on('submit', function(e) {
@@ -2040,9 +2059,22 @@ $('#form-shipping-method').on('submit', function(e) {
             console.log(json);
 
             $('.alert-dismissible').remove();
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').removeClass('d-block');
 
-            if (json['error']) {
+            if (typeof json['error'] == 'string') {
                 $('#modal-shipping-method .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (typeof json['error'] == 'object') {
+                if (json['error']['warning']) {
+                    $('#modal-shipping-method .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
             }
 
             if (json['success']) {
@@ -2080,8 +2112,19 @@ $('#button-payment-methods').on('click', function() {
         success: function(json) {
             $('.alert-dismissible').remove();
 
-            if (json['error']) {
+            if (typeof json['error'] == 'string') {
                 $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (typeof json['error'] == 'object') {
+                if (json['error']['warning']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
             }
 
             var html = '';
@@ -2126,18 +2169,12 @@ $('#button-payment-methods').on('click', function() {
 });
 
 $('#modal-payment-method').on('change', 'input[name=\'choose_payment\']', function() {
-    var element = this;
-
-    var html = '';
-
-    var code = $(element).val();
+    var code = $(this).val();
 
     if (payment_method[code]) {
-        html += '<input type="hidden" name="payment_method_name" value="' + payment_method[code]['name'] + '" id="input-payment-method-name"/>';
-        html += '<input type="hidden" name="payment_method_code" value="' + payment_method[code]['code'] + '" id="input-payment-method-code"/>';
+        $('#input-payment-method-name').val(payment_method[code]['name']);
+        $('#input-payment-method-code').val(payment_method[code]['code']);
     }
-
-    $('#form-payment-method').html(html);
 });
 
 $('#form-payment-method').on('submit', function(e) {
@@ -2162,8 +2199,19 @@ $('#form-payment-method').on('submit', function(e) {
 
             $('.alert-dismissible').remove();
 
-            if (json['error']) {
+            if (typeof json['error'] == 'string') {
                 $('#modal-payment-method .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (typeof json['error'] == 'object') {
+                if (json['error']['warning']) {
+                    $('#modal-payment-method .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
             }
 
             if (json['success']) {
@@ -2179,6 +2227,275 @@ $('#form-payment-method').on('submit', function(e) {
         }
     });
 });
+
+$('#form-comment').on('submit', function(e) {
+    e.preventDefault();
+
+    $('#comment-value').html($('#input-comment').val().replace(/<[^>]*>?/gm, '').replace(/(?:\r\n|\r|\n)/g, '<br/>'));
+});
+
+$('#button-refresh').on('click', function() {
+    $.ajax({
+        url: 'index.php?route=sale/order.call&user_token={{ user_token }}&call=cart&store_id=' + $('#input-store').val() + '&language=' + $('#input-language').val() + '&currency=' + $('#input-currency').val(),
+        type: 'post',
+        data: $('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form').serialize(),
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded',
+        beforeSend: function() {
+            $('#button-refresh').button('loading');
+        },
+        complete: function() {
+            $('#button-refresh').button('reset');
+        },
+        success: function(json) {
+            console.log(json);
+
+            if (json['error']) {
+                if (typeof json['error'] == 'string') {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
+            }
+
+            if (json['success']) {
+                cart_render(json['products'], json['totals'], json['shipping_required']);
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+$('#button-confirm').on('click', function() {
+    var element = this;
+
+    console.log($('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form, #form-comment, #input-order-id').serialize());
+
+    $.ajax({
+        url: 'index.php?route=sale/order.call&user_token={{ user_token }}&call=confirm&store_id=' + $('#input-store').val() + '&language=' + $('#input-language').val() + '&currency=' + $('#input-currency').val(),
+        type: 'post',
+        data: $('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form, #form-comment, #input-order-id').serialize(),
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded',
+        beforeSend: function() {
+            $(element).button('loading');
+        },
+        complete: function() {
+            $(element).button('reset');
+        },
+        success: function(json) {
+            console.log(json);
+
+            $('.alert-dismissible').remove();
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').removeClass('d-block');
+
+            // Check for errors
+            if (typeof json['error'] == 'string') {
+                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
+            if (typeof json['error'] == 'object') {
+                if (json['error']['customer']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['customer'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-customer-info').addClass('is-invalid');
+
+                    delete json['error']['customer'];
+                }
+
+                if (json['error']['product']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['product'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-product-info').addClass('is-invalid');
+
+                    delete json['error']['product'];
+                }
+
+                if (json['error']['payment_address']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['payment_address'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-payment-address-info').addClass('is-invalid');
+
+                    delete json['error']['payment_address'];
+                }
+
+                if (json['error']['shipping_address']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['shipping_address'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-shipping-address-info').addClass('is-invalid');
+
+                    delete json['error']['shipping_address'];
+                }
+
+                if (json['error']['shipping_method']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['shipping_method'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-shipping-method-info').addClass('is-invalid');
+
+                    delete json['error']['shipping_method'];
+                }
+
+                if (json['error']['payment_method']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['payment_method'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                    $('#input-payment-method-info').addClass('is-invalid');
+
+                    delete json['error']['payment_method'];
+                }
+
+                for (key in json['error']) {
+                    $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
+                    $('#error-' + key.replaceAll('_', '-')).html(json['error'][key]).addClass('d-block');
+                }
+            }
+
+            if (json['success']) {
+                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+
+                if (json['order_id']) {
+                    $('#order-id-value').val(json['order_id']);
+                }
+
+                if (json['points']) {
+                    $('#point-value').html(json['points']);
+                    $('#button-reward-add').prop('disabled', false);
+                    $('#button-reward-remove').prop('disabled', false);
+                } else {
+                    $('#point-value').html(0);
+                    $('#button-reward-add').prop('disabled', true);
+                    $('#button-reward-remove').prop('disabled', true);
+                }
+
+                if (json['commission']) {
+                    $('#commission-value').html(json['commission']);
+                    $('#button-commission-add').prop('disabled', false);
+                    $('#button-commission-remove').prop('disabled', false);
+                } else {
+                    $('#commission-value').html('&nbsp;');
+                    $('#button-commission-add').prop('disabled', true);
+                    $('#button-commission-remove').prop('disabled', true);
+                }
+
+                cart_render(json['products'], json['totals'], json['shipping_required']);
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
+// Refresh all products and totals
+var order_product_row = {{ order_product_row }};
+
+function cart_render(products, totals, shipping_required) {
+    html = '';
+
+    if (products) {
+        for (i in products) {
+            product = products[i];
+
+            html += '<tr>';
+            html += '  <td><a href="index.php?route=catalog/product.form&user_token={{ user_token }}&product_id=' + product['product_id'] + '" target="_blank">' + product['name'] + '</a>' + (!product['stock'] ? ' <span class="text-danger">***</span>' : '');
+            html += '    <div id="error-product-' + order_product_row + '-product" class="invalid-feedback mt-0"></div>';
+
+            html += '<ul class="list-unstyled mb-0">';
+
+            html += '<li>';
+            html += '  <small> - {{ text_model|escape('js') }}: ' + product['model'] + '</small>';
+            html += '</li>';
+
+            for (j = 0; j < product['option'].length; j++) {
+                option = product['option'][j];
+
+                html += '<li>';
+                html += '  <small> - ' + option['name'] + ': ' + option['value'] + '</small>';
+                html += '  <div id="error-product-' + order_product_row + '-option-' + option['product_option_id'] + '" class="invalid-feedback mt-0"></div>';
+                html += '</li>';
+            }
+
+            if (product['subscription']) {
+                html += '<li>';
+                html += '  <small> - {{ text_subscription|escape('js') }}: ' + product['subscription'] + '</small>';
+                html += '  <div id="error-product-' + order_product_row + '-subscription" class="invalid-feedback mt-0"></div>';
+                html += '</li>';
+            }
+
+            if (product['reward']) {
+                html += '<li>';
+                html += '  <small> - {{ text_points|escape('js') }}: ' + product['reward'] + '</small>';
+                html += '</li>';
+            }
+
+            html += '</ul>';
+
+            html += '<input type="hidden" name="product[' + order_product_row + '][product_id]" value="' + product['product_id'] + '"/>';
+            html += '<input type="hidden" name="product[' + order_product_row + '][quantity]" value="' + product['quantity'] + '"/>';
+
+            for (j = 0; j < product['option'].length; j++) {
+                option = product['option'][j];
+
+                if (option['type'] == 'select' || option['type'] == 'radio') {
+                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + ']" value="' + option['product_option_value_id'] + '"/>';
+                }
+
+                if (option['type'] == 'checkbox') {
+                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + '][]" value="' + option['product_option_value_id'] + '"/>';
+                }
+
+                if (option['type'] == 'text' || option['type'] == 'textarea' || option['type'] == 'file' || option['type'] == 'date' || option['type'] == 'datetime' || option['type'] == 'time') {
+                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + ']" value="' + option['value'] + '"/>';
+                }
+            }
+
+            html += '    <input type="hidden" name="product[' + order_product_row + '][subscription_plan_id]" value="' + product['subscription_plan_id'] + '"/>';
+            html += '  </td>';
+            html += '  <td class="text-end">' + product['quantity'] + '</td>';
+            html += '  <td class="text-end">' + product['price_text'] + '</td>';
+            html += '  <td class="text-end">' + product['total_text'] + '</td>';
+            html += '  <td class="text-end"><button type="button" data-bs-toggle="tooltip" title="{{ button_remove|escape('js') }}" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';
+            html += '</tr>';
+
+            order_product_row++;
+        }
+    } else {
+        html += '<tr>';
+        html += '  <td colspan="6" class="text-center">{{ text_no_results|escape('js') }}</td>';
+        html += '</tr>';
+    }
+
+    $('#order-product').html(html);
+
+    // Totals
+    html = '';
+
+    for (i in totals) {
+        total = totals[i];
+
+        html += '<tr>';
+        html += '  <td class="text-end"><strong>' + total['title'] + '</strong></td>';
+        html += '  <td class="text-end" style="width: 1px;">' + total['text'] + '</td>';
+        html += '</tr>';
+    }
+
+    $('#order-total').html(html);
+
+    if (shipping_required) {
+        $('#shipping-address').removeClass('d-none');
+        $('#shipping-method').removeClass('d-none');
+        $('#button-shipping-method').prop('disabled', false);
+    } else {
+        $('#shipping-address').addClass('d-none');
+        $('#shipping-method').addClass('d-none');
+        $('#button-shipping-method').prop('disabled', true);
+    }
+}
 
 // Reward
 $(document).on('click', '#button-reward-add, #button-reward-remove', function(e) {
@@ -2333,265 +2650,6 @@ $(document).on('click', '#button-commission-add, #button-commission-remove', fun
         }
     });
 });
-
-$('#form-comment').on('submit', function(e) {
-    e.preventDefault();
-
-    $('#comment-value').html($('#input-comment').val().replace(/<[^>]*>?/gm, '').replace(/(?:\r\n|\r|\n)/g, '<br/>'));
-});
-
-$('#button-refresh').on('click', function() {
-    $.ajax({
-        url: 'index.php?route=sale/order.call&user_token={{ user_token }}&call=cart&store_id=' + $('#input-store').val() + '&language=' + $('#input-language').val() + '&currency=' + $('#input-currency').val(),
-        type: 'post',
-        data: $('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form').serialize(),
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded',
-        beforeSend: function() {
-            $('#button-refresh').button('loading');
-        },
-        complete: function() {
-            $('#button-refresh').button('reset');
-        },
-        success: function(json) {
-            console.log(json);
-
-            cart_render(json['products'], json['totals'], json['shipping_required']);
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-
-$('#button-confirm').on('click', function() {
-    var element = this;
-
-    console.log($('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form, #form-comment, #input-order-id').serialize());
-
-    $.ajax({
-        url: 'index.php?route=sale/order.call&user_token={{ user_token }}&call=confirm&store_id=' + $('#input-store').val() + '&language=' + $('#input-language').val() + '&currency=' + $('#input-currency').val(),
-        type: 'post',
-        data: $('#form-customer, #form-cart, #form-shipping-address, #form-shipping-method, #form-payment-address, #form-payment-method, #collapse-order form, #form-comment, #input-order-id').serialize(),
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded',
-        beforeSend: function() {
-            $(element).button('loading');
-        },
-        complete: function() {
-            $(element).button('reset');
-        },
-        success: function(json) {
-            console.log(json);
-
-            $('.alert-dismissible').remove();
-            $('.is-invalid').removeClass('is-invalid');
-            $('.invalid-feedback').removeClass('d-block');
-
-            // Check for errors
-            if (typeof json['error'] == 'string') {
-                $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-            }
-
-            if (typeof json['error'] == 'object') {
-                if (json['error']['customer']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['customer'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    $('#input-customer-info').addClass('is-invalid');
-                }
-
-                if (json['error']['product']) {
-                    if (typeof json['error']['product'] == 'string') {
-                        $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['product'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                        $('#input-product-info').addClass('is-invalid');
-                    }
-
-                    if (typeof json['error']['product'] == 'object') {
-                        for (product_row in json['error']['product']) {
-                            product = json['error']['product'][product_row];
-
-                            for (key in product) {
-                                $('#error-product-' + product_row + '-' + key.replaceAll('_', '-')).html(product[key]).addClass('d-block');
-                            }
-                        }
-                    }
-                }
-
-                if (json['error']['payment_address']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['payment_address'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    $('#input-payment-address-info').addClass('is-invalid');
-                }
-
-                if (json['error']['shipping_address']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['shipping_address'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    $('#input-shipping-address-info').addClass('is-invalid');
-                }
-
-                if (json['error']['shipping_method']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['shipping_method'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    $('#input-shipping-method-info').addClass('is-invalid');
-                }
-
-                if (json['error']['payment_method']) {
-                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['payment_method'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    $('#input-payment-method-info').addClass('is-invalid');
-                }
-
-                if (json['error']['extension']) {
-                    //product = json['error']['extension'];
-
-                    //for (key in product) {
-                    //$('#alert').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error'][key] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                    //  $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid');
-                    // }
-                }
-            }
-
-            if (json['success']) {
-                $('#alert').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-
-                if (json['order_id']) {
-                    $('#order-id-value').val('' + json['order_id'] + '');
-                }
-
-                if (json['points']) {
-                    $('#point-value').html(json['points']);
-                    $('#button-reward-add').prop('disabled', false);
-                    $('#button-reward-remove').prop('disabled', false);
-                } else {
-                    $('#point-value').html(0);
-                    $('#button-reward-add').prop('disabled', true);
-                    $('#button-reward-remove').prop('disabled', true);
-                }
-
-                if (json['commission']) {
-                    $('#commission-value').html(json['commission']);
-                    $('#button-commission-add').prop('disabled', false);
-                    $('#button-commission-remove').prop('disabled', false);
-                } else {
-                    $('#commission-value').html('&nbsp;');
-                    $('#button-commission-add').prop('disabled', true);
-                    $('#button-commission-remove').prop('disabled', true);
-                }
-
-                cart_render(json['products'], json['totals'], json['shipping_required']);
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-
-// Refresh all products and totals
-var order_product_row = {{ order_product_row }};
-
-function cart_render(products, totals, shipping_required) {
-    html = '';
-
-    if (products) {
-        for (i in products) {
-            product = products[i];
-
-            html += '<tr>';
-            html += '  <td><a href="index.php?route=catalog/product.form&user_token={{ user_token }}&product_id=' + product['product_id'] + '" target="_blank">' + product['name'] + '</a>' + (!product['stock'] ? ' <span class="text-danger">***</span>' : '');
-            html += '    <div id="error-product-' + order_product_row + '-product" class="invalid-feedback mt-0"></div>';
-
-            html += '<ul class="list-unstyled mb-0">';
-
-            html += '<li>';
-            html += '  <small> - {{ text_model|escape('js') }}: ' + product['model'] + '</small>';
-            html += '</li>';
-
-            for (j = 0; j < product['option'].length; j++) {
-                html += '<li>';
-                html += '  <small> - ' + product['option'][j]['name'] + ': ' + product['option'][j]['value'] + '</small>';
-                html += '  <div id="error-product-' + order_product_row + '-option-' + option['product_option_id'] + '" class="invalid-feedback mt-0"></div>';
-                html += '</li>';
-            }
-
-            if (product['subscription']) {
-                html += '<li>';
-                html += '  <small> - {{ text_subscription|escape('js') }}: ' + product['subscription'] + '</small>';
-                html += '  <div id="error-product-' + order_product_row + '-subscription" class="invalid-feedback mt-0"></div>';
-                html += '</li>';
-            }
-
-            if (product['reward']) {
-                html += '<li>';
-                html += '  <small> - {{ text_points|escape('js') }}: ' + product['reward'] + '</small>';
-                html += '</li>';
-            }
-
-            html += '</ul>';
-
-            html += '<input type="hidden" name="product[' + order_product_row + '][product_id]" value="' + product['product_id'] + '"/>';
-            html += '<input type="hidden" name="product[' + order_product_row + '][quantity]" value="' + product['quantity'] + '"/>';
-
-            for (j = 0; j < product['option'].length; j++) {
-                option = product['option'][j];
-
-                if (option['type'] == 'select' || option['type'] == 'radio') {
-                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + ']" value="' + option['product_option_value_id'] + '"/>';
-                }
-
-                if (option['type'] == 'checkbox') {
-                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + '][]" value="' + option['product_option_value_id'] + '"/>';
-                }
-
-                if (option['type'] == 'text' || option['type'] == 'textarea' || option['type'] == 'file' || option['type'] == 'date' || option['type'] == 'datetime' || option['type'] == 'time') {
-                    html += '<input type="hidden" name="product[' + order_product_row + '][option][' + option['product_option_id'] + ']" value="' + option['value'] + '"/>';
-                }
-            }
-
-            html += '    <input type="hidden" name="product[' + order_product_row + '][subscription_plan_id]" value="' + product['subscription_plan_id'] + '"/>';
-            html += '  </td>';
-            html += '  <td class="text-end">' + product['quantity'] + '</td>';
-            html += '  <td class="text-end">' + product['price_text'] + '</td>';
-            html += '  <td class="text-end">' + product['total_text'] + '</td>';
-            html += '  <td class="text-end"><button type="button" data-bs-toggle="tooltip" title="{{ button_remove|escape('js') }}" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';
-            html += '</tr>';
-
-            order_product_row++;
-        }
-    } else {
-        html += '<tr>';
-        html += '  <td colspan="6" class="text-center">{{ text_no_results|escape('js') }}</td>';
-        html += '</tr>';
-    }
-
-    $('#order-product').html(html);
-
-    // Totals
-    html = '';
-
-    for (i in totals) {
-        total = totals[i];
-
-        html += '<tr>';
-        html += '  <td class="text-end"><strong>' + total['title'] + '</strong></td>';
-        html += '  <td class="text-end" style="width: 1px;">' + total['text'] + '</td>';
-        html += '</tr>';
-    }
-
-    $('#order-total').html(html);
-
-    if (shipping_required) {
-        $('#shipping-address').removeClass('d-none');
-        $('#shipping-method').removeClass('d-none');
-        $('#button-shipping-method').prop('disabled', false);
-    } else {
-        $('#shipping-address').addClass('d-none');
-        $('#shipping-method').addClass('d-none');
-        $('#button-shipping-method').prop('disabled', true);
-    }
-}
 
 $('#history').on('click', '.pagination a', function(e) {
     e.preventDefault();
