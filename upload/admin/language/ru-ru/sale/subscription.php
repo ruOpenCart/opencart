@@ -45,6 +45,8 @@ $_['column_product']             = 'Товар';
 $_['column_model']               = 'Модель';
 $_['column_quantity']            = 'Количество';
 $_['column_total']               = 'Всего';
+$_['column_code']                = 'Код';
+$_['column_action']              = 'Действие';
 
 // Entry
 $_['entry_subscription_id']      = 'Идентификатор подписки';
