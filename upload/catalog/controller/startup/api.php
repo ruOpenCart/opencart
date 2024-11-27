@@ -16,15 +16,21 @@ class Api extends \Opencart\System\Engine\Controller {
 			$route = '';
 		}
 
+		$allowed = [
+			'api/order',
+			'api/subscription'
+		];
+
 		// Block direct access to other methods
-		if (substr($route, 0, 4) == 'api/' && $route != 'api/api') {
+		if (substr($route, 0, 4) == 'api/' && !in_array($route, $allowed)) {
 			return new \Opencart\System\Engine\Action('startup/api.permission');
 		}
 
-		if ($route == 'api/api') {
+		if (in_array($route, $allowed)) {
 			$status = true;
 
 			$required = [
+				'route',
 				'call',
 				'username',
 				'store_id',
@@ -73,7 +79,8 @@ class Api extends \Opencart\System\Engine\Controller {
 			}
 
 			if ($status) {
-				$string = (string)$this->request->get['call'] . "\n";
+				$string  = (string)$this->request->get['route'] . "\n";
+				$string .= (string)$this->request->get['call'] . "\n";
 				$string .= $api_info['username'] . "\n";
 				$string .= (string)$this->request->server['HTTP_HOST'] . "\n";
 				$string .= (!empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/') . "\n";

@@ -1348,11 +1348,21 @@ class Product extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function addOption(int $product_id, array $data): int {
-		if (isset($data['product_option_value'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option` SET `product_id` = '" . (int)$product_id . "', `option_id` = '" . (int)$data['option_id'] . "', `required` = '" . (int)$data['required'] . "'");
+		if ($data['product_option_id']) {
+			$sql = "INSERT INTO `" . DB_PREFIX . "product_option` SET `product_option_id` = '" . (int)$data['product_option_id'] . "', `product_id` = '" . (int)$product_id . "'";
 		} else {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option` SET `product_id` = '" . (int)$product_id . "', `option_id` = '" . (int)$data['option_id'] . "', `value` = '" . $this->db->escape($data['value']) . "', `required` = '" . (int)$data['required'] . "'");
+			$sql = "INSERT INTO `" . DB_PREFIX . "product_option` SET `product_id` = '" . (int)$product_id . "'";
 		}
+
+		$sql .= ", `option_id` = '" . (int)$data['option_id'] . "'";
+		
+		if (!isset($data['product_option_value'])) {
+			$sql .= ", `value` = '" . $this->db->escape($data['value']) . "'";
+		}
+
+		$sql .= ", `required` = '" . (int)$data['required'] . "'";
+
+		$this->db->query($sql);
 
 		$product_option_id = $this->db->getLastId();
 
@@ -1454,7 +1464,15 @@ class Product extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function addOptionValue(int $product_id, int $product_option_id, int $option_id, array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "product_option_value` SET `product_option_id` = '" . (int)$product_option_id . "', `product_id` = '" . (int)$product_id . "', `option_id` = '" . (int)$option_id . "', `option_value_id` = '" . (int)$data['option_value_id'] . "', `quantity` = '" . (int)$data['quantity'] . "', `subtract` = '" . (int)$data['subtract'] . "', `price` = '" . (float)$data['price'] . "', `price_prefix` = '" . $this->db->escape($data['price_prefix']) . "', `points` = '" . (int)$data['points'] . "', `points_prefix` = '" . $this->db->escape($data['points_prefix']) . "', `weight` = '" . (float)$data['weight'] . "', `weight_prefix` = '" . $this->db->escape($data['weight_prefix']) . "'");
+		$sql = "INSERT INTO `" . DB_PREFIX . "product_option_value` SET ";
+
+		if (isset($data['product_option_value_id'])) {
+			$sql .= "`product_option_value_id` = '" . (int)$data['product_option_value_id'] . "', ";
+		}
+
+		$sql .= "`product_option_id` = '" . (int)$product_option_id . "', `product_id` = '" . (int)$product_id . "', `option_id` = '" . (int)$option_id . "', `option_value_id` = '" . (int)$data['option_value_id'] . "', `quantity` = '" . (int)$data['quantity'] . "', `subtract` = '" . (int)$data['subtract'] . "', `price` = '" . (float)$data['price'] . "', `price_prefix` = '" . $this->db->escape($data['price_prefix']) . "', `points` = '" . (int)$data['points'] . "', `points_prefix` = '" . $this->db->escape($data['points_prefix']) . "', `weight` = '" . (float)$data['weight'] . "', `weight_prefix` = '" . $this->db->escape($data['weight_prefix']) . "'";
+
+		$this->db->query($sql);
 
 		return $this->db->getLastId();
 	}
