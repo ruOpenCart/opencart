@@ -46,6 +46,7 @@ $_['column_model']               = 'Модель';
 $_['column_quantity']            = 'Количество';
 $_['column_total']               = 'Всего';
 $_['column_code']                = 'Код';
+$_['column_description']         = 'Описание';
 $_['column_action']              = 'Действие';
 
 // Entry
