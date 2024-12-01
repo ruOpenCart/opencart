@@ -51,6 +51,7 @@ $_['text_order_id']              = 'Номер заказа';
 $_['text_website']               = 'Веб-сайт';
 $_['text_invoice']               = 'Счет';
 $_['text_invoice_no']            = 'Счет №';
+$_['text_tbc']                   = 'TBC';
 $_['text_store_address']         = 'Адрес магазина';
 $_['text_store_telephone']       = 'Телефон магазина';
 $_['text_store_email']           = 'Эл. почта магазина';

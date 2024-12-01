@@ -28,6 +28,10 @@ $_['text_file']                  = 'Файл';
 $_['text_date']                  = 'Дата';
 $_['text_datetime']              = 'Дата и время';
 $_['text_time']                  = 'Время';
+
+$_['text_fixed']                 = 'Фиксированная сумма';
+$_['text_percentage']            = 'Проценты';
+
 $_['text_image']                 = 'Изображение';
 $_['text_image_additional']      = 'Дополнительные изображения';
 $_['text_reward']                = 'Купить баллы';
@@ -94,6 +98,8 @@ $_['entry_height']               = 'Высота';
 $_['entry_option']               = 'Опция';
 $_['entry_option_value']         = 'Значение опции';
 $_['entry_customer_group']       = 'Группа покупателя';
+$_['entry_special']              = 'Специальное предложение';
+$_['entry_type']                 = 'Тип';
 $_['entry_date_start']           = 'Дата начала';
 $_['entry_date_end']             = 'Дата окончания';
 $_['entry_priority']             = 'Приоритет';
@@ -111,7 +117,7 @@ $_['entry_related']              = 'Сопутствующие товары';
 $_['entry_tag']                  = 'Теги товара';
 $_['entry_reward']               = 'Бонусные баллы';
 $_['entry_layout']               = 'Переопределение макета';
-$_['entry_subscription']         = 'План подписки';
+$_['entry_subscription']         = 'Subscription Plan';
 
 // Help
 $_['help_tag']                   = 'Разделитель — запятая';
