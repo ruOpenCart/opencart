@@ -3,13 +3,15 @@ namespace Opencart\Catalog\Model\Cms;
 /**
  * Class Topic
  *
+ * Can be called from $this->load->model('cms/topic');
+ *
  * @package Opencart\Catalog\Model\Cms
  */
 class Topic extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Topic
 	 *
-	 * @param int $topic_id
+	 * @param int $topic_id primary key of the topic record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -17,7 +19,7 @@ class Topic extends \Opencart\System\Engine\Model {
 		$sql = "SELECT DISTINCT * FROM `" . DB_PREFIX . "topic` `t` LEFT JOIN `" . DB_PREFIX . "topic_description` `td` ON (`t`.`topic_id` = `td`.`topic_id`) LEFT JOIN `" . DB_PREFIX . "topic_to_store` `t2s` ON (`t`.`topic_id` = `t2s`.`topic_id`) WHERE `t`.`topic_id` = '" . (int)$topic_id . "' AND `td`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `t2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `t`.`status` = '1'";
 
 		$key = md5($sql);
-		
+
 		$topic_data = $this->cache->get('topic.' . $key);
 
 		if (!$topic_data) {

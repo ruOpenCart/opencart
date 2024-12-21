@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Common;
  */
 class Cart extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -57,10 +59,6 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$subscription = '';
 
 			if ($product['subscription']) {
-				if ($product['subscription']['trial_status']) {
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
-				}
-
 				if ($product['subscription']['duration']) {
 					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency'], $product['subscription']['duration']);
 				} else {
@@ -71,8 +69,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 			$data['products'][] = [
 				'thumb'        => $this->model_tool_image->resize($product['image'], $this->config->get('config_image_cart_width'), $this->config->get('config_image_cart_height')),
 				'subscription' => $subscription,
-				'price'        => $price_status ?? $product['price_text'],
-				'total'        => $price_status ?? $product['total_text'],
+				'price'        => $price_status ? $product['price_text'] : '',
+				'total'        => $price_status ? $product['total_text'] : '',
 				'href'         => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
 			] + $product;
 		}
@@ -81,7 +79,7 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$data['totals'] = [];
 
 		foreach ($totals as $total) {
-			$data['totals'][] = ['text'  => $this->currency->format($total['value'], $this->session->data['currency'])] + $total;
+			$data['totals'][] = ['text' => $this->currency->format($total['value'], $this->session->data['currency'])] + $total;
 		}
 
 		$data['list'] = $this->url->link('common/cart.info', 'language=' . $this->config->get('config_language'));

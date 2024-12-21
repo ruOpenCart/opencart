@@ -3,6 +3,8 @@ namespace Opencart\Admin\Model\Extension\Opencart\Module;
 /**
  * Class Bestseller
  *
+ * Can be called from $this->load->model('extension/opencart/module/bestseller');
+ *
  * @package Opencart\Admin\Model\Extension\Opencart\Module
  */
 class Bestseller extends \Opencart\System\Engine\Model {
@@ -16,7 +18,7 @@ class Bestseller extends \Opencart\System\Engine\Model {
 		  `product_id` int(11) NOT NULL,
 		  `total` int(11) NOT NULL,
 		  PRIMARY KEY (`product_id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 	}
 
 	/**
@@ -31,7 +33,7 @@ class Bestseller extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Total
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 * @param int $total
 	 *
 	 * @return void
@@ -43,7 +45,7 @@ class Bestseller extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 *
 	 * @return void
 	 */

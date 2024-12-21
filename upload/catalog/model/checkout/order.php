@@ -3,18 +3,20 @@ namespace Opencart\Catalog\Model\Checkout;
 /**
  * Class Order
  *
+ * Can be called from $this->load->model('checkout/order');
+ *
  * @package Opencart\Catalog\Model\Checkout
  */
 class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Order
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int
 	 */
 	public function addOrder(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET `invoice_prefix` = '" . $this->db->escape($data['invoice_prefix']) . "', `store_id` = '" . (int)$data['store_id'] . "', `store_name` = '" . $this->db->escape($data['store_name']) . "', `store_url` = '" . $this->db->escape($data['store_url']) . "', `customer_id` = '" . (int)$data['customer_id'] . "', `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_firstname` = '" . $this->db->escape($data['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['payment_lastname']) . "', `payment_company` = '" . $this->db->escape($data['payment_company']) . "', `payment_address_1` = '" . $this->db->escape($data['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($data['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($data['payment_city']) . "', `payment_postcode` = '" . $this->db->escape($data['payment_postcode']) . "', `payment_country` = '" . $this->db->escape($data['payment_country']) . "', `payment_country_id` = '" . (int)$data['payment_country_id'] . "', `payment_zone` = '" . $this->db->escape($data['payment_zone']) . "', `payment_zone_id` = '" . (int)$data['payment_zone_id'] . "', `payment_address_format` = '" . $this->db->escape($data['payment_address_format']) . "', `payment_custom_field` = '" . $this->db->escape(isset($data['payment_custom_field']) ? json_encode($data['payment_custom_field']) : '') . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_firstname` = '" . $this->db->escape($data['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['shipping_lastname']) . "', `shipping_company` = '" . $this->db->escape($data['shipping_company']) . "', `shipping_address_1` = '" . $this->db->escape($data['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($data['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($data['shipping_city']) . "', `shipping_postcode` = '" . $this->db->escape($data['shipping_postcode']) . "', `shipping_country` = '" . $this->db->escape($data['shipping_country']) . "', `shipping_country_id` = '" . (int)$data['shipping_country_id'] . "', `shipping_zone` = '" . $this->db->escape($data['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$data['shipping_zone_id'] . "', `shipping_address_format` = '" . $this->db->escape($data['shipping_address_format']) . "', `shipping_custom_field` = '" . $this->db->escape(isset($data['shipping_custom_field']) ? json_encode($data['shipping_custom_field']) : '') . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `comment` = '" . $this->db->escape($data['comment']) . "', `total` = '" . (float)$data['total'] . "', `affiliate_id` = '" . (int)$data['affiliate_id'] . "', `commission` = '" . (float)$data['commission'] . "', `marketing_id` = '" . (int)$data['marketing_id'] . "', `tracking` = '" . $this->db->escape($data['tracking']) . "', `language_id` = '" . (int)$data['language_id'] . "', `currency_id` = '" . (int)$data['currency_id'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `currency_value` = '" . (float)$data['currency_value'] . "', `ip` = '" . $this->db->escape((string)$data['ip']) . "', `forwarded_ip` = '" . $this->db->escape((string)$data['forwarded_ip']) . "', `user_agent` = '" . $this->db->escape((string)$data['user_agent']) . "', `accept_language` = '" . $this->db->escape((string)$data['accept_language']) . "', `date_added` = NOW(), `date_modified` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET `invoice_prefix` = '" . $this->db->escape($data['invoice_prefix']) . "', `store_id` = '" . (int)$data['store_id'] . "', `store_name` = '" . $this->db->escape($data['store_name']) . "', `store_url` = '" . $this->db->escape($data['store_url']) . "', `customer_id` = '" . (int)$data['customer_id'] . "', `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_firstname` = '" . $this->db->escape($data['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['payment_lastname']) . "', `payment_company` = '" . $this->db->escape($data['payment_company']) . "', `payment_address_1` = '" . $this->db->escape($data['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($data['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($data['payment_city']) . "', `payment_postcode` = '" . $this->db->escape($data['payment_postcode']) . "', `payment_country` = '" . $this->db->escape($data['payment_country']) . "', `payment_country_id` = '" . (int)$data['payment_country_id'] . "', `payment_zone` = '" . $this->db->escape($data['payment_zone']) . "', `payment_zone_id` = '" . (int)$data['payment_zone_id'] . "', `payment_address_format` = '" . $this->db->escape($data['payment_address_format']) . "', `payment_custom_field` = '" . $this->db->escape(isset($data['payment_custom_field']) ? json_encode($data['payment_custom_field']) : '') . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_firstname` = '" . $this->db->escape($data['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['shipping_lastname']) . "', `shipping_company` = '" . $this->db->escape($data['shipping_company']) . "', `shipping_address_1` = '" . $this->db->escape($data['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($data['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($data['shipping_city']) . "', `shipping_postcode` = '" . $this->db->escape($data['shipping_postcode']) . "', `shipping_country` = '" . $this->db->escape($data['shipping_country']) . "', `shipping_country_id` = '" . (int)$data['shipping_country_id'] . "', `shipping_zone` = '" . $this->db->escape($data['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$data['shipping_zone_id'] . "', `shipping_address_format` = '" . $this->db->escape($data['shipping_address_format']) . "', `shipping_custom_field` = '" . $this->db->escape(isset($data['shipping_custom_field']) ? json_encode($data['shipping_custom_field']) : '') . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `comment` = '" . $this->db->escape($data['comment']) . "', `total` = '" . (float)$data['total'] . "', `affiliate_id` = '" . (int)$data['affiliate_id'] . "', `commission` = '" . (float)$data['commission'] . "', `marketing_id` = '" . (int)$data['marketing_id'] . "', `tracking` = '" . $this->db->escape($data['tracking']) . "', `language_id` = '" . (int)$data['language_id'] . "', `language_code` = '" . $this->db->escape($data['language_code']) . "', `currency_id` = '" . (int)$data['currency_id'] . "', `currency_code` = '" . $this->db->escape($data['currency_code']) . "', `currency_value` = '" . (float)$data['currency_value'] . "', `ip` = '" . $this->db->escape((string)$data['ip']) . "', `forwarded_ip` = '" . $this->db->escape((string)$data['forwarded_ip']) . "', `user_agent` = '" . $this->db->escape((string)$data['user_agent']) . "', `accept_language` = '" . $this->db->escape((string)$data['accept_language']) . "', `date_added` = NOW(), `date_modified` = NOW()");
 
 		$order_id = $this->db->getLastId();
 
@@ -38,8 +40,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Order
 	 *
-	 * @param int                  $order_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_id primary key of the order record
+	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
 	 */
@@ -82,8 +84,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Transaction ID
 	 *
-	 * @param int    $order_id
-	 * @param string $transaction_id
+	 * @param int    $order_id       primary key of the order record
+	 * @param string $transaction_id primary key of the transaction record
 	 *
 	 * @return void
 	 */
@@ -94,8 +96,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Order Status ID
 	 *
-	 * @param int $order_id
-	 * @param int $order_status_id
+	 * @param int $order_id        primary key of the order record
+	 * @param int $order_status_id primary key of the order status record
 	 *
 	 * @return void
 	 */
@@ -106,7 +108,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Comment
 	 *
-	 * @param int    $order_id
+	 * @param int    $order_id primary key of the order record
 	 * @param string $comment
 	 *
 	 * @return void
@@ -118,7 +120,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Order
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -144,7 +146,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Order
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -198,8 +200,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Product
 	 *
-	 * @param int                  $order_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_id primary key of the order record
+	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return int
 	 */
@@ -219,35 +221,29 @@ class Order extends \Opencart\System\Engine\Model {
 			$this->model_checkout_order->addSubscription($order_id, $order_product_id, $data['subscription']);
 		}
 
-		return $this->db->getLastId();
+		return $order_product_id;
 	}
 
 	/**
 	 * Delete Products
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return void
 	 */
-	public function deleteProducts(int $order_id, int $order_product_id = 0): void {
-		$sql = "DELETE FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'";
+	public function deleteProducts(int $order_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
-		if ($order_product_id) {
-			$sql .= " AND `order_product_id` = '" . (int)$order_product_id . "'";
-		}
-
-		$this->db->query($sql);
-
-		$this->deleteOptions($order_id, $order_product_id);
-		$this->deleteSubscription($order_id, $order_product_id);
+		$this->deleteOptions($order_id);
+		$this->deleteSubscription($order_id);
 	}
 
 	/**
 	 * Get Product
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -260,7 +256,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Products
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -273,9 +269,9 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Option
 	 *
-	 * @param int                  $order_id
-	 * @param int                  $order_product_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_id         primary key of the order record
+	 * @param int                  $order_product_id primary key of the order product record
+	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
 	 */
@@ -286,26 +282,20 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Options
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return void
 	 */
-	public function deleteOptions(int $order_id, int $order_product_id = 0): void {
-		$sql = "DELETE FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "'";
-
-		if ($order_product_id) {
-			$sql .= " AND `order_product_id` = '" . (int)$order_product_id . "'";
-		}
-
-		$this->db->query($sql);
+	public function deleteOptions(int $order_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	/**
 	 * Get Options
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -318,39 +308,33 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Subscription
 	 *
-	 * @param int                  $order_id
-	 * @param int                  $order_product_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_id         primary key of the order record
+	 * @param int                  $order_product_id primary key of the order product record
+	 * @param array<string, mixed> $data             array of data
 	 *
 	 * @return void
 	 */
 	public function addSubscription(int $order_id, int $order_product_id, array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_tax` = '" . (float)$data['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `tax` = '" . (float)$data['tax'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_product_id` = '" . (int)$order_product_id . "', `order_id` = '" . (int)$order_id . "', `product_id` = '" . (int)$data['product_id'] . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_tax` = '" . (float)$data['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `tax` = '" . (float)$data['tax'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "'");
 	}
 
 	/**
 	 * Delete Subscription
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return void
 	 */
-	public function deleteSubscription(int $order_id, int $order_product_id = 0): void {
-		$sql = "DELETE FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'";
-
-		if ($order_product_id) {
-			$sql .= " AND `order_product_id` = '" . (int)$order_product_id . "'";
-		}
-
-		$this->db->query($sql);
+	public function deleteSubscription(int $order_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -363,61 +347,12 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscriptions
 	 *
-	 * @param array<string, mixed> $data
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function getSubscriptions(array $data): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription`";
-
-		$implode = [];
-
-		if (!empty($data['filter_date_next'])) {
-			$implode[] = "DATE(`date_next`) <= DATE('" . $this->db->escape($data['filter_date_next']) . "')";
-		}
-
-		if (!empty($data['filter_subscription_status_id'])) {
-			$implode[] = "`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
-		}
-
-		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
-		}
-
-		$sort_data = [
-			'pd.name',
-			'p.model',
-			'p.price',
-			'p.quantity',
-			'p.status',
-			'p.sort_order'
-		];
-
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY `o`.`order_id`";
-		}
-
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
-
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
-
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
-
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
-
-		$query = $this->db->query($sql);
+	public function getSubscriptions(int $order_id): array {
+		$query = $this->db->query("SELECT *, os.price, `os`.`tax` FROM `" . DB_PREFIX . "order_subscription` `os` LEFT JOIN `" . DB_PREFIX . "order_product` `op` ON(`os`.`order_product_id` = `op`.`order_product_id`) WHERE `os`.`order_id` = '" . (int)$order_id . "'");
 
 		return $query->rows;
 	}
@@ -425,7 +360,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Orders By Subscription ID
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return int
 	 */
@@ -438,8 +373,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Total
 	 *
-	 * @param int                  $order_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $order_id primary key of the order record
+	 * @param array<string, mixed> $data     array of data
 	 *
 	 * @return void
 	 */
@@ -450,7 +385,9 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Totals
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
+	 *
+	 * @return void
 	 */
 	public function deleteTotals(int $order_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -459,7 +396,7 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Totals
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -472,8 +409,8 @@ class Order extends \Opencart\System\Engine\Model {
 	/**
 	 * Add History
 	 *
-	 * @param int    $order_id
-	 * @param int    $order_status_id
+	 * @param int    $order_id        primary key of the order record
+	 * @param int    $order_status_id primary key of the order status record
 	 * @param string $comment
 	 * @param bool   $notify
 	 * @param bool   $override
@@ -522,6 +459,9 @@ class Order extends \Opencart\System\Engine\Model {
 
 			// Products
 			$order_products = $this->model_checkout_order->getProducts($order_id);
+
+			// Subscriptions
+			$order_subscriptions = $this->model_checkout_order->getSubscriptions($order_id);
 
 			// Totals
 			$order_totals = $this->model_checkout_order->getTotals($order_id);
@@ -577,44 +517,45 @@ class Order extends \Opencart\System\Engine\Model {
 				// Add subscription
 				$this->load->model('checkout/subscription');
 
-				foreach ($order_products as $order_product) {
-					// Subscription
-					$order_subscription_info = $this->model_checkout_order->getSubscription($order_id, $order_product['order_product_id']);
+				foreach ($order_subscriptions as $key => $order_subscription) {
+					$subscription_product_data = [];
 
-					if ($order_subscription_info) {
-						// Add options for subscription
-						$option_data = [];
+					foreach ($order_subscriptions as $subscription) {
+						if ($subscription['subscription_plan_id'] == $order_subscription['subscription_plan_id']) {
+							$subscription_product_data[] = [
+								'option'      => $this->model_checkout_order->getOptions($order_id, $order_subscription['order_product_id']),
+								'trial_price' => $order_subscription['trial_price'],
+								'trial_tax'   => $order_subscription['trial_tax'],
+								'price'       => $order_subscription['price'],
+								'tax'         => $order_subscription['tax']
+							] + $order_subscription;
 
-						$options = $this->model_checkout_order->getOptions($order_id, $order_product['order_product_id']);
-
-						foreach ($options as $option) {
-							if ($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'file' || $option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
-								$option_data[$option['product_option_id']] = $option['value'];
-							} elseif ($option['type'] == 'select' || $option['type'] == 'radio') {
-								$option_data[$option['product_option_id']] = $option['product_option_value_id'];
-							} elseif ($option['type'] == 'checkbox') {
-								$option_data[$option['product_option_id']][] = $option['product_option_value_id'];
-							}
+							unset($order_subscriptions[$key]);
 						}
-
-						// Add subscription if one is not setup
-						$subscription_info = $this->model_checkout_subscription->getProductByOrderProductId($order_id, $order_product['order_product_id']);
-
-						if ($subscription_info) {
-							$subscription_id = $subscription_info['subscription_id'];
-						} else {
-							$subscription_product_data = [
-								'option'      => $option_data,
-								'trial_price' => $order_subscription_info['trial_price'],
-								'price'       => $order_subscription_info['price']
-	                        ] + $order_product;
-
-							$subscription_id = $this->model_checkout_subscription->addSubscription($order_info + $order_subscription_info + ['subscription_product' => [$subscription_product_data]]);
-						}
-
-						// Add history and set active subscription
-						$this->model_checkout_subscription->addHistory($subscription_id, (int)$this->config->get('config_subscription_active_status_id'));
 					}
+
+					$subscription_data = [
+						'trial_price'          => array_sum(array_column($subscription_product_data, 'trial_price')),
+						'trial_tax'            => array_sum(array_column($subscription_product_data, 'trial_tax')),
+						'price'                => array_sum(array_column($subscription_product_data, 'price')),
+						'tax'                  => array_sum(array_column($subscription_product_data, 'tax')),
+						'subscription_product' => $subscription_product_data,
+						'language'             => $order_info['language_code'],
+						'currency'             => $order_info['currency_code']
+					] + $order_info + $order_subscription;
+
+					$subscription_info = $this->model_checkout_subscription->getProductByOrderProductId($order_id, $order_subscription['order_product_id']);
+
+					if (!$subscription_info) {
+						$subscription_id = $this->model_checkout_subscription->addSubscription($subscription_data);
+					} else {
+						$this->model_checkout_subscription->editSubscription($subscription_info['subscription_id'], $subscription_data);
+
+						$subscription_id = $subscription_info['subscription_id'];
+					}
+
+					// Add history and set active subscription
+					$this->model_checkout_subscription->addHistory($subscription_id, (int)$this->config->get('config_subscription_active_status_id'));
 				}
 			}
 
@@ -681,9 +622,9 @@ class Order extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 * Delete Order History
+	 * Delete Order Histories
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */

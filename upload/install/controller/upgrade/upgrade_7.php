@@ -7,6 +7,8 @@ namespace Opencart\Install\Controller\Upgrade;
  */
 class Upgrade7 extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -192,7 +194,7 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 	// Function to repair any erroneous categories that are not in the category path table.
 
 	/**
-	 * @param int $parent_id
+	 * @param int $parent_id primary key of the parent category record
 	 *
 	 * @return void
 	 */

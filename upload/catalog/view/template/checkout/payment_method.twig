@@ -9,11 +9,12 @@
 </fieldset>
 <br/>
 <div class="mb-2">
-  <label for="input-comment" class="form-label"><strong>{{ text_comments }}</strong></label> <textarea name="comment" rows="4" id="input-comment" class="form-control">{{ comment }}</textarea>
+  <label for="input-comment" class="form-label"><strong>{{ text_comments }}</strong></label>
+  <textarea name="comment" rows="4" id="input-comment" class="form-control">{{ comment }}</textarea>
 </div>
 {% if text_agree %}
   <div class="form-check form-switch form-switch-lg form-check-reverse mt-3">
-    <label class="form-check-label">{{ text_agree }}</label> <input type="checkbox" name="agree" value="1" id="input-checkout-agree" class="form-check-input"/>
+    <label class="form-check-label">{{ text_agree }}</label> <input type="checkbox" name="agree" value="1" id="input-checkout-agree" class="form-check-input"{% if agree %} checked{% endif %}/>
   </div>
 {% endif %}
 <script type="text/javascript"><!--
@@ -55,13 +56,12 @@ $('#button-payment-methods').on('click', function() {
                     html += '        <form id="form-payment-method">';
                     html += '          <p>{{ text_payment|escape('js') }}</p>';
 
+                    var first = true;
+
                     for (i in json['payment_methods']) {
                         html += '<p><strong>' + json['payment_methods'][i]['name'] + '</strong></p>';
 
                         if (!json['payment_methods'][i]['error']) {
-
-                            var first = true;
-
                             for (j in json['payment_methods'][i]['option']) {
                                 html += '<div class="form-check">';
 

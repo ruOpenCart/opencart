@@ -6,23 +6,21 @@
         <th>{{ column_status }}</th>
         <th>{{ column_code }}</th>
         <th>{{ column_description }}</th>
-        <th>{{ column_notify }}</th>
       </tr>
     </thead>
     <tbody>
-      {% if histories %}
-        {% for history in histories %}
+      {% if logs %}
+        {% for log in logs %}
           <tr>
-            <td>{{ history.date_added }}</td>
-            <td>{{ history.status }}</td>
-            <td>{{ history.code }}</td>
-            <td>{{ history.description }}</td>
-            <td>{{ history.notify }}</td>
+            <td>{{ log.date_added }}</td>
+            <td>{% if log.status %}{{ text_enabled }}{% else %}{{ text_disabled }}{% endif %}</td>
+            <td>{{ log.code }}</td>
+            <td>{{ log.description }}</td>
           </tr>
         {% endfor %}
       {% else %}
         <tr>
-          <td class="text-center" colspan="5">{{ text_no_results }}</td>
+          <td class="text-center" colspan="4">{{ text_no_results }}</td>
         </tr>
       {% endif %}
     </tbody>

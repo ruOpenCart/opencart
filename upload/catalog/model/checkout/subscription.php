@@ -3,13 +3,15 @@ namespace Opencart\Catalog\Model\Checkout;
 /**
  * Class Subscription
  *
+ * Can be called from $this->load->model('checkout/subscription');
+ *
  * @package Opencart\Catalog\Model\Checkout
  */
 class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Subscription
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int Subscription ID
 	 *
@@ -63,7 +65,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 			$date_next = date('Y-m-d', strtotime('+' . $data['cycle'] . ' ' . $data['frequency']));
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription` SET `order_id` = '" . (isset($data['order_id']) ? (int)$data['order_id'] : 0) . "', `store_id` = '" . (int)$data['store_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_remaining` = '" . (int)$trial_remaining . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "', `remaining` = '" . (int)$remaining . "', `date_next` = '" . $this->db->escape($date_next) . "', `comment` = '" . $this->db->escape($data['comment']) . "', `language_id` = '" . (int)$data['language_id'] . "', `currency_id` = '" . (int)$data['currency_id'] . "', `date_added` = NOW(), `date_modified` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription` SET `order_id` = '" . (isset($data['order_id']) ? (int)$data['order_id'] : 0) . "', `store_id` = '" . (int)$data['store_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_tax` = '" . (float)$data['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_remaining` = '" . (int)$trial_remaining . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `tax` = '" . (float)$data['tax'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "', `remaining` = '" . (int)$remaining . "', `date_next` = '" . $this->db->escape($date_next) . "', `comment` = '" . $this->db->escape($data['comment']) . "',  `language` = '" . $this->db->escape($data['language']) . "', `currency` = '" . $this->db->escape($data['currency']) . "', `date_added` = NOW(), `date_modified` = NOW()");
 
 		$subscription_id = $this->db->getLastId();
 
@@ -77,8 +79,8 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Subscription
 	 *
-	 * @param int                  $subscription_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $subscription_id primary key of the subscription record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 *
@@ -132,7 +134,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 			$date_next = date('Y-m-d', strtotime('+' . $data['cycle'] . ' ' . $data['frequency']));
 		}
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `order_id` = '" . (isset($data['order_id']) ? (int)$data['order_id'] : 0) . "', `store_id` = '" . (int)$data['store_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_remaining` = '" . (int)$trial_remaining . "',`trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "', `remaining` = '" . (int)$remaining . "', `date_next` = '" . $this->db->escape($date_next) . "', `comment` = '" . $this->db->escape($data['comment']) . "', `language_id` = '" . (int)$data['language_id'] . "', `currency_id` = '" . (int)$data['currency_id'] . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `order_id` = '" . (isset($data['order_id']) ? (int)$data['order_id'] : 0) . "', `store_id` = '" . (int)$data['store_id'] . "', `customer_id` = '" . (int)$data['customer_id'] . "', `payment_address_id` = '" . (int)$data['payment_address_id'] . "', `payment_method` = '" . $this->db->escape($data['payment_method'] ? json_encode($data['payment_method']) : '') . "', `shipping_address_id` = '" . (int)$data['shipping_address_id'] . "', `shipping_method` = '" . $this->db->escape($data['shipping_method'] ? json_encode($data['shipping_method']) : '') . "', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `trial_tax` = '" . (float)$data['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_remaining` = '" . (int)$trial_remaining . "',`trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `tax` = '" . (float)$data['tax'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `cycle` = '" . (int)$data['cycle'] . "', `duration` = '" . (int)$data['duration'] . "', `remaining` = '" . (int)$remaining . "', `date_next` = '" . $this->db->escape($date_next) . "', `comment` = '" . $this->db->escape($data['comment']) . "', `language` = '" . $this->db->escape($data['language']) . "', `currency` = '" . $this->db->escape($data['currency']) . "', `date_modified` = NOW() WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		$this->deleteProducts($subscription_id);
 
@@ -144,8 +146,8 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Subscription Status
 	 *
-	 * @param int  $subscription_id
-	 * @param bool $subscription_status_id
+	 * @param int  $subscription_id        primary key of the subscription record
+	 * @param bool $subscription_status_id primary key of the subscription status record
 	 *
 	 * @return void
 	 */
@@ -156,7 +158,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $remaining
 	 *
 	 * @return void
@@ -168,7 +170,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Trial Remaining
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $trial_remaining
 	 *
 	 * @return void
@@ -180,7 +182,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Date Next
 	 *
-	 * @param int    $subscription_id
+	 * @param int    $subscription_id primary key of the subscription record
 	 * @param string $date_next
 	 *
 	 * @return void
@@ -192,7 +194,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Subscription By Order ID
 	 *
-	 * @param int $order_id
+	 * @param int $order_id primary key of the order record
 	 *
 	 * @return void
 	 */
@@ -203,7 +205,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscriptions
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -280,57 +282,140 @@ class Subscription extends \Opencart\System\Engine\Model {
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
+		$order_data = [];
+
 		$query = $this->db->query($sql);
 
-		return $query->rows;
+		foreach ($query->rows as $key => $result) {
+			$order_data[$key] = [
+				'payment_method'  => json_decode($result['payment_method'], true),
+				'shipping_method' => json_decode($result['shipping_method'], true)
+			] + $result;
+		}
+
+		return $order_data;
 	}
 
 	/**
 	 * Add Product
 	 *
-	 * @param int   $subscription_id
-	 * @param array $product
+	 * @param int                  $subscription_id primary key of the subscription record
+	 * @param array<string, mixed> $data            array of data
 	 *
 	 * @return void
 	 */
-	public function addProduct(int $subscription_id, array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_product` SET `subscription_id` = '" . (int)$subscription_id . "', `order_product_id` = '" . (int)$data['order_product_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `product_id` =  '" . (int)$data['product_id'] . "', `option` = '" . $this->db->escape($data['option'] ? json_encode($data['option']) : '') . "', `quantity` = '" . (int)$data['quantity'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `price` = '" . (float)$data['price'] . "'");
+	public function addProduct(int $subscription_id, array $data): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_product` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$data['order_id'] . "', `order_product_id` = '" . (int)$data['order_product_id'] . "', `product_id` =  '" . (int)$data['product_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `model` = '" . $this->db->escape($data['model']) . "', `quantity` = '" . (int)$data['quantity'] . "', `trial_price` = '" . (float)$data['trial_price'] . "', `price` = '" . (float)$data['price'] . "'");
+
+		$subscription_product_id = $this->db->getLastId();
+
+		if ($data['option']) {
+			foreach ($data['option'] as $option) {
+				$this->model_checkout_subscription->addOption($subscription_id, $subscription_product_id, $option);
+			}
+		}
+
+		return $subscription_product_id;
 	}
 
 	/**
-	 * Delete Product
+	 * Delete Subscription Products
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return void
 	 */
 	public function deleteProducts(int $subscription_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+
+		$this->deleteOptions($subscription_id);
 	}
 
 	/**
-	 * Get Subscription By Order Product ID
+	 * Get Products
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $subscription_id primary key of the subscription record
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getProducts(int $subscription_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+
+		return $query->rows;
+	}
+
+	/**
+	 * Get Subscription Product By Order Product ID
+	 *
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed>
 	 */
 	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
-		if ($query->num_rows) {
-			return ['option' => $query->row['option'] ? json_decode($query->row['option'], true) : ''] + $query->row;
-		}
+		return $query->row;
+	}
 
-		return [];
+	/**
+	 * Add Option
+	 *
+	 * @param int                  $subscription_id         primary key of the subscription record
+	 * @param int                  $subscription_product_id primary key of the subscription product record
+	 * @param array<string, mixed> $data                    array of data
+	 *
+	 * @return void
+	 */
+	public function addOption(int $subscription_id, int $subscription_product_id, array $data): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_option` SET `subscription_id` = '" . (int)$subscription_id . "', `subscription_product_id` = '" . (int)$subscription_product_id . "', `product_option_id` = '" . (int)$data['product_option_id'] . "', `product_option_value_id` = '" . (int)$data['product_option_value_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `value` = '" . $this->db->escape($data['value']) . "', `type` = '" . $this->db->escape($data['type']) . "'");
+	}
+
+	/**
+	 * Delete Options
+	 *
+	 * @param int $subscription_id primary key of the subscription record
+	 *
+	 * @return void
+	 */
+	public function deleteOptions(int $subscription_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_option` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	}
+
+	/**
+	 * Get Option
+	 *
+	 * @param int $subscription_id         primary key of the subscription record
+	 * @param int $subscription_product_id primary key of the subscription product record
+	 * @param int $product_option_id       primary key of the product option record
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getOption(int $subscription_id, int $subscription_product_id, int $product_option_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_option` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `subscription_product_id` = '" . (int)$subscription_product_id . "' AND `product_option_id` = '" . (int)$product_option_id . "'");
+
+		return $query->row;
+	}
+
+	/**
+	 * Get Options
+	 *
+	 * @param int $subscription_id         primary key of the subscription record
+	 * @param int $subscription_product_id primary key of the subscription product record
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function getOptions(int $subscription_id, int $subscription_product_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_option` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `subscription_product_id` = '" . (int)$subscription_product_id . "'");
+
+		return $query->rows;
 	}
 
 	/**
 	 * Add History
 	 *
-	 * @param int    $subscription_id
-	 * @param int    $subscription_status_id
+	 * @param int    $subscription_id        primary key of the subscription record
+	 * @param int    $subscription_status_id primary key of the subscription status record
 	 * @param string $comment
 	 * @param bool   $notify
 	 *
@@ -340,5 +425,19 @@ class Subscription extends \Opencart\System\Engine\Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_status_id` = '" . (int)$subscription_status_id . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_history` SET `subscription_id` = '" . (int)$subscription_id . "', `subscription_status_id` = '" . (int)$subscription_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (int)$notify . "', `date_added` = NOW()");
+	}
+
+	/**
+	 * Add Log
+	 *
+	 * @param int    $subscription_id primary key of the subscription record
+	 * @param string $code
+	 * @param string $description
+	 * @param bool   $status
+	 *
+	 * @return void
+	 */
+	public function addLog(int $subscription_id, string $code, string $description, bool $status = false): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_log` SET `subscription_id` = '" . (int)$subscription_id . "', `code` = '" . $this->db->escape($code) . "', `description` = '" . $this->db->escape($description) . "', `status` = '" . (int)$status . "', `date_added` = NOW()");
 	}
 }

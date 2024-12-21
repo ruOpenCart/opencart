@@ -7,7 +7,9 @@ namespace Opencart\Catalog\Controller\Product;
  */
 class Thumb extends \Opencart\System\Engine\Controller {
 	/**
-	 * @param array<string, mixed> $data
+	 * Index
+	 *
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return string
 	 */

@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Account;
  */
 class PaymentMethod extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -45,7 +47,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getList();
 
-		$data['continue'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+		$data['back'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 
 		$data['language'] = $this->config->get('config_language');
 
@@ -92,68 +94,14 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			if ($this->config->get('payment_' . $result['code'] . '_status')) {
-				$this->load->model('extension/' . $result['extension'] . '/payment/' . $result['code']);
+                $output = $this->load->controller('extension/' . $result['extension'] . '/account/' . $result['code']);
 
-				$key = 'model_extension_' . $result['extension'] . '_payment_' . $result['code'];
-
-				if (isset($this->{$key}->getStored)) {
-					$payment_method_info = $this->{$key}->getStored();
-
-					if ($payment_method_info) {
-						$data['payment_methods'][] = ['delete' => $this->url->link('account/payment_method.delete', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&code=' . $payment_method_info['code'])] + $payment_method_info;
-					}
+				if (is_string($output)) {
+					$data['payment_methods'][] = $output;
 				}
 			}
 		}
 
 		return $this->load->view('account/payment_method_list', $data);
-	}
-
-	/**
-	 * Delete
-	 *
-	 * @return void
-	 */
-	public function delete(): void {
-		$this->load->language('account/payment_method');
-
-		$json = [];
-
-		if (isset($this->request->get['code'])) {
-			$code = (string)$this->request->get['code'];
-		} else {
-			$code = '';
-		}
-
-		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			$this->session->data['redirect'] = $this->url->link('account/payment_method', 'language=' . $this->config->get('config_language'));
-
-			$json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
-		}
-
-		if (!$json) {
-			$this->load->model('setting/extension');
-
-			$payment_method_info = $this->model_setting_extension->getExtensionByCode('payment', $code);
-
-			if (!$payment_method_info) {
-				$json['error'] = $this->language->get('error_payment_method');
-			}
-		}
-
-		if (!$json) {
-			$this->load->model('extension/' . $payment_method_info['extension'] . '/payment/' . $payment_method_info['code']);
-
-			$key = 'model_extension_' . $payment_method_info['extension'] . '_payment_' . $payment_method_info['code'];
-
-			if (isset($this->{$key}->delete)) {
-				$this->{$key}->delete();
-			}
-
-			$json['success'] = $this->language->get('text_success');
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
 	}
 }

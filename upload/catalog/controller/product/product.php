@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Product;
  */
 class Product extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return ?\Opencart\System\Engine\Action
 	 */
 	public function index(): ?\Opencart\System\Engine\Action {
@@ -390,24 +392,23 @@ class Product extends \Opencart\System\Engine\Controller {
 			foreach ($results as $result) {
 				$description = '';
 
-				if ($result['trial_status']) {
-					$trial_price = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-					$trial_cycle = $result['trial_cycle'];
-					$trial_frequency = $this->language->get('text_' . $result['trial_frequency']);
-					$trial_duration = $result['trial_duration'];
+				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+					if ($result['duration']) {
+						$price = ($product_info['special'] ?: $product_info['price']) / $result['duration'];
+					} else {
+						$price = ($product_info['special'] ?: $product_info['price']);
+					}
 
-					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
-				}
+					$price = $this->currency->format($this->tax->calculate($price, $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$cycle = $result['cycle'];
+					$frequency = $this->language->get('text_' . $result['frequency']);
+					$duration = $result['duration'];
 
-				$price = $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				$cycle = $result['cycle'];
-				$frequency = $this->language->get('text_' . $result['frequency']);
-				$duration = $result['duration'];
-
-				if ($duration) {
-					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
-				} else {
-					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					if ($duration) {
+						$description = sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					} else {
+						$description = sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					}
 				}
 
 				$data['subscription_plans'][] = ['description' => $description] + $result;

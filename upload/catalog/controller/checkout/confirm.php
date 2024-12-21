@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Checkout;
  */
 class Confirm extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -274,6 +276,13 @@ class Confirm extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		// Display prices
+		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+			$price_status = true;
+		} else {
+			$price_status = false;
+		}
+
 		$data['products'] = [];
 
 		// Use model cart products to get data for template
@@ -290,20 +299,20 @@ class Confirm extends \Opencart\System\Engine\Controller {
 
 			if ($product['subscription']) {
 				if ($product['subscription']['trial_status']) {
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency_text'], $product['subscription']['trial_duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency_text'], $product['subscription']['trial_duration']);
 				}
 
 				if ($product['subscription']['duration']) {
-					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency_text'], $product['subscription']['duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_duration'), $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency_text'], $product['subscription']['duration']);
 				} else {
-					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency_text']);
+					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency_text']);
 				}
 			}
 
 			$data['products'][] = [
 				'subscription' => $subscription,
-				'price'        => $price_status ?? $product['price_text'],
-				'total'        => $price_status ?? $product['total_text'],
+				'price'        => $price_status ? $product['price_text'] : '',
+				'total'        => $price_status ? $product['total_text'] : '',
 				'href'         => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
 			] + $product;
 		}

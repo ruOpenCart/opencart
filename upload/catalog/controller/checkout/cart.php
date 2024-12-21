@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Checkout;
  */
 class Cart extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -130,15 +132,15 @@ class Cart extends \Opencart\System\Engine\Controller {
 
 			$subscription = '';
 
-			if ($product['subscription']) {
+			if ($product['subscription'] && $price_status) {
 				if ($product['subscription']['trial_status']) {
-					$subscription .= sprintf($this->language->get('text_subscription_trial'), $price_status ?? $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_trial'), $product['subscription']['trial_price_text'], $product['subscription']['trial_cycle'], $product['subscription']['trial_frequency'], $product['subscription']['trial_duration']);
 				}
 
 				if ($product['subscription']['duration']) {
-					$subscription .= sprintf($this->language->get('text_subscription_duration'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency'], $product['subscription']['duration']);
+					$subscription .= sprintf($this->language->get('text_subscription_duration'), $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency'], $product['subscription']['duration']);
 				} else {
-					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $price_status ?? $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency']);
+					$subscription .= sprintf($this->language->get('text_subscription_cancel'), $product['subscription']['price_text'], $product['subscription']['cycle'], $product['subscription']['frequency']);
 				}
 			}
 
@@ -147,8 +149,8 @@ class Cart extends \Opencart\System\Engine\Controller {
 				'subscription' => $subscription,
 				'stock'        => $product['stock_status'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
 				'minimum'      => !$product['minimum_status'] ? sprintf($this->language->get('error_minimum'), $product['minimum']) : 0,
-				'price'        => $price_status ?? $product['price_text'],
-				'total'        => $price_status ?? $product['total_text'],
+				'price'        => $price_status ? $product['price_text'] : '',
+				'total'        => $price_status ? $product['total_text'] : '',
 				'href'         => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id']),
 				'remove'       => $this->url->link('checkout/cart.remove', 'language=' . $this->config->get('config_language') . '&key=' . $product['cart_id'])
 			] + $product;

@@ -3,18 +3,20 @@ namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Subscription Plan
  *
+ * Can be called from $this->load->model('catalog/subscription_plan');
+ *
  * @package Opencart\Admin\Model\Catalog
  */
 class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Subscription Plan
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int
 	 */
 	public function addSubscriptionPlan(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_frequency` = '" . $this->db->escape((string)$data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `frequency` = '" . $this->db->escape((string)$data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_frequency` = '" . $this->db->escape((string)$data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `frequency` = '" . $this->db->escape((string)$data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
 		$subscription_plan_id = $this->db->getLastId();
 
@@ -28,13 +30,13 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Edit Subscription Plan
 	 *
-	 * @param int                  $subscription_plan_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $subscription_plan_id primary key of the subscription plan record
+	 * @param array<string, mixed> $data                 array of data
 	 *
 	 * @return void
 	 */
 	public function editSubscriptionPlan(int $subscription_plan_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "subscription_plan` SET  `trial_frequency` = '" . $this->db->escape((string)$data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `frequency` = '" . $this->db->escape((string)$data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "subscription_plan` SET  `trial_frequency` = '" . $this->db->escape((string)$data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `frequency` = '" . $this->db->escape((string)$data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
 
 		$this->model_catalog_subscription_plan->deleteDescriptions($subscription_plan_id);
 
@@ -46,7 +48,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Copy Subscription Plan
 	 *
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return void
 	 */
@@ -57,7 +59,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Subscription Plan
 	 *
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return void
 	 */
@@ -74,12 +76,12 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscription Plan
 	 *
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return array<string, mixed>
 	 */
 	public function getSubscriptionPlan(int $subscription_plan_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan` sp LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` spd ON (sp.`subscription_plan_id` = spd.`subscription_plan_id`) WHERE sp.`subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND spd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan` sp LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` spd ON (sp.`subscription_plan_id` = spd.`subscription_plan_id`) WHERE `sp`.`subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
@@ -87,7 +89,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscription Plans
 	 *
-	 * @param array<string, mixed> $data
+	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
@@ -135,9 +137,9 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Description
 	 *
-	 * @param int                  $subscription_plan_id
-	 * @param int                  $language_id
-	 * @param array<string, mixed> $data
+	 * @param int                  $subscription_plan_id primary key of the subscription plan record
+	 * @param int                  $language_id          primary key of the language record
+	 * @param array<string, mixed> $data                 array of data
 	 *
 	 * @return void
 	 */
@@ -148,7 +150,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Descriptions
 	 *
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return void
 	 */
@@ -159,7 +161,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Descriptions By Language ID
 	 *
-	 * @param int $language_id
+	 * @param int $language_id primary key of the language record
 	 */
 	public function deleteDescriptionsByLanguageId(int $language_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -168,7 +170,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Descriptions
 	 *
-	 * @param int $subscription_plan_id
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return array<int, array<string, string>>
 	 */
@@ -187,7 +189,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Descriptions By Language ID
 	 *
-	 * @param int $language_id
+	 * @param int $language_id primary key of the language record
 	 *
 	 * @return array<int, array<string, string>>
 	 */

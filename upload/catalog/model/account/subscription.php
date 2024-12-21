@@ -3,13 +3,15 @@ namespace Opencart\Catalog\Model\Account;
 /**
  * Class Subscription
  *
+ * Can be called from $this->load->model('account/subscription');
+ *
  * @package Opencart\Catalog\Model\Account
  */
 class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscription
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -66,7 +68,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Subscription By Shipping Address ID
 	 *
-	 * @param int $address_id
+	 * @param int $address_id primary key of the address record
 	 *
 	 * @return int
 	 */
@@ -79,7 +81,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Subscription By Payment Address ID
 	 *
-	 * @param int $address_id
+	 * @param int $address_id primary key of the address record
 	 *
 	 * @return int
 	 */
@@ -92,57 +94,62 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Subscription By Order Product ID
 	 *
-	 * @param int $order_id
-	 * @param int $order_product_id
+	 * @param int $order_id         primary key of the order record
+	 * @param int $order_product_id primary key of the order product record
 	 *
 	 * @return array<string, mixed>
 	 */
 	public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
 		$query = $this->db->query("SELECT * FROM  `" . DB_PREFIX . "subscription_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
-		if ($query->num_rows) {
-			return ['option' => $query->row['option'] ? json_decode($query->row['option'], true) : ''] + $query->row;
-		}
-
-		return [];
+		return $query->row;
 	}
 
 	/**
-     * Get Subscription Products
+	 * Get Subscription Products
 	 *
-	 * @param int $address_id
+	 * @param int $subscription_id primary key of the subscription record
+	 * @param int $address_id      primary key of the address record
 	 *
 	 * @return int
 	 */
 	public function getProducts(int $subscription_id): array {
-		$subscription_product_data = [];
-
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
-		foreach ($query->rows as $result) {
-			$subscription_product_data[] = ['option' => $query->row['option'] ? json_decode($query->row['option'], true) : ''] + $result;
-		}
-
-		return $subscription_product_data;
+		return $query->rows;
 	}
 
 	/**
 	 * Get Total Products
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return int
 	 */
 	public function getTotalProducts(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_product` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
+	}
+
+	/**
+	 * Get Options
+	 *
+	 * @param int $subscription_id         primary key of the subscription record
+	 * @param int $subscription_product_id primary key of the subscription product record
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getOptions(int $subscription_id, int $subscription_product_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_option` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `subscription_product_id` = '" . (int)$subscription_product_id . "'");
+
+		return $query->rows;
 	}
 
 	/**
 	 * Get Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -165,7 +172,7 @@ class Subscription extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Histories
 	 *
-	 * @param int $subscription_id
+	 * @param int $subscription_id primary key of the subscription record
 	 *
 	 * @return int
 	 */

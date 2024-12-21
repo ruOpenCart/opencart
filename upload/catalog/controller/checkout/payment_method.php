@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Checkout;
  */
 class PaymentMethod extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return string
 	 */
 	public function index(): string {
@@ -24,6 +26,12 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 			$data['comment'] = $this->session->data['comment'];
 		} else {
 			$data['comment'] = '';
+		}
+
+		if (isset($this->session->data['agree'])) {
+			$data['agree'] = $this->session->data['agree'];
+		} else {
+			$data['agree'] = '';
 		}
 
 		$this->load->model('catalog/information');

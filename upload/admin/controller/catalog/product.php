@@ -350,11 +350,11 @@ class Product extends \Opencart\System\Engine\Controller {
 
 			$special = '';
 
-			$product_specials = $this->model_catalog_product->getDiscounts($result['product_id']);
+			$product_discounts = $this->model_catalog_product->getDiscounts($result['product_id']);
 
-			foreach ($product_specials as $product_special) {
-				if (($product_special['date_start'] == '0000-00-00' || strtotime($product_special['date_start']) < time()) && ($product_special['date_end'] == '0000-00-00' || strtotime($product_special['date_end']) > time())) {
-					$special = $this->currency->format($product_special['price'], $this->config->get('config_currency'));
+			foreach ($product_discounts as $product_discount) {
+				if (($product_discount['date_start'] == '0000-00-00' || strtotime($product_discount['date_start']) < time()) && ($product_discount['date_end'] == '0000-00-00' || strtotime($product_discount['date_end']) > time())) {
+					$special = $this->currency->format($product_discount['price'], $this->config->get('config_currency'));
 
 					break;
 				}
@@ -898,7 +898,11 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
+		$results = $this->model_setting_store->getStores();
+
+		foreach ($results as $result) {
+			$data['stores'][] = $result;
+		}
 
 		if ($product_id) {
 			$data['product_store'] = $this->model_catalog_product->getStores($product_id);
@@ -1048,7 +1052,7 @@ class Product extends \Opencart\System\Engine\Controller {
 					'product_option_value' => $product_option_value_data,
 					'name'                 => $option_info['name'],
 					'type'                 => $option_info['type'],
-					'value'                => $data['variant'][$product_option['product_option_id']] ?? $product_option['value']
+					'value'                => $data['variant'][$product_option['product_option_id']] ? $product_option['value'] : ''
 				] + $product_option;
 			}
 		}
@@ -1075,8 +1079,8 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		foreach ($product_discounts as $product_discount) {
 			$data['product_discounts'][] = [
-				'date_start'        => ($product_discount['date_start'] != '0000-00-00' ? $product_discount['date_start'] : ''),
-				'date_end'          => ($product_discount['date_end'] != '0000-00-00' ? $product_discount['date_end'] : '')
+				'date_start' => ($product_discount['date_start'] != '0000-00-00' ? $product_discount['date_start'] : ''),
+				'date_end'   => ($product_discount['date_end'] != '0000-00-00' ? $product_discount['date_end'] : '')
 			] + $product_discount;
 		}
 
@@ -1486,26 +1490,15 @@ class Product extends \Opencart\System\Engine\Controller {
 				$subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($product_subscription['subscription_plan_id']);
 
 				if ($subscription_plan_info) {
-					$description = '';
-
-					if ($subscription_plan_info['trial_status']) {
-						$trial_price = $this->currency->format($product_subscription['trial_price'], $this->config->get('config_currency'));
-						$trial_cycle = $subscription_plan_info['trial_cycle'];
-						$trial_frequency = $this->language->get('text_' . $subscription_plan_info['trial_frequency']);
-						$trial_duration = $subscription_plan_info['trial_duration'];
-
-						$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
-					}
-
 					$price = $this->currency->format($product_subscription['price'], $this->config->get('config_currency'));
 					$cycle = $subscription_plan_info['cycle'];
 					$frequency = $this->language->get('text_' . $subscription_plan_info['frequency']);
 					$duration = $subscription_plan_info['duration'];
 
 					if ($subscription_plan_info['duration']) {
-						$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+						$description = sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
 					} else {
-						$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+						$description = sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
 					}
 
 					$subscription_plan_data[] = [

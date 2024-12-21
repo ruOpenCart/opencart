@@ -3,13 +3,15 @@ namespace Opencart\Catalog\Model\Account;
 /**
  * Class Download
  *
+ * Can be called from $this->load->model('account/download');
+ *
  * @package Opencart\Catalog\Model\Account
  */
 class Download extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Download
 	 *
-	 * @param int $download_id
+	 * @param int $download_id primary key of the download record
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -80,7 +82,7 @@ class Download extends \Opencart\System\Engine\Model {
 		}
 
 		if ($implode) {
-			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_product` `op` ON (`o`.`order_id` = `op`.`order_id`) LEFT JOIN `" . DB_PREFIX . "product_to_download` `p2d` ON (`op`.`product_id` = `p2d`.`product_id`) WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "' AND `o`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND (" . implode(" OR ", $implode) . ") AND `p2d`.`download_id` > 0");
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_product` `op` ON (`o`.`order_id` = `op`.`order_id`) LEFT JOIN `" . DB_PREFIX . "product_to_download` `p2d` ON (`op`.`product_id` = `p2d`.`product_id`) WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "' AND `o`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND (" . implode(" OR ", $implode) . ") AND `p2d`.`download_id` > '0'");
 
 			return $query->row['total'];
 		}
@@ -91,7 +93,7 @@ class Download extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Report
 	 *
-	 * @param int    $download_id
+	 * @param int    $download_id primary key of the download record
 	 * @param string $ip
 	 * @param string $country
 	 *

@@ -9,9 +9,7 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 	/**
 	 * Index
 	 *
-	 * Set payment method
-	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function index(): array {
 		$this->load->language('api/payment_method');
@@ -45,12 +43,17 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 		}
 
 		// 5. Validate payment Method
-		if (empty($this->request->post['payment_method']['name'])) {
-			$output['error'] = $this->language->get('error_name');
-		}
+		$keys = [
+			'name',
+			'code'
+		];
 
-		if (empty($this->request->post['payment_method']['code'])) {
-			$output['error'] = $this->language->get('error_code');
+		foreach ($keys as $key) {
+			if (!isset($this->request->post['payment_method'][$key])) {
+				$output['error'] = $this->language->get('error_payment_method');
+
+				break;
+			}
 		}
 
 		if (!$output) {
@@ -66,9 +69,9 @@ class PaymentMethod extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Get payment methods
+	 * Get Payment Methods
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function getPaymentMethods(): array {
 		$this->load->language('api/payment_method');

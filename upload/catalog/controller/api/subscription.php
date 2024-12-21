@@ -57,7 +57,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	/**
 	 * Set Customer
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function setCustomer(): array {
 		$this->load->language('api/order');
@@ -94,7 +94,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	/**
 	 * Set Payment Address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function setPaymentAddress(): array {
 		$this->load->language('api/order');
@@ -125,9 +125,9 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Set shipping address
+	 * Set Shipping Address
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function setShippingAddress(): array {
 		$this->load->language('api/order');
@@ -158,7 +158,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Get shipping methods
+	 * Get Shipping Methods
 	 *
 	 * @return array
 	 */
@@ -178,7 +178,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Get payment methods
+	 * Get Payment Methods
 	 *
 	 * @return array
 	 */
@@ -200,9 +200,9 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Set payment method
+	 * Set Payment Method
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function setPaymentMethod(): array {
 		$this->setCustomer();
@@ -227,9 +227,9 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Get cart
+	 * Get Cart
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function getCart(): array {
 		$this->setCustomer();
@@ -250,9 +250,9 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Add product
+	 * Add Product
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function addProduct(): array {
 		$this->setCustomer();
@@ -262,7 +262,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		if (isset($output['error'])) {
 			return $output;
 		}
-		
+
 		$this->setPaymentAddress();
 		$this->setShippingAddress();
 
@@ -357,18 +357,22 @@ class Subscription extends \Opencart\System\Engine\Controller {
 				$subscription_product_data[] = [
 					'order_product_id' => 0,
 					'order_id'         => 0,
-					'trial_price'      => $product['subscription']['trial_price'] * $product['quantity'],
-					'price'            => $product['subscription']['price'] * $product['quantity'],
+					'trial_price'      => $product['subscription']['trial_price'],
+					'trial_tax'        => $this->tax->getTax($product['subscription']['trial_price'], $product['tax_class_id']),
+					'price'            => $product['subscription']['price'],
+					'tax'              => $this->tax->getTax($product['subscription']['price'] * $product['quantity'], $product['tax_class_id'])
 				] + $product + $product['subscription'];
 			}
 
 			$subscription_data = $subscription_plan_info + [
 				'subscription_product' => $subscription_product_data,
 				'trial_price'          => array_sum(array_column($subscription_product_data, 'trial_price')),
-			    'price'                => array_sum(array_column($subscription_product_data, 'price')),
+				'trial_tax'            => array_sum(array_column($subscription_product_data, 'trial_tax')),
+				'price'                => array_sum(array_column($subscription_product_data, 'price')),
+				'tax'                  => array_sum(array_column($subscription_product_data, 'tax')),
 				'store_id'             => $this->config->get('config_store_id'),
-				'language_id'          => $this->config->get('config_language_id'),
-				'currency_id'          => $this->currency->getId($this->session->data['currency'])
+				'language'             => $this->config->get('config_language'),
+				'currency'             => $this->session->data['currency']
 			];
 
 			$this->load->model('checkout/subscription');
@@ -389,9 +393,9 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Add order history
+	 * Add History
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function addHistory(): array {
 		$this->load->language('api/subscription');

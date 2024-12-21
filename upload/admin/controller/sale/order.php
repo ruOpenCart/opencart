@@ -148,7 +148,11 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
+		$results = $this->model_setting_store->getStores();
+
+		foreach ($results as $result) {
+			$data['stores'][] = $result;
+		}
 
 		$this->load->model('localisation/order_status');
 
@@ -666,7 +670,11 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('setting/store');
 
-		$data['stores'] = $data['stores'] + $this->model_setting_store->getStores();
+		$results = $this->model_setting_store->getStores();
+
+		foreach ($results as $result) {
+			$data['stores'][] = $result;
+		}
 
 		if (!empty($order_info)) {
 			$data['store_id'] = $order_info['store_id'];
@@ -720,8 +728,8 @@ class Order extends \Opencart\System\Engine\Controller {
 
 					if ($upload_info) {
 						$option_data[] = [
-							'value' => $upload_info['name'],
-							'href'  => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
+							'filename' => $upload_info['mask'],
+							'href'     => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
 						] + $option;
 					}
 				}
@@ -733,7 +741,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			if ($subscription_info) {
 				if ($subscription_info['trial_status']) {
-					$trial_price = $this->currency->format($subscription_info['trial_price'], $this->config->get('config_currency'));
+					$trial_price = $this->currency->format($subscription_info['trial_price'] + ($this->config->get('config_tax') ? $subscription_info['trial_tax'] : 0), $this->config->get('config_currency'));
 					$trial_cycle = $subscription_info['trial_cycle'];
 					$trial_frequency = $this->language->get('text_' . $subscription_info['trial_frequency']);
 					$trial_duration = $subscription_info['trial_duration'];
@@ -741,7 +749,7 @@ class Order extends \Opencart\System\Engine\Controller {
 					$subscription_plan .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 				}
 
-				$price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
+				$price = $this->currency->format($subscription_info['price'] + ($this->config->get('config_tax') ? $subscription_info['tax'] : 0), $this->config->get('config_currency'));
 				$cycle = $subscription_info['cycle'];
 				$frequency = $this->language->get('text_' . $subscription_info['frequency']);
 				$duration = $subscription_info['duration'];
@@ -770,8 +778,8 @@ class Order extends \Opencart\System\Engine\Controller {
 				'subscription_plan'    => $subscription_plan,
 				'subscription_plan_id' => $subscription_plan_id,
 				'subscription_edit'    => $subscription_edit,
-				'price_text'           => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
-				'total_text'           => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
+				'price'                => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $data['currency_code'], $currency_value),
+				'total'                => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $data['currency_code'], $currency_value),
 				'product_edit'         => $this->url->link('catalog/product.form', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product['product_id'])
 			] + $product;
 		}
@@ -964,7 +972,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$totals = $this->model_sale_order->getTotals($order_id);
 
 			foreach ($totals as $total) {
-				$data['order_totals'][] = ['text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])] + $total;
+				$data['order_totals'][] = ['text' => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value'])] + $total;
 			}
 		}
 
@@ -1427,7 +1435,6 @@ class Order extends \Opencart\System\Engine\Controller {
 
 							$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 						}
-
 						$price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
 						$cycle = $subscription_info['cycle'];
 						$frequency = $this->language->get('text_' . $subscription_info['frequency']);

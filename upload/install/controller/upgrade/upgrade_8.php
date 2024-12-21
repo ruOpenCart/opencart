@@ -7,6 +7,8 @@ namespace Opencart\Install\Controller\Upgrade;
  */
 class Upgrade8 extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -214,7 +216,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 				'table' => 'store',
 				'field' => 'ssl'
 			];
-
 			$remove[] = [
 				'table' => 'user',
 				'field' => 'salt'

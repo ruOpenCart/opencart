@@ -1,7 +1,9 @@
 <?php
 namespace Opencart\Admin\Model\Extension\Opencart\Report;
 /**
- * Class ProductViewed
+ * Class Product Viewed
+ *
+ * Can be called from $this->load->model('extension/opencart/report/product_viewed');
  *
  * @package Opencart\Admin\Model\Extension\Opencart\Report
  */
@@ -16,7 +18,7 @@ class ProductViewed extends \Opencart\System\Engine\Model {
 		  `product_id` INT(11) NOT NULL,
 		  `viewed` INT(11) NOT NULL,
 		  PRIMARY KEY (`product_id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 	}
 
 	/**
@@ -31,7 +33,7 @@ class ProductViewed extends \Opencart\System\Engine\Model {
 	/**
 	 * Add Report
 	 *
-	 * @param int $product_id
+	 * @param int $product_id primary key of the product record
 	 * @param int $viewed
 	 *
 	 * @return void

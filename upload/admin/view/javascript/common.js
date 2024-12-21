@@ -130,75 +130,20 @@ var chain = new Chain();
 // Forms
 $(document).on('submit', 'form', function(e) {
     var element = this;
+    var button = (e.originalEvent !== undefined && e.originalEvent.submitter !== undefined) ? e.originalEvent.submitter : '';
 
-    if (e.originalEvent !== undefined && e.originalEvent.submitter !== undefined) {
-        var button = e.originalEvent.submitter;
-    } else {
-        var button = '';
-    }
-
-    var status = false;
-
-    var ajax = $(element).attr('data-oc-toggle');
-
-    if (ajax == 'ajax') {
-        status = true;
-    }
-
-    var ajax = $(button).attr('data-oc-toggle');
-
-    if (ajax == 'ajax') {
-        status = true;
-    }
-
-    if (status) {
+    if ($(element).attr('data-oc-toggle') == 'ajax' || $(button).attr('data-oc-toggle') == 'ajax') {
         e.preventDefault();
 
-        // Form attributes
         var form = e.target;
-
-        var action = $(form).attr('action');
-
-        var method = $(form).attr('method');
-
-        if (method === undefined) {
-            method = 'post';
-        }
-
-        var enctype = $(form).attr('enctype');
-
-        if (enctype === undefined) {
-            enctype = 'application/x-www-form-urlencoded';
-        }
-
-        // Form button overrides
-        var formaction = $(button).attr('formaction');
-
-        if (formaction !== undefined) {
-            action = formaction;
-        }
-
-        var formmethod = $(button).attr('formmethod');
-
-        if (formmethod !== undefined) {
-            method = formmethod;
-        }
-
-        var formenctype = $(button).attr('formenctype');
-
-        if (formenctype !== undefined) {
-            enctype = formenctype;
-        }
-
-        if (button) {
-            var formaction = $(button).attr('data-type');
-        }
+        var action = $(button).attr('formaction') || $(form).attr('action');
+        var method = $(button).attr('formmethod') || $(form).attr('method') || 'post';
+        var enctype = $(button).attr('formenctype') || $(form).attr('enctype') || 'application/x-www-form-urlencoded';
 
         console.log(e);
-        console.log('element ' + element);
+        console.log(element);
         console.log('action ' + action);
         console.log('button ' + button);
-        console.log('formaction ' + formaction);
         console.log('method ' + method);
         console.log('enctype ' + enctype);
         console.log($(element).serialize());
@@ -449,7 +394,7 @@ $(document).on('click', '[data-oc-toggle=\'image\']', function(e) {
 
                 this.timer = setTimeout(function(object) {
                     object.source($(object).val(), $.proxy(object.response, object));
-                }, 50, this);
+                }, 150, this);
             }
 
             // Response
