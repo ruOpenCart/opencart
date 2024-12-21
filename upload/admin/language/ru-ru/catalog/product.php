@@ -28,10 +28,9 @@ $_['text_file']                  = 'Файл';
 $_['text_date']                  = 'Дата';
 $_['text_datetime']              = 'Дата и время';
 $_['text_time']                  = 'Время';
-
 $_['text_fixed']                 = 'Фиксированная сумма';
+$_['text_subtract']              = 'Subtract';
 $_['text_percentage']            = 'Проценты';
-
 $_['text_image']                 = 'Изображение';
 $_['text_image_additional']      = 'Дополнительные изображения';
 $_['text_reward']                = 'Купить баллы';
@@ -39,6 +38,8 @@ $_['text_points']                = 'Бонусные баллы';
 $_['text_from']                  = 'От';
 $_['text_to']                    = 'Кому';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 $_['text_day']                   = 'день';
