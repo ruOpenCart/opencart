@@ -28,10 +28,9 @@ $_['text_file']                  = 'File';
 $_['text_date']                  = 'Date';
 $_['text_datetime']              = 'Date &amp; Time';
 $_['text_time']                  = 'Time';
-
 $_['text_fixed']                 = 'Fixed Amount';
+$_['text_subtract']              = 'Subtract';
 $_['text_percentage']            = 'Percentage';
-
 $_['text_image']                 = 'Image';
 $_['text_image_additional']      = 'Additional Images';
 $_['text_reward']                = 'Buy Points';
@@ -39,6 +38,8 @@ $_['text_points']                = 'Reward Points';
 $_['text_from']                  = 'From';
 $_['text_to']                    = 'To';
 $_['text_subscription_trial']    = '%s every %d %s(s) for %d payment(s) then ';
+$_['text_subscription_duration'] = '%s every %d %s(s) for %d payment(s)';
+$_['text_subscription_cancel']   = '%s every %d %s(s) until canceled';
 $_['text_subscription_duration'] = '%s every %d %s(s) for %d payment(s)';
 $_['text_subscription_cancel']   = '%s every %d %s(s) until canceled';
 $_['text_day']                   = 'day';
