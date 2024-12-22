@@ -28,7 +28,7 @@ $_['text_payment_method']        = 'Метод оплаты';
 $_['text_shipping_method']       = 'Способ доставки';
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавление истории';
-$_['text_log']                   = 'Logs';
+$_['text_log']                   = 'Логи';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
@@ -54,7 +54,7 @@ $_['entry_customer']             = 'Покупатель';
 $_['entry_store']                = 'Магазин';
 $_['entry_language']             = 'Язык';
 $_['entry_currency']             = 'Валюта';
-$_['entry_subscription_plan']    = 'Subscription Plan';
+$_['entry_subscription_plan']    = 'План подписки';
 $_['entry_date_next']            = 'Дате Следующая';
 $_['entry_comment']              = 'Комментарий';
 $_['entry_notify']               = 'Уведомить покупателя';
