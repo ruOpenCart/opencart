@@ -15,7 +15,7 @@ $_['text_store']         = 'Запомнить мою карту';
 
 // Entry
 $_['entry_card_name']    = 'Имя владельца карты';
-$_['entry_card_type']    = 'Card Type';
+$_['entry_card_type']    = 'Тип карты';
 $_['entry_card_number']  = 'Номер кредитной карты';
 $_['entry_card_expire']  = 'Дата истечения';
 $_['entry_card_cvv']     = 'CVV-код';
@@ -26,7 +26,7 @@ $_['help_name']          = 'Имя владельца карты';
 // Error
 $_['error_credit_card']  = 'Ошибка: Номер кредитной карты обязателен!';
 $_['error_card_name']    = 'Ошибка: Имя владельца карты обязательно!';
-$_['error_card_type']    = 'Error: Card type needs to be VISA or Mastercard!';
+$_['error_card_type']    = 'Ошибка: Тип карты должен быть VISA или Mastercard!';
 $_['error_card_number']  = 'Ошибка: Номер кредитной карты обязателен!';
 $_['error_card_expire']  = 'Ошибка: Дата истечения срока действия обязательна!';
 $_['error_card_expired'] = 'Ошибка: Срок действия кредитной карты истек!';
