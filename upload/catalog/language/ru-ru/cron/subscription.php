@@ -1,17 +1,17 @@
 <?php
 // Text
 $_['text_success']           = 'Успех: Подписка успешно продлена!';
-$_['text_log']               = 'Check the subscription log for more information.';
+$_['text_log']               = 'Проверьте журнал подписки для более детальной информации.';
 
 // Error
-$_['error_store'] 		     = 'Warning: Store not found!';
+$_['error_store'] 		     = 'Внимание: Магазин не найден!';
 $_['error_language']         = 'Внимание: Язык не найден!';
-$_['error_currency']         = 'Warning: Currency could not be found!';
+$_['error_currency']         = 'Внимание: Валюта не найдена!';
 $_['error_customer']         = 'Внимание: Покупатель не найден!';
-$_['error_payment_address']  = 'Warning: Payment address could not be found!';
-$_['error_shipping_address'] = 'Warning: Shipping address could not be found!';
-$_['error_product']          = 'Warning: Product %s could not be found!';
-$_['error_option']           = 'Warning: Option %s could not be found!';
+$_['error_payment_address']  = 'Внимание: Адрес оплаты не найден!';
+$_['error_shipping_address'] = 'Внимание: Адрес доставки не найден!';
+$_['error_product']          = 'Внимание: Товар %s не найден!';
+$_['error_option']           = 'Внимание: Опция %s не найдена!';
 $_['error_shipping_method']  = 'Внимание: Способ доставки обязателен!';
 $_['error_payment_method']   = 'Внимание: Способ оплаты обязателен!';
 $_['error_payment_failed']   = 'Внимание: Невозможно обработать платеж!';
