@@ -29,7 +29,7 @@ $_['text_date']                  = 'Дата';
 $_['text_datetime']              = 'Дата и время';
 $_['text_time']                  = 'Время';
 $_['text_fixed']                 = 'Фиксированная сумма';
-$_['text_subtract']              = 'Subtract';
+$_['text_subtract']              = 'Вычитание';
 $_['text_percentage']            = 'Проценты';
 $_['text_image']                 = 'Изображение';
 $_['text_image_additional']      = 'Дополнительные изображения';
@@ -118,7 +118,7 @@ $_['entry_related']              = 'Сопутствующие товары';
 $_['entry_tag']                  = 'Теги товара';
 $_['entry_reward']               = 'Бонусные баллы';
 $_['entry_layout']               = 'Переопределение макета';
-$_['entry_subscription']         = 'Subscription Plan';
+$_['entry_subscription']         = 'План подписки';
 
 // Help
 $_['help_tag']                   = 'Разделитель — запятая';
