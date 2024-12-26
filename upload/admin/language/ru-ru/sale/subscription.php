@@ -10,11 +10,9 @@ $_['text_edit']                  = 'Подписка (#%s)';
 $_['text_filter']                = 'Фильтр';
 $_['text_date_added']            = 'Дата добавления';
 $_['text_order']                 = 'Номер заказа';
-$_['text_customer']              = 'Покупатель';
 $_['text_product_add']           = 'Добавление товара';
 $_['text_model'] 			     = 'Модель';
 $_['text_subscription']          = 'Подписка';
-$_['text_subscription_plan']     = 'План подписки';
 $_['text_date_next']             = 'Дате Следующая';
 $_['text_remaining']             = 'Осталось';
 $_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
@@ -26,12 +24,11 @@ $_['text_week']                  = 'Неделя';
 $_['text_semi_month']            = 'Полмесяца';
 $_['text_month']                 = 'Месяц';
 $_['text_year']                  = 'Год';
-$_['text_payment_address']       = 'Платежный адрес';
 $_['text_payment_method']        = 'Метод оплаты';
-$_['text_shipping_address']      = 'Адрес доставки';
 $_['text_shipping_method']       = 'Способ доставки';
 $_['text_history']               = 'История';
 $_['text_history_add']           = 'Добавление истории';
+$_['text_log']                   = 'Логи';
 
 // Column
 $_['column_subscription_id']     = 'Идентификатор подписки';
@@ -44,7 +41,11 @@ $_['column_date_added']          = 'Дата добавления';
 $_['column_product']             = 'Товар';
 $_['column_model']               = 'Модель';
 $_['column_quantity']            = 'Количество';
-$_['column_total']               = 'Всего';
+$_['column_trial_price']         = 'Пробная цена';
+$_['column_price']               = 'Цена';
+$_['column_code']                = 'Код';
+$_['column_description']         = 'Описание';
+$_['column_action']              = 'Действие';
 
 // Entry
 $_['entry_subscription_id']      = 'Идентификатор подписки';
@@ -53,6 +54,7 @@ $_['entry_customer']             = 'Покупатель';
 $_['entry_store']                = 'Магазин';
 $_['entry_language']             = 'Язык';
 $_['entry_currency']             = 'Валюта';
+$_['entry_subscription_plan']    = 'План подписки';
 $_['entry_date_next']            = 'Дате Следующая';
 $_['entry_comment']              = 'Комментарий';
 $_['entry_notify']               = 'Уведомить покупателя';
@@ -62,13 +64,13 @@ $_['entry_subscription_status']  = 'Статус подписки';
 $_['entry_product']              = 'Выберите товар';
 $_['entry_option']               = 'Выбрать опци(ю)(и)';
 $_['entry_quantity']             = 'Количество';
+$_['entry_payment_address']      = 'Платежный адрес';
+$_['entry_shipping_address']     = 'Адрес доставки';
 
 // Tab
 $_['tab_order']                  = 'Заказы';
 
 // Error
 $_['error_permission']           = 'Внимание: У вас нет разрешения на изменение подписки!';
-$_['error_status']               = 'Ошибка: Статус подписки не соответствует статусу магазина!';
-$_['error_subscription_plan']    = 'Внимание: План подписки не существует!';
 $_['error_subscription_status']  = 'Внимание: Необходимо выбрать статус подписки!';
 $_['error_payment_method']       = 'Внимание: Способ оплаты не существует!';
