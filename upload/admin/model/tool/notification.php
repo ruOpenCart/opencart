@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Tool;
 /**
  * Class Notification
+ * 
+ * @example $notification_model = $this->model_tool_notification;
  *
  * Can be called from $this->load->model('tool/notification');
  *
@@ -49,7 +51,7 @@ class Notification extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $notification_id primary key of the notification record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> notification record that has notification ID
 	 */
 	public function getNotification(int $notification_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "notification` WHERE `notification_id` = '" . (int)$notification_id . "'");
@@ -62,7 +64,7 @@ class Notification extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> notification records
 	 */
 	public function getNotifications(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "notification`";
@@ -95,7 +97,7 @@ class Notification extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of notification records
 	 */
 	public function getTotalNotifications(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "notification`";

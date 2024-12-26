@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Extension\OcPaymentExample\Payment;
 /**
  * Credit Card
+ * 
+ * @example $credit_card_model = $this->model_extension_oc_payment_example_payment_credit_card;
  *
  * Can be called from $this->load->model('extension/oc_payment_example/payment/credit_card');
  *
@@ -30,12 +32,13 @@ class CreditCard extends \Opencart\System\Engine\Model {
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "credit_card_report` (
 			`credit_card_report_id` int(11) NOT NULL AUTO_INCREMENT,
+			`customer_id` int(11) NOT NULL,
+			`credit_card_id` int(11) NOT NULL,
 			`order_id` int(11) NOT NULL,
+			`card_number` varchar(64) NOT NULL,
 			`type` varchar(64) NOT NULL,
-			`card_name` varchar(64) NOT NULL,
 			`amount` decimal(15,4) NOT NULL,
-			`response` text NOT NULL,
-			`order_status_id` int(11) NOT NULL,
+			`response` tinyint(1) NOT NULL,
 			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`credit_card_report_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
@@ -83,7 +86,7 @@ class CreditCard extends \Opencart\System\Engine\Model {
 	 *
 	 * @return array<int, array<string, mixed>>
 	 */
-	public function getReports(int $download_id, int $start = 0, int $limit = 10): array {
+	public function getReports(int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
 			$start = 0;
 		}
@@ -92,7 +95,7 @@ class CreditCard extends \Opencart\System\Engine\Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "credit_card_report` ORDER BY `date_added` ASC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "credit_card_report` ORDER BY `date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
 		return $query->rows;
 	}

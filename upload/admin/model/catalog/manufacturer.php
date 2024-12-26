@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Manufacturer
+ * 
+ * @example $manufacturer_model = $this->model_catalog_manufacturer;
  *
  * Can be called from $this->load->model('catalog/manufacturer');
  *
@@ -110,6 +112,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 		$this->model_catalog_manufacturer->deleteStores($manufacturer_id);
 		$this->model_catalog_manufacturer->deleteLayouts($manufacturer_id);
 
+		// SEO URL
 		$this->load->model('design/seo_url');
 
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('manufacturer_id', $manufacturer_id);
@@ -122,7 +125,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> manufacturer record that has manufacturer ID
 	 */
 	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -135,7 +138,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> manufacturer records
 	 */
 	public function getManufacturers(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
@@ -181,7 +184,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Manufacturers
 	 *
-	 * @return int
+	 * @return int total number of manufacturer records
 	 */
 	public function getTotalManufacturers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer`");
@@ -228,7 +231,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> store records that have manufacturer ID
 	 */
 	public function getStores(int $manufacturer_id): array {
 		$manufacturer_store_data = [];
@@ -252,7 +255,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 * @return void
 	 */
 	public function addLayout(int $manufacturer_id, int $store_id, int $layout_id): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer_to_layout` SET `manufacturer_id` = '" . (int)$manufacturer_id . "', store_id = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer_to_layout` SET `manufacturer_id` = '" . (int)$manufacturer_id . "', `store_id` = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
 	}
 
 	/**
@@ -293,7 +296,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $manufacturer_id primary key of the manufacturer record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> layout records that have manufacturer ID
 	 */
 	public function getLayouts(int $manufacturer_id): array {
 		$manufacturer_layout_data = [];
@@ -312,7 +315,7 @@ class Manufacturer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $layout_id primary key of the layout record
 	 *
-	 * @return int
+	 * @return int total number of layout records that have layout ID
 	 */
 	public function getTotalLayoutsByLayoutId(int $layout_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");

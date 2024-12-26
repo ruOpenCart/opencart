@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Marketing;
 /**
  * Class Coupon
+ * 
+ * @example $coupon_model = $this->model_marketing_coupon;
  *
  * Can be called from $this->load->model('marketing/coupon');
  *
@@ -105,7 +107,7 @@ class Coupon extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> product records that have coupon ID
 	 */
 	public function getProducts(int $coupon_id): array {
 		$product_data = [];
@@ -124,7 +126,7 @@ class Coupon extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $coupon_id primary key of the coupon record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> category records that have coupon ID
 	 */
 	public function getCategories(int $coupon_id): array {
 		$category_data = [];
@@ -168,7 +170,7 @@ class Coupon extends \Opencart\System\Engine\Model {
 	 *
 	 * @param string $coupon_id primary key of the coupon record
 	 *
-	 * @return int
+	 * @return int total number of history records that have coupon ID
 	 */
 	public function getTotalHistories(string $coupon_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`ch`.`coupon_id` = `c`.`coupon_id`) WHERE `c`.`coupon_id` = '" . $this->db->escape($coupon_id) . "'");
@@ -182,7 +184,7 @@ class Coupon extends \Opencart\System\Engine\Model {
 	 * @param int $coupon_id   primary key of the coupon record
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of history records that have coupon ID, customer ID
 	 */
 	public function getTotalHistoriesByCustomerId(int $coupon_id, int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`ch`.`coupon_id` = `c`.`coupon_id`) WHERE `c`.`coupon_id` = '" . (int)$coupon_id . "' AND `ch`.`customer_id` = '" . (int)$customer_id . "'");

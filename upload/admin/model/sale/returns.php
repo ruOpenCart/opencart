@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Sale;
 /**
  * Class Returns
+ * 
+ * @example $returns_model = $this->model_sale_returns;
  *
  * Can be called from $this->load->model('sale/returns');
  *
@@ -63,7 +65,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_id primary key of the return record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return record that has return ID
 	 */
 	public function getReturn(int $return_id): array {
 		$query = $this->db->query("SELECT DISTINCT *, (SELECT CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `r`.`customer_id`) AS `customer`, (SELECT `c`.`language_id` FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `r`.`customer_id`) AS `language_id`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r` WHERE `r`.`return_id` = '" . (int)$return_id . "'");
@@ -76,7 +78,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return records
 	 */
 	public function getReturns(array $data = []): array {
 		$sql = "SELECT *, CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r`";
@@ -164,7 +166,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of return records
 	 */
 	public function getTotalReturns(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` `r`";
@@ -217,7 +219,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return int
+	 * @return int total number of return records that have return status ID
 	 */
 	public function getTotalReturnsByReturnStatusId(int $return_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
@@ -230,7 +232,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_reason_id primary key of the return reason record
 	 *
-	 * @return int
+	 * @return int total number of layout records that have return reason ID
 	 */
 	public function getTotalReturnsByReturnReasonId(int $return_reason_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");
@@ -243,7 +245,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_action_id primary key of the return action record
 	 *
-	 * @return int
+	 * @return int total number of return records that have return action ID
 	 */
 	public function getTotalReturnsByReturnActionId(int $return_action_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
@@ -285,7 +287,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 * @param int $start
 	 * @param int $limit
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> history records that have return ID
 	 */
 	public function getHistories(int $return_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
@@ -306,7 +308,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_id primary key of the return record
 	 *
-	 * @return int
+	 * @return int total number of history records that have return ID
 	 */
 	public function getTotalHistories(int $return_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_id` = '" . (int)$return_id . "'");
@@ -319,7 +321,7 @@ class Returns extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_status_id primary key of the return status record
 	 *
-	 * @return int
+	 * @return int total number of history records that have return status ID
 	 */
 	public function getTotalHistoriesByReturnStatusId(int $return_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_status_id` = '" . (int)$return_status_id . "'");

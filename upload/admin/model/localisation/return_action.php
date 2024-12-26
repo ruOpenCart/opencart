@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Localisation;
 /**
  * Class Return Action
+ * 
+ * @example $return_action_model = $this->model_localisation_return_action;
  *
  * Can be called from $this->load->model('localisation/return_action');
  *
@@ -82,7 +84,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_action_id primary key of the return action record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> return action record that has return action ID
 	 */
 	public function getReturnAction(int $return_action_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -95,7 +97,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> return action records
 	 */
 	public function getReturnActions(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`";
@@ -151,7 +153,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $return_action_id primary key of the return action record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have return action ID
 	 */
 	public function getDescriptions(int $return_action_id): array {
 		$return_action_data = [];
@@ -170,7 +172,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -181,7 +183,7 @@ class ReturnAction extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Return Actions
 	 *
-	 * @return int
+	 * @return int total number of return action records
 	 */
 	public function getTotalReturnActions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

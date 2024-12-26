@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Report;
 /**
  * Class Online
+ * 
+ * @example $online_model = $this->model_report_online;
  *
  * Can be called from $this->load->model('report/online');
  *
@@ -13,7 +15,7 @@ class Online extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> online records
 	 */
 	public function getOnline(array $data = []): array {
 		$sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
@@ -56,7 +58,7 @@ class Online extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of online records
 	 */
 	public function getTotalOnline(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";

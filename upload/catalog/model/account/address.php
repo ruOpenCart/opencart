@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Account;
 /**
  * Class Address
+ * 
+ * @example $address_model = $this->model_account_address;
  *
  * Can be called from $this->load->model('account/address');
  *
@@ -69,12 +71,13 @@ class Address extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 * @param int $address_id  primary key of the address record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> address record that has customer ID, address ID
 	 */
 	public function getAddress(int $customer_id, int $address_id): array {
 		$address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$customer_id . "'");
 
 		if ($address_query->num_rows) {
+			// Country
 			$this->load->model('localisation/country');
 
 			$country_info = $this->model_localisation_country->getCountry($address_query->row['country_id']);
@@ -91,6 +94,7 @@ class Address extends \Opencart\System\Engine\Model {
 				$address_format_id = 0;
 			}
 
+			// Address Format
 			$this->load->model('localisation/address_format');
 
 			$address_format_info = $this->model_localisation_address_format->getAddressFormat($address_format_id);
@@ -101,6 +105,7 @@ class Address extends \Opencart\System\Engine\Model {
 				$address_format = '';
 			}
 
+			// Zone
 			$this->load->model('localisation/zone');
 
 			$zone_info = $this->model_localisation_zone->getZone($address_query->row['zone_id']);
@@ -132,7 +137,7 @@ class Address extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> address records that have customer ID
 	 */
 	public function getAddresses(int $customer_id): array {
 		$address_data = [];
@@ -195,7 +200,7 @@ class Address extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of address records that have customer ID
 	 */
 	public function getTotalAddresses(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'");

@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Attribute Group
+ * 
+ * @example $attribute_group_model = $this->model_catalog_attribute_group;
  *
  * Can be called from $this->load->model('catalog/attribute_group');
  *
@@ -63,7 +65,7 @@ class AttributeGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $attribute_group_id primary key of the attribute group record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> attribute group record that has attribute group ID
 	 */
 	public function getAttributeGroup(int $attribute_group_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
@@ -76,10 +78,10 @@ class AttributeGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> attribute group records
 	 */
 	public function getAttributeGroups(array $data = []): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` `ag` LEFT JOIN `" . DB_PREFIX . "attribute_group_description` `agd` ON (`ag`.`attribute_group_id` = agd.`attribute_group_id`) WHERE `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` `ag` LEFT JOIN `" . DB_PREFIX . "attribute_group_description` `agd` ON (`ag`.`attribute_group_id` = `agd`.`attribute_group_id`) WHERE `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = [
 			'agd.name',
@@ -118,7 +120,7 @@ class AttributeGroup extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Attribute Groups
 	 *
-	 * @return int
+	 * @return int total number of attribute group records
 	 */
 	public function getTotalAttributeGroups(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute_group`");
@@ -166,7 +168,7 @@ class AttributeGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $attribute_group_id primary key of the attribute group record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have attribute group ID
 	 */
 	public function getDescriptions(int $attribute_group_id): array {
 		$attribute_group_data = [];
@@ -185,7 +187,7 @@ class AttributeGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group_description` WHERE `language_id` = '" . (int)$language_id . "'");

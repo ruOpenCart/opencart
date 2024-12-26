@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Design;
 /**
  * Class Layout
+ * 
+ * @example $layout_model = $this->model_design_layout;
  *
  * Can be called from $this->load->model('design/layout');
  *
@@ -31,7 +33,7 @@ class Layout extends \Opencart\System\Engine\Model {
 	 * @param int    $layout_id
 	 * @param string $position
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> module records that have layout ID
 	 */
 	public function getModules(int $layout_id, string $position): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_module` WHERE `layout_id` = '" . (int)$layout_id . "' AND `position` = '" . $this->db->escape($position) . "' ORDER BY `sort_order`");

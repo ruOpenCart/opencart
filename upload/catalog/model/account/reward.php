@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Account;
 /**
  * Class Reward
+ * 
+ * @example $reward_model = $this->model_account_reward;
  *
  * Can be called from $this->load->model('account/reward');
  *
@@ -57,7 +59,7 @@ class Reward extends \Opencart\System\Engine\Model {
 	 * @param int                  $customer_id primary key of the customer record
 	 * @param array<string, mixed> $data        array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> reward records that have customer ID
 	 */
 	public function getRewards(int $customer_id, array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'";
@@ -102,7 +104,7 @@ class Reward extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of reward records that have customer ID
 	 */
 	public function getTotalRewards(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");

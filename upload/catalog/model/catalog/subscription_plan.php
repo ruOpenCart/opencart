@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Catalog;
 /**
  * Class Subscription Plan
+ * 
+ * @example $subscription_plan_model = $this->model_catalog_subscription_plan;
  *
  * Can be called from $this->load->model('catalog/subscription_plan');
  *
@@ -13,7 +15,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription plan record that have subscription plan ID
 	 */
 	public function getSubscriptionPlan(int $subscription_plan_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan` `sp` LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `sp`.`subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -26,13 +28,13 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription plan records
 	 */
 	public function getSubscriptionPlans(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription_plan` `sp` LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
-			$sql .= " AND spd.`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
+			$sql .= " AND `spd`.`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
 		}
 
 		$sort_data = [
@@ -72,7 +74,7 @@ class SubscriptionPlan extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Subscription Plans
 	 *
-	 * @return int
+	 * @return int total number of subscription plan records
 	 */
 	public function getTotalSubscriptionPlans(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_plan`");

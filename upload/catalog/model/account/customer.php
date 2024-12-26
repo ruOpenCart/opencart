@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Account;
 /**
  * Class Customer
+ * 
+ * @example $customer_model = $this->model_account_customer;
  *
  * Can be called from $this->load->model('account/customer');
  *
@@ -22,6 +24,7 @@ class Customer extends \Opencart\System\Engine\Model {
 			$customer_group_id = (int)$this->config->get('config_customer_group_id');
 		}
 
+		// Customer Group
 		$this->load->model('account/customer_group');
 
 		$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
@@ -109,30 +112,37 @@ class Customer extends \Opencart\System\Engine\Model {
 	public function deleteCustomer(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
+		// Activity
 		$this->load->model('account/activity');
 
 		$this->model_account_activity->deleteActivities($customer_id);
 
+		// Address
 		$this->load->model('account/address');
 
 		$this->model_account_address->deleteAddresses($customer_id);
 
+		// Affiliate
 		$this->load->model('account/affiliate');
 
 		$this->model_account_affiliate->deleteAffiliate($customer_id);
 
+		// Customer Approval
 		$this->load->model('account/approval');
 
 		$this->model_account_approval->deleteApprovals($customer_id);
 
+		// Reward
 		$this->load->model('account/reward');
 
 		$this->model_account_reward->deleteRewards($customer_id);
 
+		// Transaction
 		$this->load->model('account/transaction');
 
 		$this->model_account_transaction->deleteTransactions($customer_id);
 
+		// Wishlist
 		$this->load->model('account/wishlist');
 
 		$this->model_account_wishlist->deleteWishlists($customer_id);
@@ -147,7 +157,7 @@ class Customer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> customer record that has the customer ID
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -252,7 +262,7 @@ class Customer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> ip records that have customer ID
 	 */
 	public function getIps(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -265,7 +275,7 @@ class Customer extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $customer_id primary key of the customer record
 	 *
-	 * @return int
+	 * @return int total number of ip records that have customer ID
 	 */
 	public function getTotalIps(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -387,7 +397,7 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int    $customer_id primary key of the customer record
 	 * @param string $token
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> authorize token record that has the customer ID, token
 	 */
 	public function getAuthorizeByToken(int $customer_id, string $token): array {
 		$query = $this->db->query("SELECT *, (SELECT SUM(`total`) FROM `" . DB_PREFIX . "customer_authorize` WHERE `customer_id` = '" . (int)$customer_id . "') AS `attempts` FROM `" . DB_PREFIX . "customer_authorize` WHERE `customer_id` = '" . (int)$customer_id . "' AND `token` = '" . $this->db->escape($token) . "'");

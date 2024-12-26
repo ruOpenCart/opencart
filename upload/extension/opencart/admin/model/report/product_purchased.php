@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Extension\Opencart\Report;
 /**
  * Class Product Purchased
+ * 
+ * @example $product_purchased_model = $this->model_extension_opencart_report_product_purchased;
  *
  * Can be called from $this->load->model('extension/opencart/report/product_purchased');
  *
@@ -16,7 +18,7 @@ class ProductPurchased extends \Opencart\System\Engine\Model {
 	 * @return array<int, array<string, mixed>>
 	 */
 	public function getPurchased(array $data = []): array {
-		$sql = "SELECT op.`name`, op.`model`, SUM(op.`quantity`) AS quantity, SUM((op.`price` + op.`tax`) * op.`quantity`) AS `total` FROM `" . DB_PREFIX . "order_product` op LEFT JOIN `" . DB_PREFIX . "order` `o` ON (op.`order_id` = `o`.`order_id`)";
+		$sql = "SELECT `op`.`name`, `op`.`model`, SUM(`op`.`quantity`) AS `quantity`, SUM((`op`.`price` + `op`.`tax`) * `op`.`quantity`) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`op`.`order_id` = `o`.`order_id`)";
 
 		if (!empty($data['filter_order_status_id'])) {
 			$sql .= " WHERE `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
@@ -32,7 +34,7 @@ class ProductPurchased extends \Opencart\System\Engine\Model {
 			$sql .= " AND DATE(`o`.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
 		}
 
-		$sql .= " GROUP BY op.`product_id` ORDER BY total DESC";
+		$sql .= " GROUP BY `op`.`product_id` ORDER BY total DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -56,10 +58,10 @@ class ProductPurchased extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of purchased records
 	 */
 	public function getTotalPurchased(array $data = []): int {
-		$sql = "SELECT COUNT(DISTINCT op.`product_id`) AS `total` FROM `" . DB_PREFIX . "order_product` op LEFT JOIN `" . DB_PREFIX . "order` `o` ON (op.`order_id` = `o`.`order_id`)";
+		$sql = "SELECT COUNT(DISTINCT `op`.`product_id`) AS `total` FROM `" . DB_PREFIX . "order_product` `op` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`op`.`order_id` = `o`.`order_id`)";
 
 		if (!empty($data['filter_order_status_id'])) {
 			$sql .= " WHERE `o`.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";

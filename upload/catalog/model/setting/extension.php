@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Setting;
 /**
  * Class Extension
+ * 
+ * @example $extension_model = $this->model_setting_extension;
  *
  * Can be called from $this->load->model('setting/extension');
  *
@@ -11,7 +13,7 @@ class Extension extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Extensions
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> extension records
 	 */
 	public function getExtensions(): array {
 		$query = $this->db->query("SELECT DISTINCT `extension` FROM `" . DB_PREFIX . "extension`");

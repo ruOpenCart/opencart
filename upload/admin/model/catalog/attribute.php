@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Attribute
+ * 
+ * @example $attribute_model = $this->model_catalog_attribute;
  *
  * Can be called from $this->load->model('catalog/attribute');
  *
@@ -71,7 +73,7 @@ class Attribute extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $attribute_id primary key of the attribute record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> attribute record that has attribute ID
 	 */
 	public function getAttribute(int $attribute_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute` `a` LEFT JOIN `" . DB_PREFIX . "attribute_description` `ad` ON (`a`.`attribute_id` = `ad`.`attribute_id`) WHERE `a`.`attribute_id` = '" . (int)$attribute_id . "' AND `ad`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -86,7 +88,7 @@ class Attribute extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> attribute records
 	 */
 	public function getAttributes(array $data = []): array {
 		$sql = "SELECT *, (SELECT `agd`.`name` FROM `" . DB_PREFIX . "attribute_group_description` `agd` WHERE `agd`.`attribute_group_id` = `a`.`attribute_group_id` AND `agd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `attribute_group` FROM `" . DB_PREFIX . "attribute` `a` LEFT JOIN `" . DB_PREFIX . "attribute_description` `ad` ON (`a`.`attribute_id` = `ad`.`attribute_id`) WHERE `ad`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -213,10 +215,10 @@ class Attribute extends \Opencart\System\Engine\Model {
 	 * @param int $attribute_id primary key of the attribute record
 	 * @param int $language_id  primary key of the language record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> description record that has attribute ID, language ID
 	 */
 	public function getDescription(int $attribute_id, int $language_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_description` WHERE `attribute_id` = '" . (int)$attribute_id . "' AND language_id = '" . (int)$language_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_description` WHERE `attribute_id` = '" . (int)$attribute_id . "' AND `language_id` = '" . (int)$language_id . "'");
 
 		return $query->row;
 	}
@@ -228,7 +230,7 @@ class Attribute extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $attribute_id primary key of the attribute record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have attribute ID
 	 */
 	public function getDescriptions(int $attribute_id): array {
 		$attribute_data = [];
@@ -249,7 +251,7 @@ class Attribute extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_description` WHERE `language_id` = '" . (int)$language_id . "'");

@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Localisation;
 /**
  * Class Subscription Status
+ * 
+ * @example $subscription_status_model = $this->model_localisation_subscription_status;
  *
  * Can be called from $this->load->model('localisation/subscription_status');
  *
@@ -82,7 +84,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> subscription status record that has subscription status ID
 	 */
 	public function getSubscriptionStatus(int $subscription_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -95,7 +97,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> subscription status records
 	 */
 	public function getSubscriptionStatuses(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`";
@@ -151,7 +153,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $subscription_status_id primary key of the subscription status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have subscription status ID
 	 */
 	public function getDescriptions(int $subscription_status_id): array {
 		$subscription_status_data = [];
@@ -170,7 +172,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -181,7 +183,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Subscription Statuses
 	 *
-	 * @return int
+	 * @return int total number of subscription status records
 	 */
 	public function getTotalSubscriptionStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

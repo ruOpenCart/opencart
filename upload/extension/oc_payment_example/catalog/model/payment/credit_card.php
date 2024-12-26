@@ -1,6 +1,18 @@
 <?php
 namespace Opencart\Catalog\Model\Extension\OcPaymentExample\Payment;
+/**
+ * Credit Card
+ * 
+ * @example $credit_card_model = $this->model_extension_oc_payment_example_payment_credit_card;
+ *
+ * Can be called from $this->load->model('extension/oc_payment_example/payment/credit_card');
+ *
+ * @package Opencart\Catalog\Model\Extension\OcPaymentExample\Payment
+ */
 class CreditCard extends \Opencart\System\Engine\Model {
+	/*
+	 * Get the payment methods
+	 */
 	public function getMethods(array $address): array {
 		$this->load->language('extension/oc_payment_example/payment/credit_card');
 
@@ -51,8 +63,10 @@ class CreditCard extends \Opencart\System\Engine\Model {
 	/*
 	 * Add a credit card to the customer's account
 	 */
-	public function addCreditCard(int $customer_id, array $data): void {
+	public function addCreditCard(int $customer_id, array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "credit_card` SET `customer_id` = '" . (int)$customer_id . "', `card_name` = '" . $this->db->escape($data['card_name']) . "', `type` = '" . $this->db->escape($data['type']) . "', `card_number` = '" . $this->db->escape($data['card_number']) . "', `card_expire_month` = '" . $this->db->escape($data['card_expire_month']) . "', `card_expire_year` = '" . $this->db->escape($data['card_expire_year']) . "', `card_cvv` = '" . $this->db->escape($data['card_cvv']) . "', `date_added` = NOW()");
+
+		return $this->db->getLastId();
 	}
 
 	/*
@@ -80,23 +94,10 @@ class CreditCard extends \Opencart\System\Engine\Model {
 		return $query->rows;
 	}
 
-	public function charge(int $customer_id, int $order_id, float $amount, string $code): array {
-		$part = explode('.', $code);
-
-		//$this->db->query("INSERT INTO `" . DB_PREFIX . "credit_card` SET `customer_id` = '" . (int)$customer_id . "', `card_name` = '" . $this->db->escape($data['card_name']) . "', `card_number` = '" . $this->db->escape($data['card_number']) . "', `card_expire_month` = '" . $this->db->escape($data['card_expire_month']) . "', `card_expire_year` = '" . $this->db->escape($data['card_expire_year']) . "', `card_cvv` = '" . $this->db->escape($data['card_cvv']) . "', `date_added` = NOW()");
-
-		if ($this->config->get('payment_credit_card_response')) {
-			$response_data = [
-				'order_status_id' => $this->config->get('payment_credit_card_approved_status_id'),
-				'message'         => ''
-			];
-		} else {
-			$response_data = [
-				'order_status_id' => $this->config->get('payment_credit_card_failed_status_id'),
-				'message'         => ''
-			];
-		}
-
-		return $response_data;
+	/*
+	 * Add Report
+	 */
+	public function addReport(int $customer_id, array $data) {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "credit_card_report` SET `customer_id` = '" . (int)$customer_id . "', `credit_card_id` = '" . (int)$data['credit_card_id'] . "', `order_id` = '" . (int)$data['order_id'] . "', `card_number` = '" . $this->db->escape($data['card_number']) . "', `type` = '" . $this->db->escape($data['type']) . "', `amount` = '" . $this->db->escape($data['amount']) . "', `response` = '" . (bool)$data['response'] . "', `date_added` = NOW()");
 	}
 }

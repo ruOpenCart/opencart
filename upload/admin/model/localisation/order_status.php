@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Localisation;
 /**
  * Class Order Status
+ * 
+ * @example $order_status_model = $this->model_localisation_order_status;
  *
  * Can be called from $this->load->model('localisation/order_status');
  *
@@ -82,7 +84,7 @@ class OrderStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $order_status_id primary key of the order status record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> order status record that has order status ID
 	 */
 	public function getOrderStatus(int $order_status_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -95,7 +97,7 @@ class OrderStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> order status records
 	 */
 	public function getOrderStatuses(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`";
@@ -151,7 +153,7 @@ class OrderStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $order_status_id primary key of the order status record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have order status ID
 	 */
 	public function getDescriptions(int $order_status_id): array {
 		$order_status_data = [];
@@ -170,7 +172,7 @@ class OrderStatus extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -181,7 +183,7 @@ class OrderStatus extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Order Statuses
 	 *
-	 * @return int
+	 * @return int total number of order status records
 	 */
 	public function getTotalOrderStatuses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

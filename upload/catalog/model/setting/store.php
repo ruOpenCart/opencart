@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Setting;
 /**
  * Class Store
+ * 
+ * @example $store_model = $this->model_setting_store;
  *
  * Can be called from $this->load->model('setting/store');
  *
@@ -13,7 +15,7 @@ class Store extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $store_id
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> store record that has store ID
 	 */
 	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -37,7 +39,7 @@ class Store extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Stores
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> store records
 	 */
 	public function getStores(): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "store` ORDER BY `url`";

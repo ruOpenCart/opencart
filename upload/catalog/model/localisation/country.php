@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Localisation;
 /**
  * Class Country
+ * 
+ * @example $country_model = $this->model_localisation_country;
  *
  * Can be called from $this->load->model('localisation/country');
  *
@@ -13,7 +15,7 @@ class Country extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $country_id primary key of the country record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> country record that has country ID
 	 */
 	public function getCountry(int $country_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "' AND `status` = '1'");
@@ -74,7 +76,7 @@ class Country extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Countries
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> country records
 	 */
 	public function getCountries(): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "country` WHERE `status` = '1' ORDER BY `name` ASC";

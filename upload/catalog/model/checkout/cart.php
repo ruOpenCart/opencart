@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Checkout;
 /**
  * Class Cart
+ * 
+ * @example $cart_model = $this->model_checkout_cart;
  *
  * Can be called from $this->load->model('checkout/cart');
  *
@@ -11,7 +13,7 @@ class Cart extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Products
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> product records
 	 */
 	public function getProducts(): array {
 		$this->load->language('checkout/cart');
@@ -93,6 +95,7 @@ class Cart extends \Opencart\System\Engine\Model {
 	public function getTotals(array &$totals, array &$taxes, int &$total): void {
 		$sort_order = [];
 
+		// Extension
 		$this->load->model('setting/extension');
 
 		$results = $this->model_setting_extension->getExtensionsByType('total');

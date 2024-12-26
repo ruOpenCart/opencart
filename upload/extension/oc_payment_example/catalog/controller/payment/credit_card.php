@@ -1,6 +1,11 @@
 <?php
 namespace Opencart\Catalog\Controller\Extension\OcPaymentExample\Payment;
 class CreditCard extends \Opencart\System\Engine\Controller {
+	/**
+	 * Index
+	 * 
+	 * @return string
+	 */
 	public function index(): string {
 		$this->load->language('extension/oc_payment_example/payment/credit_card');
 
@@ -71,10 +76,10 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if (isset($this->session->data['order_id'])) {
+		if ($order_id) {
 			$this->load->model('checkout/order');
 
-			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+			$order_info = $this->model_checkout_order->getOrder($order_id);
 
 			if (!$order_info) {
 				$json['redirect'] = $this->url->link('checkout/failure', 'language=' . $this->config->get('config_language'), true);
@@ -82,7 +87,7 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 				unset($this->session->data['order_id']);
 			}
 		} else {
-			$json['error'] = $this->language->get('error_order');
+			$json['error']['warning'] = $this->language->get('error_order');
 		}
 
 		if (!$this->config->get('payment_credit_card_status') || !isset($this->session->data['payment_method']) || $this->session->data['payment_method']['code'] != 'credit_card.credit_card') {
@@ -110,37 +115,41 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Credit Card charge code goes here
-			$response = $this->config->get('payment_credit_card_response');
-
 			// Card storage
 			if ($this->customer->isLogged() && ($this->request->post['store'] || $this->cart->hasSubscription())) {
 				$credit_card_data = [
-					'card_name'         => $this->request->post['card_name'],
-					'type'              => $this->request->post['type'],
-					'card_number'       => '**** **** **** ' . substr($this->request->post['card_number'], -4),
-					'card_expire_month' => $this->request->post['card_expire_month'],
-					'card_expire_year'  => $this->request->post['card_expire_year'],
-					'card_cvv'          => $this->request->post['card_cvv'],
-					'date_expire'       => $this->request->post['card_expire_year'] . '-' . $this->request->post['card_expire_month'] . '-01'
-				];
+					'card_number' => '**** **** **** ' . substr($this->request->post['card_number'], -4),
+					'date_expire' => $this->request->post['card_expire_year'] . '-' . $this->request->post['card_expire_month'] . '-01'
+				] + $this->request->post;
 
 				$this->load->model('extension/oc_payment_example/payment/credit_card');
 
-				$this->model_extension_oc_payment_example_payment_credit_card->addCreditCard($this->customer->getId(), $credit_card_data);
+				$credit_card_id = $this->model_extension_oc_payment_example_payment_credit_card->addCreditCard($this->customer->getId(), $credit_card_data);
+			} else {
+				$credit_card_id = 0;
 			}
 
-			// Set Credit Card response
-			if ($response) {
-				$this->load->model('checkout/order');
+			// Credit Card charge code goes here
+			$response = $this->config->get('payment_credit_card_response');
 
-				$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_credit_card_approved_status_id'), '', true);
+			// Add report to the credit card table
+			$report_data = [
+				'order_id'       => $order_id,
+				'credit_card_id' => $credit_card_id,
+				'card_number'    => $this->request->post['card_number'],
+				'type'           => $this->request->post['type'],
+				'amount'         => $order_info['total'],
+				'response'       => $response
+			];
+
+			$this->model_extension_oc_payment_example_payment_credit_card->addReport($this->customer->getId(), $report_data);
+
+			if ($response) {
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_credit_card_approved_status_id'), '', true);
 
 				$json['redirect'] = $this->url->link('checkout/success', 'language=' . $this->config->get('config_language'), true);
 			} else {
-				$this->load->model('checkout/order');
-
-				$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_credit_card_failed_status_id'), '', true);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_credit_card_denied_status_id'), '', true);
 
 				$json['redirect'] = $this->url->link('checkout/failure', 'language=' . $this->config->get('config_language'), true);
 			}
@@ -168,24 +177,6 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 			$order_id = 0;
 		}
 
-		if (isset($this->session->data['payment_method'])) {
-			$payment = explode('.', $this->session->data['payment_method']['code']);
-		} else {
-			$payment = [];
-		}
-
-		if (isset($payment[0])) {
-			$payment_method = $payment[0];
-		} else {
-			$payment_method = '';
-		}
-
-		if (isset($payment[1])) {
-			$credit_card_id = $payment[1];
-		} else {
-			$credit_card_id = 0;
-		}
-
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
@@ -198,11 +189,13 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_login');
 		}
 
-		if (!$this->config->get('payment_credit_card_status') || $payment_method != 'credit_card') {
+		if (!$this->config->get('payment_credit_card_status') || strstr($order_info['payment_method']['code'], '.', true) != 'credit_card') {
 			$json['error']['warning'] = $this->language->get('error_payment_method');
 		}
 
 		$this->load->model('extension/oc_payment_example/payment/credit_card');
+
+		$credit_card_id = substr(strstr($order_info['payment_method']['code'], '.'), 1);
 
 		$credit_card_info = $this->model_extension_oc_payment_example_payment_credit_card->getCreditCard($this->customer->getId(), $credit_card_id);
 
@@ -211,22 +204,30 @@ class CreditCard extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Credit Card validation code goes here
+			$response = $this->config->get('payment_credit_card_response');
 
-			// Charge
-			$response_info = $this->model_extension_oc_payment_example_payment_credit_card->charge($this->customer->getId(), $this->session->data['order_id'], $order_info['total'], $credit_card_id);
+			// Add report to the credit card table
+			$report_data = [
+				'order_id'       => $order_id,
+				'credit_card_id' => $credit_card_info['credit_card_id'],
+				'card_number'    => $credit_card_info['card_number'],
+				'type'           => $credit_card_info['type'],
+				'amount'         => $order_info['total'],
+				'response'       => $response
+			];
 
-			// Set Credit Card response
-			if ($response_info) {
-				$this->load->model('checkout/order');
+			$this->model_extension_oc_payment_example_payment_credit_card->addReport($this->customer->getId(), $report_data);
 
-				$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_credit_card_approved_status_id'), '', true);
+			if ($response) {
+				/*
+				 * Credit Card charge code goes here
+				 *
+				 */
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_credit_card_approved_status_id'), '', true);
 
 				$json['redirect'] = $this->url->link('checkout/success', 'language=' . $this->config->get('config_language'), true);
 			} else {
-				$this->load->model('checkout/order');
-
-				$this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_credit_card_failed_status_id'), '', true);
+				$this->model_checkout_order->addHistory($order_id, $this->config->get('payment_credit_card_denied_status_id'), '', true);
 
 				$json['redirect'] = $this->url->link('checkout/failure', 'language=' . $this->config->get('config_language'), true);
 			}

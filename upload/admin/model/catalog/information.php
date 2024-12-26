@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Information
+ * 
+ * @example $information_model = $this->model_catalog_information;
  *
  * Can be called from $this->load->model('catalog/information');
  *
@@ -77,6 +79,7 @@ class Information extends \Opencart\System\Engine\Model {
 			}
 		}
 
+		// SEO URL
 		$this->load->model('design/seo_url');
 
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('information_id', $information_id);
@@ -114,6 +117,7 @@ class Information extends \Opencart\System\Engine\Model {
 		$this->model_catalog_information->deleteStores($information_id);
 		$this->model_catalog_information->deleteLayouts($information_id);
 
+		// SEO URL
 		$this->load->model('design/seo_url');
 
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('information_id', $information_id);
@@ -126,7 +130,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> information record that has information ID
 	 */
 	public function getInformation(int $information_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -139,7 +143,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> information records
 	 */
 	public function getInformations(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "information` `i` LEFT JOIN `" . DB_PREFIX . "information_description` `id` ON (`i`.`information_id` = `id`.`information_id`) WHERE `id`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -191,7 +195,7 @@ class Information extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Information(s)
 	 *
-	 * @return int
+	 * @return int total number of information records
 	 */
 	public function getTotalInformations(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information`");
@@ -239,7 +243,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> information records that have information ID
 	 */
 	public function getDescriptions(int $information_id): array {
 		$information_description_data = [];
@@ -258,7 +262,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information_description` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -305,7 +309,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> store records that have information ID
 	 */
 	public function getStores(int $information_id): array {
 		$information_store_data = [];
@@ -329,7 +333,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @return void
 	 */
 	public function addLayout(int $information_id, int $store_id, int $layout_id): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_layout` SET `information_id` = '" . (int)$information_id . "', store_id = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_layout` SET `information_id` = '" . (int)$information_id . "', `store_id` = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
 	}
 
 	/**
@@ -370,7 +374,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, int>
+	 * @return array<int, int> layout records that have information ID
 	 */
 	public function getLayouts(int $information_id): array {
 		$information_layout_data = [];
@@ -389,7 +393,7 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $layout_id primary key of the layout record
 	 *
-	 * @return int
+	 * @return int total number of layout records that have layout ID
 	 */
 	public function getTotalLayoutsByLayoutId(int $layout_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");

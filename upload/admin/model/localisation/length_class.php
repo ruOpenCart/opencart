@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Localisation;
 /**
  * Class Length Class
+ * 
+ * @example $length_class_model = $this->model_localisation_length_class;
  *
  * Can be called from $this->load->model('localisation/length_class');
  *
@@ -82,7 +84,7 @@ class LengthClass extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> length class records
 	 */
 	public function getLengthClasses(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "length_class` `lc` LEFT JOIN `" . DB_PREFIX . "length_class_description` `lcd` ON (`lc`.`length_class_id` = `lcd`.`length_class_id`) WHERE `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -137,7 +139,7 @@ class LengthClass extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $length_class_id primary key of the length class record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> length class record that has length class ID
 	 */
 	public function getLengthClass(int $length_class_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` `lc` LEFT JOIN `" . DB_PREFIX . "length_class_description` `lcd` ON (`lc`.`length_class_id` = `lcd`.`length_class_id`) WHERE `lc`.`length_class_id` = '" . (int)$length_class_id . "' AND `lcd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -185,7 +187,7 @@ class LengthClass extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $length_class_id primary key of the length class record
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> description records that have length class ID
 	 */
 	public function getDescriptions(int $length_class_id): array {
 		$length_class_data = [];
@@ -204,7 +206,7 @@ class LengthClass extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -228,7 +230,7 @@ class LengthClass extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Length Classes
 	 *
-	 * @return int
+	 * @return int total number of length class records
 	 */
 	public function getTotalLengthClasses(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "length_class`");

@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Localisation;
 /**
  * Class Language
+ * 
+ * @example $language_model = $this->model_localisation_language;
  *
  * Can be called from $this->load->model('localisation/language');
  *
@@ -384,7 +386,7 @@ class Language extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> language record that has language ID
 	 */
 	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -438,7 +440,7 @@ class Language extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<string, array<string, mixed>>
+	 * @return array<string, array<string, mixed>> language records
 	 */
 	public function getLanguages(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "language`";
@@ -516,7 +518,7 @@ class Language extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Languages
 	 *
-	 * @return int
+	 * @return int total number of language records
 	 */
 	public function getTotalLanguages(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "language`");

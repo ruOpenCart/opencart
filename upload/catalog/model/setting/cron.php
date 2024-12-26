@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Setting;
 /**
  * Class Cron
+ * 
+ * @example $cron_model = $this->model_setting_cron;
  *
  * Can be called from $this->load->model('setting/cron');
  *
@@ -36,7 +38,7 @@ class Cron extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $cron_id primary key of the Cron record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> cron record that has cron ID
 	 */
 	public function getCron(int $cron_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "cron` WHERE `cron_id` = '" . (int)$cron_id . "'");
@@ -60,7 +62,7 @@ class Cron extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Cron(s)
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> cron records
 	 */
 	public function getCrons(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cron` ORDER BY `date_modified` DESC");
@@ -71,7 +73,7 @@ class Cron extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Cron(s)
 	 *
-	 * @return int
+	 * @return int total number of cron records
 	 */
 	public function getTotalCrons(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cron`");

@@ -2,6 +2,8 @@
 namespace Opencart\Catalog\Model\Checkout;
 /**
  * Class Payment Method
+ * 
+ * @example $payment_method_model = $this->model_checkout_payment_method;
  *
  * Can be called from $this->load->model('checkout/payment_method');
  *
@@ -18,6 +20,7 @@ class PaymentMethod extends \Opencart\System\Engine\Model {
 	public function getMethods(array $payment_address = []): array {
 		$method_data = [];
 
+		// Extension
 		$this->load->model('setting/extension');
 
 		$results = $this->model_setting_extension->getExtensionsByType('payment');

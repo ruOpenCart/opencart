@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Cms;
 /**
  * Class Anti-Spam
+ * 
+ * @example $antispam_model = $this->model_cms_antispam;
  *
  * Can be called from $this->load->model('cms/antispam');
  *
@@ -49,7 +51,7 @@ class Antispam extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $antispam_id primary key of the anti-spam record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> antispam record that has antispam ID
 	 */
 	public function getAntispam(int $antispam_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "antispam` WHERE `antispam_id` = '" . (int)$antispam_id . "'");
@@ -62,7 +64,7 @@ class Antispam extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> antispam records
 	 */
 	public function getAntispams(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "antispam`";
@@ -113,7 +115,7 @@ class Antispam extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of antispam records
 	 */
 	public function getTotalAntispams(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "antispam`";

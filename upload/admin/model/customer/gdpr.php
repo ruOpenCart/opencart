@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Customer;
 /**
  * Class GDPR
+ * 
+ * @example $gdpr_model = $this->model_customer_gdpr;
  *
  * Can be called from $this->load->model('customer/gdpr');
  *
@@ -47,7 +49,7 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> gdpr records
 	 */
 	public function getGdprs(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
@@ -102,7 +104,7 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $gdpr_id primary key of the gdpr record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> gdpr record that has gdpr ID
 	 */
 	public function getGdpr(int $gdpr_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
@@ -115,7 +117,7 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of gdpr records
 	 */
 	public function getTotalGdprs(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "gdpr`";
@@ -154,7 +156,7 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Expires
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> expire records
 	 */
 	public function getExpires(): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");

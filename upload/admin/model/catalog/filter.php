@@ -2,6 +2,8 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Filter
+ * 
+ * @example $filter_model = $this->model_catalog_filter;
  *
  * Can be called from $this->load->model('catalog/filter');
  *
@@ -59,10 +61,12 @@ class Filter extends \Opencart\System\Engine\Model {
 
 		$this->model_catalog_filter->deleteDescriptions($filter_id);
 
+		// Category
 		$this->load->model('catalog/category');
 
 		$this->model_catalog_category->deleteFiltersByFilterId($filter_id);
 
+		// Product
 		$this->load->model('catalog/product');
 
 		$this->model_catalog_product->deleteFiltersByFilterId($filter_id);
@@ -75,7 +79,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $filter_id primary key of the filter record
 	 *
-	 * @return array<string, mixed>
+	 * @return array<string, mixed> filter record that has filter ID
 	 */
 	public function getFilter(int $filter_id): array {
 		$query = $this->db->query("SELECT *, (SELECT `fgd`.`name` FROM `" . DB_PREFIX . "filter_group_description` `fgd` WHERE `fgd`.`filter_group_id` = `f`.`filter_group_id` AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `group` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `f`.`filter_id` = '" . (int)$filter_id . "' AND `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -88,7 +92,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return array<int, array<string, mixed>>
+	 * @return array<int, array<string, mixed>> filter records
 	 */
 	public function getFilters(array $data = []): array {
 		$sql = "SELECT *, (SELECT `fgd`.`name` FROM `" . DB_PREFIX . "filter_group_description` `fgd` WHERE `fgd`.`filter_group_id` = `f`.`filter_group_id` AND `fgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `filter_group` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -137,7 +141,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of filters
 	 *
-	 * @return int
+	 * @return int total number of filter records
 	 */
 	public function getTotalFilters(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "filter` `f` LEFT JOIN `" . DB_PREFIX . "filter_description` `fd` ON (`f`.`filter_id` = `fd`.`filter_id`) WHERE `fd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -156,7 +160,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $filter_group_id primary key of the filter record
 	 *
-	 * @return int
+	 * @return int total number of filter records that have filter group ID
 	 */
 	public function getTotalFiltersByFilterGroupId(int $filter_group_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "filter` WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
@@ -204,7 +208,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $filter_id primary key of the filter record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have filter ID
 	 */
 	public function getDescriptions(int $filter_id): array {
 		$filter_data = [];
@@ -223,7 +227,7 @@ class Filter extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $language_id primary key of the language record
 	 *
-	 * @return array<int, array<string, string>>
+	 * @return array<int, array<string, string>> description records that have language ID
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter_description` WHERE `language_id` = '" . (int)$language_id . "'");
