@@ -15,7 +15,6 @@ $_['text_reviews']               = '%s отзыв(ов)';
 $_['text_write']                 = 'Написать отзыв';
 $_['text_login']                 = 'Пожалуйста, <a href="%s">войдите</a> или <a href="%s">зарегистрируйтесь</a>, чтобы оставить отзыв';
 $_['text_tags']                  = 'Тэги:';
-$_['text_error']                 = 'Товар не найден!';
 $_['text_subscription']          = 'Подписка';
 $_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
 $_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
