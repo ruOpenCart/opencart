@@ -1,5 +1,5 @@
 <div class="dropdown d-grid">
-  <button type="button" data-bs-toggle="dropdown" class="btn btn-lg btn-inverse btn-block dropdown-toggle"><i class="fa-solid fa-cart-shopping"></i> {{ text_items }}</button>
+  <button type="button" data-bs-toggle="dropdown" class="btn btn-lg btn-dark d-block dropdown-toggle"><i class="fa-solid fa-cart-shopping"></i> {{ text_items }}</button>
   <ul class="dropdown-menu dropdown-menu-end p-2">
     {% if products %}
       <li>
@@ -17,13 +17,11 @@
                       <small> - {{ option.name }}: {{ option.value }}</small>
                     </li>
                   {% endfor %}
-
                   {% if product.subscription %}
                     <li>
                       <small> - {{ text_subscription }}: {{ product.subscription }}</small>
                     </li>
                   {% endif %}
-
                   {% if product.reward %}
                     <li>
                       <small> - {{ text_points }}: {{ product.reward }}</small>
@@ -31,7 +29,7 @@
                   {% endif %}
                 </ul>
               </td>
-              <td class="text-end">x {{ product.quantity }}</td>
+              <td class="text-end text-nowrap">x {{ product.quantity }}</td>
               <td class="text-end">{{ product.total }}</td>
               <td class="text-end">
                 <form action="{{ remove }}" method="post" data-oc-toggle="ajax" data-oc-load="{{ list }}" data-oc-target="#header-cart">

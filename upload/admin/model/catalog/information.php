@@ -2,10 +2,6 @@
 namespace Opencart\Admin\Model\Catalog;
 /**
  * Class Information
- * 
- * @example $information_model = $this->model_catalog_information;
- *
- * Can be called from $this->load->model('catalog/information');
  *
  * @package Opencart\Admin\Model\Catalog
  */
@@ -15,7 +11,18 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param array<string, mixed> $data array of data
 	 *
-	 * @return int
+	 * @return int returns the primary key of the new information record
+	 *
+	 * @example
+	 *
+	 * $information_data = [
+	 *     'sort_order' => 0,
+	 *     'status'     => 1
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_id = $this->model_catalog_information->addInformation($information_data);
 	 */
 	public function addInformation(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "'");
@@ -61,6 +68,17 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data           array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $information_data = [
+	 *     'sort_order' => 0,
+	 *     'status'     => 1
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->editInformation($information_id, $information_data);
 	 */
 	public function editInformation(int $information_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "' WHERE `information_id` = '" . (int)$information_id . "'");
@@ -109,6 +127,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteInformation($information_id);
 	 */
 	public function deleteInformation(int $information_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -131,6 +155,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<string, mixed> information record that has information ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_info = $this->model_catalog_information->getInformation($information_id);
 	 */
 	public function getInformation(int $information_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "information` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -144,6 +174,19 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data array of filters
 	 *
 	 * @return array<int, array<string, mixed>> information records
+	 *
+	 * @example
+	 *
+	 * $filter_data = [
+	 *     'sort'  => 'id.title',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 50
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $results = $this->model_catalog_information->getInformations($filter_data);
 	 */
 	public function getInformations(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "information` `i` LEFT JOIN `" . DB_PREFIX . "information_description` `id` ON (`i`.`information_id` = `id`.`information_id`) WHERE `id`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -196,6 +239,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * Get Total Information(s)
 	 *
 	 * @return int total number of information records
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_total = $this->model_catalog_information->getTotalInformations();
 	 */
 	public function getTotalInformations(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information`");
@@ -211,6 +260,20 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data           array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $information_data['information_description'] = [
+	 *     'title'            => 'Information Title',
+	 *     'description'      => 'Information Description',
+	 *     'meta_title'       => 'Meta Title',
+	 *     'meta_description' => 'Meta Description',
+	 *     'meta_keyword'     => 'Meta Keyword'
+	 * ];
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->addDescription($information_id, $language_id, $information_data);
 	 */
 	public function addDescription(int $information_id, int $language_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET `information_id` = '" . (int)$information_id . "', `language_id` = '" . (int)$language_id . "', `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `meta_title` = '" . $this->db->escape($data['meta_title']) . "', `meta_description` = '" . $this->db->escape($data['meta_description']) . "', `meta_keyword` = '" . $this->db->escape($data['meta_keyword']) . "'");
@@ -222,6 +285,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteDescriptions($information_id);
 	 */
 	public function deleteDescriptions(int $information_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_description` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -233,6 +302,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteDescriptionsByLanguageId($language_id);
 	 */
 	public function deleteDescriptionsByLanguageId(int $language_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_description` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -243,7 +318,13 @@ class Information extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int $information_id primary key of the information record
 	 *
-	 * @return array<int, array<string, string>> information records that have information ID
+	 * @return array<int, array<string, string>> description records that have information ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_description = $this->model_catalog_information->getDescriptions($information_id);
 	 */
 	public function getDescriptions(int $information_id): array {
 		$information_description_data = [];
@@ -263,6 +344,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $language_id primary key of the language record
 	 *
 	 * @return array<int, array<string, string>> description records that have language ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $results = $this->model_catalog_information->getDescriptionsByLanguageId($language_id);
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information_description` WHERE `language_id` = '" . (int)$language_id . "'");
@@ -274,9 +361,15 @@ class Information extends \Opencart\System\Engine\Model {
 	 * Add Store
 	 *
 	 * @param int $information_id primary key of the information record
-	 * @param int $store_id
+	 * @param int $store_id       primary key of the store record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->addStore($information_id, $store_id);
 	 */
 	public function addStore(int $information_id, int $store_id): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_store` SET `information_id` = '" . (int)$information_id . "', `store_id` = '" . (int)$store_id . "'");
@@ -288,6 +381,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteStores($information_id);
 	 */
 	public function deleteStores(int $information_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_to_store` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -296,9 +395,15 @@ class Information extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Stores By Store ID
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteStoresByStoreId($store_id);
 	 */
 	public function deleteStoresByStoreId(int $store_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_to_store` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -310,6 +415,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, int> store records that have information ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_store = $this->model_catalog_information->getStores($information_id);
 	 */
 	public function getStores(int $information_id): array {
 		$information_store_data = [];
@@ -327,10 +438,16 @@ class Information extends \Opencart\System\Engine\Model {
 	 * Add Layout
 	 *
 	 * @param int $information_id primary key of the information record
-	 * @param int $store_id
+	 * @param int $store_id       primary key of the store record
 	 * @param int $layout_id      primary key of the layout record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->addLayout($information_id, $store_id, $layout_id);
 	 */
 	public function addLayout(int $information_id, int $store_id, int $layout_id): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_layout` SET `information_id` = '" . (int)$information_id . "', `store_id` = '" . (int)$store_id . "', `layout_id` = '" . (int)$layout_id . "'");
@@ -342,6 +459,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteLayouts($information_id);
 	 */
 	public function deleteLayouts(int $information_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_to_layout` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -353,6 +476,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteLayoutsByLayoutId($layout_id);
 	 */
 	public function deleteLayoutsByLayoutId(int $layout_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
@@ -361,9 +490,15 @@ class Information extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Layouts By Store ID
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $this->model_catalog_information->deleteLayoutsByStoreId($store_id);
 	 */
 	public function deleteLayoutsByStoreId(int $store_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "information_to_layout` WHERE `store_id` = '" . (int)$store_id . "'");
@@ -375,6 +510,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $information_id primary key of the information record
 	 *
 	 * @return array<int, int> layout records that have information ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_layout = $this->model_catalog_information->getLayouts($information_id);
 	 */
 	public function getLayouts(int $information_id): array {
 		$information_layout_data = [];
@@ -394,6 +535,12 @@ class Information extends \Opencart\System\Engine\Model {
 	 * @param int $layout_id primary key of the layout record
 	 *
 	 * @return int total number of layout records that have layout ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/information');
+	 *
+	 * $information_total = $this->model_catalog_information->getTotalLayoutsByLayoutId($layout_id);
 	 */
 	public function getTotalLayoutsByLayoutId(int $layout_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "information_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");

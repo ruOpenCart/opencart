@@ -2,8 +2,8 @@
 namespace Opencart\Admin\Controller\Common;
 /**
  * Class Authorize
- * 
- * Can be called from $this->load->controller('common/authorize');
+ *
+ * Can be loaded using $this->load->controller('common/authorize');
  *
  * @package Opencart\Admin\Controller\Common
  */

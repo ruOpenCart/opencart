@@ -2,7 +2,7 @@
 namespace Opencart\Catalog\Controller\Common;
 /**
  * Class Currency
- * 
+ *
  * Can be called from $this->load->controller('common/currency');
  *
  * @package Opencart\Catalog\Controller\Common
@@ -20,6 +20,22 @@ class Currency extends \Opencart\System\Engine\Controller {
 
 		$data['code'] = $this->session->data['currency'];
 
+		$data['currencies'] = [];
+
+		$this->load->model('localisation/currency');
+
+		$results = $this->model_localisation_currency->getCurrencies();
+
+		foreach ($results as $result) {
+			if ($result['status']) {
+				$data['currencies'][$result['code']] = $result;
+			}
+		}
+
+		$data['title'] = $data['currencies'][$result['code']]['title'];
+		$data['symbol_left'] = $data['currencies'][$result['code']]['symbol_left'];
+		$data['symbol_right'] = $data['currencies'][$result['code']]['symbol_right'];
+
 		$url_data = $this->request->get;
 
 		if (isset($url_data['route'])) {
@@ -30,18 +46,6 @@ class Currency extends \Opencart\System\Engine\Controller {
 
 		unset($url_data['route']);
 		unset($url_data['_route_']);
-
-		$data['currencies'] = [];
-
-		$this->load->model('localisation/currency');
-
-		$results = $this->model_localisation_currency->getCurrencies();
-
-		foreach ($results as $result) {
-			if ($result['status']) {
-				$data['currencies'][] = $result;
-			}
-		}
 
 		$url = '';
 

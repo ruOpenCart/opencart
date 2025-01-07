@@ -987,7 +987,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['order_status_id'] = $this->config->get('config_order_status_id');
 		}
 
-		$data['complete_status'] = in_array($data['order_status_id'], $this->config->get('config_complete_status'));
+		$data['complete_status'] = in_array($data['order_status_id'], (array)$this->config->get('config_complete_status'));
 
 		// Additional tabs that are payment gateway specific
 		$data['tabs'] = [];
@@ -1948,9 +1948,36 @@ class Order extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('customer/customer');
 
-			$this->model_customer_customer->deleteTransactionByOrderId($order_id);
+			$this->model_customer_customer->deleteTransactionsByOrderId($order_id);
 
 			$json['success'] = $this->language->get('text_commission_remove');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function autocomplete(): void {
+		$this->load->language('sale/order');
+
+		$json = [];
+
+		if (isset($this->request->get['order_id'])) {
+			$order_id = (int)$this->request->get['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		$this->load->model('sale/order');
+
+		$order_info = $this->model_sale_order->getOrder($order_id);
+
+		if (!$order_info) {
+			$json['error'] = $this->language->get('error_order');
+		}
+
+		if (!$json) {
+			$json = $order_info;
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -2,8 +2,8 @@
 namespace Opencart\Admin\Controller\Common;
 /**
  * Class Developer
- * 
- * Can be called from $this->load->controller('common/developer');
+ *
+ * Can be loaded using $this->load->controller('common/developer');
  *
  * @package Opencart\Admin\Controller\Common
  */

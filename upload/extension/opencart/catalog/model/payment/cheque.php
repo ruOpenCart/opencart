@@ -2,8 +2,6 @@
 namespace Opencart\Catalog\Model\Extension\Opencart\Payment;
 /**
  * Class Cheque
- * 
- * @example $cheque_model = $this->model_extension_opencart_payment_cheque;
  *
  * Can be called from $this->load->model('extension/opencart/payment/cheque');
  *
@@ -13,7 +11,7 @@ class Cheque extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Methods
 	 *
-	 * @param array<string, mixed> $address
+	 * @param array<string, mixed> $address array of data
 	 *
 	 * @return array<string, mixed>
 	 */

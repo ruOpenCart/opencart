@@ -2,7 +2,7 @@
 namespace Opencart\Install\Model\Install;
 /**
  * Class Install
- * 
+ *
  * @example $install_model = $this->model_install_install;
  *
  * Can be called from $this->load->model('install/install');
@@ -91,7 +91,7 @@ class Install extends \Opencart\System\Engine\Model {
 		}
 		*/
 		// Data
-		$lines = file(DIR_APPLICATION . 'opencart.sql', FILE_IGNORE_NEW_LINES);
+		$lines = file(DIR_APPLICATION . 'opencart-' . $this->config->get('language_code') . '.sql', FILE_IGNORE_NEW_LINES);
 
 		if ($lines) {
 			$sql = '';

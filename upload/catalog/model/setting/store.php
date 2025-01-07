@@ -2,7 +2,7 @@
 namespace Opencart\Catalog\Model\Setting;
 /**
  * Class Store
- * 
+ *
  * @example $store_model = $this->model_setting_store;
  *
  * Can be called from $this->load->model('setting/store');
@@ -13,7 +13,7 @@ class Store extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Store
 	 *
-	 * @param int $store_id
+	 * @param int $store_id primary key of the store record
 	 *
 	 * @return array<string, mixed> store record that has store ID
 	 */
@@ -64,7 +64,7 @@ class Store extends \Opencart\System\Engine\Model {
 	 *
 	 * @param int    $store_id
 	 * @param string $language
-	 * @param string $session_id primary key of the session record
+	 * @param string $session_id
 	 *
 	 * @throws \Exception
 	 *
