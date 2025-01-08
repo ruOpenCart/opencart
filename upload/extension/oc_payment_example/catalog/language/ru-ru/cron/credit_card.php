@@ -5,7 +5,7 @@ $_['text_log']               = 'Проверьте журнал подписки
 
 // Error
 $_['error_order']            = 'Внимание: Заказ не найден!';
-$_['error_subscription']     = 'Warning: Subscription could not be found!';
+$_['error_subscription']     = 'Внимание: Подписка не найдена!';
 $_['error_credit_card']      = 'Внимание: Кредитная карта не найдена!';
 
 $_['error_payment_method']   = 'Внимание: Способ оплаты обязателен!';
