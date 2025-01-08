@@ -22,7 +22,7 @@ $_['column_returns']      = 'Кол-во возвратов';
 $_['entry_date_start']    = 'Дата начала';
 $_['entry_date_end']      = 'Дата окончания';
 $_['entry_group']         = 'Группировать по';
-$_['entry_return_status'] = 'Return Status';
+$_['entry_return_status'] = 'Статус возврата';
 $_['entry_status']        = 'Статус';
 $_['entry_sort_order']    = 'Порядок сортировки';
 
