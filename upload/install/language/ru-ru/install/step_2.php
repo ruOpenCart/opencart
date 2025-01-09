@@ -32,7 +32,7 @@ $_['text_unwritable']        = 'Недоступен для записи';
 $_['text_missing']           = 'Отсутствует';
 
 // Error
-$_['error_version']          = 'Внимание: Вам нужно использовать PHP7.4 или выше для работы OpenCart!';
+$_['error_version']          = 'Warning: You need to use PHP 8.0 or above for OpenCart to work!';
 $_['error_file_upload']      = 'Внимание: file_uploads должен быть включен!';
 $_['error_session']          = 'Внимание: OpenCart не будет работать с включенным session.auto_start!';
 $_['error_db']               = 'Внимание: Для работы OpenCart в php.ini должно быть загружено расширение database!';
