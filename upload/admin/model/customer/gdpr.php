@@ -18,6 +18,8 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/gdpr');
+	 *
 	 * $this->model_customer_gdpr->editStatus($gdpr_id, $status);
 	 */
 	public function editStatus(int $gdpr_id, int $status): void {
@@ -32,6 +34,8 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/gdpr');
 	 *
 	 * $this->model_customer_gdpr->deleteGdpr($gdpr_id);
 	 */
@@ -48,6 +52,8 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/gdpr');
+	 *
 	 * $this->model_customer_gdpr->deleteGdprsByStoreId($store_id);
 	 */
 	public function deleteGdprsByStoreId(int $store_id): void {
@@ -63,7 +69,19 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_customer_gdpr->getGdprs();
+	 * $filter_data = [
+	 *     'filter_email'     => 'Customer Email',
+	 *     'filter_action'    => 'export',
+	 *     'filter_status'    => 1,
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/gdpr');
+	 *
+	 * $results = $this->model_customer_gdpr->getGdprs($filter_data);
 	 */
 	public function getGdprs(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "gdpr`";
@@ -122,6 +140,8 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/gdpr');
+	 *
 	 * $gdpr_info = $this->model_customer_gdpr->getGdpr($gdpr_id);
 	 */
 	public function getGdpr(int $gdpr_id): array {
@@ -139,7 +159,19 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $gdpr_total = $this->model_customer_gdpr->getTotalGdprs();
+	 * $filter_data = [
+	 *     'filter_email'     => 'Customer Email',
+	 *     'filter_action'    => 'export',
+	 *     'filter_status'    => 1,
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/gdpr');
+	 *
+	 * $gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
 	 */
 	public function getTotalGdprs(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "gdpr`";
@@ -181,6 +213,8 @@ class Gdpr extends \Opencart\System\Engine\Model {
 	 * @return array<int, array<string, mixed>> expire records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/gdpr');
 	 *
 	 * $results = $this->model_customer_gdpr->getExpires();
 	 */

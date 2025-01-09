@@ -57,7 +57,7 @@ class Step2 extends \Opencart\System\Engine\Controller {
 		$data['button_back'] = $this->language->get('button_back');
 
 		$data['php_version'] = PHP_VERSION;
-		$data['version'] = version_compare(PHP_VERSION, '7.4', '>=');
+		$data['version'] = version_compare(PHP_VERSION, '8.0', '>=');
 		$data['register_globals'] = ini_get('register_globals');
 		$data['magic_quotes_gpc'] = ini_get('magic_quotes_gpc');
 		$data['file_uploads'] = ini_get('file_uploads');
@@ -108,9 +108,10 @@ class Step2 extends \Opencart\System\Engine\Controller {
 
 		$data['back'] = $this->url->link('install/step_1', 'language=' . $this->config->get('language_code'));
 
+		$data['language'] = $this->config->get('language_code');
+
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
-		$data['language'] = $this->load->controller('common/language');
 
 		$this->response->setOutput($this->load->view('install/step_2', $data));
 	}
@@ -123,7 +124,7 @@ class Step2 extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
-		if (version_compare(PHP_VERSION, '7.4', '<')) {
+		if (version_compare(PHP_VERSION, '8.0', '<')) {
 			$json['error'] = $this->language->get('error_version');
 		}
 

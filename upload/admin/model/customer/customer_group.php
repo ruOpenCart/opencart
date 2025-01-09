@@ -17,7 +17,14 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $customer_group_id = $this->model_customer_customer_group->addCustomerGroup($data);
+	 * $customer_group_data = [
+	 *     'approval'   => 0,
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_group');
+	 *
+	 * $customer_group_id = $this->model_customer_customer_group->addCustomerGroup($customer_group_data);
 	 */
 	public function addCustomerGroup(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (isset($data['approval']) ? (bool)$data['approval'] : 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
@@ -41,7 +48,14 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_customer_customer_group->editCustomerGroup($customer_group_id, $data);
+	 * $customer_group_data = [
+	 *     'approval'   => 0,
+	 *     'sort_order' => 0
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_group');
+	 *
+	 * $this->model_customer_customer_group->editCustomerGroup($customer_group_id, $customer_group_data);
 	 */
 	public function editCustomerGroup(int $customer_group_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_group` SET `approval` = '" . (isset($data['approval']) ? (bool)$data['approval'] : 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
@@ -61,6 +75,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_group');
 	 *
 	 * $this->model_customer_customer_group->deleteCustomerGroup($customer_group_id);
 	 */
@@ -90,6 +106,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_group');
+	 *
 	 * $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($customer_group_id);
 	 */
 	public function getCustomerGroup(int $customer_group_id): array {
@@ -107,7 +125,16 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $customer_groups = $this->model_customer_customer_group->getCustomerGroups();
+	 * $filter_data = [
+	 *     'sort'  => 'cgd.name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_group');
+	 *
+	 * $customer_groups = $this->model_customer_customer_group->getCustomerGroups($filter_data);
 	 */
 	public function getCustomerGroups(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -157,7 +184,14 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_customer_customer_group->addDescription($customer_group_id, $language_id, $data);
+	 * $customer_group_data['customer_group_description'] = [
+	 *     'name'        => 'Customer Group Name',
+	 *     'description' => 'Customer Group Description'
+	 * ];
+	 *
+	 * $this->load->model('customer/customer_group');
+	 *
+	 * $this->model_customer_customer_group->addDescription($customer_group_id, $language_id, $customer_group_data);
 	 */
 	public function addDescription(int $customer_group_id, int $language_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group_description` SET `customer_group_id` = '" . (int)$customer_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "'");
@@ -171,6 +205,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_group');
 	 *
 	 * $this->model_customer_customer_group->deleteDescriptions($customer_group_id);
 	 */
@@ -187,6 +223,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_group');
+	 *
 	 * $this->model_customer_customer_group->deleteDescriptionsByLanguageId($language_id);
 	 */
 	public function deleteDescriptionsByLanguageId(int $language_id): void {
@@ -201,6 +239,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 * @return array<int, array<string, string>> description records that have customer group ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_group');
 	 *
 	 * $customer_group_description = $this->model_customer_customer_group->getDescriptions($customer_group_id);
 	 */
@@ -225,6 +265,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('customer/customer_group');
+	 *
 	 * $results = $this->model_customer_customer_group->getDescriptionsByLanguageId($language_id);
 	 */
 	public function getDescriptionsByLanguageId(int $language_id): array {
@@ -239,6 +281,8 @@ class CustomerGroup extends \Opencart\System\Engine\Model {
 	 * @return int total number of customer group records
 	 *
 	 * @example
+	 *
+	 * $this->load->model('customer/customer_group');
 	 *
 	 * $customer_group_total = $this->model_customer_customer_group->getTotalCustomerGroups();
 	 */
