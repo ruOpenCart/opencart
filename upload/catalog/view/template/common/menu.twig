@@ -7,10 +7,18 @@
         <ul class="nav navbar-nav">
           {% for category in categories %}
             {% if category.children %}
+              {% set total = category.children|length %}
+              {% if total > 20 %}
+                {% set batch = (total / 4)|round(0, 'ceil') %}
+                {% set column = 4 %}
+              {% else %}
+                {% set batch = 5 %}
+                {% set column = (total / 5)|round(0, 'ceil') %}
+              {% endif %}
               <li class="nav-item dropdown"><a href="{{ category.href }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ category.name }}</a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-column-{{ column }}">
                   <div class="dropdown-inner">
-                    {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+                    {% for children in category.children|batch(batch) %}
                       <ul class="list-unstyled">
                         {% for child in children %}
                           <li><a href="{{ child.href }}" class="dropdown-item">{{ child.name }}</a></li>
@@ -19,6 +27,9 @@
                     {% endfor %}
                   </div>
                   <ul class="list-unstyled">
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
                     <li><a href="{{ category.href }}" class="dropdown-item">{{ text_all }} {{ category.name }}</a></li>
                   </ul>
                 </div>

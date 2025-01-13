@@ -767,10 +767,6 @@ class Product extends \Opencart\System\Engine\Model {
 		foreach ($products as $product) {
 			$product_data = [];
 
-			// We need to convert JSON strings back into an array so they can be re-encoded to a string to go back into the database.
-			$product['override'] = (array)json_decode($product['override'], true);
-			$product['variant'] = (array)json_decode($product['variant'], true);
-
 			// We use the override to override the master product values
 			if ($product['override']) {
 				$override = $product['override'];
@@ -2168,6 +2164,23 @@ class Product extends \Opencart\System\Engine\Model {
 	}
 
 	/**
+	 * Delete Downloads By Download ID
+	 *
+	 * @param int $download_id primary key of the download record
+	 *
+	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('catalog/product');
+	 *
+	 * $this->model_catalog_product->deleteDownloadsByDownloadId($download_id);
+	 */
+	public function deleteDownloadsByDownloadId(int $download_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_to_download` WHERE `download_id` = '" . (int)$download_id . "'");
+	}
+
+	/**
 	 * Get Downloads
 	 *
 	 * @param int $product_id primary key of the product record
@@ -2178,7 +2191,7 @@ class Product extends \Opencart\System\Engine\Model {
 	 *
 	 * $this->load->model('catalog/product');
 	 *
-	 * $product_downloads = $this->model_catalog_product->getDownloads($product_id);
+	 * $product_download = $this->model_catalog_product->getDownloads($product_id);
 	 */
 	public function getDownloads(int $product_id): array {
 		$product_download_data = [];
@@ -2542,7 +2555,7 @@ class Product extends \Opencart\System\Engine\Model {
 	 * Get Subscription
 	 *
 	 * @param int $product_id           primary key of the product record
-	 * @param int $subscription_plan_id primary key of the product subscription plan record
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 * @param int $customer_group_id    primary key of the customer group record
 	 *
 	 * @return array<string, mixed> subscription record that has product ID, subscription plan ID, customer group ID
@@ -2598,7 +2611,7 @@ class Product extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Total Subscriptions By Subscription Plan ID
 	 *
-	 * @param int $subscription_plan_id primary key of the product subscription plan record
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return int total number of subscription records that have subscription plan ID
 	 *

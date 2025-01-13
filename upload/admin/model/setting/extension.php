@@ -15,6 +15,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $results = $this->model_setting_extension->getExtensions();
 	 */
 	public function getExtensions(): array {
@@ -31,6 +33,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return array<int, array<string, mixed>>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $results = $this->model_setting_extension->getExtensionsByType($type);
 	 */
@@ -50,6 +54,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $extension_info = $this->model_setting_extension->getExtensionByCode($type, $code);
 	 */
 	public function getExtensionByCode(string $type, string $code): array {
@@ -66,6 +72,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return int total number of extension records that have extension ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $extension_total = $this->model_setting_extension->getTotalExtensionsByExtension($extension);
 	 */
@@ -85,6 +93,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $this->model_setting_extension->install($type, $extension, $code);
 	 */
@@ -108,6 +118,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->uninstall($type, $code);
 	 */
 	public function uninstall(string $type, string $code): void {
@@ -128,7 +140,21 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_setting_extension->addInstall($data);
+	 * $extension_install_data = [
+	 *     'extension_id'          => 1,
+	 *     'extension_download_id' => 1,
+	 *     'name'                  => 'Extension Install Name',
+	 *     'description'           => 'Extension Install Description',
+	 *     'code'                  => 'Extension Install Code',
+	 *     'version'               => '1.00',
+	 *     'author'                => 'Author Name',
+	 *     'link'                  => '',
+	 *     'status'                => 0
+	 * ];
+	 *
+	 * $this->load->model('setting/extension');
+	 *
+	 * $this->model_setting_extension->addInstall($extension_install_data);
 	 */
 	public function addInstall(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "extension_install` SET `extension_id` = '" . (int)$data['extension_id'] . "', `extension_download_id` = '" . (int)$data['extension_download_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `version` = '" . $this->db->escape($data['version']) . "', `author` = '" . $this->db->escape($data['author']) . "', `link` = '" . $this->db->escape($data['link']) . "', `status` = '0', `date_added` = NOW()");
@@ -144,6 +170,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $this->model_setting_extension->deleteInstall($extension_install_id);
 	 */
@@ -161,6 +189,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->editStatus($extension_install_id, $status);
 	 */
 	public function editStatus(int $extension_install_id, bool $status): void {
@@ -175,6 +205,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed> install record that has extension install ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $extension_install_info = $this->model_setting_extension->getInstall($extension_install_id);
 	 */
@@ -193,6 +225,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $extension_install_info = $this->model_setting_extension->getInstallByExtensionDownloadId($extension_download_id);
 	 */
 	public function getInstallByExtensionDownloadId(int $extension_download_id): array {
@@ -209,6 +243,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $install_info = $this->model_setting_extension->getInstallByCode($code);
 	 */
@@ -227,7 +263,17 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_setting_extension->getInstalls();
+	 * $filter_data = [
+	 *     'filter_extension_download_id' => 1,
+	 *     'sort'                         => 'name',
+	 *     'order'                        => 'DESC',
+	 *     'start'                        => 0,
+	 *     'limit'                        => 10
+	 * ];
+	 *
+	 * $this->load->model('setting/extension');
+	 *
+	 * $results = $this->model_setting_extension->getInstalls($filter_data);
 	 */
 	public function getInstalls(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "extension_install`";
@@ -280,7 +326,17 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $extension_total = $this->model_setting_extension->getTotalInstalls($data);
+	 * $filter_data = [
+	 *     'filter_extension_download_id' => 1,
+	 *     'sort'                         => 'name',
+	 *     'order'                        => 'DESC',
+	 *     'start'                        => 0,
+	 *     'limit'                        => 10
+	 * ];
+	 *
+	 * $this->load->model('setting/extension');
+	 *
+	 * $extension_total = $this->model_setting_extension->getTotalInstalls($filter_data);
 	 */
 	public function getTotalInstalls(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_install`";
@@ -304,6 +360,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->addPath($extension_install_id, $path);
 	 */
 	public function addPath(int $extension_install_id, string $path): void {
@@ -319,6 +377,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $this->model_setting_extension->deletePath($extension_path_id);
 	 */
 	public function deletePath(int $extension_path_id): void {
@@ -333,6 +393,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return array<int, array<string, mixed>> path records that have extension install ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $results = $this->model_setting_extension->getPathsByExtensionInstallId($extension_install_id);
 	 */
@@ -351,6 +413,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/extension');
+	 *
 	 * $paths = $this->model_setting_extension->getPaths($path);
 	 */
 	public function getPaths(string $path): array {
@@ -367,6 +431,8 @@ class Extension extends \Opencart\System\Engine\Model {
 	 * @return int
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/extension');
 	 *
 	 * $path_total = $this->model_setting_extension->getTotalPaths($path);
 	 */

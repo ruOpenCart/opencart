@@ -21,10 +21,10 @@ class Customer extends \Opencart\System\Engine\Model {
 	 *     'store_id'          => 1,
 	 *     'language_id'       => 1,
 	 *     'customer_group_id' => 1,
-	 *     'firstname'         => 'Customer Firstname',
-	 *     'lastname'          => 'Customer Lastname',
-	 *     'email'             => 'Customer Email',
-	 *     'telephone'         => 'Customer Telephone',
+	 *     'firstname'         => 'John',
+	 *     'lastname'          => 'Doe',
+	 *     'email'             => 'demo@opencart.com',
+	 *     'telephone'         => '1234567890',
 	 *     'custom_field'      => [],
 	 *     'newsletter'        => 0,
 	 *     'password'          => '',
@@ -57,10 +57,10 @@ class Customer extends \Opencart\System\Engine\Model {
 	 *     'store_id'          => 1,
 	 *     'language_id'       => 1,
 	 *     'customer_group_id' => 1,
-	 *     'firstname'         => 'Customer Firstname',
-	 *     'lastname'          => 'Customer Lastname',
-	 *     'email'             => 'Customer Email',
-	 *     'telephone'         => 'Customer Telephone',
+	 *     'firstname'         => 'John',
+	 *     'lastname'          => 'Doe',
+	 *     'email'             => 'demo@opencart.com',
+	 *     'telephone'         => '1234567890',
 	 *     'custom_field'      => [],
 	 *     'newsletter'        => 0,
 	 *     'password'          => '',
@@ -210,8 +210,8 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $filter_data = [
-	 *     'filter_name'              => 'Customer Name',
-	 *     'filter_email'             => 'Customer Email',
+	 *     'filter_name'              => 'John Doe',
+	 *     'filter_email'             => 'demo@opencart.com',
 	 *     'filter_customer_group_id' => 1,
 	 *     'filter_status'            => 1,
 	 *     'filter_ip'                => '',
@@ -316,8 +316,8 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $filter_data = [
-	 *     'filter_name'              => 'Customer Name',
-	 *     'filter_email'             => 'Customer Email',
+	 *     'filter_name'              => 'John Doe',
+	 *     'filter_email'             => 'demo@opencart.com',
 	 *     'filter_customer_group_id' => 1,
 	 *     'filter_status'            => 1,
 	 *     'filter_ip'                => '',
@@ -430,11 +430,11 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $address_data = [
-	 *     'firstname'    => 'Customer First Name',
-	 *     'lastname'     => 'Customer Last Name',
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
 	 *     'company'      => '',
-	 *     'address_1'    => '',
-	 *     'address_2'    => '',
+	 *     'address_1'    => 'Address 1',
+	 *     'address_2'    => 'Address 2',
 	 *     'city'         => '',
 	 *     'postcode'     => '90210',
 	 *     'country_id'   => 1,
@@ -471,11 +471,11 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $address_data = [
-	 *     'firstname'    => 'Customer First Name',
-	 *     'lastname'     => 'Customer Last Name',
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
 	 *     'company'      => '',
-	 *     'address_1'    => '',
-	 *     'address_2'    => '',
+	 *     'address_1'    => 'Address 1',
+	 *     'address_2'    => 'Address 2',
 	 *     'city'         => '',
 	 *     'postcode'     => '90210',
 	 *     'country_id'   => 1,
@@ -608,8 +608,13 @@ class Customer extends \Opencart\System\Engine\Model {
 	public function getAddresses(int $customer_id): array {
 		$address_data = [];
 
+		// Country
 		$this->load->model('localisation/country');
+
+		// Address Format
 		$this->load->model('localisation/address_format');
+
+		// Zone
 		$this->load->model('localisation/zone');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -1015,7 +1020,7 @@ class Customer extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Rewards
 	 *
-	 * @param int $customer_id primary key of the order record
+	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 *

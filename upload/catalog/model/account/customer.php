@@ -3,9 +3,7 @@ namespace Opencart\Catalog\Model\Account;
 /**
  * Class Customer
  *
- * @example $customer_model = $this->model_account_customer;
- *
- * Can be called from $this->load->model('account/customer');
+ * Can be called using $this->load->model('account/customer');
  *
  * @package Opencart\Catalog\Model\Account
  */
@@ -16,6 +14,26 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data array of data
 	 *
 	 * @return int returns the primary key of the new customer record
+	 *
+	 * @example
+	 *
+	 * $customer_data = [
+	 *     'store_id'     => 1,
+	 *     'language_id'  => 1,
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'email'        => 'demo@opencart.com',
+	 *     'telephone'    => '1234567890',
+	 *     'custom_field' => [],
+	 *     'password'     => '',
+	 *     'newsletter'   => 0,
+	 *     'ip'           => '',
+	 *     'status'       => 0
+	 * ];
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer_customer->addCustomer($customer_data);
 	 */
 	public function addCustomer(array $data): int {
 		if (isset($data['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
@@ -49,6 +67,20 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $customer_data = [
+	 *     'firstname'    => 'John',
+	 *     'lastname'     => 'Doe',
+	 *     'email'        => 'demo@opencart.com',
+	 *     'telephone'    => '123467890',
+	 *     'custom_field' => []
+	 * ];
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer_customer->editCustomer($customer_id, $customer_data);
 	 */
 	public function editCustomer(int $customer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape(oc_strtolower($data['email'])) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -61,6 +93,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $password
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editPassword($email, $password);
 	 */
 	public function editPassword(string $email, string $password): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `password` = '" . $this->db->escape(password_hash(html_entity_decode($password, ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `code` = '' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -73,6 +111,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $code
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editCode($email, $code);
 	 */
 	public function editCode(string $email, string $code): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -85,6 +129,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $token
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editToken($email, $token);
 	 */
 	public function editToken(string $email, string $token): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `token` = '" . $this->db->escape($token) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -97,6 +147,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param bool $newsletter
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editNewsletter($customer_id, $newsletter);
 	 */
 	public function editNewsletter(int $customer_id, bool $newsletter): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '" . (bool)$newsletter . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -108,6 +164,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->deleteCustomer($customer_id);
 	 */
 	public function deleteCustomer(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -158,6 +220,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<string, mixed> customer record that has the customer ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomer($customer_id);
 	 */
 	public function getCustomer(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -175,6 +243,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByEmail($email);
 	 */
 	public function getCustomerByEmail(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -192,6 +266,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $code
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByCode($code);
 	 */
 	public function getCustomerByCode(string $code): array {
 		$query = $this->db->query("SELECT `customer_id`, `firstname`, `lastname`, `email` FROM `" . DB_PREFIX . "customer` WHERE `code` = '" . $this->db->escape($code) . "' AND `code` != ''");
@@ -209,6 +289,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $token
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_info = $this->model_account_customer->getCustomerByToken($token);
 	 */
 	public function getCustomerByToken(string $token): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `token` = '" . $this->db->escape($token) . "' AND `token` != ''");
@@ -228,6 +314,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $email
 	 *
 	 * @return int
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $customer_info = $this->model_account_customer->getTotalCustomersByEmail($email);
 	 */
 	public function getTotalCustomersByEmail(string $email): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -241,6 +333,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->deleteHistory($customer_id);
 	 */
 	public function deleteHistory(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_history` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -252,6 +350,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->deleteIp($customer_id);
 	 */
 	public function deleteIp(int $customer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -263,6 +367,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return array<int, array<string, mixed>> ip records that have customer ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $results = $this->model_account_customer->getIps($customer_id);
 	 */
 	public function getIps(int $customer_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -276,6 +386,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return int total number of ip records that have customer ID
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $ip_total = $this->model_account_customer->getTotalIps($customer_id);
 	 */
 	public function getTotalIps(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_ip` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -291,6 +407,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $country
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->addLogin($customer_id, $ip, $country);
 	 */
 	public function addLogin(int $customer_id, string $ip, string $country = ''): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_ip` SET `customer_id` = '" . (int)$customer_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `ip` = '" . $this->db->escape($ip) . "', `country` = '" . $this->db->escape($country) . "', `date_added` = NOW()");
@@ -302,6 +424,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $email
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->addLoginAttempt($email);
 	 */
 	public function addLoginAttempt(string $email): void {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower((string)$email)) . "' AND `ip` = '" . $this->db->escape(oc_get_ip()) . "'");
@@ -319,6 +447,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $email
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->deleteLoginAttempts($email);
 	 */
 	public function deleteLoginAttempts(string $email): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -330,6 +464,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $email
 	 *
 	 * @return array<string, mixed>
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $results = $this->model_account_customer->getLoginAttempts($email);
 	 */
 	public function getLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
@@ -344,6 +484,19 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param array<string, mixed> $data        array of data
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $authorize_data = [
+	 *     'customer_id' => 1,
+	 *     'token'       => '',
+	 *     'ip'          => '',
+	 *     'user_agent'  => ''
+	 * ];
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->addAuthorize($customer_id, $authorize_data);
 	 */
 	public function addAuthorize(int $customer_id, array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_authorize` SET `customer_id` = '" . (int)$customer_id . "', `token` = '" . $this->db->escape($data['token']) . "', `ip` = '" . $this->db->escape($data['ip']) . "', `user_agent` = '" . $this->db->escape($data['user_agent']) . "', `date_added` = NOW()");
@@ -356,6 +509,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param bool $status
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editAuthorizeStatus($customer_authorize_id, $status);
 	 */
 	public function editAuthorizeStatus(int $customer_authorize_id, bool $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_authorize` SET `status` = '" . (bool)$status . "' WHERE `customer_authorize_id` = '" . (int)$customer_authorize_id . "'");
@@ -368,6 +527,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $total
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->editAuthorizeTotal($customer_authorize_id, $total);
 	 */
 	public function editAuthorizeTotal(int $customer_authorize_id, int $total): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_authorize` SET `total` = '" . (int)$total . "' WHERE `customer_authorize_id` = '" . (int)$customer_authorize_id . "'");
@@ -380,6 +545,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_authorize_id primary key of the customer authorize record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->deleteAuthorize($customer_id, $customer_authorize_id);
 	 */
 	public function deleteAuthorize(int $customer_id, int $customer_authorize_id = 0): void {
 		$sql = "DELETE FROM `" . DB_PREFIX . "customer_authorize` WHERE `customer_id` = '" . (int)$customer_id . "'";
@@ -398,6 +569,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param string $token
 	 *
 	 * @return array<string, mixed> authorize token record that has the customer ID, token
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $login_info = $this->model_account_customer->getAuthorizeByToken($customer_id, $token);
 	 */
 	public function getAuthorizeByToken(int $customer_id, string $token): array {
 		$query = $this->db->query("SELECT *, (SELECT SUM(`total`) FROM `" . DB_PREFIX . "customer_authorize` WHERE `customer_id` = '" . (int)$customer_id . "') AS `attempts` FROM `" . DB_PREFIX . "customer_authorize` WHERE `customer_id` = '" . (int)$customer_id . "' AND `token` = '" . $this->db->escape($token) . "'");
@@ -411,6 +588,12 @@ class Customer extends \Opencart\System\Engine\Model {
 	 * @param int $customer_id primary key of the customer record
 	 *
 	 * @return void
+	 *
+	 * @example
+	 *
+	 * $this->load->model('account/customer');
+	 *
+	 * $this->model_account_customer->resetAuthorizes($customer_id);
 	 */
 	public function resetAuthorizes(int $customer_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "customer_authorize` SET `total` = '0' WHERE `customer_id` = '" . (int)$customer_id . "'");

@@ -16,7 +16,10 @@ class Menu extends \Opencart\System\Engine\Controller {
 	public function index(): string {
 		$this->load->language('common/menu');
 
+		// Category
 		$this->load->model('catalog/category');
+
+		// Product
 		$this->load->model('catalog/product');
 
 		$data['categories'] = [];
@@ -41,18 +44,9 @@ class Menu extends \Opencart\System\Engine\Controller {
 				];
 			}
 
-			$total = count($children_data);
-
-			if ($total > 5) {
-				$column = count($children_data) / 5;
-			} else {
-				$column = 1;
-			}
-
 			// Level 1
 			$data['categories'][] = [
 				'children' => $children_data,
-				'column'   => $column,
 				'href'     => $this->url->link('product/category', 'language=' . $this->config->get('config_language') . '&path=' . $category['category_id'])
 			] + $category;
 		}

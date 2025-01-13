@@ -17,7 +17,21 @@ class Modification extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $this->model_setting_modification->addModification($data);
+	 * $modification_data = [
+	 *     'extension_install_id' => 1,
+	 *     'name'                 => 'Modification Name',
+	 *     'description'          => 'Modification Description',
+	 *     'code'                 => 'Modification Code',
+	 *     'author'               => 'Author Name',
+	 *     'version'              => '1.00',
+	 *     'link'                 => '',
+	 *     'xml'                  => '',
+	 *     'status'               => 0
+	 * ];
+	 *
+	 * $this->load->model('setting/modification');
+	 *
+	 * $this->model_setting_modification->addModification($$modification_data);
 	 */
 	public function addModification(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "modification` SET `extension_install_id` = '" . (int)$data['extension_install_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `author` = '" . $this->db->escape($data['author']) . "', `version` = '" . $this->db->escape($data['version']) . "', `link` = '" . $this->db->escape($data['link']) . "', `xml` = '" . $this->db->escape($data['xml']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
@@ -31,6 +45,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $this->model_setting_modification->deleteModification($modification_id);
 	 */
@@ -46,6 +62,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 * @return void
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $this->model_setting_modification->deleteModificationsByExtensionInstallId($extension_install_id);
 	 */
@@ -63,6 +81,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/modification');
+	 *
 	 * $this->model_setting_modification->editStatus($modification_id, $status);
 	 */
 	public function editStatus(int $modification_id, bool $status): void {
@@ -77,6 +97,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed> modification record that has modification ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $modification_info = $this->model_setting_modification->getModification($modification_id);
 	 */
@@ -95,7 +117,16 @@ class Modification extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_setting_modification->getModifications();
+	 * $filter_data = [
+	 *     'sort'  => 'name',
+	 *     'order' => 'DESC',
+	 *     'start' => 0,
+	 *     'limit' => 10
+	 * ];
+	 *
+	 * $this->load->model('setting/modification');
+	 *
+	 * $results = $this->model_setting_modification->getModifications($filter_data);
 	 */
 	public function getModifications(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
@@ -145,6 +176,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('setting/modification');
+	 *
 	 * $modification_total = $this->model_setting_modification->getTotalModifications();
 	 */
 	public function getTotalModifications(): int {
@@ -161,6 +194,8 @@ class Modification extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed>
 	 *
 	 * @example
+	 *
+	 * $this->load->model('setting/modification');
 	 *
 	 * $modification_info = $this->model_setting_modification->getModificationByCode($code);
 	 */

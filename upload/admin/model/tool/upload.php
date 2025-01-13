@@ -18,6 +18,8 @@ class Upload extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/upload');
+	 *
 	 * $code = $this->model_tool_upload->addUpload($name, $filename);
 	 */
 	public function addUpload(string $name, string $filename): string {
@@ -37,6 +39,8 @@ class Upload extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/upload');
+	 *
 	 * $this->model_tool_upload->deleteUpload($upload_id);
 	 */
 	public function deleteUpload(int $upload_id): void {
@@ -51,6 +55,8 @@ class Upload extends \Opencart\System\Engine\Model {
 	 * @return array<string, mixed> upload record that has upload ID
 	 *
 	 * @example
+	 *
+	 * $this->load->model('tool/upload');
 	 *
 	 * $upload_info = $this->model_tool_upload->getUpload($upload_id);
 	 */
@@ -69,6 +75,8 @@ class Upload extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
+	 * $this->load->model('tool/upload');
+	 *
 	 * $upload_info = $this->model_tool_upload->getUploadByCode($code);
 	 */
 	public function getUploadByCode(string $code): array {
@@ -86,7 +94,19 @@ class Upload extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $results = $this->model_tool_upload->getUploads($data);
+	 * $filter_data = [
+	 *     'filter_name'      => 'Upload Name',
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'sort'             => 'date_added',
+	 *     'order'            => 'DESC',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('tool/upload');
+	 *
+	 * $results = $this->model_tool_upload->getUploads($filter_data);
 	 */
 	public function getUploads(array $data = []): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
@@ -157,7 +177,19 @@ class Upload extends \Opencart\System\Engine\Model {
 	 *
 	 * @example
 	 *
-	 * $upload_total = $this->model_tool_upload->getTotalUploads();
+	 * $filter_data = [
+	 *     'filter_name'      => 'Upload Name',
+	 *     'filter_date_from' => '2021-01-01',
+	 *     'filter_date_to'   => '2021-01-31',
+	 *     'sort'             => 'date_added',
+	 *     'order'            => 'DESC',
+	 *     'start'            => 0,
+	 *     'limit'            => 10
+	 * ];
+	 *
+	 * $this->load->model('tool/upload');
+	 *
+	 * $upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
 	 */
 	public function getTotalUploads(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
