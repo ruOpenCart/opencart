@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_name']       = 'English (United Kingdom)';
+$_['text_name']       = 'Русский';
 $_['text_loading']    = 'Загрузка...';
 
 // Button
