@@ -13,3 +13,5 @@ files:
     translation: /%file_name%_%two_letters_code%.%file_extension%
   - source: /README.md
     translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: upload/install/opencart-en-gb.sql
+    translation: upload/install/opencart-%locale%.sql
