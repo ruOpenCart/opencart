@@ -179,11 +179,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 
 			$remove[] = [
 				'table' => 'customer',
-				'field' => 'salt'
-			];
-
-			$remove[] = [
-				'table' => 'customer',
 				'field' => 'approved'
 			];
 
@@ -215,10 +210,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 			$remove[] = [
 				'table' => 'store',
 				'field' => 'ssl'
-			];
-			$remove[] = [
-				'table' => 'user',
-				'field' => 'salt'
 			];
 
 			$remove[] = [
@@ -254,7 +245,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 				'customer_ban_ip',
 				'customer_field',
 				'customer_payment',
-				'modification',
 				'order_field',
 				'order_custom_field',
 				'url_alias'
