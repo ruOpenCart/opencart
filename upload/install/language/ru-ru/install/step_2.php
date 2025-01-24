@@ -13,6 +13,7 @@ $_['text_required']          = 'Требуемые настройки';
 $_['text_extension']         = 'Настройки расширений';
 $_['text_db']                = 'База данных';
 $_['text_version']           = 'Версия PHP';
+$_['text_open_basedir']      = 'open_basedir';
 $_['text_global']            = 'Register Globals';
 $_['text_magic']             = 'Magic Quotes GPC';
 $_['text_file_upload']       = 'Загрузка файлов';
@@ -33,6 +34,7 @@ $_['text_missing']           = 'Отсутствует';
 
 // Error
 $_['error_version']          = 'Внимание: Вам нужно использовать PHP 8.0 или выше, чтобы OpenCart работал!';
+$_['error_open_basedir']     = 'Warning: open_basedir needs to allow access to %s';
 $_['error_file_upload']      = 'Внимание: file_uploads должен быть включен!';
 $_['error_session']          = 'Внимание: OpenCart не будет работать с включенным session.auto_start!';
 $_['error_db']               = 'Внимание: Для работы OpenCart в php.ini должно быть загружено расширение database!';
