@@ -13,7 +13,7 @@ $_['entry_confirm']            = 'Подтверждение пароля';
 
 // Error
 $_['error_token']              = 'Внимание: Токен пароля недействителен!';
-$_['error_password']           = 'Password must contain a %s and be between %d and 40 characters!';
+$_['error_password']           = 'Пароль должен содержать %s и быть длиной от %d до 40 символов!';
 $_['error_password_uppercase'] = 'верхний регистр';
 $_['error_password_lowercase'] = 'нижний регистр';
 $_['error_password_number']    = 'число';
