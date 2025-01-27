@@ -19,7 +19,6 @@ $_['entry_email']              = 'Эл. почта';
 $_['entry_telephone']          = 'Телефон';
 $_['entry_newsletter']         = 'Подписаться';
 $_['entry_password']           = 'Пароль';
-$_['entry_confirm']            = 'Подтверждение пароля';
 
 // Error
 $_['error_token']              = 'Внимание: Токен регистрации недействителен!';
@@ -31,10 +30,10 @@ $_['error_email']              = 'Адрес электронной почты �
 $_['error_telephone']          = 'Телефон должен быть от 3 до 32 символов!';
 $_['error_custom_field']       = '%s обязательно к заполнению!';
 $_['error_regex']              = '%s не является допустимым вводом!';
-$_['error_password']           = 'Password must contain a %s and be between %d and 20 characters!';
-$_['error_password_uppercase'] = 'uppercase';
-$_['error_password_lowercase'] = 'lowercase';
-$_['error_password_number']    = 'number';
-$_['error_password_symbol']    = 'symbol';
-$_['error_password_length']    = 'Password must be between %d and 20 characters!';
+$_['error_password']           = 'Password must contain a %s and be between %d and 40 characters!';
+$_['error_password_uppercase'] = 'верхний регистр';
+$_['error_password_lowercase'] = 'нижний регистр';
+$_['error_password_number']    = 'число';
+$_['error_password_symbol']    = 'символ';
+$_['error_password_length']    = 'Пароль должен содержать от %d до 40 символов!';
 $_['error_agree']              = 'Внимание: Вы должны согласиться с %s!';
