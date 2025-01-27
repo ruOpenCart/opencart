@@ -37,9 +37,10 @@ class Setting extends \Opencart\System\Engine\Controller {
 		$data['back'] = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token']);
 
 		// General
-		$data['config_meta_title'] = $this->config->get('config_meta_title');
-		$data['config_meta_description'] = $this->config->get('config_meta_description');
-		$data['config_meta_keyword'] = $this->config->get('config_meta_keyword');
+		$data['config_description'] = (array)$this->config->get('config_description');
+
+		// Store Details
+		$data['config_name'] = $this->config->get('config_name');
 
 		$data['store_url'] = HTTP_CATALOG;
 
@@ -66,8 +67,6 @@ class Setting extends \Opencart\System\Engine\Controller {
 
 		$data['config_layout_id'] = $this->config->get('config_layout_id');
 
-		// Store Details
-		$data['config_name'] = $this->config->get('config_name');
 		$data['config_owner'] = $this->config->get('config_owner');
 		$data['config_address'] = $this->config->get('config_address');
 		$data['config_geocode'] = $this->config->get('config_geocode');
@@ -211,8 +210,13 @@ class Setting extends \Opencart\System\Engine\Controller {
 		$data['config_customer_price'] = $this->config->get('config_customer_price');
 		$data['config_telephone_display'] = $this->config->get('config_telephone_display');
 		$data['config_telephone_required'] = $this->config->get('config_telephone_required');
-		$data['config_customer_2fa'] = $this->config->get('config_customer_2fa');
+		$data['config_2fa'] = $this->config->get('config_2fa');
 		$data['config_login_attempts'] = $this->config->get('config_login_attempts');
+		$data['config_password_uppercase'] = $this->config->get('config_password_uppercase');
+		$data['config_password_lowercase'] = $this->config->get('config_password_lowercase');
+		$data['config_password_number'] = $this->config->get('config_password_number');
+		$data['config_password_symbol'] = $this->config->get('config_password_symbol');
+		$data['config_password_length'] = $this->config->get('config_password_length');
 
 		$this->load->model('catalog/information');
 
@@ -444,6 +448,12 @@ class Setting extends \Opencart\System\Engine\Controller {
 
 		// Security
 		$data['config_user_2fa'] = $this->config->get('config_user_2fa');
+		$data['config_user_password_uppercase'] = $this->config->get('config_user_password_uppercase');
+		$data['config_user_password_lowercase'] = $this->config->get('config_user_password_lowercase');
+		$data['config_user_password_number'] = $this->config->get('config_user_password_number');
+		$data['config_user_password_symbol'] = $this->config->get('config_user_password_symbol');
+		$data['config_user_password_length'] = $this->config->get('config_user_password_length');
+
 		$data['config_shared'] = $this->config->get('config_shared');
 
 		// Uploads
@@ -479,12 +489,14 @@ class Setting extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!$this->request->post['config_meta_title']) {
-			$json['error']['meta_title'] = $this->language->get('error_meta_title');
-		}
-
 		if (!$this->request->post['config_name']) {
 			$json['error']['name'] = $this->language->get('error_name');
+		}
+
+		foreach ($this->request->post['config_description'] as $language_id => $value) {
+			if (!oc_validate_length($value['meta_title'], 1, 64)) {
+				$json['error']['meta_title_' . $language_id] = $this->language->get('error_meta_title');
+			}
 		}
 
 		if (!oc_validate_length($this->request->post['config_owner'], 3, 64)) {

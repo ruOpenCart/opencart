@@ -227,7 +227,7 @@ $('#input-parent').autocomplete({
         });
     },
     'select': function(item) {
-        $('#input-parent').val(item['label']);
+        $('#input-parent').val(decodeHTMLEntities(item['label']));
         $('#input-parent-id').val(item['value']);
     }
 });

@@ -47,7 +47,7 @@ $(document).ready(function() {
 
         //[data-bs-target='pagination']
 
-        $('#history').load(this.href);
+        $(this.target).load(this.href);
     });
 
     // Alert Fade
@@ -79,6 +79,14 @@ $(document).ready(function() {
         }
     }(jQuery);
 });
+
+function decodeHTMLEntities(html) {
+    var d = document.createElement('div');
+
+    d.innerHTML = html;
+
+    return d.textContent;
+}
 
 // Observe
 +function($) {
