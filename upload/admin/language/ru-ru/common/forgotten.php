@@ -18,11 +18,11 @@ $_['entry_email']              = 'Адрес электронной почты';
 $_['error_email']              = 'Внимание: Адрес электронной почты не найден в наших записях!';
 $_['error_code']               = 'Код сброса не совпадает!';
 $_['error_disabled']           = 'Сброс пароля был отключен!';
-$_['error_password']           = 'Password must contain %s and be between %d and 20 characters!';
-$_['error_password_uppercase'] = 'uppercase';
-$_['error_password_lowercase'] = 'lowercase';
-$_['error_password_number']    = 'number';
-$_['error_password_symbol']    = 'symbol';
-$_['error_password_length']    = 'Password must be between %d and 40 characters!';
+$_['error_password']           = 'Пароль должен содержать %s и быть длиной от %d до 20 символов!';
+$_['error_password_uppercase'] = 'верхний регистр';
+$_['error_password_lowercase'] = 'нижний регистр';
+$_['error_password_number']    = 'число';
+$_['error_password_symbol']    = 'символ';
+$_['error_password_length']    = 'Пароль должен содержать от %d до 40 символов!';
 $_['error_confirm']            = 'Пароль и подтверждение пароля не совпадают!';
 
