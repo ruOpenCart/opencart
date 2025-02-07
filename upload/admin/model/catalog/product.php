@@ -392,6 +392,7 @@ class Product extends \Opencart\System\Engine\Model {
 
 			$product_data['sku'] = '';
 			$product_data['upc'] = '';
+			$product_data['rating'] = '0';
 			$product_data['status'] = '0';
 
 			$product_data['product_attribute'] = $this->model_catalog_product->getAttributes($product_id);
@@ -2604,7 +2605,7 @@ class Product extends \Opencart\System\Engine\Model {
 	/**
 	 * Delete Subscriptions By Subscription Plan ID
 	 *
-	 * @param int $subscription_plan_id primary key of the product subscription plan record
+	 * @param int $subscription_plan_id primary key of the subscription plan record
 	 *
 	 * @return void
 	 *
