@@ -19,4 +19,4 @@ $_['text_return']         = 'Возвраты';
 $_['text_transaction']    = 'Транзакции';
 $_['text_newsletter']     = 'Рассылка';
 $_['text_subscription']   = 'Подписки';
-$_['text_payment_method'] = 'Сохраненные способы оплаты';
+$_['text_payment_method'] = 'Методы оплаты';
