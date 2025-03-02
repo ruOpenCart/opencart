@@ -135,7 +135,7 @@ $('#authorize').on('click', '.pagination a', function(e) {
     $('#authorize').load(this.href);
 });
 
-$('#authorize').on('click', '.btn', function(e) {
+$('#authorize').on('click', 'a', function(e) {
     e.preventDefault();
 
     var element = this;
@@ -145,10 +145,10 @@ $('#authorize').on('click', '.btn', function(e) {
             url: $(element).attr('href'),
             dataType: 'json',
             beforeSend: function() {
-                $(element).button('loading');
+                $(element).prop('disabled', true);
             },
             complete: function() {
-                $(element).button('reset');
+                $(element).prop('disabled', false);
             },
             success: function(json) {
                 $('.alert-dismissible').remove();

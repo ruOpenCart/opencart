@@ -257,7 +257,6 @@ class Security extends \Opencart\System\Engine\Controller {
 				mkdir($base_new, 0777);
 			}
 
-			// Copy the
 			$total = count($files);
 			$limit = 200;
 

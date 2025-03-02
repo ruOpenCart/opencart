@@ -849,6 +849,8 @@ VALUES ('activity_customer_add', 'Adds new customer entry in the activity log.',
        ('mail_customer_alert', 'Sends alert mail to store owner when a new customer registers.', 'catalog/model/account/customer.addCustomer/after', 'mail/register.alert', 1),
        ('mail_customer_transaction', 'Sends mail to the customer when their transaction balance is updated.', 'catalog/model/account/customer.addTransaction/after', 'mail/transaction', 1),
        ('mail_customer_forgotten', 'Sends mail to customers who have forgotten their password.', 'catalog/model/account/customer.editCode/after', 'mail/forgotten', 1),
+       ('mail_customer_authorize', 'Sends mail login code to customers email to authorize login from a new device.', 'catalog/controller/account/authorize.send/after', 'mail/authorize', 1),
+       ('mail_customer_authorize_reset', 'Sends reset link to user who`s account is locked out after 3 wrong authorize code login attempts.', 'catalog/model/customer/authorize.editCode/after', 'mail/authorize.reset', 1),
        ('mail_affiliate_add', 'Sends mail to newly registered affiliates.', 'catalog/model/account/affiliate.addAffiliate/after', 'mail/affiliate', 1),
        ('mail_affiliate_alert', 'Sends mail to new customers.', 'catalog/model/account/affiliate.addAffiliate/after', 'mail/affiliate.alert', 1),
        ('mail_order', 'Sends mail to customer when they make an order.', 'catalog/model/checkout/order.addHistory/before', 'mail/order', 1),
@@ -1719,7 +1721,7 @@ Display&lt;/p&gt;\r\n&lt;ul&gt;\r\n	&lt;li&gt;\r\n		Hauteur : 21,3 pouces (54,3 
         '', 'Apple Cinema 30', '', ''),
        (30, 1, 'Canon EOS 5D',
         '&lt;p&gt;\r\n	Le matériel de presse de Canon pour l''EOS 5D déclare qu''il ''définit une nouvelle catégorie de reflex numériques'', et bien que nous ne soyons généralement pas trop préoccupés par le discours marketing, cette déclaration est clairement assez précise. L''EOS 5D est différent de tout reflex numérique précédent en ce qu''il combine un capteur plein format (taille 35 mm) de haute résolution (12,8 mégapixels) avec un boîtier relativement compact (légèrement plus grand que l''EOS 20D, bien qu''en main, il semble nettement plus ''massif''). L''EOS 5D est destiné à se positionner entre l''EOS 20D et les reflex numériques professionnels EOS-1D. Une différence importante par rapport à ces derniers est que l''EOS 5D n''a pas de joints d''étanchéité environnementaux. Bien que Canon ne fasse pas spécifiquement référence à l''EOS 5D comme à un reflex numérique ''professionnel'', il séduira évidemment les professionnels qui souhaitent un reflex numérique de haute qualité dans un boîtier plus léger que l''EOS-1D. Il attirera sans aucun doute également les propriétaires actuels de l''EOS 20D (espérons simplement qu''ils n''ont pas acheté trop d''objectifs EF-S...). äë&lt;/p&gt;\r\n',
-        '', 'sdf', '', '');
+        '', 'Canon EOS 5D', '', '');
 
 -----------------------------------------------------------
 

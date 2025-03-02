@@ -55,11 +55,9 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				'user_agent' => $this->request->server['HTTP_USER_AGENT']
 			];
 
-			$this->load->model('user/user');
-
 			$this->model_user_user->addAuthorize($this->user->getId(), $authorize_data);
 
-			setcookie('authorize', $token, time() + 60 * 60 * 24 * 365);
+			setcookie('authorize', $token, time() + 60 * 60 * 24 * 90);
 		}
 
 		$data['action'] = $this->url->link('common/authorize.validate', 'user_token=' . $this->session->data['user_token']);
@@ -67,7 +65,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 		// Set the code to be emailed
 		$this->session->data['code'] = oc_token(4);
 
-		if (isset($this->request->get['route']) && $this->request->get['route'] != 'common/login' && $this->request->get['route'] != 'common/authorize') {
+		if ($this->request->get['route'] != 'common/login' && $this->request->get['route'] != 'common/authorize') {
 			$args = $this->request->get;
 
 			$route = $args['route'];
@@ -104,7 +102,30 @@ class Authorize extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
-		$json['success'] = $this->language->get('text_resend');
+		if (isset($this->request->cookie['authorize'])) {
+			$token = $this->request->cookie['authorize'];
+		} else {
+			$token = '';
+		}
+
+		// 3. If token already exists check its valid
+		$this->load->model('account/customer');
+
+		$token_info = $this->model_account_customer->getAuthorizeByToken($this->customer->getId(), $token);
+
+		if (!$token_info) {
+			$json['redirect'] = $this->url->link('account/authorize', 'language=' . $this->config->get('config_language'), true);
+			// If token is valid and total attempts are more than 2, redirect to unlock page.
+		} elseif ($token_info['total'] > 2) {
+			$json['redirect'] = $this->url->link('account/authorize.unlock', 'language=' . $this->config->get('config_language'), true);
+		}
+
+		if (!$json) {
+			// Set the code to be emailed
+			$this->session->data['code'] = oc_token(6);
+
+			$json['success'] = $this->language->get('text_resend');
+		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
@@ -115,7 +136,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	 *
 	 * @return void
 	 */
-	public function validate(): void {
+	public function save(): void {
 		$this->load->language('common/authorize');
 
 		$json = [];
@@ -212,7 +233,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 		// Create reset code
 		$this->load->model('user/user');
 
-		$this->model_user_user->editCode($this->user->getEmail(), oc_token(32));
+		$this->model_user_user->addToken($this->user->getId(), 'authorize', oc_token(32));
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));

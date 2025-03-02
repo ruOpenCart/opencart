@@ -1,15 +1,12 @@
+preserve_hierarchy: 1
 files:
-  - source: /upload/**/language/en-gb/**/*.php
-    ignore:
-      - /upload/**/language/en-gb/en-gb.php
-    translation: /upload/**/language/%locale%/**/%original_file_name%
-  - source: /upload/**/language/en-gb/en-gb.php
-    translation: /upload/**/language/%locale%/%locale%.php
-  - source: /upload/**/language/en-gb/en-gb.png
-    translation: /upload/**/language/%locale%/%locale%.png
-  - source: /INSTALL.md
-    translation: /%file_name%_%two_letters_code%.%file_extension%
-  - source: /UPGRADE.md
-    translation: /%file_name%_%two_letters_code%.%file_extension%
-  - source: /README.md
-    translation: /%file_name%_%two_letters_code%.%file_extension%
+  - source: upload/admin/language/en-gb/**/*.php
+    translation: admin/**/%file_name%.%file_extension%
+  - source: upload/catalog/language/en-gb/**/*.php
+    translation: catalog/**/%file_name%.%file_extension%
+  - source: upload/install/language/en-gb/**/*.php
+    translation: install/**/%file_name%.%file_extension%
+  - source: upload/extension/opencart/admin/language/en-gb/**/*.php
+    translation: extension/opencart/admin/**/%file_name%.%file_extension%
+  - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
+    translation: extension/opencart/catalog/**/%file_name%.%file_extension%
