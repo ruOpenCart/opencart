@@ -14,7 +14,12 @@ $_['text_resend']   = 'Success: An email has been sent to your email account wit
 // Entry
 $_['entry_code']    = 'Security Code';
 
+// Button
+$_['button_send']   = 'Send';
+$_['button_reset']  = 'Reset';
+
 // Error
 $_['error_warning'] = 'You have exceeded the allowed number of security code attempts!';
+$_['error_token']   = 'Security token not set!';
 $_['error_code']    = 'Security code does not match!';
 $_['error_reset']   = 'Warning: Could not reset your security code!';
