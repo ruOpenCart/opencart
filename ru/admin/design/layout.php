@@ -36,3 +36,5 @@ $_['error_product']       = 'Внимание: Этот макет нельзя 
 $_['error_category']      = 'Внимание: Этот макет нельзя удалить, поскольку он в настоящее время назначен %s категориям!';
 $_['error_manufacturer']  = 'Внимание: Этот макет нельзя удалить, поскольку он назначен %s производителям!';
 $_['error_information']   = 'Внимание: Этот макет нельзя удалить, поскольку он в настоящее время назначен %s информационным страницам!';
+$_['error_article']       = 'Warning: This layout cannot be deleted as it is currently assigned to %s article pages!';
+$_['error_topic']         = 'Warning: This layout cannot be deleted as it is currently assigned to %s topic pages!';
