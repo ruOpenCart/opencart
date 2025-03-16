@@ -25,4 +25,3 @@ $_['error_password_number']    = 'число';
 $_['error_password_symbol']    = 'символ';
 $_['error_password_length']    = 'Пароль должен содержать от %d до 40 символов!';
 $_['error_confirm']            = 'Пароль и подтверждение пароля не совпадают!';
-
