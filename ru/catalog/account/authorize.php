@@ -4,12 +4,14 @@ $_['heading_title'] = 'Защитите свою учетную запись';
 
 // Text
 $_['text_security'] = 'Вы должны ответить на секретный вопрос всякий раз, когда вы входите с неизвестного устройства или компьютера.';
-$_['text_code']     = 'Письмо было отправлено на вашу учётную запись электронной почты с кодом безопасности. Введите код ниже, чтобы продолжить.';
+$_['text_code']     = 'Click the send button to send a security code to your email account. Enter the code below to continue.';
+$_['text_sent']     = 'Success: An email has been sent to your email account with a security code!';
 $_['text_locked']   = 'Ваша учетная запись заблокирована!';
-$_['text_unlock']   = 'Ваша учетная запись заблокирована из-за многих неправильных попыток ввода кода безопасности. Нажмите кнопку сброса, чтобы получить ссылку сброса по электронной почте.';
-$_['text_unlocked'] = 'Успех: Ваша учетная запись разблокирована!';
+$_['text_reset']    = 'Your account has been locked because of to many incorrect attempts at entering the security code. Click the reset button to receive a reset link via your email account.';
 $_['text_link']     = 'Успех: На ваш адрес электронной почты отправлено письмо со ссылкой для сброса!';
-$_['text_resend']   = 'Успех: Письмо было отправлено на ваш адрес электронной почты с кодом безопасности!';
+$_['text_unlocked'] = 'Your account has been unlocked!';
+$_['text_unlock']   = 'Your account has been unlocked. You will have to re-login and repeat the 2FA process again to continue.';
+$_['text_failed']   = 'Could not reset your security code!';
 
 // Entry
 $_['entry_code']    = 'Код безопасности';
@@ -19,7 +21,4 @@ $_['button_send']   = 'Отправить';
 $_['button_reset']  = 'Сбросить';
 
 // Error
-$_['error_warning'] = 'Вы превысили допустимое количество попыток ввода кода безопасности!';
-$_['error_token']   = 'Токен безопасности не установлен!';
 $_['error_code']    = 'Код безопасности не совпадает!';
-$_['error_reset']   = 'Внимание: Не удалось сбросить ваш код безопасности!';
