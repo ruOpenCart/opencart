@@ -69,12 +69,7 @@ $_['entry_meta_description']     = 'Мета-тег Description';
 $_['entry_store']                = 'Магазины';
 $_['entry_keyword']              = 'Ключевое слово';
 $_['entry_model']                = 'Модель';
-$_['entry_sku']                  = 'SKU';
-$_['entry_upc']                  = 'UPC';
-$_['entry_ean']                  = 'EAN товара';
-$_['entry_jan']                  = 'JAN';
-$_['entry_isbn']                 = 'ISBN';
-$_['entry_mpn']                  = 'MPN';
+$_['entry_product_code']         = 'Product Codes';
 $_['entry_location']             = 'Местоположение';
 $_['entry_shipping']             = 'Необходима доставка';
 $_['entry_manufacturer']         = 'Производитель';
@@ -120,12 +115,6 @@ $_['entry_subscription']         = 'План подписки';
 
 // Help
 $_['help_tag']                   = 'Разделитель — запятая';
-$_['help_sku']                   = 'Складская единица учета (артикул)';
-$_['help_upc']                   = 'Универсальный код товара';
-$_['help_ean']                   = 'Европейский артикул';
-$_['help_jan']                   = 'Японский артикул (JAN)';
-$_['help_isbn']                  = 'Международный Стандартный Номер Книги (ISBN)';
-$_['help_mpn']                   = 'Номер партии производителя';
 $_['help_minimum']               = 'Минимальное количество в заказе';
 $_['help_stock_status']          = 'Статус, отображаемый, когда товара нет в наличии';
 $_['help_manufacturer']          = '(Автодополнение)';
