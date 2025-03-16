@@ -93,6 +93,7 @@ $_['button_customer_add']           = 'Добавить покупателя';
 $_['button_approve']                = 'Одобрить';
 $_['button_deny']                   = 'Отклонить';
 $_['button_reset']                  = 'Сбросить';
+$_['button_login']                  = 'Войти';
 $_['button_generate']               = 'Генерировать';
 $_['button_view']                   = 'Посмотреть';
 $_['button_reward_add']             = 'Добавить бонусные баллы';
