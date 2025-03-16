@@ -1,5 +1,5 @@
 <?php
-// Titre
+// En-tête
 $_['heading_title']        = 'Taux de Taxes';
 
 // Texte
@@ -15,11 +15,9 @@ $_['column_name']          = 'Nom de la Taxe';
 $_['column_rate']          = 'Taux de Taxes';
 $_['column_type']          = 'Type';
 $_['column_geo_zone']      = 'Zone Géographique';
-$_['column_date_added']    = 'Date d\'Ajout';
-$_['column_date_modified'] = 'Date de Modification';
 $_['column_action']        = 'Action';
 
-// Champ
+// Entrée
 $_['entry_name']           = 'Nom de la Taxe';
 $_['entry_rate']           = 'Taux de Taxes';
 $_['entry_type']           = 'Type';

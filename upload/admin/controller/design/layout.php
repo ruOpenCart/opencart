@@ -116,6 +116,7 @@ class Layout extends \Opencart\System\Engine\Controller {
 			'limit' => $this->config->get('config_pagination_admin')
 		];
 
+		// Layout
 		$this->load->model('design/layout');
 
 		$results = $this->model_design_layout->getLayouts($filter_data);
@@ -202,6 +203,7 @@ class Layout extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('design/layout.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Layout
 		if (isset($this->request->get['layout_id'])) {
 			$this->load->model('design/layout');
 
@@ -220,6 +222,7 @@ class Layout extends \Opencart\System\Engine\Controller {
 			$data['name'] = '';
 		}
 
+		// Store
 		$this->load->model('setting/store');
 
 		$data['stores'] = $this->model_setting_store->getStores();
@@ -362,9 +365,6 @@ class Layout extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Store
-		$this->load->model('setting/store');
-
 		// Product
 		$this->load->model('catalog/product');
 
@@ -377,15 +377,15 @@ class Layout extends \Opencart\System\Engine\Controller {
 		// Information
 		$this->load->model('catalog/information');
 
+		// Article
+		$this->load->model('cms/article');
+
+		// Topic
+		$this->load->model('cms/topic');
+
 		foreach ($selected as $layout_id) {
 			if ($this->config->get('config_layout_id') == $layout_id) {
 				$json['error'] = $this->language->get('error_default');
-			}
-
-			$store_total = $this->model_setting_store->getTotalLayoutsByLayoutId($layout_id);
-
-			if ($store_total) {
-				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
 			$product_total = $this->model_catalog_product->getTotalLayoutsByLayoutId($layout_id);
@@ -411,6 +411,19 @@ class Layout extends \Opencart\System\Engine\Controller {
 			if ($information_total) {
 				$json['error'] = sprintf($this->language->get('error_information'), $information_total);
 			}
+
+			$article_total = $this->model_cms_article->getTotalLayoutsByLayoutId($layout_id);
+
+			if ($article_total) {
+				$json['error'] = sprintf($this->language->get('error_article'), $article_total);
+			}
+
+			$topic_total = $this->model_cms_topic->getTotalLayoutsByLayoutId($layout_id);
+
+			if ($topic_total) {
+				$json['error'] = sprintf($this->language->get('error_topic'), $topic_total);
+			}
+
 		}
 
 		if (!$json) {

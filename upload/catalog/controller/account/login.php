@@ -3,6 +3,8 @@ namespace Opencart\Catalog\Controller\Account;
 /**
  * Class Login
  *
+ * Can be loaded using $this->load->controller('account/login');
+ *
  * @package Opencart\Catalog\Controller\Account
  */
 class Login extends \Opencart\System\Engine\Controller {
@@ -148,6 +150,9 @@ class Login extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Remove form token from session
+			unset($this->session->data['login_token']);
+
 			// Add customer details into session
 			$this->session->data['customer'] = [
 				'customer_id'       => $customer_info['customer_id'],
@@ -159,6 +164,7 @@ class Login extends \Opencart\System\Engine\Controller {
 				'custom_field'      => $customer_info['custom_field']
 			];
 
+			// Unset any previous data stored in the session.
 			unset($this->session->data['order_id']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
@@ -238,6 +244,7 @@ class Login extends \Opencart\System\Engine\Controller {
 		unset($this->session->data['reward']);
 		unset($this->session->data['customer_token']);
 
+		// Customer
 		$this->load->model('account/customer');
 
 		$customer_info = $this->model_account_customer->getCustomerByEmail($email);
@@ -282,11 +289,12 @@ class Login extends \Opencart\System\Engine\Controller {
 		}
 	}
 
-	function validate(): bool {
-		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			return false;
-		}
-
-		return true;
+	/**
+	 * Validate
+	 *
+	 * @return bool
+	 */
+	public function validate(): bool {
+		return !(!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token'])));
 	}
 }

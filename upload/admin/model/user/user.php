@@ -90,24 +90,6 @@ class User extends \Opencart\System\Engine\Model {
 	}
 
 	/**
-	 * Edit Code
-	 *
-	 * @param string $email
-	 * @param string $code
-	 *
-	 * @return void
-	 *
-	 * @example
-	 *
-	 * $this->load->model('user/user');
-	 *
-	 * $this->model_user_user->editCode($email, $code);
-	 */
-	public function editCode(string $email, string $code): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "user` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
-	}
-
-	/**
 	 * Delete User
 	 *
 	 * @param int $user_id primary key of the user record
@@ -643,9 +625,11 @@ class User extends \Opencart\System\Engine\Model {
 	/**
 	 * Get Authorizes
 	 *
-	 * @param int $user_id primary key of the user record
+	 * @param int $user_id
 	 * @param int $start
 	 * @param int $limit
+	 * @param int $us      \
+	 *                     'er_id primary key of the user record
 	 *
 	 * @return array<int, array<string, mixed>> authorize records
 	 *
@@ -697,11 +681,45 @@ class User extends \Opencart\System\Engine\Model {
 	}
 
 	/**
+	 * Reset Customer Au
+	 * th
+	 * o
+	 * ri
+	 * zes
+	 *
+	 * @
+	 * para
+	 * m
+	 * int
+	 * $
+	 * us
+	 * er
+	 * _id pr
+	 * imary
+	 * key of th
+	 * e customer recor
+	 * d
+	 *
+	 * @ret
+	 * urn void
+	 *
+	 * @
+	 * exa
+	 * mple
+	 *
+	 * @param int $user_id
+	 */
+	public function resetAuthorizes(int $user_id): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "user_authorize` SET `total` = '0' WHERE `user_id` = '" . (int)$user_id . "'");
+	}
+
+	/**
 	 * Add Token
 	 *
 	 * @param int    $user_id primary key of the user record
 	 * @param string $type
-     * @param string $codev
+	 * @param string $code
+	 * @param string $codev
 	 *
 	 * @return int total number of authorize records that have user ID, token
 	 *
@@ -731,17 +749,18 @@ class User extends \Opencart\System\Engine\Model {
 	 * $token_info = $this->model_user_user->getTokenByCode($user_id, $code);
 	 */
 	public function getTokenByCode(string $code): array {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "user_token` WHERE `date_added` < DATE_ADD(NOW(), INTERVAL 10 MINUTE)");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "user_token` WHERE DATE_ADD(`date_added`, INTERVAL 10 MINUTE) < NOW()");
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user_token` `ut` LEFT JOIN `" . DB_PREFIX . "user` `u` ON (`ut`.`user_id` = `u`.`user_id`) WHERE `code` = '" . $this->db->escape($code) . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "user_token` `ut` LEFT JOIN `" . DB_PREFIX . "user` `u` ON (`ut`.`user_id` = `u`.`user_id`) WHERE `ut`.`code` = '" . $this->db->escape($code) . "'");
 
 		return $query->row;
 	}
 
 	/**
-	 * Delete Token
+	 * Delete Token By Code
 	 *
-	 * @param int $customer_id primary key of the customer record
+	 * @param string $code
+	 * @param int    $customer_id primary key of the customer record
 	 *
 	 * @return void
 	 *

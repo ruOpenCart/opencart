@@ -165,99 +165,43 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="input-sku" class="col-sm-2 col-form-label">{{ entry_sku }}</label>
+                  <label class="col-sm-2 col-form-label">{{ entry_product_code }}</label>
                   <div class="col-sm-10">
                     <div class="input-group">
-                      <input type="text" name="sku" value="{{ sku }}" placeholder="{{ entry_sku }}" id="input-sku" class="form-control"/>
+                      <select id="input-code" class="form-select">
+                        {% for identifier in identifiers %}
+                          <option value="{{ identifier.code }}">{{ identifier.code }}</option>
+                        {% endfor %}
+                      </select>
+                      <input type="text" value="" placeholder="{{ entry_product_code }}" id="input-value" class="form-control w-75"/>
+                      <button type="button" id="button-code" class="btn btn-primary"><i class="fa-solid fa-plus-circle"></i></button>
+                    </div>
+                    <div class="input-group">
+                      <div class="form-control p-0" style="height: 150px; overflow: auto;">
+                        <table id="product-code" class="table m-0">
+                          <tbody>
+                            {% set code_row = 0 %}
+                            {% for product_code in product_codes %}
+                              <tr id="code-row-{{ code_row }}">
+                                <td style="width: 1px;">{{ product_code.code }}<input type="hidden" name="product_code[{{ code_row }}][code]" value="{{ product_code.code }}"/></td>
+                                <td>{{ product_code.value }}<input type="hidden" name="product_code[{{ code_row }}][value]" value="{{ product_code.value }}"/></td>
+                                <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
+                              </tr>
+                              {% set code_row = code_row + 1 %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
                       {% if master_id %}
                         <div class="input-group-text">
                           <div class="form-check form-switch">
-                            <input type="checkbox" name="override[sku]" value="1" id="input-variant-sku" data-oc-toggle="switch" data-oc-target="#input-sku" class="form-check-input"{% if override.sku %} checked{% endif %}/> <label for="input-variant-sku" class="form-check-label"></label>
+                            <input type="checkbox" name="override[product_code]" value="1" id="input-variant-code" data-oc-toggle="switch" data-oc-target="#input-code, #product-code" class="form-check-input"{% if override.product_code %} checked{% endif %}/>
+                            <label for="input-variant-code" class="form-check-label"></label>
                           </div>
                         </div>
                       {% endif %}
                     </div>
-                    <div class="form-text">{{ help_sku }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-upc" class="col-sm-2 col-form-label">{{ entry_upc }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="upc" value="{{ upc }}" placeholder="{{ entry_upc }}" id="input-upc" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[upc]" value="1" id="input-variant-upc" data-oc-toggle="switch" data-oc-target="#input-upc" class="form-check-input"{% if override.upc %} checked{% endif %}/> <label for="input-variant-upc" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-                    <div class="form-text">{{ help_upc }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-ean" class="col-sm-2 col-form-label">{{ entry_ean }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="ean" value="{{ ean }}" placeholder="{{ entry_ean }}" id="input-ean" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[ean]" value="1" id="input-variant-ean" data-oc-toggle="switch" data-oc-target="#input-ean" class="form-check-input"{% if override.ean %} checked{% endif %}/> <label for="input-variant-ean" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-                    <div class="form-text">{{ help_ean }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-jan" class="col-sm-2 col-form-label">{{ entry_jan }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="jan" value="{{ jan }}" placeholder="{{ entry_jan }}" id="input-jan" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[jan]" value="1" id="input-variant-jan" data-oc-toggle="switch" data-oc-target="#input-jan" class="form-check-input"{% if override.jan %} checked{% endif %}/> <label for="input-variant-jan" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-                    <div class="form-text">{{ help_jan }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-isbn" class="col-sm-2 col-form-label">{{ entry_isbn }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="isbn" value="{{ isbn }}" placeholder="{{ entry_isbn }}" id="input-isbn" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[isbn]" value="1" id="input-variant-isbn" data-oc-toggle="switch" data-oc-target="#input-isbn" class="form-check-input"{% if override.isbn %} checked{% endif %}/> <label for="input-variant-isbn" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-                    <div class="form-text">{{ help_isbn }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-mpn" class="col-sm-2 col-form-label">{{ entry_mpn }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="mpn" value="{{ mpn }}" placeholder="{{ entry_mpn }}" id="input-mpn" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[mpn]" value="1" id="input-variant-mpn" data-oc-toggle="switch" data-oc-target="#input-mpn" class="form-check-input"{% if override.mpn %} checked{% endif %}/> <label for="input-variant-mpn" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-                    <div class="form-text">{{ help_mpn }}</div>
+                    <div class="form-text">{{ help_product_code }}</div>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -901,7 +845,8 @@
                             <div id="input-option-{{ option.product_option_id }}" class="form-control" style="height: 150px; overflow: auto;">
                               {% for option_value in option.product_option_value %}
                                 <div class="form-check">
-                                  <input type="radio" name="variant[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" id="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-input"{% if variant[option.product_option_id] and option_value.product_option_value_id == variant[option.product_option_id] %} checked{% endif %}/> <label for="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-label">
+                                  <input type="radio" name="variant[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" id="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-input"{% if variant[option.product_option_id] and option_value.product_option_value_id == variant[option.product_option_id] %} checked{% endif %}/> 
+								                  <label for="input-option-value-{{ option_value.product_option_value_id }}" class="form-check-label">
                                     {% if option_value.image %}<img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail"/>{% endif %}
                                     {{ option_value.name }}
                                     {% if option_value.price %}
@@ -1347,6 +1292,29 @@
 <script type="text/javascript"><!--
 $('textarea[data-oc-toggle=\'ckeditor\']').ckeditor({
     language: '{{ ckeditor }}'
+});
+
+var code_row = {{ code_row }};
+
+$('#button-code').on('click', function() {
+    var html = '';
+
+    let code = $('#input-code').val();
+    let value = $('#input-value').val();
+
+    html += '<tr id="code-row-' + code_row + '">';
+    html += '  <td style="width: 1px;">' + code + '<input type="hidden" name="product_code[' + code_row + '][code]" value="' + code + '"/></td>';
+    html += '  <td>' + value + '<input type="hidden" name="product_code[' + code_row + '][value]" value="' + value + '"/></td>';
+    html += '  <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';
+    html += '</tr>';
+
+    $('#product-code').append(html);
+
+    code_row++;
+});
+
+$('#product-code').on('click', '.btn', function() {
+    $(this).parent().parent().remove();
 });
 
 // Manufacturer

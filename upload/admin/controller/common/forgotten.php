@@ -106,6 +106,7 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 			$this->response->redirect($this->url->link('common/login', '', true));
 		}
 
+		// User
 		$this->load->model('user/user');
 
 		$user_info = $this->model_user_user->getTokenByCode($code);
@@ -175,6 +176,7 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 			$json['redirect'] = $this->url->link('account/forgotten', '', true);
 		}
 
+		// User
 		$this->load->model('user/user');
 
 		$user_info = $this->model_user_user->getUserByEmail($email);
@@ -232,9 +234,10 @@ class Forgotten extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->session->data['success'] = $this->language->get('text_reset');
 
-			unset($this->session->data['reset_token']);
-
 			$this->model_user_user->editPassword($user_info['user_id'], $post_info['password']);
+
+			// Remove for token
+			unset($this->session->data['reset_token']);
 
 			$this->model_account_customer->deleteTokenByCode($code);
 

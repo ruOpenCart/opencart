@@ -68,6 +68,18 @@ class Order extends \Opencart\System\Engine\Controller {
 			$filter_date_to = '';
 		}
 
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$filter_date_modified_from = $this->request->get['filter_date_modified_from'];
+		} else {
+			$filter_date_modified_from = '';
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$filter_date_modified_to = $this->request->get['filter_date_modified_to'];
+		} else {
+			$filter_date_modified_to = '';
+		}
+
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
@@ -108,6 +120,14 @@ class Order extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
 		}
 
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$url .= '&filter_date_modified_from=' . $this->request->get['filter_date_modified_from'];
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$url .= '&filter_date_modified_to=' . $this->request->get['filter_date_modified_to'];
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
@@ -139,6 +159,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getList();
 
+		// Store
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -167,6 +188,8 @@ class Order extends \Opencart\System\Engine\Controller {
 		$data['filter_total'] = $filter_total;
 		$data['filter_date_from'] = $filter_date_from;
 		$data['filter_date_to'] = $filter_date_to;
+		$data['filter_date_modified_from'] = $filter_date_modified_from;
+		$data['filter_date_modified_to'] = $filter_date_modified_to;
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -248,6 +271,18 @@ class Order extends \Opencart\System\Engine\Controller {
 			$filter_date_to = '';
 		}
 
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$filter_date_modified_from = $this->request->get['filter_date_modified_from'];
+		} else {
+			$filter_date_modified_from = '';
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$filter_date_modified_to = $this->request->get['filter_date_modified_to'];
+		} else {
+			$filter_date_modified_to = '';
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$sort = (string)$this->request->get['sort'];
 		} else {
@@ -304,6 +339,14 @@ class Order extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
 		}
 
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$url .= '&filter_date_modified_from=' . $this->request->get['filter_date_modified_from'];
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$url .= '&filter_date_modified_to=' . $this->request->get['filter_date_modified_to'];
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
@@ -318,22 +361,25 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('sale/order.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Order
 		$data['orders'] = [];
 
 		$filter_data = [
-			'filter_order_id'        => $filter_order_id,
-			'filter_customer_id'     => $filter_customer_id,
-			'filter_customer'        => $filter_customer,
-			'filter_store_id'        => $filter_store_id,
-			'filter_order_status'    => $filter_order_status,
-			'filter_order_status_id' => $filter_order_status_id,
-			'filter_total'           => $filter_total,
-			'filter_date_from'       => $filter_date_from,
-			'filter_date_to'         => $filter_date_to,
-			'sort'                   => $sort,
-			'order'                  => $order,
-			'start'                  => ($page - 1) * (int)$this->config->get('config_pagination_admin'),
-			'limit'                  => (int)$this->config->get('config_pagination_admin')
+			'filter_order_id'           => $filter_order_id,
+			'filter_customer_id'        => $filter_customer_id,
+			'filter_customer'           => $filter_customer,
+			'filter_store_id'           => $filter_store_id,
+			'filter_order_status'       => $filter_order_status,
+			'filter_order_status_id'    => $filter_order_status_id,
+			'filter_total'              => $filter_total,
+			'filter_date_from'          => $filter_date_from,
+			'filter_date_to'            => $filter_date_to,
+			'filter_date_modified_from' => $filter_date_modified_from,
+			'filter_date_modified_to'   => $filter_date_modified_to,
+			'sort'                      => $sort,
+			'order'                     => $order,
+			'start'                     => ($page - 1) * (int)$this->config->get('config_pagination_admin'),
+			'limit'                     => (int)$this->config->get('config_pagination_admin')
 		];
 
 		$this->load->model('sale/order');
@@ -395,6 +441,14 @@ class Order extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
 		}
 
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$url .= '&filter_date_modified_from=' . $this->request->get['filter_date_modified_from'];
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$url .= '&filter_date_modified_to=' . $this->request->get['filter_date_modified_to'];
+		}
+
 		if ($order == 'ASC') {
 			$url .= '&order=DESC';
 		} else {
@@ -445,6 +499,14 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		if (isset($this->request->get['filter_date_to'])) {
 			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
+		}
+
+		if (isset($this->request->get['filter_date_modified_from'])) {
+			$url .= '&filter_date_modified_from=' . $this->request->get['filter_date_modified_from'];
+		}
+
+		if (isset($this->request->get['filter_date_modified_to'])) {
+			$url .= '&filter_date_modified_to=' . $this->request->get['filter_date_modified_to'];
 		}
 
 		if (isset($this->request->get['sort'])) {
@@ -599,6 +661,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['customer_edit'] = '';
 		}
 
+		// Customer Group
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -606,7 +669,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		if (!empty($order_info)) {
 			$data['customer_group_id'] = $order_info['customer_group_id'];
 		} else {
-			$data['customer_group_id'] = $this->config->get('config_customer_group_id');
+			$data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 		}
 
 		if (!empty($order_info)) {
@@ -988,7 +1051,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		if (!empty($order_info)) {
 			$data['order_status_id'] = $order_info['order_status_id'];
 		} else {
-			$data['order_status_id'] = $this->config->get('config_order_status_id');
+			$data['order_status_id'] = (int)$this->config->get('config_order_status_id');
 		}
 
 		$data['complete_status'] = in_array($data['order_status_id'], (array)$this->config->get('config_complete_status'));
@@ -1977,6 +2040,11 @@ class Order extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	/**
+	 * Autocomplete
+	 *
+	 * @return void
+	 */
 	public function autocomplete(): void {
 		$this->load->language('sale/order');
 

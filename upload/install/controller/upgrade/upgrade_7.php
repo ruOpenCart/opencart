@@ -18,8 +18,8 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 
 		try {
 			// Set Product Meta Title default to product name if empty
-			$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `meta_title` = `name` WHERE `meta_title` = ''");
 			$this->db->query("UPDATE `" . DB_PREFIX . "category_description` SET `meta_title` = `name` WHERE `meta_title` = ''");
+			$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `meta_title` = `name` WHERE `meta_title` = ''");
 			$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `meta_title` = `title` WHERE `meta_title` = ''");
 
 			//  Option
@@ -71,8 +71,17 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 			// Drop Fields
 			$remove = [];
 
+			// banner_image_description
+			$remove[] = [
+				'table' => 'banner_image_description',
+				'field' => 'title'
+			];
 
-
+			// country
+			$remove[] = [
+				'table' => 'country',
+				'field' => 'name'
+			];
 
 			// custom_field
 			$remove[] = [
@@ -85,32 +94,29 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 				'field' => 'position'
 			];
 
-			// download
 			$remove[] = [
 				'table' => 'custom_field',
 				'field' => 'required'
 			];
 
+			$remove[] = [
+				'table' => 'custom_field',
+				'field' => 'required'
+			];
+
+			// download
 			$remove[] = [
 				'table' => 'download',
 				'field' => 'remaining'
 			];
 
-			$remove[] = [
-				'table' => 'custom_field',
-				'field' => 'required'
-			];
-
-			$remove[] = [
-				'table' => 'banner_image_description',
-				'field' => 'title'
-			];
-
+			// extension_path
 			$remove[] = [
 				'table' => 'extension_path',
 				'field' => 'date_added'
 			];
 
+			// geo_zone
 			$remove[] = [
 				'table' => 'geo_zone',
 				'field' => 'date_added'
@@ -121,11 +127,13 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 				'field' => 'date_modified'
 			];
 
+			// product_option
 			$remove[] = [
 				'table' => 'product_option',
 				'field' => 'option_value'
 			];
 
+			// tax_class
 			$remove[] = [
 				'table' => 'tax_class',
 				'field' => 'date_added'
@@ -136,6 +144,7 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 				'field' => 'date_modified'
 			];
 
+			// tax_rate
 			$remove[] = [
 				'table' => 'tax_rate',
 				'field' => 'date_added'
@@ -144,6 +153,12 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 			$remove[] = [
 				'table' => 'tax_rate',
 				'field' => 'date_modified'
+			];
+
+			// zone
+			$remove[] = [
+				'table' => 'zone',
+				'field' => 'name'
 			];
 
 			foreach ($remove as $result) {
@@ -194,9 +209,11 @@ class Upgrade7 extends \Opencart\System\Engine\Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	// Function to repair any erroneous categories that are not in the category path table.
-
 	/**
+	 * Repair Categories
+	 *
+	 * Repair any erroneous categories that are not in the category path table.
+	 *
 	 * @param int $parent_id primary key of the parent category record
 	 *
 	 * @return void

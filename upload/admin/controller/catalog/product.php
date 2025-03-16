@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Product
  *
+ * Can be loaded using $this->load->controller('catalog/product');
+ *
  * @package Opencart\Admin\Controller\Catalog
  */
 class Product extends \Opencart\System\Engine\Controller {
@@ -318,6 +320,7 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/product.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Product
 		$data['products'] = [];
 
 		$filter_data = [
@@ -336,7 +339,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			'limit'                  => $this->config->get('config_pagination_admin')
 		];
 
-		// Product
 		$this->load->model('catalog/product');
 
 		// Image
@@ -663,6 +665,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['master_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -679,40 +682,16 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['model'] = '';
 		}
 
-		if (!empty($product_info)) {
-			$data['sku'] = $product_info['sku'];
-		} else {
-			$data['sku'] = '';
-		}
+		// Product Identifiers
+		$this->load->model('catalog/identifier');
 
-		if (!empty($product_info)) {
-			$data['upc'] = $product_info['upc'];
-		} else {
-			$data['upc'] = '';
-		}
+		$data['identifiers'] = $this->model_catalog_identifier->getIdentifiers();
 
+		// Filter
 		if (!empty($product_info)) {
-			$data['ean'] = $product_info['ean'];
+			$data['product_codes'] = $this->model_catalog_product->getCodes($product_id);
 		} else {
-			$data['ean'] = '';
-		}
-
-		if (!empty($product_info)) {
-			$data['jan'] = $product_info['jan'];
-		} else {
-			$data['jan'] = '';
-		}
-
-		if (!empty($product_info)) {
-			$data['isbn'] = $product_info['isbn'];
-		} else {
-			$data['isbn'] = '';
-		}
-
-		if (!empty($product_info)) {
-			$data['mpn'] = $product_info['mpn'];
-		} else {
-			$data['mpn'] = '';
+			$data['product_codes'] = [];
 		}
 
 		if (!empty($product_info)) {
@@ -727,6 +706,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['price'] = '';
 		}
 
+		// Tax Class
 		$this->load->model('localisation/tax_class');
 
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -755,6 +735,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['subtract'] = 1;
 		}
 
+		// Stock Status
 		$this->load->model('localisation/stock_status');
 
 		$data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
@@ -795,6 +776,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['height'] = '';
 		}
 
+		// Length Class
 		$this->load->model('localisation/length_class');
 
 		$data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
@@ -802,9 +784,10 @@ class Product extends \Opencart\System\Engine\Controller {
 		if (!empty($product_info)) {
 			$data['length_class_id'] = $product_info['length_class_id'];
 		} else {
-			$data['length_class_id'] = $this->config->get('config_length_class_id');
+			$data['length_class_id'] = (int)$this->config->get('config_length_class_id');
 		}
 
+		// Weight Class
 		if (!empty($product_info)) {
 			$data['weight'] = $product_info['weight'];
 		} else {
@@ -818,7 +801,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		if (!empty($product_info)) {
 			$data['weight_class_id'] = $product_info['weight_class_id'];
 		} else {
-			$data['weight_class_id'] = $this->config->get('config_weight_class_id');
+			$data['weight_class_id'] = (int)$this->config->get('config_weight_class_id');
 		}
 
 		if (!empty($product_info)) {
@@ -833,6 +816,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['sort_order'] = 1;
 		}
 
+		// Manufacturer
 		$this->load->model('catalog/manufacturer');
 
 		if (!empty($product_info)) {
@@ -891,7 +875,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Stores
+		// Store
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -968,6 +952,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		// Customer Group
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -1060,7 +1045,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Subscription
+		// Subscription Plan
 		$this->load->model('catalog/subscription_plan');
 
 		$data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -1151,7 +1136,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['product_seo_url'] = [];
 		}
 
-
 		// Layout
 		$this->load->model('design/layout');
 
@@ -1188,57 +1172,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
-			'product_id'           => 0,
-			'master_id'            => 0,
-			'model'                => '',
-			'sku'                  => '',
-			'upc'                  => '',
-			'ean'                  => '',
-			'jan'                  => '',
-			'isbn'                 => '',
-			'mpn'                  => '',
-			'location'             => '',
-			'variant'              => '',
-			'override'             => '',
-			'quantity'             => 0,
-			'stock_status_id'      => 0,
-			'image'                => '',
-			'manufacturer_id'      => 0,
-			'shipping'             => 0,
-			'price'                => 0,
-			'points'               => 0,
-			'tax_class_id'         => 0,
-			'date_available'       => 0,
-			'weight'               => 0,
-			'weight_class_id'      => 0,
-			'length'               => 0,
-			'width'                => 0,
-			'height'               => 0,
-			'length_class_id'      => 0,
-			'subtract'             => 0,
-			'minimum'              => 0,
-			'rating'               => 0,
-			'sort_order'           => 0,
-			'status'               => 0,
-			'product_attribute'    => [],
-			'product_description'  => [],
-			'product_discount'     => [],
-			'product_filter'       => [],
-			'product_image'        => [],
-			'product_option'       => [],
-			'product_option_value' => [],
-			'product_related'      => [],
-			'product_reward'       => [],
-			'product_subscription' => [],
-			'product_category'     => [],
-			'product_download'     => [],
-			'product_layout'       => [],
-		    'product_store'        => [],
-			'product_seo_url'      => []
-		];
-
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post;
 
 		foreach ($post_info['product_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 255)) {

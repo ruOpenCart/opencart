@@ -218,10 +218,12 @@ class Topic extends \Opencart\System\Engine\Controller {
 			$data['topic_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
+		// Image
 		$this->load->model('tool/image');
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
@@ -281,6 +283,17 @@ class Topic extends \Opencart\System\Engine\Controller {
 			$data['topic_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('topic_id', $this->request->get['topic_id']);
 		} else {
 			$data['topic_seo_url'] = [];
+		}
+
+		// Layout
+		$this->load->model('design/layout');
+
+		$data['layouts'] = $this->model_design_layout->getLayouts();
+
+		if (isset($this->request->get['topic_id'])) {
+			$data['topic_layout'] = $this->model_cms_topic->getLayouts($this->request->get['topic_id']);
+		} else {
+			$data['topic_layout'] = [];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

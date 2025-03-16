@@ -9,6 +9,8 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	/**
 	 * Index
 	 *
+	 * admin/controller/common/authorize.send/after
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 * @param array<mixed>      $output
@@ -16,16 +18,15 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * admin/controller/common/authorize.send/after
 	 */
-	public function index(&$route, &$args, &$output): void {
+	public function index(string &$route, array &$args, mixed &$output): void {
 		if (isset($this->session->data['code'])) {
-			$code = $this->session->data['code'];
+			$code = (string)$this->session->data['code'];
 		} else {
 			$code = '';
 		}
 
+		// User
 		$this->load->model('user/user');
 
 		$user_info = $this->model_user_user->getUser($this->user->getId());
@@ -53,7 +54,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
 				$mail->setSubject($this->language->get('text_subject'));
-				$mail->setText($this->load->view('mail/authorize', $data));
+				$mail->setHtml($this->load->view('mail/authorize', $data));
 				$mail->send();
 			}
 		}
@@ -62,6 +63,8 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	/**
 	 * Reset
 	 *
+	 * admin/model/user/user.addToken/after
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 * @param array<mixed>      $output
@@ -69,8 +72,6 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * admin/model/user/user.addToken/after
 	 */
 	public function reset(&$route, &$args, &$output): void {
 		if (isset($args[0])) {
@@ -91,6 +92,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 			$code = '';
 		}
 
+		// User
 		$this->load->model('user/user');
 
 		$user_info = $this->model_user_user->getUser($user_id);
@@ -99,7 +101,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 			$this->load->language('mail/authorize_reset');
 
 			$data['username'] = $this->user->getUsername();
-			$data['reset'] = $this->url->link('common/authorize.reset', 'email=' . $email . '&code=' . $code, true);
+			$data['reset'] = $this->url->link('common/authorize.unlock', 'email=' . $user_info['email'] . '&code=' . $code, true);
 			$data['ip'] = oc_get_ip();
 			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
@@ -114,11 +116,11 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				];
 
 				$mail = new \Opencart\System\Library\Mail($this->config->get('config_mail_engine'), $mail_option);
-				$mail->setTo($email);
+				$mail->setTo($user_info['email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
 				$mail->setSubject($this->language->get('text_subject'));
-				$mail->setText($this->load->view('mail/authorize_reset', $data));
+				$mail->setHtml($this->load->view('mail/authorize_reset', $data));
 				$mail->send();
 			}
 		}

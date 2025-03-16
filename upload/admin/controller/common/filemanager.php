@@ -74,27 +74,45 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-	    $allowed = [];
-		
-        foreach (explode("\r\n", $this->config->get('config_file_ext_allowed')) as $key => $extension) {
-            $allowed[] = '.' . \strtolower($extension);
-            $allowed[] = '.' . \strtoupper($extension);
-        }
+		$allowed = [];
 
-		$data['directories'] = [];
-		$data['images'] = [];
+		foreach (explode("\r\n", $this->config->get('config_file_ext_allowed')) as $key => $extension) {
+			$allowed[] = '.' . \strtolower($extension);
+			$allowed[] = '.' . \strtoupper($extension);
+		}
 
-		$this->load->model('tool/image');
+		$directories = [];
+		$files = [];
 
 		// Get directories and files
-		$paths = array_merge(
-			glob($directory . $filter_name . '*', GLOB_ONLYDIR),
-			glob($directory . $filter_name . '*{' . implode(',', $allowed) . '}', GLOB_BRACE)
-		);
+		$paths = array_diff(scandir($directory), ['..', '.']);
+
+		foreach ($paths as $value) {
+			if ($filter_name && !str_starts_with($value, $filter_name)) {
+				continue;
+			}
+
+			$path = str_replace('\\', '/', realpath($directory . $value));
+
+			if (is_dir($path)) {
+				$directories[] = $path;
+			}
+
+			if (is_file($path) && in_array(substr($value, strrpos($value, '.')), $allowed)) {
+				$files[] = $path;
+			}
+		}
+
+		$this->load->model('tool/image');
 
 		$total = count($paths);
 		$limit = 16;
 		$start = ($page - 1) * $limit;
+
+		$data['directories'] = [];
+
+		// Image
+		$data['images'] = [];
 
 		if ($paths) {
 			$url = '';
@@ -112,9 +130,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			}
 
 			// Split the array based on current page number and max number of items per page of 10
-			foreach (array_slice($paths, $start, $limit) as $path) {
-				$path = str_replace('\\', '/', realpath($path));
-
+			foreach (array_slice($directories + $files, $start, $limit) as $path) {
 				if (substr($path, 0, strlen($base)) == $base) {
 					$name = basename($path);
 
@@ -126,7 +142,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 						];
 					}
 
-					if (is_file($path) && in_array(substr($path, strrpos($path, '.')), $allowed)) {
+					if (is_file($path)) {
 						$data['images'][] = [
 							'name'  => $name,
 							'path'  => oc_substr($path, oc_strlen($base)),
@@ -292,9 +308,8 @@ class FileManager extends \Opencart\System\Engine\Controller {
 						$json['error'] = $this->language->get('error_filename');
 					}
 
-					
 					// Allowed file extension types
-                    $allowed = explode("\r\n", \strtolower($this->config->get('config_file_ext_allowed')));
+					$allowed = explode("\r\n", \strtolower($this->config->get('config_file_ext_allowed')));
 
 					if (!in_array(\strtolower(substr($filename, strrpos($filename, '.') + 1)), $allowed)) {
 						$json['error'] = $this->language->get('error_file_type');
@@ -425,8 +440,6 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			foreach ($paths as $path) {
 				$path = rtrim($base . html_entity_decode($path, ENT_QUOTES, 'UTF-8'), '/');
 
-				$files = [];
-
 				// Make path into an array
 				$directory = [$path];
 
@@ -435,9 +448,9 @@ class FileManager extends \Opencart\System\Engine\Controller {
 					$next = array_shift($directory);
 
 					if (is_dir($next)) {
-						foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+						foreach (array_diff(scandir($next), ['..', '.']) as $file) {
 							// If directory add to path array
-							$directory[] = $file;
+							$directory[] = $next . '/' . $file;
 						}
 					}
 

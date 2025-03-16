@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Information
  *
+ * Can be loaded using $this->load->controller('catalog/information');
+ *
  * @package Opencart\Admin\Controller\Catalog
  */
 class Information extends \Opencart\System\Engine\Controller {
@@ -107,6 +109,7 @@ class Information extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/information.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Information
 		$data['informations'] = [];
 
 		$filter_data = [
@@ -218,6 +221,7 @@ class Information extends \Opencart\System\Engine\Controller {
 			$data['information_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -228,6 +232,7 @@ class Information extends \Opencart\System\Engine\Controller {
 			$data['information_description'] = [];
 		}
 
+		// Store
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -269,6 +274,7 @@ class Information extends \Opencart\System\Engine\Controller {
 			$data['information_seo_url'] = [];
 		}
 
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -386,6 +392,7 @@ class Information extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Store
 		$this->load->model('setting/store');
 
 		foreach ($selected as $information_id) {

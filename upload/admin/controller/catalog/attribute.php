@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Attribute
  *
+ * Can be loaded using $this->load->controller('catalog/attribute');
+ *
  * @package Opencart\Admin\Controller\Catalog
  */
 class Attribute extends \Opencart\System\Engine\Controller {
@@ -107,6 +109,7 @@ class Attribute extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/attribute.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Attribute
 		$data['attributes'] = [];
 
 		$filter_data = [
@@ -216,6 +219,7 @@ class Attribute extends \Opencart\System\Engine\Controller {
 			$data['attribute_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -226,6 +230,7 @@ class Attribute extends \Opencart\System\Engine\Controller {
 			$data['attribute_description'] = [];
 		}
 
+		// Attribute Group
 		$this->load->model('catalog/attribute_group');
 
 		$data['attribute_groups'] = $this->model_catalog_attribute_group->getAttributeGroups();

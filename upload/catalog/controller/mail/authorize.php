@@ -9,6 +9,8 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	/**
 	 * Index
 	 *
+	 * catalog/controller/account/authorize.send/after
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 * @param array<mixed>      $output
@@ -16,16 +18,15 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * catalog/controller/account/authorize.send/after
 	 */
-	public function index(&$route, &$args, &$output): void {
+	public function index(string &$route, array &$args, mixed &$output): void {
 		if (isset($this->session->data['code'])) {
 			$code = (string)$this->session->data['code'];
 		} else {
 			$code = '';
 		}
 
+		// Customer
 		$this->load->model('account/customer');
 
 		$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
@@ -52,7 +53,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
 				$mail->setSubject($this->language->get('text_subject'));
-				$mail->setText($this->load->view('mail/authorize', $data));
+				$mail->setHtml($this->load->view('mail/authorize', $data));
 				$mail->send();
 			}
 		}
@@ -61,6 +62,8 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	/**
 	 * Reset
 	 *
+	 * catalog/model/account/customer.addToken/after
+	 *
 	 * @param string            $route
 	 * @param array<int, mixed> $args
 	 * @param array<mixed>      $output
@@ -68,10 +71,8 @@ class Authorize extends \Opencart\System\Engine\Controller {
 	 * @throws \Exception
 	 *
 	 * @return void
-	 *
-	 * catalog/model/account/customer.addToken/after
 	 */
-	public function reset(&$route, &$args, &$output): void {
+	public function reset(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {
 			$customer_id = (int)$args[0];
 		} else {
@@ -90,6 +91,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 			$code = '';
 		}
 
+		// Customer
 		$this->load->model('account/customer');
 
 		$customer_info = $this->model_account_customer->getCustomer($customer_id);
@@ -97,7 +99,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 		if ($type == 'authorize' && $customer_info) {
 			$this->load->language('mail/authorize_reset');
 
-			$data['reset'] = $this->url->link('account/authorize.reset', 'email=' . $customer_info['email'] . '&code=' . $code, true);
+			$data['reset'] = $this->url->link('account/authorize.unlock', 'email=' . $customer_info['email'] . '&code=' . $code, true);
 			$data['ip'] = oc_get_ip();
 			$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
@@ -116,7 +118,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
 				$mail->setSubject($this->language->get('text_subject'));
-				$mail->setText($this->load->view('mail/authorize_reset', $data));
+				$mail->setHtml($this->load->view('mail/authorize_reset', $data));
 				$mail->send();
 			}
 		}

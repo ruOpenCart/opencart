@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Manufacturer
  *
+ * Can be loaded using $this->load->controller('catalog/manufacturer');
+ *
  * @package Opencart\Admin\Controller\Catalog
  */
 class Manufacturer extends \Opencart\System\Engine\Controller {
@@ -107,6 +109,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/manufacturer.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Manufacturer
 		$data['manufacturers'] = [];
 
 		$filter_data = [
@@ -116,22 +119,23 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			'limit' => $this->config->get('config_pagination_admin')
 		];
 
-        $this->load->model('tool/image');
+		// Image
+		$this->load->model('tool/image');
 
 		$this->load->model('catalog/manufacturer');
 
 		$results = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 
-        foreach ($results as $result) {
-            $image = $result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))
-                ? $result['image']
-                : 'no_image.png';
+		foreach ($results as $result) {
+			$image = $result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))
+				? $result['image']
+				: 'no_image.png';
 
-            $data['manufacturers'][] = [
-                    'image' => $this->model_tool_image->resize($image, 40, 40),
-                    'edit'  => $this->url->link('catalog/manufacturer.form', 'user_token=' . $this->session->data['user_token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url),
-                ] + $result;
-        }
+			$data['manufacturers'][] = [
+				'image' => $this->model_tool_image->resize($image, 40, 40),
+				'edit'  => $this->url->link('catalog/manufacturer.form', 'user_token=' . $this->session->data['user_token'] . '&manufacturer_id=' . $result['manufacturer_id'] . $url),
+			] + $result;
+		}
 
 		$url = '';
 
@@ -251,6 +255,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$data['manufacturer_store'] = [0];
 		}
 
+		// Image
 		if (!empty($manufacturer_info)) {
 			$data['image'] = $manufacturer_info['image'];
 		} else {
@@ -273,6 +278,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$data['sort_order'] = '';
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -285,6 +291,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$data['manufacturer_seo_url'] = [];
 		}
 
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();

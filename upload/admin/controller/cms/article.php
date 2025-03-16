@@ -107,6 +107,7 @@ class Article extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('cms/article.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Article
 		$data['articles'] = [];
 
 		$filter_data = [
@@ -224,10 +225,12 @@ class Article extends \Opencart\System\Engine\Controller {
 			$data['article_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
+		// Image
 		$this->load->model('tool/image');
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
@@ -264,6 +267,7 @@ class Article extends \Opencart\System\Engine\Controller {
 			$data['topic_id'] = 0;
 		}
 
+		// Store
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -299,6 +303,7 @@ class Article extends \Opencart\System\Engine\Controller {
 			$data['article_seo_url'] = [];
 		}
 
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -335,11 +340,16 @@ class Article extends \Opencart\System\Engine\Controller {
 		$filter_data = [
 			'article_id'          => 0,
 			'article_description' => [],
-			'author'			  => '',
-			'article_seo_url'     => []
+			'topic_id'            => 0,
+			'author'              => '',
+			'rating'              => 0,
+			'status'              => 0,
+			'article_store'       => [],
+			'article_seo_url'     => [],
+			'article_layout'      => []
 		];
 
-		$post_info = oc_filter_data($this->request->post, $filter_data);
+		$post_info = oc_filter_data($filter_data, $this->request->post);
 
 		foreach ($post_info['article_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 255)) {

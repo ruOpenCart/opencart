@@ -45,6 +45,7 @@ class Register extends \Opencart\System\Engine\Controller {
 		$data['config_telephone_display'] = $this->config->get('config_telephone_display');
 		$data['config_telephone_required'] = $this->config->get('config_telephone_required');
 
+		// Create form token
 		$this->session->data['register_token'] = oc_token(26);
 
 		$data['register'] = $this->url->link('account/register.register', 'language=' . $this->config->get('config_language') . '&register_token=' . $this->session->data['register_token']);
@@ -67,7 +68,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$data['customer_group_id'] = $this->config->get('config_customer_group_id');
+		$data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
 
 		// Custom Fields
 		$data['custom_fields'] = [];
@@ -93,6 +94,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			$data['captcha'] = '';
 		}
 
+		// Information
 		$this->load->model('catalog/information');
 
 		$information_info = $this->model_catalog_information->getInformation((int)$this->config->get('config_account_id'));
@@ -183,6 +185,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['email'] = $this->language->get('error_email');
 			}
 
+			// Customer
 			$this->load->model('account/customer');
 
 			if ($this->model_account_customer->getTotalCustomersByEmail($post_info['email'])) {
@@ -271,11 +274,14 @@ class Register extends \Opencart\System\Engine\Controller {
 				$this->session->data['customer_token'] = oc_token(26);
 			}
 
+			// Remove form token
+			unset($this->session->data['register_token']);
+
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($post_info['email']);
 
+			// Clear old session data
 			unset($this->session->data['guest']);
-			unset($this->session->data['register_token']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);

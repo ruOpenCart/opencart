@@ -1,7 +1,9 @@
 <?php
-namespace Opencart\catalog\controller\api;
+namespace Opencart\catalog\Controller\Api;
 /**
  * Class Customer
+ *
+ * Can be loaded using $this->load->controller('api/customer');
  *
  * @package Opencart\Catalog\Controller\Api
  */
@@ -9,7 +11,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 	/**
 	 * Index
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function index(): array {
 		$this->load->language('api/customer');

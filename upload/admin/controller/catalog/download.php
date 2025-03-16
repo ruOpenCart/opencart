@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Catalog;
 /**
  * Class Download
  *
+ * Can be loaded using $this->load->controller('catalog/download');
+ *
  * @package Opencart\Admin\Controller\Catalog
  */
 class Download extends \Opencart\System\Engine\Controller {
@@ -107,6 +109,7 @@ class Download extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/download.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Download
 		$data['downloads'] = [];
 
 		$filter_data = [
@@ -224,6 +227,7 @@ class Download extends \Opencart\System\Engine\Controller {
 			$data['download_id'] = 0;
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();

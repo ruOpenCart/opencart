@@ -3,6 +3,8 @@ namespace Opencart\Admin\Controller\Design;
 /**
  * Class Theme
  *
+ * Can be loaded using $this->load->controller('design/theme');
+ *
  * @package Opencart\Admin\Controller\Design
  */
 class Theme extends \Opencart\System\Engine\Controller {
@@ -167,6 +169,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 			$data['theme_id'] = 0;
 		}
 
+		// Store
 		$this->load->model('setting/store');
 
 		$data['stores'] = $this->model_setting_store->getStores();

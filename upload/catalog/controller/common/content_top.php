@@ -14,6 +14,7 @@ class ContentTop extends \Opencart\System\Engine\Controller {
 	 * @return string
 	 */
 	public function index(): string {
+		// Layout
 		$this->load->model('design/layout');
 
 		if (isset($this->request->get['route'])) {
@@ -50,6 +51,12 @@ class ContentTop extends \Opencart\System\Engine\Controller {
 			$layout_id = $this->model_catalog_information->getLayoutId((int)$this->request->get['information_id']);
 		}
 
+		if ($route == 'cms/blog' && isset($this->request->get['topic_id'])) {
+			$this->load->model('cms/topic');
+
+			$layout_id = $this->model_cms_topic->getLayoutId((int)$this->request->get['topic_id']);
+		}
+
 		if ($route == 'cms/blog.info' && isset($this->request->get['article_id'])) {
 			$this->load->model('cms/article');
 
@@ -64,6 +71,7 @@ class ContentTop extends \Opencart\System\Engine\Controller {
 			$layout_id = $this->config->get('config_layout_id');
 		}
 
+		// Extension
 		$this->load->model('setting/module');
 
 		$data['modules'] = [];
