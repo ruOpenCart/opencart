@@ -79,4 +79,4 @@ $_['tab_order']                  = 'Заказы';
 $_['error_permission']           = 'Внимание: У вас нет разрешения на изменение подписки!';
 $_['error_subscription_status']  = 'Внимание: Необходимо выбрать статус подписки!';
 $_['error_payment_method']       = 'Внимание: Способ оплаты не существует!';
-$_['error_subscription']         = 'Warning: Subscription not yet added!';
+$_['error_subscription']         = 'Внимание: Подписка еще не добавлена!';
