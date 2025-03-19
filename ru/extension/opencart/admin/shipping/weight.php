@@ -15,7 +15,7 @@ $_['entry_status']     = 'Статус';
 $_['entry_sort_order'] = 'Порядок сортировки';
 
 // Help
-$_['help_rate']        = 'Example: 5:10.00,7:12.00 Weight:Cost,Weight:Cost, etc.';
+$_['help_rate']        = 'Например: 5:10.00,7:12.00 Вес:Цена,Вес:Цена, и т.д.';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав на изменение доставки по весу!';
