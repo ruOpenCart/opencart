@@ -427,8 +427,8 @@ class User extends \Opencart\System\Engine\Controller {
 			$user_info = $this->model_user_user->getUser($this->request->get['user_id']);
 		}
 
-		if (isset($this->request->get['user_id'])) {
-			$data['user_id'] = (int)$this->request->get['user_id'];
+		if (!empty($user_info)) {
+			$data['user_id'] = $user_info['user_id'];
 		} else {
 			$data['user_id'] = 0;
 		}
@@ -512,21 +512,20 @@ class User extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
-		$filter_data = [
-			'user_id'       => 0,
-			'user_group_id' => 0,
-			'username'      => '',
-			'firstname'     => '',
-			'lastname'      => '',
-			'email'         => '',
-			'password'      => ''
-		];
-
-		$post_info = oc_filter_data($filter_data, $this->request->post);
-
 		if (!$this->user->hasPermission('modify', 'user/user')) {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
+
+		$required = [
+			'user_id'   => 0,
+			'username'  => '',
+			'firstname' => '',
+			'lastname'  => '',
+			'email'     => '',
+			'password'  => '',
+		];
+
+		$post_info = $this->request->post + $required;
 
 		if (!oc_validate_length($post_info['username'], 3, 20)) {
 			$json['error']['username'] = $this->language->get('error_username');
@@ -536,14 +535,8 @@ class User extends \Opencart\System\Engine\Controller {
 
 		$user_info = $this->model_user_user->getUserByUsername($post_info['username']);
 
-		if (!$post_info['user_id']) {
-			if ($user_info) {
-				$json['error']['warning'] = $this->language->get('error_username_exists');
-			}
-		} else {
-			if ($user_info && ($post_info['user_id'] != $user_info['user_id'])) {
-				$json['error']['warning'] = $this->language->get('error_username_exists');
-			}
+		if ($user_info && !$post_info['user_id'] || ($post_info['user_id'] != $user_info['user_id'])) {
+			$json['error']['warning'] = $this->language->get('error_username_exists');
 		}
 
 		if (!oc_validate_length($post_info['firstname'], 1, 32)) {
@@ -560,14 +553,8 @@ class User extends \Opencart\System\Engine\Controller {
 
 		$user_info = $this->model_user_user->getUserByEmail($post_info['email']);
 
-		if (!$post_info['user_id']) {
-			if ($user_info) {
-				$json['error']['warning'] = $this->language->get('error_email_exists');
-			}
-		} else {
-			if ($user_info && ($post_info['user_id'] != $user_info['user_id'])) {
-				$json['error']['warning'] = $this->language->get('error_email_exists');
-			}
+		if ($user_info && !$post_info['user_id'] || ($post_info['user_id'] != $user_info['user_id'])) {
+			$json['error']['warning'] = $this->language->get('error_email_exists');
 		}
 
 		if ($post_info['password'] || (!isset($post_info['user_id']))) {
@@ -629,7 +616,7 @@ class User extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

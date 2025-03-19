@@ -214,11 +214,11 @@ class Filter extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['filter_id'])) {
 			$this->load->model('catalog/filter');
 
-			$filter_info = $this->model_catalog_filter->getFilter($this->request->get['filter_id']);
+			$filter_info = $this->model_catalog_filter->getFilter((int)$this->request->get['filter_id']);
 		}
 
-		if (isset($this->request->get['filter_id'])) {
-			$data['filter_id'] = (int)$this->request->get['filter_id'];
+		if (isset($filter_info)) {
+			$data['filter_id'] = $filter_info['filter_id'];
 		} else {
 			$data['filter_id'] = 0;
 		}
@@ -228,8 +228,8 @@ class Filter extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['filter_id'])) {
-			$data['filter_description'] = $this->model_catalog_filter->getDescriptions($this->request->get['filter_id']);
+		if (!empty($filter_info)) {
+			$data['filter_description'] = $this->model_catalog_filter->getDescriptions($filter_info['filter_id']);
 		} else {
 			$data['filter_description'] = [];
 		}
@@ -272,13 +272,14 @@ class Filter extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
+		$required = [
 			'filter_id'          => 0,
 			'filter_description' => [],
-			'filter_group_id'    => 0
+			'filter_group_id'    => 0,
+			'sort_order'         => 0
 		];
 
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post + $required;
 
 		foreach ($post_info['filter_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 64)) {
@@ -321,7 +322,7 @@ class Filter extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

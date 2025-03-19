@@ -209,11 +209,11 @@ class Option extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['option_id'])) {
 			$this->load->model('catalog/option');
 
-			$option_info = $this->model_catalog_option->getOption($this->request->get['option_id']);
+			$option_info = $this->model_catalog_option->getOption((int)$this->request->get['option_id']);
 		}
 
-		if (isset($this->request->get['option_id'])) {
-			$data['option_id'] = (int)$this->request->get['option_id'];
+		if (!empty($option_info)) {
+			$data['option_id'] = $option_info['option_id'];
 		} else {
 			$data['option_id'] = 0;
 		}
@@ -223,8 +223,8 @@ class Option extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['option_id'])) {
-			$data['option_description'] = $this->model_catalog_option->getDescriptions($this->request->get['option_id']);
+		if (!empty($option_info)) {
+			$data['option_description'] = $this->model_catalog_option->getDescriptions($option_info['option_id']);
 		} else {
 			$data['option_description'] = [];
 		}
@@ -247,8 +247,8 @@ class Option extends \Opencart\System\Engine\Controller {
 			$data['sort_order'] = '';
 		}
 
-		if (isset($this->request->get['option_id'])) {
-			$option_values = $this->model_catalog_option->getValueDescriptions($this->request->get['option_id']);
+		if (!empty($option_info)) {
+			$option_values = $this->model_catalog_option->getValueDescriptions($option_info['option_id']);
 		} else {
 			$option_values = [];
 		}
@@ -301,7 +301,7 @@ class Option extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
+		$required = [
 			'option_id'          => 0,
 			'type'               => '',
 			'sort_order'         => 0,
@@ -309,7 +309,7 @@ class Option extends \Opencart\System\Engine\Controller {
 			'option_value'       => []
 		];
 
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post + $required;
 
 		foreach ($post_info['option_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 128)) {
@@ -384,7 +384,7 @@ class Option extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

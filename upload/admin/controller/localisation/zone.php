@@ -302,11 +302,11 @@ class Zone extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['zone_id'])) {
 			$this->load->model('localisation/zone');
 
-			$zone_info = $this->model_localisation_zone->getZone($this->request->get['zone_id']);
+			$zone_info = $this->model_localisation_zone->getZone((int)$this->request->get['zone_id']);
 		}
 
-		if (isset($this->request->get['zone_id'])) {
-			$data['zone_id'] = (int)$this->request->get['zone_id'];
+		if (isset($zone_info['zone_id'])) {
+			$data['zone_id'] = $zone_info['zone_id'];
 		} else {
 			$data['zone_id'] = 0;
 		}
@@ -316,8 +316,8 @@ class Zone extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['zone_id'])) {
-			$data['zone_description'] = $this->model_localisation_zone->getDescriptions($this->request->get['zone_id']);
+		if (!empty($zone_info)) {
+			$data['zone_description'] = $this->model_localisation_zone->getDescriptions($zone_info['zone_id']);
 		} else {
 			$data['zone_description'] = [];
 		}
@@ -372,27 +372,29 @@ class Zone extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
+		$required = [
 			'zone_id'          => 0,
-			'status'           => 0,
 			'zone_description' => [],
+			'country_id'       => 0,
+			'code'             => '',
+			'status'           => 0
 		];
 
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post + $required;
 
-		foreach ($post_info['zone_description'] as $language_id => $value) {
-			if (!oc_validate_length($value['name'], 1, 128)) {
-				$json['error']['name_' . $language_id] = $this->language->get('error_name');
+		foreach ((array)$post_info['zone_description'] as $language_id => $value) {
+			if (!oc_validate_length((string)$value['name'], 1, 128)) {
+				$json['error']['name_' . (int)$language_id] = $this->language->get('error_name');
 			}
 		}
 
 		if (!$json) {
 			$this->load->model('localisation/zone');
 
-			if (!$this->request->post['zone_id']) {
-				$json['zone_id'] = $this->model_localisation_zone->addZone($this->request->post);
+			if (!$post_info['zone_id']) {
+				$json['zone_id'] = $this->model_localisation_zone->addZone($post_info);
 			} else {
-				$this->model_localisation_zone->editZone($this->request->post['zone_id'], $this->request->post);
+				$this->model_localisation_zone->editZone((int)$post_info['zone_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -413,7 +415,7 @@ class Zone extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}
@@ -432,23 +434,23 @@ class Zone extends \Opencart\System\Engine\Controller {
 		$this->load->model('localisation/geo_zone');
 
 		foreach ($selected as $zone_id) {
-			if ($this->config->get('config_zone_id') == $zone_id) {
+			if ((int)$this->config->get('config_zone_id') == (int)$zone_id) {
 				$json['error'] = $this->language->get('error_default');
 			}
 
-			$store_total = $this->model_setting_store->getTotalStoresByZoneId($zone_id);
+			$store_total = $this->model_setting_store->getTotalStoresByZoneId((int)$zone_id);
 
 			if ($store_total) {
 				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
-			$address_total = $this->model_customer_customer->getTotalAddressesByZoneId($zone_id);
+			$address_total = $this->model_customer_customer->getTotalAddressesByZoneId((int)$zone_id);
 
 			if ($address_total) {
 				$json['error'] = sprintf($this->language->get('error_address'), $address_total);
 			}
 
-			$zone_to_geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByZoneId($zone_id);
+			$zone_to_geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByZoneId((int)$zone_id);
 
 			if ($zone_to_geo_zone_total) {
 				$json['error'] = sprintf($this->language->get('error_zone_to_geo_zone'), $zone_to_geo_zone_total);
@@ -456,10 +458,11 @@ class Zone extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Zone
 			$this->load->model('localisation/zone');
 
 			foreach ($selected as $zone_id) {
-				$this->model_localisation_zone->deleteZone($zone_id);
+				$this->model_localisation_zone->deleteZone((int)$zone_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');

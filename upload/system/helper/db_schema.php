@@ -1187,11 +1187,6 @@ function oc_db_schema() {
 				'default' => '0'
 			],
 			[
-				'name'    => 'column',
-				'type'    => 'int(11)',
-				'default' => '0'
-			],
-			[
 				'name'    => 'sort_order',
 				'type'    => 'int(3)',
 				'default' => '0'
@@ -1432,10 +1427,6 @@ function oc_db_schema() {
 				'name'           => 'country_id',
 				'type'           => 'int(11)',
 				'auto_increment' => true
-			],
-			[
-				'name' => 'name',
-				'type' => 'varchar(128)'
 			],
 			[
 				'name' => 'iso_code_2',
@@ -3408,8 +3399,8 @@ function oc_db_schema() {
 		'name'  => 'identifier',
 		'field' => [
 			[
-				'name' => 'identifier_id',
-				'type' => 'int(11)',
+				'name'           => 'identifier_id',
+				'type'           => 'int(11)',
 				'auto_increment' => true
 			],
 			[
@@ -3419,6 +3410,10 @@ function oc_db_schema() {
 			[
 				'name' => 'code',
 				'type' => 'varchar(48)'
+			],
+			[
+				'name' => 'validation',
+				'type' => 'varchar(255)'
 			],
 			[
 				'name'    => 'status',
@@ -5332,8 +5327,8 @@ function oc_db_schema() {
 		'name'  => 'product_code',
 		'field' => [
 			[
-				'name' => 'product_code_id',
-				'type' => 'int(11)',
+				'name'           => 'product_code_id',
+				'type'           => 'int(11)',
 				'auto_increment' => true
 			],
 			[
@@ -7856,10 +7851,6 @@ function oc_db_schema() {
 			[
 				'name' => 'country_id',
 				'type' => 'int(11)'
-			],
-			[
-				'name' => 'name',
-				'type' => 'varchar(128)'
 			],
 			[
 				'name' => 'code',

@@ -240,8 +240,8 @@ class Antispam extends \Opencart\System\Engine\Controller {
 			$antispam_info = $this->model_cms_antispam->getAntispam($this->request->get['antispam_id']);
 		}
 
-		if (isset($this->request->get['antispam_id'])) {
-			$data['antispam_id'] = (int)$this->request->get['antispam_id'];
+		if (!empty($antispam_info)) {
+			$data['antispam_id'] = $antispam_info['antispam_id'];
 		} else {
 			$data['antispam_id'] = 0;
 		}
@@ -273,17 +273,24 @@ class Antispam extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!oc_validate_length($this->request->post['keyword'], 1, 64)) {
+		$required = [
+			'antispam_id' => 0,
+	        'keyword'     => ''
+		];
+
+		$post_info = $this->request->post + $required;
+
+		if (!oc_validate_length($post_info['keyword'], 1, 64)) {
 			$json['error']['keyword'] = $this->language->get('error_keyword');
 		}
 
 		if (!$json) {
 			$this->load->model('cms/antispam');
 
-			if (!$this->request->post['antispam_id']) {
-				$json['antispam_id'] = $this->model_cms_antispam->addAntispam($this->request->post);
+			if (!$post_info['antispam_id']) {
+				$json['antispam_id'] = $this->model_cms_antispam->addAntispam($post_info);
 			} else {
-				$this->model_cms_antispam->editAntispam($this->request->post['antispam_id'], $this->request->post);
+				$this->model_cms_antispam->editAntispam($post_info['antispam_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -304,7 +311,7 @@ class Antispam extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

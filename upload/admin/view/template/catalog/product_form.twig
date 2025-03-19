@@ -184,7 +184,9 @@
                             {% for product_code in product_codes %}
                               <tr id="code-row-{{ code_row }}">
                                 <td style="width: 1px;">{{ product_code.code }}<input type="hidden" name="product_code[{{ code_row }}][code]" value="{{ product_code.code }}"/></td>
-                                <td>{{ product_code.value }}<input type="hidden" name="product_code[{{ code_row }}][value]" value="{{ product_code.value }}"/></td>
+                                <td id="input-code-{{ code_row }}">{{ product_code.value }}
+                                  <div id="error-code-{{ code_row }}" class="invalid-feedback"></div>
+                                  <input type="hidden" name="product_code[{{ code_row }}][value]" value="{{ product_code.value }}"></td>
                                 <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
                               </tr>
                               {% set code_row = code_row + 1 %}
@@ -202,21 +204,6 @@
                       {% endif %}
                     </div>
                     <div class="form-text">{{ help_product_code }}</div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="input-location" class="col-sm-2 col-form-label">{{ entry_location }}</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" name="location" value="{{ location }}" placeholder="{{ entry_location }}" id="input-location" class="form-control"/>
-                      {% if master_id %}
-                        <div class="input-group-text">
-                          <div class="form-check form-switch">
-                            <input type="checkbox" name="override[location]" value="1" id="input-variant-location" data-oc-toggle="switch" data-oc-target="#input-location" class="form-check-input"{% if override.location %} checked{% endif %}/> <label for="input-variant-location" class="form-check-label"></label>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
                   </div>
                 </div>
               </fieldset>
@@ -317,6 +304,21 @@
                       {% endif %}
                     </div>
                     <div class="form-text">{{ help_stock_status }}</div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="input-location" class="col-sm-2 col-form-label">{{ entry_location }}</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <input type="text" name="location" value="{{ location }}" placeholder="{{ entry_location }}" id="input-location" class="form-control"/>
+                      {% if master_id %}
+                        <div class="input-group-text">
+                          <div class="form-check form-switch">
+                            <input type="checkbox" name="override[location]" value="1" id="input-variant-location" data-oc-toggle="switch" data-oc-target="#input-location" class="form-check-input"{% if override.location %} checked{% endif %}/> <label for="input-variant-location" class="form-check-label"></label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -1304,7 +1306,7 @@ $('#button-code').on('click', function() {
 
     html += '<tr id="code-row-' + code_row + '">';
     html += '  <td style="width: 1px;">' + code + '<input type="hidden" name="product_code[' + code_row + '][code]" value="' + code + '"/></td>';
-    html += '  <td>' + value + '<input type="hidden" name="product_code[' + code_row + '][value]" value="' + value + '"/></td>';
+    html += '  <td>' + value + '<div id="error-code-' + code_row + '" class="invalid-feedback"></div><input type="hidden" name="product_code[' + code_row + '][value]" value="' + value + '"/></td>';
     html += '  <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';
     html += '</tr>';
 

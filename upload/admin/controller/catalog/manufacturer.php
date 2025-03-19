@@ -219,11 +219,11 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['manufacturer_id'])) {
 			$this->load->model('catalog/manufacturer');
 
-			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
+			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer((int)$this->request->get['manufacturer_id']);
 		}
 
-		if (isset($this->request->get['manufacturer_id'])) {
-			$data['manufacturer_id'] = (int)$this->request->get['manufacturer_id'];
+		if (!empty($manufacturer_info)) {
+			$data['manufacturer_id'] = $manufacturer_info['manufacturer_id'];
 		} else {
 			$data['manufacturer_id'] = 0;
 		}
@@ -249,8 +249,8 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$data['stores'][] = $result;
 		}
 
-		if (isset($this->request->get['manufacturer_id'])) {
-			$data['manufacturer_store'] = $this->model_catalog_manufacturer->getStores($this->request->get['manufacturer_id']);
+		if (!empty($manufacturer_info)) {
+			$data['manufacturer_store'] = $this->model_catalog_manufacturer->getStores($manufacturer_info['manufacturer_id']);
 		} else {
 			$data['manufacturer_store'] = [0];
 		}
@@ -283,10 +283,10 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['manufacturer_id'])) {
+		if (!empty($manufacturer_info)) {
 			$this->load->model('design/seo_url');
 
-			$data['manufacturer_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('manufacturer_id', $this->request->get['manufacturer_id']);
+			$data['manufacturer_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('manufacturer_id', $manufacturer_info['manufacturer_id']);
 		} else {
 			$data['manufacturer_seo_url'] = [];
 		}
@@ -296,8 +296,8 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
 
-		if (isset($this->request->get['manufacturer_id'])) {
-			$data['manufacturer_layout'] = $this->model_catalog_manufacturer->getLayouts($this->request->get['manufacturer_id']);
+		if (!empty($manufacturer_info)) {
+			$data['manufacturer_layout'] = $this->model_catalog_manufacturer->getLayouts($manufacturer_info['manufacturer_id']);
 		} else {
 			$data['manufacturer_layout'] = [];
 		}
@@ -312,6 +312,8 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -323,13 +325,13 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
+		$required = [
 			'manufacturer_id'      => 0,
 			'name'                 => '',
 			'manufacturer_seo_url' => []
 		];
 
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post + $required;
 
 		if (!oc_validate_length($post_info['name'], 1, 64)) {
 			$json['error']['name'] = $this->language->get('error_name');
@@ -388,7 +390,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

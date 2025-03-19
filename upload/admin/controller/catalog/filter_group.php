@@ -213,11 +213,11 @@ class FilterGroup extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['filter_group_id'])) {
 			$this->load->model('catalog/filter_group');
 
-			$filter_group_info = $this->model_catalog_filter_group->getFilterGroup($this->request->get['filter_group_id']);
+			$filter_group_info = $this->model_catalog_filter_group->getFilterGroup((int)$this->request->get['filter_group_id']);
 		}
 
-		if (isset($this->request->get['filter_group_id'])) {
-			$data['filter_group_id'] = (int)$this->request->get['filter_group_id'];
+		if (!empty($filter_group_info)) {
+			$data['filter_group_id'] = $filter_group_info['filter_group_id'];
 		} else {
 			$data['filter_group_id'] = 0;
 		}
@@ -227,8 +227,8 @@ class FilterGroup extends \Opencart\System\Engine\Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['filter_group_id'])) {
-			$data['filter_group_description'] = $this->model_catalog_filter_group->getDescriptions($this->request->get['filter_group_id']);
+		if (!empty($filter_group_info)) {
+			$data['filter_group_description'] = $this->model_catalog_filter_group->getDescriptions($filter_group_info['filter_group_id']);
 		} else {
 			$data['filter_group_description'] = [];
 		}
@@ -260,17 +260,17 @@ class FilterGroup extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		$filter_data = [
-			'filter_group_id'          => 0,
-			'filter_group_description' => [],
-			'sort_order'               => 0
+		$required = [
+			'filter_id'          => 0,
+			'filter_description' => [],
+			'filter_group_id'    => 0
 		];
 
-		$post_info = oc_filter_data($filter_data, $this->request->post);
+		$post_info = $this->request->post + $required;
 
-		foreach ($post_info['filter_group_description'] as $language_id => $value) {
-			if (!oc_validate_length($value['name'], 1, 64)) {
-				$json['error']['name_' . $language_id] = $this->language->get('error_name');
+		foreach ((array)$post_info['filter_group_description'] as $language_id => $value) {
+			if (!oc_validate_length((string)$value['name'], 1, 64)) {
+				$json['error']['name_' . (int)$language_id] = $this->language->get('error_name');
 			}
 		}
 
@@ -305,7 +305,7 @@ class FilterGroup extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}

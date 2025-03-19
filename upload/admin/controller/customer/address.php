@@ -86,8 +86,8 @@ class Address extends \Opencart\System\Engine\Controller {
 			$address_info = $this->model_customer_customer->getAddress($this->request->get['address_id']);
 		}
 
-		if (isset($this->request->get['address_id'])) {
-			$data['address_id'] = (int)$this->request->get['address_id'];
+		if (!empty($address_info)) {
+			$data['address_id'] = $address_info['address_id'];
 		} else {
 			$data['address_id'] = 0;
 		}
@@ -166,15 +166,7 @@ class Address extends \Opencart\System\Engine\Controller {
 		$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 		foreach ($custom_fields as $custom_field) {
-			$data['custom_fields'][] = [
-				'custom_field_id'    => $custom_field['custom_field_id'],
-				'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
-				'name'               => $custom_field['name'],
-				'value'              => $custom_field['value'],
-				'type'               => $custom_field['type'],
-				'location'           => $custom_field['location'],
-				'sort_order'         => $custom_field['sort_order']
-			];
+			$data['custom_fields'][] = ['custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id'])] + $custom_field;
 		}
 
 		if (!empty($address_info)) {
@@ -183,7 +175,7 @@ class Address extends \Opencart\System\Engine\Controller {
 			$data['address_custom_field'] = [];
 		}
 
-		if (isset($this->request->get['address_id'])) {
+		if (!empty($address_info)) {
 			$data['default'] = $address_info['default'];
 		} else {
 			$data['default'] = true;
@@ -214,6 +206,23 @@ class Address extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
+		$required = [
+			'address_id'   => 0,
+			'firstname'    => '',
+			'lastname'     => '',
+			'company'      => '',
+			'address_1'    => '',
+			'address_2'    => '',
+			'city'         => '',
+			'postcode'     => '',
+			'country_id'   => 1,
+			'zone_id'      => 1,
+			'custom_field' => [],
+			'default'      => 0
+		];
+
+		$post_info = $this->request->post + $required;
+
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -223,36 +232,36 @@ class Address extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			if (!oc_validate_length($this->request->post['firstname'], 1, 32)) {
+			if (!oc_validate_length($post_info['firstname'], 1, 32)) {
 				$json['error']['address_firstname'] = $this->language->get('error_firstname');
 			}
 
-			if (!oc_validate_length($this->request->post['lastname'], 1, 32)) {
+			if (!oc_validate_length($post_info['lastname'], 1, 32)) {
 				$json['error']['address_lastname'] = $this->language->get('error_lastname');
 			}
 
-			if (!oc_validate_length($this->request->post['address_1'], 3, 128)) {
+			if (!oc_validate_length($post_info['address_1'], 3, 128)) {
 				$json['error']['address_address_1'] = $this->language->get('error_address_1');
 			}
 
-			if (!oc_validate_length($this->request->post['city'], 2, 128)) {
+			if (!oc_validate_length($post_info['city'], 2, 128)) {
 				$json['error']['address_city'] = $this->language->get('error_city');
 			}
 
 			// Country
 			$this->load->model('localisation/country');
 
-			$country_info = $this->model_localisation_country->getCountry((int)$this->request->post['country_id']);
+			$country_info = $this->model_localisation_country->getCountry((int)$post_info['country_id']);
 
-			if ($country_info && $country_info['postcode_required'] && !oc_validate_length($this->request->post['postcode'], 2, 10)) {
+			if ($country_info && $country_info['postcode_required'] && !oc_validate_length($post_info['postcode'], 2, 10)) {
 				$json['error']['address_postcode'] = $this->language->get('error_postcode');
 			}
 
-			if (!$country_info || $this->request->post['country_id'] == '') {
+			if (!$country_info || $post_info['country_id'] == '') {
 				$json['error']['address_country'] = $this->language->get('error_country');
 			}
 
-			if ($this->request->post['zone_id'] == '') {
+			if ($post_info['zone_id'] == '') {
 				$json['error']['address_zone'] = $this->language->get('error_zone');
 			}
 
@@ -267,9 +276,9 @@ class Address extends \Opencart\System\Engine\Controller {
 			$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
 			foreach ($custom_fields as $custom_field) {
-				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+				if ($custom_field['required'] && empty($post_info['custom_field'][$custom_field['custom_field_id']])) {
 					$json['error']['address_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif ($custom_field['type'] == 'text' && !empty($custom_field['validation']) && !oc_validate_regex($this->request->post['custom_field'][$custom_field['custom_field_id']], $custom_field['validation'])) {
+				} elseif ($custom_field['type'] == 'text' && !empty($custom_field['validation']) && !oc_validate_regex($post_info['custom_field'][$custom_field['custom_field_id']], $custom_field['validation'])) {
 					$json['error']['address_custom_field_' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 				}
 			}
@@ -278,10 +287,10 @@ class Address extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('customer/customer');
 
-			if (!$this->request->post['address_id']) {
-				$this->model_customer_customer->addAddress($customer_id, $this->request->post);
+			if (!$post_info['address_id']) {
+				$this->model_customer_customer->addAddress($customer_id, $post_info);
 			} else {
-				$this->model_customer_customer->editAddress($customer_id, $this->request->post['address_id'], $this->request->post);
+				$this->model_customer_customer->editAddress($customer_id, $post_info['address_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
