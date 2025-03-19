@@ -119,8 +119,8 @@ $_['entry_order_id']             = 'Номер заказа';
 $_['entry_total']                = 'Всего';
 $_['entry_date_from']            = 'Дата от';
 $_['entry_date_to']              = 'Дата до';
-$_['entry_date_modified_from']   = 'Modified Date From';
-$_['entry_date_modified_to']     = 'Modified Date To';
+$_['entry_date_modified_from']   = 'Дата изменения с';
+$_['entry_date_modified_to']     = 'Дата изменения до';
 
 // Help
 $_['help_override']              = 'Если в связи с расширением для борьбы с мошенничеством покупатель не сможет изменять статус заказа, то включите переопределение.';
