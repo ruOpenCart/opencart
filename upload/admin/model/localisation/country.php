@@ -20,11 +20,12 @@ class Country extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $country_data = [
-	 *     'iso_code_2'        => 'Country ISO Code 2',
-	 *     'iso_code_3'        => 'Country ISO Code 3',
-	 *     'address_format_id' => 1,
-	 *     'postcode_required' => 0,
-	 *     'status'            => 0
+	 *     'country_description' => [],
+	 *     'iso_code_2'          => 'Country ISO Code 2',
+	 *     'iso_code_3'          => 'Country ISO Code 3',
+	 *     'address_format_id'   => 1,
+	 *     'postcode_required'   => 0,
+	 *     'status'              => 0
 	 * ];
 	 *
 	 * $this->load->model('localisation/country');
@@ -58,11 +59,12 @@ class Country extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $country_data = [
-	 *     'iso_code_2'        => 'Country ISO Code 2',
-	 *     'iso_code_3'        => 'Country ISO Code 3',
-	 *     'address_format_id' => 1,
-	 *     'postcode_required' => 0,
-	 *     'status'            => 1
+	 *     'country_description' => [],
+	 *     'iso_code_2'          => 'Country ISO Code 2',
+	 *     'iso_code_3'          => 'Country ISO Code 3',
+	 *     'address_format_id'   => 1,
+	 *     'postcode_required'   => 0,
+	 *     'status'              => 1
 	 * ];
 	 *
 	 * $this->load->model('localisation/country');
@@ -120,7 +122,7 @@ class Country extends \Opencart\System\Engine\Model {
 	 * $country_info = $this->model_localisation_country->getCountry($country_id);
 	 */
 	public function getCountry(int $country_id): array {
-		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "'");
+		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "country` `c` LEFT JOIN `" . DB_PREFIX . "country_description` `cd` ON (`c`.`country_id` = `cd`.`country_id`) WHERE `c`.`country_id` = '" . (int)$country_id . "' AND `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}

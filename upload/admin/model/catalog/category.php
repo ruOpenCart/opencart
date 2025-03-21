@@ -20,12 +20,13 @@ class Category extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $category_data = [
-	 *     'image'         => 'category_image',
-	 *     'parent_id'     => 0,
-	 *     'sort_order'    => 0,
-	 *     'status'        => 0,
-	 *     'date_added'    => '2021-01-01',
-	 *     'date_modified' => '2021-01-31'
+	 *     'category_description' => [],
+	 *     'image'                => 'category_image',
+	 *     'parent_id'            => 0,
+	 *     'sort_order'           => 0,
+	 *     'status'               => 0,
+	 *     'date_added'           => '2021-01-01',
+	 *     'date_modified'        => '2021-01-31'
 	 * ];
 	 *
 	 * $this->load->model('catalog/category');
@@ -33,7 +34,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * $category_id = $this->model_catalog_category->addCategory($category_data);
 	 */
 	public function addCategory(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW(), `date_added` = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "'");
 
 		$category_id = $this->db->getLastId();
 
@@ -114,11 +115,12 @@ class Category extends \Opencart\System\Engine\Model {
 	 * @example
 	 *
 	 * $category_data = [
-	 *     'image'         => 'category_image',
-	 *     'parent_id'     => 0,
-	 *     'sort_order'    => 0,
-	 *     'status'        => 1,
-	 *     'date_modified' => '2021-01-01'
+	 *     'category_description' => [],
+	 *     'image'                => 'category_image',
+	 *     'parent_id'            => 0,
+	 *     'sort_order'           => 0,
+	 *     'status'               => 1,
+	 *     'date_modified'        => '2021-01-01'
 	 * ];
 	 *
 	 * $this->load->model('catalog/category');
@@ -126,7 +128,7 @@ class Category extends \Opencart\System\Engine\Model {
 	 * $this->model_catalog_category->editCategory($category_id, $category_data);
 	 */
 	public function editCategory(int $category_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "', `date_modified` = NOW() WHERE `category_id` = '" . (int)$category_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "category` SET `image` = '" . $this->db->escape((string)$data['image']) . "', `parent_id` = '" . (int)$data['parent_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (bool)($data['status'] ?? 0) . "' WHERE `category_id` = '" . (int)$category_id . "'");
 
 		$this->model_catalog_category->deleteDescriptions($category_id);
 

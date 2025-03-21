@@ -671,21 +671,21 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		 $required = [
-		     'store_id'          => 0,
-		     'language_id'       => 0,
-		     'customer_group_id' => 0,
-		     'firstname'         => '',
-		     'lastname'          => '',
-		     'email'             => '',
-		     'telephone'         => '',
-		     'custom_field'      => [],
-		     'newsletter'        => 0,
-		     'password'          => '',
-		     'status'            => 0,
-		     'safe'              => 0,
-		     'commenter'         => 0
-		 ];
+		$required = [
+			'store_id'          => 0,
+			'language_id'       => 0,
+			'customer_group_id' => 0,
+			'firstname'         => '',
+			'lastname'          => '',
+			'email'             => '',
+			'telephone'         => '',
+			'custom_field'      => [],
+			'newsletter'        => 0,
+			'password'          => '',
+			'status'            => 0,
+			'safe'              => 0,
+			'commenter'         => 0
+		];
 
 		$post_info = $this->request->post + $required;
 
@@ -1078,7 +1078,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$this->model_customer_customer->addHistory($customer_id, $this->request->post['comment']);
+			$this->model_customer_customer->addHistory($customer_id, isset($this->request->post['comment']) ? (string)$this->request->post['comment'] : '');
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -1271,6 +1271,13 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		$required = [
+			'description' => '',
+			'points'      => 0,
+		];
+
+		$post_info = $this->request->post + $required;
+
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -1282,7 +1289,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$this->load->model('customer/customer');
 
-			$this->model_customer_customer->addReward($customer_id, (string)$this->request->post['description'], (int)$this->request->post['points']);
+			$this->model_customer_customer->addReward($customer_id, (string)$post_info['description'], (int)$post_info['points']);
 
 			$json['success'] = $this->language->get('text_success');
 		}
