@@ -23,6 +23,7 @@ $_['column_status']            = 'Статус';
 $_['column_ip']                = 'IP-адрес';
 $_['column_user_agent']        = 'Пользовательский Агент';
 $_['column_date_added']        = 'Дата добавления';
+$_['column_date_expire']       = 'Date Expire';
 $_['column_action']            = 'Действие';
 
 // Entry
