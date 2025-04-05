@@ -69,6 +69,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('dashboard_order', $this->request->post);
@@ -101,6 +102,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['percentage'] = 0;
 		}
 
+		// Total Orders
 		$order_total = $this->model_sale_order->getTotalOrders();
 
 		if ($order_total > 1000000000000) {

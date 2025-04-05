@@ -107,7 +107,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('user/user_permission.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// User Group
+		// User Groups
 		$data['user_groups'] = [];
 
 		$filter_data = [
@@ -133,6 +133,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sort
 		$data['sort_name'] = $this->url->link('user/user_permission.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 
 		$url = '';
@@ -145,8 +146,10 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total User Groups
 		$user_group_total = $this->model_user_user_group->getTotalUserGroups();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $user_group_total,
 			'page'  => $page,
@@ -203,10 +206,11 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('user/user_permission.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// User Group
 		if (isset($this->request->get['user_group_id'])) {
 			$this->load->model('user/user_group');
 
-			$user_group_info = $this->model_user_user_group->getUserGroup($this->request->get['user_group_id']);
+			$user_group_info = $this->model_user_user_group->getUserGroup((int)$this->request->get['user_group_id']);
 		}
 
 		if (!empty($user_group_info)) {
@@ -295,7 +299,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		$data['extensions'] = [];
 
 		// Extension permissions
-		$results = glob(DIR_EXTENSION . '*/admin/controller/*/*.php');
+		$results = glob(DIR_EXTENSION . '*/admin/controller/{,*/,*/*/,*/*/*/}*.php', GLOB_BRACE);
 
 		foreach ($results as $result) {
 			$path = substr($result, strlen(DIR_EXTENSION));
@@ -352,12 +356,13 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// User Group
 			$this->load->model('user/user_group');
 
 			if (!$post_info['user_group_id']) {
 				$json['user_group_id'] = $this->model_user_user_group->addUserGroup($post_info);
 			} else {
-				$this->model_user_user_group->editUserGroup($post_info['user_group_id'], $post_info);
+				$this->model_user_user_group->editUserGroup((int)$post_info['user_group_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -390,6 +395,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		$this->load->model('user/user');
 
 		foreach ($selected as $user_group_id) {
+			// Total Users
 			$user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 
 			if ($user_total) {
@@ -398,6 +404,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// User Group
 			$this->load->model('user/user_group');
 
 			foreach ($selected as $user_group_id) {

@@ -5084,30 +5084,6 @@ function oc_db_schema() {
 				'type' => 'varchar(64)'
 			],
 			[
-				'name' => 'sku',
-				'type' => 'varchar(64)'
-			],
-			[
-				'name' => 'upc',
-				'type' => 'varchar(12)'
-			],
-			[
-				'name' => 'ean',
-				'type' => 'varchar(14)'
-			],
-			[
-				'name' => 'jan',
-				'type' => 'varchar(13)'
-			],
-			[
-				'name' => 'isbn',
-				'type' => 'varchar(17)'
-			],
-			[
-				'name' => 'mpn',
-				'type' => 'varchar(64)'
-			],
-			[
 				'name' => 'location',
 				'type' => 'varchar(128)'
 			],
@@ -6566,6 +6542,49 @@ function oc_db_schema() {
 				'table' => 'store',
 				'field' => 'store_id'
 			]
+		],
+		'engine'  => 'InnoDB',
+		'charset' => 'utf8mb4',
+		'collate' => 'utf8mb4_unicode_ci'
+	];
+
+	$tables[] = [
+		'name'  => 'ssr',
+		'field' => [
+			[
+				'name'           => 'ssr_id',
+				'type'           => 'int(11)',
+				'auto_increment' => true
+			],
+			[
+				'name' => 'code',
+				'type' => 'varchar(128)'
+			],
+			[
+				'name' => 'description',
+				'type' => 'text'
+			],
+			[
+				'name' => 'action',
+				'type' => 'text'
+			],
+			[
+				'name'    => 'status',
+				'type'    => 'tinyint(1)',
+				'default' => '0'
+			],
+			[
+				'name'    => 'sort_order',
+				'type'    => 'int(3)',
+				'default' => '0'
+			],
+			[
+				'name' => 'date_modified',
+				'type' => 'datetime'
+			]
+		],
+		'primary' => [
+			'ssr_id'
 		],
 		'engine'  => 'InnoDB',
 		'charset' => 'utf8mb4',

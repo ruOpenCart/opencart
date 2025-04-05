@@ -47,7 +47,7 @@ class Reward extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
-		// Reward
+		// Rewards
 		$data['rewards'] = [];
 
 		$filter_data = [
@@ -68,8 +68,10 @@ class Reward extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Rewards
 		$reward_total = $this->model_account_reward->getTotalRewards($this->customer->getId());
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $reward_total,
 			'page'  => $page,

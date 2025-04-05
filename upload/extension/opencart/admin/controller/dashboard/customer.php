@@ -69,6 +69,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('dashboard_customer', $this->request->post);
@@ -103,6 +104,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$data['percentage'] = 0;
 		}
 
+		// Total Customers
 		$customer_total = $this->model_customer_customer->getTotalCustomers();
 
 		if ($customer_total > 1000000000000) {

@@ -37,6 +37,7 @@ class Address extends \Opencart\System\Engine\Controller {
 
 		$data['addresses'] = [];
 
+		// Addresses
 		$this->load->model('customer/customer');
 
 		$results = $this->model_customer_customer->getAddresses($customer_id);
@@ -80,6 +81,7 @@ class Address extends \Opencart\System\Engine\Controller {
 		$data['action'] = $this->url->link('customer/address', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id);
 		$data['upload'] = $this->url->link('tool/upload.upload', 'user_token=' . $this->session->data['user_token']);
 
+		// Customer
 		if (isset($this->request->get['address_id'])) {
 			$this->load->model('customer/customer');
 
@@ -146,7 +148,7 @@ class Address extends \Opencart\System\Engine\Controller {
 			$data['zone_id'] = '';
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
@@ -223,6 +225,7 @@ class Address extends \Opencart\System\Engine\Controller {
 
 		$post_info = $this->request->post + $required;
 
+		// Customer
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -261,14 +264,17 @@ class Address extends \Opencart\System\Engine\Controller {
 				$json['error']['address_country'] = $this->language->get('error_country');
 			}
 
+			// Zones
 			$this->load->model('localisation/zone');
 
+			// Total Zones
 			$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId((int)$post_info['country_id']);
 
 			if ($zone_total && !$post_info['zone_id']) {
 				$json['error']['address_zone'] = $this->language->get('error_zone');
 			}
 
+			// Custom Fields
 			$filter_data = [
 				'filter_location'          => 'address',
 				'filter_customer_group_id' => $customer_info['customer_group_id'],
@@ -289,6 +295,7 @@ class Address extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer
 			$this->load->model('customer/customer');
 
 			if (!$post_info['address_id']) {
@@ -324,6 +331,7 @@ class Address extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Customer
 		$this->load->model('customer/customer');
 
 		$address_info = $this->model_customer_customer->getAddress($address_id);
@@ -358,6 +366,7 @@ class Address extends \Opencart\System\Engine\Controller {
 			$address_id = 0;
 		}
 
+		// Customer
 		$this->load->model('customer/customer');
 
 		$address_info = $this->model_customer_customer->getAddress($address_id);

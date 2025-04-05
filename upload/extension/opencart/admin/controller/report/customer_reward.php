@@ -61,6 +61,7 @@ class CustomerReward extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_customer_reward', $this->request->post);
@@ -128,7 +129,7 @@ class CustomerReward extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		// Customer
+		// Customers
 		$data['customers'] = [];
 
 		$filter_data = [
@@ -139,8 +140,10 @@ class CustomerReward extends \Opencart\System\Engine\Controller {
 			'limit'             => $this->config->get('config_pagination')
 		];
 
+		// Extension
 		$this->load->model('extension/opencart/report/customer');
 
+		// Total Customers
 		$customer_total = $this->model_extension_opencart_report_customer->getTotalRewardPoints($filter_data);
 
 		$results = $this->model_extension_opencart_report_customer->getRewardPoints($filter_data);
@@ -172,6 +175,7 @@ class CustomerReward extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_customer=' . urlencode($this->request->get['filter_customer']);
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $customer_total,
 			'page'  => $page,

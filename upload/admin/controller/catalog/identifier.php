@@ -1,7 +1,7 @@
 <?php
 namespace Opencart\Admin\Controller\Catalog;
 /**
- * Class Country
+ * Class Identifier
  *
  * @package Opencart\Admin\Controller\Catalog
  */
@@ -79,7 +79,7 @@ class Identifier extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/identifier.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Country
+		// Identifiers
 		$data['identifiers'] = [];
 
 		$filter_data = [
@@ -97,6 +97,7 @@ class Identifier extends \Opencart\System\Engine\Controller {
 
 		$url = '';
 
+		// Total Identifiers
 		$identifier_total = $this->model_catalog_identifier->getTotalIdentifiers($filter_data);
 
 		$data['pagination'] = $this->load->controller('common/pagination', [
@@ -144,6 +145,7 @@ class Identifier extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/identifier.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/identifier', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Identifier
 		if (isset($this->request->get['identifier_id'])) {
 			$this->load->model('catalog/identifier');
 
@@ -217,11 +219,12 @@ class Identifier extends \Opencart\System\Engine\Controller {
 			$json['error']['code'] = $this->language->get('error_code');
 		}
 
+		// Identifier
 		$this->load->model('catalog/identifier');
 
 		$identifier_info = $this->model_catalog_identifier->getIdentifierByCode($post_info['code']);
 
-		if ($identifier_info && !ísset($post_info['identifier_id']) || ($identifier_info['identifier_id'] != $post_info['identifier_id'])) {
+		if ($identifier_info && (!$post_info['identifier_id'] || ($identifier_info['identifier_id'] != $post_info['identifier_id']))) {
 			$json['error']['code'] = $this->language->get('error_exists');
 		}
 
@@ -260,6 +263,7 @@ class Identifier extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Identifier
 			$this->load->model('catalog/identifier');
 
 			foreach ($selected as $identifier_id) {

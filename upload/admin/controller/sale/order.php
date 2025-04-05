@@ -159,7 +159,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getList();
 
-		// Store
+		// Stores
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -175,6 +175,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['stores'][] = $result;
 		}
 
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -361,7 +362,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('sale/order.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Order
+		// Orders
 		$data['orders'] = [];
 
 		$filter_data = [
@@ -455,6 +456,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_order'] = $this->url->link('sale/order.list', 'user_token=' . $this->session->data['user_token'] . '&sort=o.order_id' . $url);
 		$data['sort_store_name'] = $this->url->link('sale/order.list', 'user_token=' . $this->session->data['user_token'] . '&sort=o.store_name' . $url);
 		$data['sort_customer'] = $this->url->link('sale/order.list', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url);
@@ -517,8 +519,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Orders
 		$order_total = $this->model_sale_order->getTotalOrders($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $order_total,
 			'page'  => $page,
@@ -627,6 +631,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		$data['upload'] = $this->url->link('tool/upload.upload', 'user_token=' . $this->session->data['user_token']);
 		$data['customer_add'] = $this->url->link('customer/customer.form', 'user_token=' . $this->session->data['user_token']);
 
+		// Order
 		if ($order_id) {
 			$this->load->model('sale/order');
 
@@ -719,7 +724,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['custom_fields'][] = ['custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id'])] + $custom_field;
 		}
 
-		// Store
+		// Stores
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -741,7 +746,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['store_id'] = (int)$this->config->get('config_store_id');
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -752,7 +757,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['language_code'] = $this->config->get('config_language');
 		}
 
-		// Currency
+		// Currencies
 		$this->load->model('localisation/currency');
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
@@ -857,7 +862,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['order_totals'][] = ['text' => $this->currency->format($total['value'], $data['currency_code'], $currency_value)] + $total;
 		}
 
-		// Addresses
+		// Customers
 		if (!empty($order_info)) {
 			$this->load->model('customer/customer');
 
@@ -897,12 +902,12 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['payment_custom_field'] = [];
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
-		// Zone
+		// Zones
 		$this->load->model('localisation/zone');
 
 		$data['payment_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['payment_country_id']);
@@ -953,7 +958,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$data['shipping_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['shipping_country_id']);
 		}
 
-		// Shipping method
+		// Shipping Method
 		if (!empty($order_info['shipping_method'])) {
 			$data['shipping_method_name'] = $order_info['shipping_method']['name'];
 			$data['shipping_method_code'] = $order_info['shipping_method']['code'];
@@ -1043,7 +1048,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Order Status
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -1234,6 +1239,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Api
 		$this->load->model('user/api');
 
 		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
@@ -1275,7 +1281,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			// 7. Clean up data by clearing cart.
 			$store->cart->clear();
 
-			// 8. Deleting the current session so we are not creating infinite sessions.
+			// 8. Deleting the current session, so we are not creating infinite sessions.
 			$store->session->destroy();
 		} else {
 			$output = json_encode($json);
@@ -1306,6 +1312,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Order
 			$this->load->model('sale/order');
 
 			foreach ($selected as $order_id) {
@@ -1786,6 +1793,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
+		// Histories
 		$data['histories'] = [];
 
 		$this->load->model('sale/order');
@@ -1800,8 +1808,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Histories
 		$history_total = $this->model_sale_order->getTotalHistories($order_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,
@@ -1834,6 +1844,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Order
 		$this->load->model('sale/order');
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
@@ -1849,6 +1860,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$json['success'] = $this->language->get('text_success');
 
+			// Order
 			$this->load->model('sale/order');
 
 			$json['invoice_no'] = $this->model_sale_order->createInvoiceNo($order_id);
@@ -1878,6 +1890,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Order
 		$this->load->model('sale/order');
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
@@ -1890,8 +1903,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_order');
 		}
 
+		// Customer
 		$this->load->model('customer/customer');
 
+		// Total Rewards
 		$reward_total = $this->model_customer_customer->getTotalRewardsByOrderId($order_id);
 
 		if ($reward_total) {
@@ -1928,6 +1943,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Order
 		$this->load->model('sale/order');
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
@@ -1937,6 +1953,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer
 			$this->load->model('customer/customer');
 
 			$this->model_customer_customer->deleteRewardsByOrderId($order_id);
@@ -1968,11 +1985,13 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Order
 		$this->load->model('sale/order');
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
 
 		if ($order_info) {
+			// Customer
 			$this->load->model('customer/customer');
 
 			$customer_info = $this->model_customer_customer->getCustomer($order_info['affiliate_id']);
@@ -1981,6 +2000,7 @@ class Order extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_affiliate');
 			}
 
+			// Total Transactions
 			$affiliate_total = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
 
 			if ($affiliate_total) {
@@ -2020,6 +2040,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Order
 		$this->load->model('sale/order');
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
@@ -2029,6 +2050,7 @@ class Order extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer
 			$this->load->model('customer/customer');
 
 			$this->model_customer_customer->deleteTransactionsByOrderId($order_id);
@@ -2050,6 +2072,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$json = [];
 
+		// Order
 		if (isset($this->request->get['order_id'])) {
 			$order_id = (int)$this->request->get['order_id'];
 		} else {

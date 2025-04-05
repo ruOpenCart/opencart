@@ -48,6 +48,7 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module');
 
+		// Extension
 		if (isset($this->request->get['module_id'])) {
 			$this->load->model('setting/module');
 
@@ -143,6 +144,7 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/module');
 
 			if (!$post_info['module_id']) {
@@ -167,6 +169,7 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 	 */
 	public function install(): void {
 		if ($this->user->hasPermission('modify', 'extension/opencart/module/bestseller')) {
+			// Extension
 			$this->load->model('extension/opencart/module/bestseller');
 
 			$this->model_extension_opencart_module_bestseller->install();
@@ -180,6 +183,7 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 	 */
 	public function uninstall(): void {
 		if ($this->user->hasPermission('modify', 'extension/opencart/module/bestseller')) {
+			// Extension
 			$this->load->model('extension/opencart/module/bestseller');
 
 			$this->model_extension_opencart_module_bestseller->uninstall();
@@ -211,9 +215,10 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
+		// Reports
 		$data['reports'] = [];
 
-		// Bestseller
+		// Extension
 		$this->load->model('extension/opencart/module/bestseller');
 
 		// Product
@@ -237,8 +242,10 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 			];
 		}
 
+		// Total Reports
 		$report_total = $this->model_extension_opencart_module_bestseller->getTotalReports();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $report_total,
 			'page'  => $page,
@@ -295,6 +302,7 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 			$results = $this->model_catalog_product->getProducts($product_data);
 
 			foreach ($results as $result) {
+				// Total Products
 				$product_total = $this->model_sale_order->getTotalProductsByProductId($result['product_id']);
 
 				if ($product_total) {

@@ -79,7 +79,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/address_format.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Address Format
+		// Address Formats
 		$data['address_formats'] = [];
 
 		$filter_data = [
@@ -99,8 +99,10 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Address Formats
 		$address_format_total = $this->model_localisation_address_format->getTotalAddressFormats($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $address_format_total,
 			'page'  => $page,
@@ -146,6 +148,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/address_format.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Address Format
 		if (isset($this->request->get['address_format_id'])) {
 			$this->load->model('localisation/address_format');
 
@@ -204,6 +207,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Address Format
 			$this->load->model('localisation/address_format');
 
 			if (!$post_info['address_format_id']) {
@@ -239,7 +243,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		foreach ($selected as $address_format_id) {
@@ -247,6 +251,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Countries
 			$country_total = $this->model_localisation_country->getTotalCountriesByAddressFormatId($address_format_id);
 
 			if ($country_total) {
@@ -255,6 +260,7 @@ class AddressFormat extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Address Format
 			$this->load->model('localisation/address_format');
 
 			foreach ($selected as $address_format_id) {

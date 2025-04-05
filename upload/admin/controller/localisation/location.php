@@ -107,7 +107,7 @@ class Location extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/location.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Location
+		// Locations
 		$data['locations'] = [];
 
 		$filter_data = [
@@ -133,6 +133,7 @@ class Location extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('localisation/location.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_address'] = $this->url->link('localisation/location.list', 'user_token=' . $this->session->data['user_token'] . '&sort=address' . $url);
 
@@ -146,8 +147,10 @@ class Location extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Locations
 		$location_total = $this->model_localisation_location->getTotalLocations();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $location_total,
 			'page'  => $page,
@@ -204,6 +207,7 @@ class Location extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/location.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Location
 		if (isset($this->request->get['location_id'])) {
 			$this->load->model('localisation/location');
 
@@ -240,13 +244,13 @@ class Location extends \Opencart\System\Engine\Controller {
 			$data['telephone'] = '';
 		}
 
+		// Image
 		if (!empty($location_info)) {
 			$data['image'] = $location_info['image'];
 		} else {
 			$data['image'] = '';
 		}
 
-		// Image
 		$this->load->model('tool/image');
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_default_width'), $this->config->get('config_image_default_height'));
@@ -318,6 +322,7 @@ class Location extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Location
 			$this->load->model('localisation/location');
 
 			if (!$post_info['location_id']) {
@@ -354,6 +359,7 @@ class Location extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Location
 			$this->load->model('localisation/location');
 
 			foreach ($selected as $location_id) {

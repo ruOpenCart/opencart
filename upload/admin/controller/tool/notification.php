@@ -68,7 +68,7 @@ class Notification extends \Opencart\System\Engine\Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		// Notification
+		// Notifications
 		$data['notifications'] = [];
 
 		$filter_data = [
@@ -110,8 +110,10 @@ class Notification extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Notifications
 		$notification_total = $this->model_tool_notification->getTotalNotifications();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $notification_total,
 			'page'  => $page,
@@ -130,6 +132,7 @@ class Notification extends \Opencart\System\Engine\Controller {
 	 * @return void
 	 */
 	public function info(): void {
+		// Notification
 		if (isset($this->request->get['notification_id'])) {
 			$notification_id = $this->request->get['notification_id'];
 		} else {
@@ -174,6 +177,7 @@ class Notification extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Notification
 			$this->load->model('tool/notification');
 
 			foreach ($selected as $notification_id) {

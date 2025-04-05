@@ -107,7 +107,7 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/return_reason.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Return Reason
+		// Return Reasons
 		$data['return_reasons'] = [];
 
 		$filter_data = [
@@ -133,6 +133,7 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sort
 		$data['sort_name'] = $this->url->link('localisation/return_reason.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 
 		$url = '';
@@ -145,8 +146,10 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Return Reasons
 		$return_reason_total = $this->model_localisation_return_reason->getTotalReturnReasons();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $return_reason_total,
 			'page'  => $page,
@@ -203,13 +206,14 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/return_reason.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/return_reason', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Return Reason
 		if (isset($this->request->get['return_reason_id'])) {
 			$data['return_reason_id'] = (int)$this->request->get['return_reason_id'];
 		} else {
 			$data['return_reason_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -257,6 +261,7 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Return Reason
 			$this->load->model('localisation/return_reason');
 
 			if (!$post_info['return_reason_id']) {
@@ -292,8 +297,10 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Returns
 		$this->load->model('sale/returns');
 
+		// Total Returns
 		foreach ($selected as $return_reason_id) {
 			$return_total = $this->model_sale_returns->getTotalReturnsByReturnReasonId($return_reason_id);
 
@@ -303,6 +310,7 @@ class ReturnReason extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Return Reason
 			$this->load->model('localisation/return_reason');
 
 			foreach ($selected as $return_reason_id) {

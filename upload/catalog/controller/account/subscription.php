@@ -55,7 +55,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['subscriptions'] = [];
 
-		// Subscription
+		// Subscriptions
 		$this->load->model('account/subscription');
 
 		// Currency
@@ -106,8 +106,10 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Subscriptions
 		$subscription_total = $this->model_account_subscription->getTotalSubscriptions();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,
@@ -149,6 +151,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language'), true));
 		}
 
+		// Subcription
 		$this->load->model('account/subscription');
 
 		$subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
@@ -313,7 +316,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 				$data['payment_method'] = '';
 			}
 
-			// Product
+			// Products
 			$data['products'] = [];
 
 			$this->load->model('catalog/product');
@@ -436,6 +439,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Subscription
 			$this->load->model('account/subscription');
 
 			$subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
@@ -456,6 +460,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Subscription
 			$this->load->model('checkout/subscription');
 
 			$this->model_checkout_subscription->addHistory($subscription_id, (int)$this->config->get('config_subscription_canceled_status_id'));
@@ -508,6 +513,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			return '';
 		}
 
+		// Histories
 		$data['histories'] = [];
 
 		$this->load->model('account/subscription');
@@ -521,8 +527,10 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Histories
 		$subscription_total = $this->model_account_subscription->getTotalHistories($subscription_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,
@@ -576,7 +584,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
-		// Order
+		// Orders
 		$data['orders'] = [];
 
 		$this->load->model('account/order');
@@ -591,8 +599,10 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Orders
 		$order_total = $this->model_account_order->getTotalOrdersBySubscriptionId($subscription_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $order_total,
 			'page'  => $page,

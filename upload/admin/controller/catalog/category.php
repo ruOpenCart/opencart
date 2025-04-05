@@ -168,6 +168,7 @@ class Category extends \Opencart\System\Engine\Controller {
 		// Image
 		$this->load->model('tool/image');
 
+		// Categories
 		$this->load->model('catalog/category');
 
 		$results = $this->model_catalog_category->getCategories($filter_data);
@@ -191,6 +192,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('catalog/category.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_sort_order'] = $this->url->link('catalog/category.list', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url);
 
@@ -212,8 +214,10 @@ class Category extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Categories
 		$category_total = $this->model_catalog_category->getTotalCategories($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $category_total,
 			'page'  => $page,
@@ -281,6 +285,7 @@ class Category extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/category.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Category
 		if (isset($this->request->get['category_id'])) {
 			$this->load->model('catalog/category');
 
@@ -293,7 +298,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			$data['category_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -338,7 +343,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Store
+		// Stores
 		$data['stores'] = [];
 
 		$data['stores'][] = [
@@ -389,6 +394,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			$data['status'] = true;
 		}
 
+		// SEO
 		$data['category_seo_url'] = [];
 
 		if (!empty($category_info)) {
@@ -409,7 +415,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Layout
+		// Layouts
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -478,6 +484,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		// SEO
 		if ($post_info['category_seo_url']) {
 			$this->load->model('design/seo_url');
 
@@ -533,6 +540,7 @@ class Category extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Categories
 			$this->load->model('catalog/category');
 
 			$this->model_catalog_category->repairCategories();
@@ -565,11 +573,45 @@ class Category extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Category
 			$this->load->model('catalog/category');
 
 			foreach ($selected as $category_id) {
 				$this->model_catalog_category->deleteCategory($category_id);
 			}
+
+			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Status
+	 *
+	 * @return void
+	 */
+	public function status(): void {
+		$this->load->language('catalog/category');
+
+		$json = [];
+
+		if (isset($this->request->get['category_id'])) {
+			$category_id = (int)$this->request->get['category_id'];
+		} else {
+			$category_id = 0;
+		}
+
+		if (!$this->user->hasPermission('modify', 'catalog/category')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
+
+		if (!$json) {
+			// Modification
+			$this->load->model('catalog/category');
+
+			$this->model_setting_modification->editStatus($category_id, true);
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -586,6 +628,7 @@ class Category extends \Opencart\System\Engine\Controller {
 	public function autocomplete(): void {
 		$json = [];
 
+		// Categories
 		if (isset($this->request->get['filter_name'])) {
 			$this->load->model('catalog/category');
 

@@ -159,7 +159,7 @@ class Country extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/country.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Country
+		// Countries
 		$data['countries'] = [];
 
 		$filter_data = [
@@ -203,6 +203,7 @@ class Country extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('localisation/country.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_iso_code_2'] = $this->url->link('localisation/country.list', 'user_token=' . $this->session->data['user_token'] . '&sort=iso_code_2' . $url);
 		$data['sort_iso_code_3'] = $this->url->link('localisation/country.list', 'user_token=' . $this->session->data['user_token'] . '&sort=iso_code_3' . $url);
@@ -229,8 +230,10 @@ class Country extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Countries
 		$country_total = $this->model_localisation_country->getTotalCountries($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $country_total,
 			'page'  => $page,
@@ -299,6 +302,7 @@ class Country extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/country.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Country
 		if (isset($this->request->get['country_id'])) {
 			$this->load->model('localisation/country');
 
@@ -311,7 +315,7 @@ class Country extends \Opencart\System\Engine\Controller {
 			$data['country_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -334,7 +338,7 @@ class Country extends \Opencart\System\Engine\Controller {
 			$data['iso_code_3'] = '';
 		}
 
-		// Address Format
+		// Address Formats
 		$this->load->model('localisation/address_format');
 
 		$data['address_formats'] = $this->model_localisation_address_format->getAddressFormats();
@@ -402,6 +406,7 @@ class Country extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Country
 			$this->load->model('localisation/country');
 
 			if (!$post_info['country_id']) {
@@ -437,16 +442,16 @@ class Country extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
 		// Customer
 		$this->load->model('customer/customer');
 
-		// Zone
+		// Zones
 		$this->load->model('localisation/zone');
 
-		// Geo Zone
+		// Geo Zones
 		$this->load->model('localisation/geo_zone');
 
 		foreach ($selected as $country_id) {
@@ -460,18 +465,21 @@ class Country extends \Opencart\System\Engine\Controller {
 				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
+			// Total Customers
 			$address_total = $this->model_customer_customer->getTotalAddressesByCountryId($country_id);
 
 			if ($address_total) {
 				$json['error'] = sprintf($this->language->get('error_address'), $address_total);
 			}
 
+			// Total Zones
 			$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId($country_id);
 
 			if ($zone_total) {
 				$json['error'] = sprintf($this->language->get('error_zone'), $zone_total);
 			}
 
+			// Total Geo Zones
 			$zone_to_geo_zone_total = $this->model_localisation_geo_zone->getTotalZoneToGeoZoneByCountryId($country_id);
 
 			if ($zone_to_geo_zone_total) {
@@ -483,28 +491,8 @@ class Country extends \Opencart\System\Engine\Controller {
 			// Country
 			$this->load->model('localisation/country');
 
-			// Language
-			$this->load->model('localisation/language');
-
 			foreach ($selected as $country_id) {
-				$country_description = $this->model_localisation_country->getDescriptions($country_id);
-
-				$count = 0;
-
-				foreach ($country_description as $language_id => $value) {
-					$language_info = $this->model_localisation_language->getLanguage($language_id);
-
-					// Keeps the default country
-					if ($language_info && $language_info['code'] != 'en-gb') {
-						$this->model_localisation_country->deleteDescriptionsByLanguageId($country_id, $language_id);
-					} else {
-						$count++;
-					}
-				}
-
-				if (!$count) {
-					$this->model_localisation_country->deleteCountry($country_id);
-				}
+				$this->model_localisation_country->deleteCountry($country_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -528,11 +516,13 @@ class Country extends \Opencart\System\Engine\Controller {
 			$country_id = 0;
 		}
 
+		// Country
 		$this->load->model('localisation/country');
 
 		$country_info = $this->model_localisation_country->getCountry($country_id);
 
 		if ($country_info) {
+			// Zones
 			$this->load->model('localisation/zone');
 
 			$json = ['zone' => $this->model_localisation_zone->getZonesByCountryId($country_id)] + $country_info;

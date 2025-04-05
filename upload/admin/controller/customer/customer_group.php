@@ -107,7 +107,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Customer Group
+		// Customer Groups
 		$data['customer_groups'] = [];
 
 		$filter_data = [
@@ -136,6 +136,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cgd.name' . $url);
 		$data['sort_sort_order'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cg.sort_order' . $url);
 
@@ -149,8 +150,10 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Customer Groups
 		$customer_group_total = $this->model_customer_customer_group->getTotalCustomerGroups();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $customer_group_total,
 			'page'  => $page,
@@ -207,6 +210,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('customer/customer_group.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Customer Group
 		if (isset($this->request->get['customer_group_id'])) {
 			$this->load->model('customer/customer_group');
 
@@ -219,7 +223,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$data['customer_group_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -278,6 +282,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer Group
 			$this->load->model('customer/customer_group');
 
 			if (!$post_info['customer_group_id']) {
@@ -313,7 +318,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
 		// Customer
@@ -330,6 +335,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
+			// Total Customers
 			$customer_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
 
 			if ($customer_total) {
@@ -338,6 +344,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer Group
 			$this->load->model('customer/customer_group');
 
 			foreach ($selected as $customer_group_id) {

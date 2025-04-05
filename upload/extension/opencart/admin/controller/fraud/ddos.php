@@ -41,6 +41,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('extension/opencart/fraud/ddos.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud');
 
+		// Order Status
 		$this->load->model('localisation/order_status');
 
 		$data['fraud_ddos_status'] = $this->config->get('fraud_ddos_status');
@@ -69,6 +70,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('fraud_ddos', $this->request->post);
@@ -87,6 +89,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 	 */
 	public function install(): void {
 		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ddos');
 
 			$this->model_extension_opencart_fraud_ddos->install();
@@ -100,6 +103,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 	 */
 	public function uninstall(): void {
 		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ddos');
 
 			$this->model_extension_opencart_fraud_ddos->uninstall();
@@ -124,6 +128,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 
 		$data['ips'] = [];
 
+		// Extension
 		$this->load->model('extension/opencart/fraud/ddos');
 
 		// Customer
@@ -142,6 +147,7 @@ class Ddos extends \Opencart\System\Engine\Controller {
 
 		$ip_total = $this->model_extension_opencart_fraud_ddos->getTotalDdos();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $ip_total,
 			'page'  => $page,

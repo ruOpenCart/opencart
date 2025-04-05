@@ -23,8 +23,6 @@ class Article extends \Opencart\System\Engine\Model {
 	 *     'article_description' => [],
 	 *     'author'              => 'Author Name',
 	 *     'status'              => 0,
-	 *     'date_added'          => '2021-01-01',
-	 *     'date_modified'       => '2021-01-31'
 	 * ];
 	 *
 	 * $this->load->model('cms/article');
@@ -48,7 +46,7 @@ class Article extends \Opencart\System\Engine\Model {
 			}
 		}
 
-		// SEO URL
+		// SEO
 		$this->load->model('design/seo_url');
 
 		foreach ($data['article_seo_url'] as $store_id => $language) {
@@ -87,8 +85,6 @@ class Article extends \Opencart\System\Engine\Model {
 	 *     'article_description' => [],
 	 *     'author'              => 'Author Name',
 	 *     'status'              => 1,
-	 *     'date_added'          => '2021-01-01',
-	 *     'date_modified'       => '2021-01-31'
 	 * ];
 	 *
 	 * $this->load->model('cms/article');
@@ -114,7 +110,7 @@ class Article extends \Opencart\System\Engine\Model {
 			}
 		}
 
-		// SEO URL
+		// SEO
 		$this->load->model('design/seo_url');
 
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('article_id', $article_id);
@@ -181,7 +177,7 @@ class Article extends \Opencart\System\Engine\Model {
 		$this->model_cms_article->deleteStores($article_id);
 		$this->model_cms_article->deleteCommentsByArticleId($article_id);
 
-		// SEO URL
+		// SEO
 		$this->load->model('design/seo_url');
 
 		$this->model_design_seo_url->deleteSeoUrlsByKeyValue('article_id', $article_id);

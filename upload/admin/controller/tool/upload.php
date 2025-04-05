@@ -137,7 +137,7 @@ class Upload extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('tool/upload.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Upload
+		// Uploads
 		$data['uploads'] = [];
 
 		$filter_data = [
@@ -185,6 +185,7 @@ class Upload extends \Opencart\System\Engine\Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('tool/upload.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_code'] = $this->url->link('tool/upload.list', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url);
 		$data['sort_date_added'] = $this->url->link('tool/upload.list', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url);
@@ -211,8 +212,10 @@ class Upload extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Uploads
 		$upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $upload_total,
 			'page'  => $page,
@@ -253,6 +256,7 @@ class Upload extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Upload
 			$this->load->model('tool/upload');
 
 			foreach ($selected as $upload_id) {
@@ -287,6 +291,7 @@ class Upload extends \Opencart\System\Engine\Controller {
 			$code = '';
 		}
 
+		// Upload
 		$this->load->model('tool/upload');
 
 		$upload_info = $this->model_tool_upload->getUploadByCode($code);

@@ -14,6 +14,8 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	public function index(): void {
 		$this->load->language('localisation/weight_class');
 
+		$this->document->setTitle($this->language->get('heading_title'));
+
 		$url = '';
 
 		if (isset($this->request->get['sort'])) {
@@ -105,7 +107,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Weight Class
+		// Weight Classes
 		$data['weight_classes'] = [];
 
 		$filter_data = [
@@ -134,6 +136,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_title'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=title' . $url);
 		$data['sort_unit'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=unit' . $url);
 		$data['sort_value'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url);
@@ -148,8 +151,10 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Weight Classes
 		$weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $weight_class_total,
 			'page'  => $page,
@@ -206,6 +211,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/weight_class.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Weight Class
 		if (isset($this->request->get['weight_class_id'])) {
 			$this->load->model('localisation/weight_class');
 
@@ -218,6 +224,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$data['weight_class_id'] = 0;
 		}
 
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -274,6 +281,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Weight Class
 			$this->load->model('localisation/weight_class');
 
 			if (!$post_info['weight_class_id']) {
@@ -309,6 +317,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Products
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $weight_class_id) {
@@ -316,6 +325,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProductsByWeightClassId($weight_class_id);
 
 			if ($product_total) {
@@ -324,6 +334,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Weight Class
 			$this->load->model('localisation/weight_class');
 
 			foreach ($selected as $weight_class_id) {

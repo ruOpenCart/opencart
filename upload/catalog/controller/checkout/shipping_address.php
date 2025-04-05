@@ -22,6 +22,7 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 
 		$data['upload'] = $this->url->link('tool/upload', 'language=' . $this->config->get('config_language') . '&upload_token=' . $this->session->data['upload_token']);
 
+		// Shipping Address
 		$this->load->model('account/address');
 
 		$data['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
@@ -42,12 +43,12 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 			$data['zone_id'] = '';
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
-		// Zone
+		// Zones
 		$this->load->model('localisation/zone');
 
 		$data['zones'] = $this->model_localisation_zone->getZonesByCountryId($data['country_id']);
@@ -140,15 +141,17 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 				$json['error']['country'] = $this->language->get('error_country');
 			}
 
+			// Zones
 			$this->load->model('localisation/zone');
 
+			// Total Zones
 			$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId((int)$post_info['country_id']);
 
 			if ($zone_total && !$post_info['zone_id']) {
 				$json['error']['zone'] = $this->language->get('error_zone');
 			}
 
-			// Custom field validation
+			// Custom fields validation
 			$this->load->model('account/custom_field');
 
 			$custom_fields = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
@@ -165,17 +168,19 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// If no default address add it
+			// If no default address has been found, add it
 			$address_id = $this->customer->getAddressId();
 
 			if (!$address_id) {
 				$post_info['default'] = 1;
 			}
 
+			// Address
 			$this->load->model('account/address');
 
 			$json['address_id'] = $this->model_account_address->addAddress($this->customer->getId(), $post_info);
 
+			// Addresses
 			$json['addresses'] = $this->model_account_address->getAddresses($this->customer->getId());
 
 			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getId(), $json['address_id']);
@@ -183,6 +188,7 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 			$json['success'] = $this->language->get('text_success');
 
 			// Clear payment and shipping methods
+			unset($this->session->data['order_id']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);
@@ -225,18 +231,13 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Shipping Address
 			$this->load->model('account/address');
 
 			$address_info = $this->model_account_address->getAddress($this->customer->getId(), $address_id);
 
 			if (!$address_info) {
 				$json['error'] = $this->language->get('error_address');
-
-				unset($this->session->data['shipping_address']);
-				unset($this->session->data['shipping_method']);
-				unset($this->session->data['shipping_methods']);
-				unset($this->session->data['payment_method']);
-				unset($this->session->data['payment_methods']);
 			}
 		}
 
@@ -246,6 +247,7 @@ class ShippingAddress extends \Opencart\System\Engine\Controller {
 			$json['success'] = $this->language->get('text_success');
 
 			// Clear payment and shipping methods
+			unset($this->session->data['order_id']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);

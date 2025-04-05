@@ -82,6 +82,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . $url)
 		];
 
+		// Topic
 		$this->load->model('cms/topic');
 
 		$topic_info = $this->model_cms_topic->getTopic($filter_topic_id);
@@ -152,7 +153,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 
 		$limit = $this->config->get('config_pagination');
 
-		// Article
+		// Articles
 		$data['articles'] = [];
 
 		$filter_data = [
@@ -219,8 +220,10 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Articles
 		$article_total = $this->model_cms_article->getTotalArticles($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $article_total,
 			'page'  => $page,
@@ -373,6 +376,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
+			// Topic
 			$this->load->model('cms/topic');
 
 			$topic_info = $this->model_cms_topic->getTopic($topic_id);

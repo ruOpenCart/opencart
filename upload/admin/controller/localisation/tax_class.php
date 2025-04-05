@@ -107,7 +107,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/tax_class.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Tax Class
+		// Tax Classes
 		$data['tax_classes'] = [];
 
 		$filter_data = [
@@ -133,6 +133,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sort
 		$data['sort_title'] = $this->url->link('localisation/tax_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=title' . $url);
 
 		$url = '';
@@ -145,8 +146,10 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Tax Classes
 		$tax_class_total = $this->model_localisation_tax_class->getTotalTaxClasses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $tax_class_total,
 			'page'  => $page,
@@ -203,6 +206,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/tax_class.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/tax_class', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Tax Class
 		if (isset($this->request->get['tax_class_id'])) {
 			$this->load->model('localisation/tax_class');
 
@@ -227,7 +231,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 			$data['description'] = '';
 		}
 
-		// Tax Rate
+		// Tax Rates
 		$this->load->model('localisation/tax_rate');
 
 		$data['tax_rates'] = $this->model_localisation_tax_rate->getTaxRates();
@@ -276,6 +280,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Tax Class
 			$this->load->model('localisation/tax_class');
 
 			if (!$post_info['tax_class_id']) {
@@ -311,9 +316,11 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Products
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $tax_class_id) {
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProductsByTaxClassId($tax_class_id);
 
 			if ($product_total) {
@@ -322,6 +329,7 @@ class TaxClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Tax Class
 			$this->load->model('localisation/tax_class');
 
 			foreach ($selected as $tax_class_id) {

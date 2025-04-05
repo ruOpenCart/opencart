@@ -107,6 +107,7 @@ class Coupon extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('marketing/coupon.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Coupons
 		$data['coupons'] = [];
 
 		$filter_data = [
@@ -136,6 +137,7 @@ class Coupon extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('marketing/coupon.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_code'] = $this->url->link('marketing/coupon.list', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url);
 		$data['sort_discount'] = $this->url->link('marketing/coupon.list', 'user_token=' . $this->session->data['user_token'] . '&sort=discount' . $url);
@@ -152,8 +154,10 @@ class Coupon extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Coupons
 		$coupon_total = $this->model_marketing_coupon->getTotalCoupons();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $coupon_total,
 			'page'  => $page,
@@ -210,6 +214,7 @@ class Coupon extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('marketing/coupon.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('marketing/coupon', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Coupon
 		if (isset($this->request->get['coupon_id'])) {
 			$this->load->model('marketing/coupon');
 
@@ -264,6 +269,7 @@ class Coupon extends \Opencart\System\Engine\Controller {
 			$data['total'] = '';
 		}
 
+		// Product
 		if (!empty($coupon_info)) {
 			$products = $this->model_marketing_coupon->getProducts($coupon_info['coupon_id']);
 		} else {
@@ -385,11 +391,12 @@ class Coupon extends \Opencart\System\Engine\Controller {
 			$json['error']['code'] = $this->language->get('error_code');
 		}
 
+		// Coupon
 		$this->load->model('marketing/coupon');
 
 		$coupon_info = $this->model_marketing_coupon->getCouponByCode($post_info['code']);
 
-		if ($coupon_info && !isset($post_info['coupon_id']) || ($coupon_info['coupon_id'] != (int)$post_info['coupon_id'])) {
+		if ($coupon_info && (!$post_info['coupon_id'] || ($coupon_info['coupon_id'] != (int)$post_info['coupon_id']))) {
 			$json['error']['code'] = $this->language->get('error_exists');
 		}
 
@@ -428,6 +435,7 @@ class Coupon extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Coupon
 			$this->load->model('marketing/coupon');
 
 			foreach ($selected as $coupon_id) {
@@ -487,8 +495,10 @@ class Coupon extends \Opencart\System\Engine\Controller {
 			];
 		}
 
+		// Total Histories
 		$history_total = $this->model_marketing_coupon->getTotalHistories($coupon_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,

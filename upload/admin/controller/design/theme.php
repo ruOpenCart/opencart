@@ -85,10 +85,10 @@ class Theme extends \Opencart\System\Engine\Controller {
 
 		$data['themes'] = [];
 
-		// Theme
+		// Themes
 		$this->load->model('design/theme');
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
 		$results = $this->model_design_theme->getThemes(($page - 1) * $this->config->get('config_pagination_admin'), $this->config->get('config_pagination_admin'));
@@ -110,8 +110,10 @@ class Theme extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Themes
 		$theme_total = $this->model_design_theme->getTotalThemes();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $theme_total,
 			'page'  => $page,
@@ -157,6 +159,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('design/theme.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/theme', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Theme
 		if (isset($this->request->get['theme_id'])) {
 			$this->load->model('design/theme');
 
@@ -169,7 +172,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 			$data['theme_id'] = 0;
 		}
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
 		$data['stores'] = $this->model_setting_store->getStores();
@@ -367,6 +370,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Theme
 			$this->load->model('design/theme');
 
 			if (!$post_info['theme_id']) {
@@ -408,6 +412,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Theme
 			$this->load->model('design/theme');
 
 			foreach ($selected as $theme_id) {

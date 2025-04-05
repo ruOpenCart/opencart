@@ -103,8 +103,6 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$this->load->model('tool/image');
-
 		$total = count($paths);
 		$limit = 16;
 		$start = ($page - 1) * $limit;
@@ -113,6 +111,8 @@ class FileManager extends \Opencart\System\Engine\Controller {
 
 		// Image
 		$data['images'] = [];
+
+		$this->load->model('tool/image');
 
 		if ($paths) {
 			$url = '';
@@ -130,7 +130,7 @@ class FileManager extends \Opencart\System\Engine\Controller {
 			}
 
 			// Split the array based on current page number and max number of items per page of 10
-			foreach (array_slice($directories + $files, $start, $limit) as $path) {
+			foreach (array_slice(array_merge($directories, $files), $start, $limit) as $path) {
 				if (substr($path, 0, strlen($base)) == $base) {
 					$name = basename($path);
 

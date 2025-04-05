@@ -337,7 +337,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$output['error']['payment_address'] = $this->language->get('error_payment_address');
 		}
 
-		// 5. Validate shipping address and method if required
+		// 5. Validate shipping address and method, if required
 		if ($this->cart->hasShipping()) {
 			// Shipping Address
 			if (!isset($this->session->data['shipping_address'])) {
@@ -359,6 +359,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$output) {
+			// Subscription
 			$subscription_product_data = [];
 
 			$products = $this->cart->getSubscriptions();

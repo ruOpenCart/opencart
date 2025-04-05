@@ -172,6 +172,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('customer/custom_field.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cfd.name' . $url);
 		$data['sort_location'] = $this->url->link('customer/custom_field.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cf.location' . $url);
 		$data['sort_type'] = $this->url->link('customer/custom_field.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cf.type' . $url);
@@ -188,8 +189,10 @@ class CustomField extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Custom Fields
 		$custom_field_total = $this->model_customer_custom_field->getTotalCustomFields();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $custom_field_total,
 			'page'  => $page,
@@ -246,6 +249,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('customer/custom_field.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Custom Field
 		if (isset($this->request->get['custom_field_id'])) {
 			$this->load->model('customer/custom_field');
 
@@ -258,7 +262,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 			$data['custom_field_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -317,7 +321,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 			$data['custom_field_values'][] = $custom_field_value;
 		}
 
-		// Customer Group
+		// Customer Groups
 		if (!empty($custom_field_info)) {
 			$custom_field_customer_groups = $this->model_customer_custom_field->getCustomerGroups($custom_field_info['custom_field_id']);
 		} else {
@@ -401,6 +405,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Custom Field
 			$this->load->model('customer/custom_field');
 
 			if (!$post_info['custom_field_id']) {
@@ -437,6 +442,7 @@ class CustomField extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Custom Field
 			$this->load->model('customer/custom_field');
 
 			foreach ($selected as $custom_field_id) {

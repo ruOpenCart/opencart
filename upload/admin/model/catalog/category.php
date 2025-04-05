@@ -25,8 +25,6 @@ class Category extends \Opencart\System\Engine\Model {
 	 *     'parent_id'            => 0,
 	 *     'sort_order'           => 0,
 	 *     'status'               => 0,
-	 *     'date_added'           => '2021-01-01',
-	 *     'date_modified'        => '2021-01-31'
 	 * ];
 	 *
 	 * $this->load->model('catalog/category');
@@ -76,6 +74,7 @@ class Category extends \Opencart\System\Engine\Model {
 			$path = $parent_path . '_' . $category_id;
 		}
 
+		// SEO
 		$this->load->model('design/seo_url');
 
 		foreach ($data['category_seo_url'] as $store_id => $language) {
@@ -120,7 +119,6 @@ class Category extends \Opencart\System\Engine\Model {
 	 *     'parent_id'            => 0,
 	 *     'sort_order'           => 0,
 	 *     'status'               => 1,
-	 *     'date_modified'        => '2021-01-01'
 	 * ];
 	 *
 	 * $this->load->model('catalog/category');
@@ -309,7 +307,7 @@ class Category extends \Opencart\System\Engine\Model {
 
 		$this->model_marketing_coupon->deleteCategoriesByCategoryId($category_id);
 
-		// SEO URL
+		// SEO
 		$this->load->model('design/seo_url');
 
 		$path = $this->model_catalog_category->getPath($category_id);

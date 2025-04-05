@@ -34,6 +34,7 @@ class Register extends \Opencart\System\Engine\Controller {
 
 		$data['upload'] = $this->url->link('tool/upload', 'language=' . $this->config->get('config_language') . '&upload_token=' . $this->session->data['upload_token']);
 
+		// Customer Groups
 		$data['customer_groups'] = [];
 
 		if (is_array($this->config->get('config_customer_group_display'))) {
@@ -94,12 +95,12 @@ class Register extends \Opencart\System\Engine\Controller {
 			$data['payment_custom_field'] = [];
 		}
 
-		// Country
+		// Countries
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
-		// Zone
+		// Zones
 		$this->load->model('localisation/zone');
 
 		$data['payment_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['payment_country_id']);
@@ -271,7 +272,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['email'] = $this->language->get('error_email');
 			}
 
-			// Customer
+			// Total Customers
 			$this->load->model('account/customer');
 
 			if ($post_info['account'] && $this->model_account_customer->getTotalCustomersByEmail($post_info['email'])) {
@@ -291,7 +292,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['error']['telephone'] = $this->language->get('error_telephone');
 			}
 
-			// Custom field validation
+			// Custom fields validation
 			$this->load->model('account/custom_field');
 
 			$custom_fields = $this->model_account_custom_field->getCustomFields($customer_group_id);
@@ -328,15 +329,17 @@ class Register extends \Opencart\System\Engine\Controller {
 					$json['error']['payment_country'] = $this->language->get('error_country');
 				}
 
+				// Zones
 				$this->load->model('localisation/zone');
 
+				// Total Zones
 				$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId((int)$post_info['payment_country_id']);
 
 				if ($zone_total && !$post_info['payment_zone_id']) {
 					$json['error']['payment_zone'] = $this->language->get('error_zone');
 				}
 
-				// Custom field validation
+				// Custom fields validation
 				foreach ($custom_fields as $custom_field) {
 					if ($custom_field['location'] == 'address') {
 						if ($custom_field['required'] && empty($post_info['payment_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
@@ -381,15 +384,17 @@ class Register extends \Opencart\System\Engine\Controller {
 					$json['error']['shipping_country'] = $this->language->get('error_country');
 				}
 
+				// Zones
 				$this->load->model('localisation/zone');
 
+				// Total Zones
 				$zone_total = $this->model_localisation_zone->getTotalZonesByCountryId((int)$post_info['shipping_country_id']);
 
 				if ($zone_total && !$post_info['shipping_zone_id']) {
 					$json['error']['shipping_zone'] = $this->language->get('error_zone');
 				}
 
-				// Custom field validation
+				// Custom fields validation
 				foreach ($custom_fields as $custom_field) {
 					if ($custom_field['location'] == 'address') {
 						if ($custom_field['required'] && empty($post_info['shipping_custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
@@ -405,7 +410,7 @@ class Register extends \Opencart\System\Engine\Controller {
 			if ($post_info['account']) {
 				$password = html_entity_decode($post_info['password'], ENT_QUOTES, 'UTF-8');
 
-				if (!oc_validate_length($password, $this->config->get('config_password_length'), 40)) {
+				if (!oc_validate_length($password, (int)$this->config->get('config_password_length'), 40)) {
 					$json['error']['password'] = sprintf($this->language->get('error_password_length'), $this->config->get('config_password_length'));
 				}
 
@@ -484,9 +489,9 @@ class Register extends \Opencart\System\Engine\Controller {
 				$this->session->data['customer'] = $customer_data;
 			}
 
+			// Payment Address
 			$this->load->model('account/address');
 
-			// Payment Address
 			if ($this->config->get('config_checkout_payment_address')) {
 				if (isset($this->session->data['payment_address']['address_id'])) {
 					$address_id = $this->session->data['payment_address']['address_id'];
@@ -686,6 +691,7 @@ class Register extends \Opencart\System\Engine\Controller {
 				$json['redirect'] = $this->url->link('account/success', 'language=' . $this->config->get('config_language'), true);
 			}
 
+			unset($this->session->data['order_id']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
 			unset($this->session->data['payment_method']);

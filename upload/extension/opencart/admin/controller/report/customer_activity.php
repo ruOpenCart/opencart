@@ -61,6 +61,7 @@ class CustomerActivity extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_customer_activity', $this->request->post);
@@ -148,6 +149,7 @@ class CustomerActivity extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('extension/opencart/report/customer');
 
+		// Total Activities
 		$activity_total = $this->model_extension_opencart_report_customer->getTotalCustomerActivities($filter_data);
 
 		$results = $this->model_extension_opencart_report_customer->getCustomerActivities($filter_data);
@@ -190,6 +192,7 @@ class CustomerActivity extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $activity_total,
 			'page'  => $page,

@@ -55,7 +55,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 		$data['orders'] = [];
 
-		// Order
+		// Orders
 		$this->load->model('account/order');
 
 		// Order Status
@@ -81,8 +81,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Orders
 		$order_total = $this->model_account_order->getTotalOrders();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $order_total,
 			'page'  => $page,
@@ -435,6 +437,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			return '';
 		}
 
+		// Order
 		$this->load->model('account/order');
 
 		$order_info = $this->model_account_order->getOrder($order_id);
@@ -454,8 +457,10 @@ class Order extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Histories
 		$history_total = $this->model_account_order->getTotalHistories($order_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,

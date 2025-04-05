@@ -107,7 +107,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/length_class.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Length Class
+		// Length Classes
 		$data['length_classes'] = [];
 
 		$filter_data = [
@@ -136,6 +136,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_title'] = $this->url->link('localisation/length_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=title' . $url);
 		$data['sort_unit'] = $this->url->link('localisation/length_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=unit' . $url);
 		$data['sort_value'] = $this->url->link('localisation/length_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url);
@@ -150,8 +151,10 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Length Classes
 		$length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $length_class_total,
 			'page'  => $page,
@@ -208,6 +211,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/length_class.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Length Class
 		if (isset($this->request->get['length_class_id'])) {
 			$this->load->model('localisation/length_class');
 
@@ -220,7 +224,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 			$data['length_class_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -277,6 +281,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Length Class
 			$this->load->model('localisation/length_class');
 
 			if (!$post_info['length_class_id']) {
@@ -312,6 +317,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Products
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $length_class_id) {
@@ -319,6 +325,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProductsByLengthClassId($length_class_id);
 
 			if ($product_total) {
@@ -327,6 +334,7 @@ class LengthClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Length Class
 			$this->load->model('localisation/length_class');
 
 			foreach ($selected as $length_class_id) {

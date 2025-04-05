@@ -61,6 +61,7 @@ class SaleReturn extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_sale_return', $this->request->post);
@@ -82,11 +83,12 @@ class SaleReturn extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getReport();
 
-		// Return Status
+		// Return Statuses
 		$this->load->model('localisation/return_status');
 
 		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
 
+		// Groups
 		$data['groups'] = [];
 
 		$data['groups'][] = [
@@ -173,8 +175,10 @@ class SaleReturn extends \Opencart\System\Engine\Controller {
 			'limit'                   => $this->config->get('config_pagination')
 		];
 
+		// Extension
 		$this->load->model('extension/opencart/report/returns');
 
+		// Total Returns
 		$return_total = $this->model_extension_opencart_report_returns->getTotalReturns($filter_data);
 
 		$results = $this->model_extension_opencart_report_returns->getReturns($filter_data);
@@ -205,6 +209,7 @@ class SaleReturn extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_return_status_id=' . $this->request->get['filter_return_status_id'];
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $return_total,
 			'page'  => $page,

@@ -3,13 +3,24 @@ namespace Opencart\Install\Model\Upgrade;
 /**
  * Class Install
  *
- * @example $install_model = $this->model_install_install;
- *
- * Can be called from $this->load->model('install/install');
+ * Can be called from $this->load->model('upgrade/upgrade');
  *
  * @package Opencart\Install\Model\Install
+ *
+ * @example
+ *
+ * $data = [];
+ *
+ * $this->load->model('upgrade/upgrade');
+ *
+ * $install_model = $this->model_upgrade_upgrade($table, $data);
  */
 class Upgrade extends \Opencart\System\Engine\Model {
+	/**
+	 * Add Record
+	 * 
+	 * @return void
+	 */
 	public function addRecord($table, $data): void {
 		$implode = [];
 
@@ -41,32 +52,69 @@ class Upgrade extends \Opencart\System\Engine\Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . $table . "` SET " . implode(", ", $implode));
 	}
 
+	/**
+	 * Get Records
+	 * 
+	 * @param string $table
+	 * 
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getRecords(string $table): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . $table . "`");
 
 		return $query->rows;
 	}
 
-	public function hasTable(string $table): bool {
+	/**
+	 * Has Table
+	 * 
+	 * @param string $table
+	 * 
+	 * @return int
+	 */
+	public function hasTable(string $table): int {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $table . "'");
 
-		return (bool)$query->num_rows;
+		return $query->num_rows;
 	}
 
-	public function hasField($table, $field): bool {
+	/**
+	 * Has Field
+	 * 
+	 * @param string $table
+	 * @param string $field
+	 * 
+	 * @return int
+	 */
+	public function hasField(string $table, string $field): int {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . $table . "' AND COLUMN_NAME = '" . $field . "'");
 
-		return (bool)$query->num_rows;
+		return $query->num_rows;
 	}
 
-	public function dropTable($table): void {
+	/**
+	 * Drop Table
+	 * 
+	 * @param string $table
+	 * 
+	 * @return void
+	 */
+	public function dropTable(string $table): void {
 		if ($this->hasTable($table)) {
 			$this->db->query("DROP TABLE `" . DB_PREFIX . $table . "`");
 		}
 	}
 
-	public function dropField($table, $field): void {
-		if ($this->hasTable($table, $field)) {
+	/**
+	 * Drop Field
+	 * 
+	 * @param string $table
+	 * @param string $field
+	 * 
+	 * @return void
+	 */
+	public function dropField(string $table, string $field): void {
+		if ($this->hasField($table, $field)) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . $table . "` DROP `" . $field . "`");
 		}
 	}

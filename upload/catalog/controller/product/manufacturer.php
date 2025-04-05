@@ -99,6 +99,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$limit = (int)$this->config->get('config_pagination');
 		}
 
+		// Manufacturer
 		$this->load->model('catalog/manufacturer');
 
 		$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
@@ -158,6 +159,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				'limit'                  => $limit
 			];
 
+			// Products
 			$this->load->model('catalog/product');
 
 			// Image
@@ -311,8 +313,10 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
+			// Pagination
 			$data['pagination'] = $this->load->controller('common/pagination', [
 				'total' => $product_total,
 				'page'  => $page,

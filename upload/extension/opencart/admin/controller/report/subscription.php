@@ -61,6 +61,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_subscription', $this->request->post);
@@ -82,7 +83,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getReport();
 
-		// Subscription Status
+		// Subscription Statuses
 		$this->load->model('localisation/subscription_status');
 
 		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
@@ -161,7 +162,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		// Subscription
+		// Subscriptions
 		$data['subscriptions'] = [];
 
 		$filter_data = [
@@ -173,8 +174,10 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			'limit'                         => $this->config->get('config_pagination')
 		];
 
+		// Extension
 		$this->load->model('extension/opencart/report/subscription');
 
+		// Total Subscriptions
 		$subscription_total = $this->model_extension_opencart_report_subscription->getTotalSubscriptions($filter_data);
 
 		$results = $this->model_extension_opencart_report_subscription->getSubscriptions($filter_data);
@@ -208,6 +211,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,

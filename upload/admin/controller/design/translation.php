@@ -107,9 +107,10 @@ class Translation extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Language
 		$this->load->model('localisation/language');
 
-		// Translation
+		// Translations
 		$data['translations'] = [];
 
 		$filter_data = [
@@ -150,14 +151,17 @@ class Translation extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_store'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . '&sort=store' . $url);
 		$data['sort_language'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . '&sort=language' . $url);
 		$data['sort_route'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . '&sort=route' . $url);
 		$data['sort_key'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . '&sort=key' . $url);
 		$data['sort_value'] = $this->url->link('design/translation.list', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url);
 
+		// Total Translations
 		$translation_total = $this->model_design_translation->getTotalTranslations();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $translation_total,
 			'page'  => $page,
@@ -214,6 +218,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('design/translation.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Translation
 		if (isset($this->request->get['translation_id'])) {
 			$this->load->model('design/translation');
 
@@ -226,7 +231,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 			$data['translation_id'] = 0;
 		}
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
 		$data['stores'] = $this->model_setting_store->getStores();
@@ -237,7 +242,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 			$data['store_id'] = 0;
 		}
 
-		// Language
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -294,6 +299,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Translation
 			$this->load->model('design/translation');
 
 			if (!$this->request->post['translation_id']) {
@@ -330,6 +336,7 @@ class Translation extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Translation
 			$this->load->model('design/translation');
 
 			foreach ($selected as $translation_id) {

@@ -49,7 +49,7 @@ class Transaction extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
-		// Transaction
+		// Transactions
 		$data['transactions'] = [];
 
 		$filter_data = [
@@ -70,8 +70,10 @@ class Transaction extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
+		// Total Transactions
 		$transaction_total = $this->model_account_transaction->getTotalTransactions($this->customer->getId());
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $transaction_total,
 			'page'  => $page,

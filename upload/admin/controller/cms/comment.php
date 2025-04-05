@@ -136,6 +136,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 
 		$data['comments'] = [];
 
+		// Article
 		$filter_data = [
 			'filter_keyword'   => $filter_keyword,
 			'filter_article'   => $filter_article,
@@ -204,8 +205,10 @@ class Comment extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
 		}
 
+		// Total Comments
 		$comment_total = $this->model_cms_article->getTotalComments($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $comment_total,
 			'page'  => $page,
@@ -362,6 +365,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Article
 			$this->load->model('cms/article');
 
 			foreach ($selected as $article_comment_id) {
@@ -398,6 +402,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$limit = 100;
 
+			// Article
 			$filter_data = [
 				'sort'  => 'date_added',
 				'order' => 'ASC',
@@ -428,6 +433,7 @@ class Comment extends \Opencart\System\Engine\Controller {
 				$this->model_cms_article->editCommentRating($result['article_id'], $result['article_comment_id'], $like - $dislike);
 			}
 
+			// Total Comments
 			$comment_total = $this->model_cms_article->getTotalComments();
 
 			$start = ($page - 1) * $limit;

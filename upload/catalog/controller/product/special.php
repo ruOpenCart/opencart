@@ -74,7 +74,7 @@ class Special extends \Opencart\System\Engine\Controller {
 
 		$data['compare'] = $this->url->link('product/compare', 'language=' . $this->config->get('config_language'));
 
-		// Product
+		// Products
 		$data['products'] = [];
 
 		$filter_data = [
@@ -237,8 +237,10 @@ class Special extends \Opencart\System\Engine\Controller {
 			$url .= '&limit=' . $this->request->get['limit'];
 		}
 
+		// Total Specials
 		$product_total = $this->model_catalog_product->getTotalSpecials();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $product_total,
 			'page'  => $page,

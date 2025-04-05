@@ -215,7 +215,7 @@ class Review extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Review
+		// Reviews
 		$data['reviews'] = [];
 
 		$filter_data = [
@@ -269,6 +269,7 @@ class Review extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_product'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url);
 		$data['sort_author'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.author' . $url);
 		$data['sort_rating'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.rating' . $url);
@@ -304,8 +305,10 @@ class Review extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Reviews
 		$review_total = $this->model_catalog_review->getTotalReviews($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $review_total,
 			'page'  => $page,
@@ -388,6 +391,7 @@ class Review extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/review.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Review
 		if (isset($this->request->get['review_id'])) {
 			$this->load->model('catalog/review');
 
@@ -497,6 +501,7 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Review
 			$this->load->model('catalog/review');
 
 			if (!$post_info['review_id']) {
@@ -533,6 +538,7 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Review
 			$this->load->model('catalog/review');
 
 			foreach ($selected as $review_id) {
@@ -586,6 +592,7 @@ class Review extends \Opencart\System\Engine\Controller {
 				$this->model_catalog_product->editRating($result['product_id'], $this->model_catalog_review->getRating($result['product_id']));
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProducts();
 
 			$start = ($page - 1) * $limit;

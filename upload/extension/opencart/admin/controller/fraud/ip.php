@@ -42,9 +42,9 @@ class Ip extends \Opencart\System\Engine\Controller {
 		$data['back'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud');
 
 		// Order Status
-		$data['fraud_ip_order_status_id'] = (int)$this->config->get('fraud_ip_order_status_id');
-
 		$this->load->model('localisation/order_status');
+
+		$data['fraud_ip_order_status_id'] = (int)$this->config->get('fraud_ip_order_status_id');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
@@ -74,6 +74,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('fraud_ip', $this->request->post);
@@ -92,6 +93,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 	 */
 	public function install(): void {
 		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ip');
 
 			$this->model_extension_opencart_fraud_ip->install();
@@ -105,6 +107,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 	 */
 	public function uninstall(): void {
 		if ($this->user->hasPermission('modify', 'extension/fraud')) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ip');
 
 			$this->model_extension_opencart_fraud_ip->uninstall();
@@ -129,6 +132,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 
 		$data['ips'] = [];
 
+		// Extension
 		$this->load->model('extension/opencart/fraud/ip');
 
 		// Customer
@@ -145,8 +149,10 @@ class Ip extends \Opencart\System\Engine\Controller {
 			];
 		}
 
+		// Total Customers
 		$ip_total = $this->model_extension_opencart_fraud_ip->getTotalIps();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $ip_total,
 			'page'  => $page,
@@ -186,6 +192,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ip');
 
 			if (!$this->model_extension_opencart_fraud_ip->getTotalIpsByIp($ip)) {
@@ -214,6 +221,7 @@ class Ip extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('extension/opencart/fraud/ip');
 
 			$this->model_extension_opencart_fraud_ip->removeIp($this->request->post['ip']);

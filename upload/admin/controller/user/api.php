@@ -107,7 +107,7 @@ class Api extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('user/api.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// API
+		// Api
 		$data['apis'] = [];
 
 		$filter_data = [
@@ -137,6 +137,7 @@ class Api extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_username'] = $this->url->link('user/api.list', 'user_token=' . $this->session->data['user_token'] . '&sort=username' . $url);
 		$data['sort_status'] = $this->url->link('user/api.list', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url);
 		$data['sort_date_added'] = $this->url->link('user/api.list', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url);
@@ -152,8 +153,10 @@ class Api extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total APIs
 		$user_total = $this->model_user_api->getTotalApis();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $user_total,
 			'page'  => $page,
@@ -217,6 +220,7 @@ class Api extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('user/api.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Api
 		if (isset($this->request->get['api_id'])) {
 			$this->load->model('user/api');
 
@@ -301,6 +305,7 @@ class Api extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Api
 			$this->load->model('user/api');
 
 			if (!$post_info['api_id']) {
@@ -337,6 +342,7 @@ class Api extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Api
 			$this->load->model('user/api');
 
 			foreach ($selected as $api_id) {
@@ -381,8 +387,10 @@ class Api extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
+		// Histories
 		$data['histories'] = [];
 
+		// Api
 		$this->load->model('user/api');
 
 		$results = $this->model_user_api->getHistories($api_id, ($page - 1) * $limit, $limit);
@@ -395,8 +403,10 @@ class Api extends \Opencart\System\Engine\Controller {
 			];
 		}
 
+		// Total Histories
 		$history_total = $this->model_user_api->getTotalHistories($api_id);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,

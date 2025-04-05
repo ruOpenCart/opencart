@@ -107,7 +107,7 @@ class Language extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/language.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Language
+		// Languages
 		$data['languages'] = [];
 
 		$filter_data = [
@@ -136,6 +136,7 @@ class Language extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('localisation/language.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_code'] = $this->url->link('localisation/language.list', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url);
 		$data['sort_sort_order'] = $this->url->link('localisation/language.list', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url);
@@ -150,8 +151,10 @@ class Language extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Languages
 		$language_total = $this->model_localisation_language->getTotalLanguages();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $language_total,
 			'page'  => $page,
@@ -208,6 +211,7 @@ class Language extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/language.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Language
 		if (isset($this->request->get['language_id'])) {
 			$this->load->model('localisation/language');
 
@@ -301,11 +305,12 @@ class Language extends \Opencart\System\Engine\Controller {
 			$json['error']['locale'] = $this->language->get('error_locale');
 		}
 
+		// Language
 		$this->load->model('localisation/language');
 
 		$language_info = $this->model_localisation_language->getLanguageByCode($post_info['code']);
 
-		if ($language_info && !$post_info['language_id'] || ($language_info['language_id'] != $post_info['language_id'])) {
+		if ($language_info && (!$post_info['language_id'] || ($language_info['language_id'] != $post_info['language_id']))) {
 			$json['error']['code'] = $this->language->get('error_exists');
 		}
 
@@ -343,10 +348,13 @@ class Language extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Store
+		// Setting
 		$this->load->model('setting/store');
 
-		// Order
+		// Language
+		$this->load->model('localisation/language');
+
+		// Orders
 		$this->load->model('sale/order');
 
 		foreach ($selected as $language_id) {
@@ -368,6 +376,7 @@ class Language extends \Opencart\System\Engine\Controller {
 				}
 			}
 
+			// Total Orders
 			$order_total = $this->model_sale_order->getTotalOrdersByLanguageId($language_id);
 
 			if ($order_total) {
@@ -376,13 +385,43 @@ class Language extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			$this->load->model('localisation/language');
-
 			foreach ($selected as $language_id) {
 				$this->model_localisation_language->deleteLanguage($language_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	/**
+	 * Generate
+	 *
+	 * @return void
+	 */
+	public function generate(): void {
+		$this->load->language('localisation/language');
+
+		$json = [];
+
+		if (!$this->user->hasPermission('modify', 'localisation/language')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
+
+		if (!$json) {
+			$file = DIR_CATALOG . 'view/data/localisation/language.json';
+
+			$this->load->model('localisation/language');
+
+			$output = json_encode($this->model_localisation_language->getLanguages());
+
+			if (file_put_contents($file, $output)) {
+				$json['success'] = $this->language->get('text_success');
+			} else {
+				$json['error'] = $this->language->get('error_file');
+			}
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -61,6 +61,7 @@ class SaleCoupon extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_sale_coupon', $this->request->post);
@@ -132,8 +133,10 @@ class SaleCoupon extends \Opencart\System\Engine\Controller {
 			'limit'             => $this->config->get('config_pagination')
 		];
 
+		// Extension
 		$this->load->model('extension/opencart/report/coupon');
 
+		// Total Coupons
 		$coupon_total = $this->model_extension_opencart_report_coupon->getTotalCoupons($filter_data);
 
 		$results = $this->model_extension_opencart_report_coupon->getCoupons($filter_data);
@@ -158,6 +161,7 @@ class SaleCoupon extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $coupon_total,
 			'page'  => $page,
