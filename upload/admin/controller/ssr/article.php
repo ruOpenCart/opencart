@@ -22,29 +22,20 @@ class Article extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		if (!$this->user->hasPermission('modify', 'ssr/article')) {
+		//if (!$this->user->hasPermission('modify', 'ssr/article')) {
 			$json['error'] = $this->language->get('error_permission');
-		}
+		//}
 
-		$directory = DIR_CATALOG . 'view/data/cms/';
+		//$directory = DIR_CATALOG . 'view/data/cms/';
 
-		if (!is_dir($directory) && !mkdir($directory, 0777)) {
-			$json['error'] = $this->language->get('error_directory');
-		}
+		//if (!is_dir($directory) && !mkdir($directory, 0777)) {
+		//	$json['error'] = $this->language->get('error_directory');
+		//}
 
 		if (!$json) {
-			// Languages
-			$language_data = [];
-
 			$this->load->model('localisation/language');
 
 			$languages = $this->model_localisation_language->getLanguages();
-
-			foreach ($languages as $language) {
-				$language_data[$language['code']] = $language;
-			}
-
-			print_r($languages);
 
 			$limit = 5;
 
@@ -64,23 +55,18 @@ class Article extends \Opencart\System\Engine\Controller {
 
 			foreach ($articles as $article) {
 				if ($article['status']) {
-
-					echo 'hi';
-
 					$descriptions = $this->model_cms_article->getDescriptions($article['article_id']);
 
+					$stores = $this->model_cms_article->getStores($article['article_id']);
+
 					foreach ($descriptions as $description) {
-						$content = json_encode($description + $article);
+						if (isset($languages[$description['language_id']])) {
+							$file = $directory . 'article.' . (int)$article['article_id'] . '.' . $languages[$description['language_id']] . '.json';
 
-						echo $content;
-
-
-						$file = $directory . 'article.' . (int)$article['article_id'] . '.' . $article['language_id'] . '.json';
-
-						if (!file_put_contents($file, $content)) {
-							$json['error'] = $this->language->get('error_file');
+							if (!file_put_contents($file, json_encode($description + $article))) {
+								$json['error'] = $this->language->get('error_file');
+							}
 						}
-
 					}
 				}
 			}
@@ -96,17 +82,24 @@ class Article extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		print_r($json);
-		
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function template() {
+	public function clear() {
+		$this->load->language('ssr/category');
 
-	}
+		$json = [];
 
-	public function image() {
+		if (!$this->user->hasPermission('modify', 'ssr/article')) {
+			$json['error'] = $this->language->get('error_permission');
+		}
 
+		if (!$json) {
+			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }

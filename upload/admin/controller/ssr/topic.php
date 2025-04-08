@@ -26,6 +26,12 @@ class Topic extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		$directory = DIR_CATALOG . 'view/data/cms/';
+
+		if (!is_dir($directory) && !mkdir($directory, 0777)) {
+			$json['error'] = $this->language->get('error_directory');
+		}
+
 		if (!$json) {
 			// Languages
 			$this->load->model('localisation/language');
@@ -80,13 +86,5 @@ class Topic extends \Opencart\System\Engine\Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
-	}
-
-	public function template() {
-
-	}
-
-	public function image() {
-
 	}
 }
