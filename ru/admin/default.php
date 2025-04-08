@@ -166,10 +166,22 @@ $_['error_upload_8']                = 'Внимание: Запрещено за
 $_['error_upload_999']              = 'Внимание: Код ошибки отсутствует!';
 $_['error_upload_size']             = 'Внимание: Загруженный файл превышает максимальный размер файла %sмб!';
 $_['error_curl']                    = 'CURL: Код ошибки(%s): %s';
+$_['error_session']                 = 'Внимание: Сессия истекла, пожалуйста, отправьте форму снова!';
 $_['error_format_b']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s байт!';
 $_['error_format_kb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s килобайт!';
 $_['error_format_mb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s мегабайт!';
 $_['error_format_gb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s гигабайт!';
+
+// Zip errors
+$_['error_zip_exists']       		= 'File already exists!';
+$_['error_zip_incons']       		= 'Zip archive inconsistent!';
+$_['error_zip_inval']        		= 'Invalid argument!';
+$_['error_zip_memory']       		= 'Memory allocation failure!';
+$_['error_zip_noent']        		= 'No such file!';
+$_['error_zip_nozip']        		= 'Not a zip archive!';
+$_['error_zip_open']         		= 'Can not open file!';
+$_['error_zip_read']        		= 'Read error!';
+$_['error_zip_seek']         		= 'Seek error!';
 
 // When doing translations only include the matching language code
 
