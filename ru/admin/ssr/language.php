@@ -6,5 +6,5 @@ $_['text_success']     = 'Успех: Вы изменили языки!';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения языков!';
-$_['error_directory']  = 'Warning: Directory %s does not exist or is not writable!';
-$_['error_file']       = 'Warning: File %s could not be written!';
+$_['error_directory']  = 'Внимание: Директория %s не существует или недоступна для записи!';
+$_['error_file']       = 'Внимание: Файл %s не может быть записан!';
