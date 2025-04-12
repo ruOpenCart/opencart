@@ -45,4 +45,4 @@ $_['error_directory']        = 'Каталог установки %s не най
 $_['error_directory_exists'] = 'Путь %s уже существует!';
 $_['error_unzip']            = 'Zip-файл не может быть открыт!';
 $_['error_upload']           = 'Файл не может быть загружен!';
-$_['error_unknown']          = 'An unknown error occurred!';
+$_['error_unknown']          = 'Произошла неизвестная ошибка!';
