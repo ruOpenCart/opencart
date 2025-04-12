@@ -1,23 +1,23 @@
 <?php
 // Heading
-$_['heading_title']        = 'Static Site Rendering';
+$_['heading_title']        = 'Статический рендеринг сайта';
 
 // Text
-$_['text_success']         = 'Success: You have modified static site rendering!';
-$_['text_list']            = 'SSR List';
-$_['text_ssr']             = 'Static Site Rendering is used to pre render templates and static data. If you have issues you can disable or enable the SSR here.';
+$_['text_success']         = 'Успех: Вы изменили статический рендеринг сайта!';
+$_['text_list']            = 'Список SSR';
+$_['text_ssr']             = 'Статический рендеринг сайта используется для предпросмотра шаблонов и статических данных. Если у вас есть проблемы, вы можете отключить или включить SSR здесь.';
 $_['text_progress']        = 'Прогресс';
-$_['text_render']          = 'Static Site Renderers';
+$_['text_render']          = 'Статические рендереры сайта';
 
 // Entry
 $_['entry_progress']       = 'Прогресс';
 
 // Column
-$_['column_code']          = 'SSR Code';
+$_['column_code']          = 'Код SSR';
 $_['column_progress']      = 'Прогресс';
 $_['column_sort_order']    = 'Порядок сортировки';
 $_['column_date_modified'] = 'Дата изменения';
 $_['column_action']        = 'Действие';
 
 // Error
-$_['error_permission']     = 'Warning: You do not have permission to modify static site rendering!';
+$_['error_permission']     = 'Внимание: У вас нет прав на изменение отображения статического сайта!';
