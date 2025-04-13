@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_list']        = 'Вы предоставили список стран для рендеринга';
-$_['text_next']        = 'Вы предоставили %s для %s из %s стран';
+$_['text_next']        = 'You have rendered %s to %s of %s countries';
 $_['text_success']     = 'Успех: Вы изменили страны!';
 
 // Error
