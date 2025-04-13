@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_list']        = 'You have rendered the language list';
+$_['text_list']        = 'Вы предоставили список языков для рендеринга';
 $_['text_next']        = 'You have rendered %s to %s of %s languages';
 $_['text_success']     = 'Успех: Вы изменили языки!';
 
