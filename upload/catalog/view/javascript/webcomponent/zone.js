@@ -1,57 +1,48 @@
 import { WebComponent } from './../webcomponent.js';
 
-const template = `
-<select name="{{ name }}" id="{{ id }}" class="{{ class }}">
-  {% for zone in zones %}
-  <option value="{{ zone.zone_id }}"{% if zone.zone_id == value %} selected{% endif %}>{{ zone.name }}</option>
-  {% endfor %}
-</select>`;
-
 class XZone extends WebComponent {
-    static observed = ['data-country-id'];
-
-    data = {
-        id: '',
-        name: '',
-        value: 0,
-        country_id: 0,
-        zones: []
-    };
-
     event = {
         connected: async () => {
-            // Add the data attributes to the data object
-            this.data.id = this.getAttribute('data-id');
-            this.data.name = this.getAttribute('data-name');
-            this.data.value = this.getAttribute('data-value');
-            this.data.country_id = this.getAttribute('data-country-id');
-
-            let country = await (await fetch('./data/country.' + this.data.country_id + '.json')).json();
-
-            this.data.zones = country.zone;
+            // Add the select element to the shadow DOM
+            this.shadow.innerHTML = '<select name="' + this.getAttribute('name') + '" id="' + this.getAttribute('input-id') + '" class="' + this.getAttribute('input-class') + '">' + this.innerHTML + '</select>';
 
             this.addStylesheet('bootstrap.css');
-            this.addStylesheet('fontawesome.css');
-
-            this.shadow.innerHTML = await this.render('zone.html', this.data);
+            this.addStylesheet('fonts/fontawesome/css/fontawesome.css');
 
             this.shadow.addEventListener('change', this.event.onchange);
+
+            // Get the country id from the target element
+            let element = document.querySelector(this.getAttribute('target'));
+
+            element.shadow.querySelector('select').addEventListener('change', this.event.changed);
+
+            let response = await fetch('./catalog/view/data/localisation/country.' + element.getAttribute('value') + '.' + this.getAttribute('language') + '.json');
+
+            response.json().then(this.event.onloaded);
         },
-        onchange: (e) => {
-            this.data.value = e.target.value;
+        changed: async (e) => {
+            let response = await fetch('./catalog/view/data/localisation/country.' + e.target.value + '.' + this.getAttribute('language') + '.json');
 
-            this.setAttribute('data-value', this.data.value);
+            response.json().then(this.event.onloaded);
         },
-        changed: async (name, value_old, value_new) => {
-            if (name == 'data-country-id' && value_new) {
-                this.data.country_id = value_new;
+        onloaded: (country) => {
+            let html = this.innerHTML;
+            let zones = country['zone'];
 
-                let country = await (await fetch('./data/country.' + value_new + '.json')).json();
+            for (let i in zones) {
+                html += '<option value="' + zones[i].zone_id + '"';
 
-                this.data.zones = country.zone;
+                if (zones[i].zone_id == this.getAttribute('value')) {
+                    html += ' selected';
+                }
 
-                this.shadow.innerHTML = await this.render('zone.html', this.data);
+                html += '>' + zones[i].name + '</option>';
             }
+
+            this.shadow.querySelector('select').innerHTML = html;
+        },
+        onchange: async (e) => {
+            this.setAttribute('value', e.target.value);
         }
     };
 }

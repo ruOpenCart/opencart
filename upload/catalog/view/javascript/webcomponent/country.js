@@ -1,46 +1,73 @@
 import { WebComponent } from './../webcomponent.js';
 
-const template = `
-<select name="{{ name }}" id="{{ id }}" class="{{ class }}">
-  {% for country in countries %}
-  <option value="{{ country.country_id }}"{% if country.country_id == value %} selected{% endif %}>{{ country.name }}</option>
-  {% endfor %}
-</select>`;
-
 class XCountry extends WebComponent {
+
     data = {
-        id: '',
-        name: '',
-        value: 0,
+        postcode: '',
         countries: []
     };
 
     event = {
         connected: async () => {
-            // Add the data attributes to the data object
-            this.data.id = this.getAttribute('data-id');
-            this.data.name = this.getAttribute('data-name');
-            this.data.value = this.getAttribute('data-value');
-
-            // Add countries to the data object
-            this.data.countries = await (await fetch('./data/country.json')).json();
+            // I think for simple elements we can get without using a template system
+            // Add the select element to the shadow DOM
+            this.shadow.innerHTML = '<select name="' + this.getAttribute('name') + '" id="' + this.getAttribute('input-id') + '" class="' + this.getAttribute('input-class') + '" required>' + this.innerHTML + '</select>';
 
             this.addStylesheet('bootstrap.css');
-            this.addStylesheet('fontawesome.css');
-
-            this.shadow.innerHTML = await this.render('country.html', this.data);
+            this.addStylesheet('fonts/fontawesome/css/fontawesome.css');
 
             this.shadow.addEventListener('change', this.event.onchange);
+
+            // input-postcode
+            if (this.hasAttribute('postcode')) {
+                this.postcode = document.querySelector(this.getAttribute('postcode'));
+            }
+
+            let response = await fetch('./catalog/view/data/localisation/country.' + this.getAttribute('language') + '.json');
+
+            response.json().then(this.event.onloaded);
+        },
+        onloaded: (countries) => {
+            let html = this.innerHTML;
+            let value= this.getAttribute('value');
+
+            this.data.countries = countries;
+
+            for (let i in countries) {
+                html += '<option value="' + countries[i].country_id + '"';
+
+                if (countries[i].country_id == value) {
+                    html += ' selected';
+                }
+
+                html += '>' + countries[i].name + '</option>';
+            }
+
+            this.shadow.querySelector('select').innerHTML = html;
+
+            // input-postcode
+            if (this.hasAttribute('postcode')) {
+                let element = document.querySelector(this.getAttribute('postcode'));
+
+                if (this.data.countries[value] && this.data.countries[value].postcode_required == 1) {
+                    this.postcode.setAttribute('required', '');
+                } else {
+                    this.postcode.removeAttribute('required');
+                }
+            }
         },
         onchange: async (e) => {
-            this.data.value = e.target.value;
+            this.setAttribute('value', e.target.value);
 
-            this.setAttribute('data-value', this.data.value);
+            if (this.hasAttribute('postcode')) {
+                let element = document.querySelector(this.getAttribute('postcode'));
 
-            // Apply change to target element
-            let target = document.querySelector(this.getAttribute('data-target'));
-
-            target.setAttribute('data-country-id', this.data.value);
+                if (this.data.countries[e.target.value] && this.data.countries[e.target.value].postcode_required == 1) {
+                    element.setAttribute('required', '');
+                } else {
+                    element.removeAttribute('required');
+                }
+            }
         }
     };
 }

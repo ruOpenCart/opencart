@@ -13,9 +13,15 @@ export class WebComponent extends HTMLElement {
     }
 
     async addStylesheet(stylesheet) {
-        let module = await (await import('./../style/' + stylesheet, {with: {type: 'css'}}));
+        let module = await (await import('./../stylesheet/' + stylesheet, {with: {type: 'css'}}));
 
         this.shadow.adoptedStyleSheets.push(module.default);
+    }
+
+    async fetch(route) {
+        let response = await fetch('./catalog/view/data/' + route + '.json');
+
+        return await response.json();
     }
 
     async parse(code, data) {
