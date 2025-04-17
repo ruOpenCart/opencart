@@ -22,7 +22,6 @@ $_['column_action']        = 'Действие';
 
 // Entry
 $_['entry_cron']           = 'URL-адрес CRON';
-$_['entry_description']    = 'Описание';
 
 // Error
 $_['error_permission']     = 'Внимание: У вас нет разрешения на изменение заданий CRON!';

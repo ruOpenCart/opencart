@@ -66,6 +66,7 @@ $_['text_return_status']       = 'Статусы возврата';
 $_['text_sale']                = 'Продажи';
 $_['text_setting']             = 'Настройки';
 $_['text_seo_url']             = 'Семантический URL';
+$_['text_ssr']                 = 'Статический рендеринг сайта';
 $_['text_startup']             = 'Автозагрузка';
 $_['text_statistics']          = 'Статистика';
 $_['text_stock_status']        = 'Статусы склада';
