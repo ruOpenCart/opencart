@@ -58,7 +58,6 @@ $_['text_store_email']           = 'Эл. почта магазина';
 $_['text_customer_email']        = 'Адрес эл. почты пользователя';
 $_['text_customer_telephone']    = 'Телефон покупателя';
 $_['text_missing']               = 'Пропавшие заказы';
-$_['text_default']               = 'По умолчанию';
 $_['text_picklist']              = 'Список доставки';
 $_['text_sku']                   = 'SKU';
 $_['text_upc']                   = 'UPC';
