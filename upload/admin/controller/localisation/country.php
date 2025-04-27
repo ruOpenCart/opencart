@@ -177,11 +177,11 @@ class Country extends \Opencart\System\Engine\Controller {
 		$results = $this->model_localisation_country->getCountries($filter_data);
 
 		foreach ($results as $result) {
-			$data['countries'][] = [
-				'name' => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : ''),
-				'edit' => $this->url->link('localisation/country.form', 'user_token=' . $this->session->data['user_token'] . '&country_id=' . $result['country_id'] . $url)
-			] + $result;
+			$data['countries'][] = ['edit' => $this->url->link('localisation/country.form', 'user_token=' . $this->session->data['user_token'] . '&country_id=' . $result['country_id'] . $url)] + $result;
 		}
+
+		// Default
+		$data['country_id'] = $this->config->get('config_country_id');
 
 		$url = '';
 
@@ -355,6 +355,28 @@ class Country extends \Opencart\System\Engine\Controller {
 			$data['postcode_required'] = 0;
 		}
 
+		// Stores
+		$data['stores'] = [];
+
+		$data['stores'][] = [
+			'store_id' => 0,
+			'name'     => $this->language->get('text_default')
+		];
+
+		$this->load->model('setting/store');
+
+		$results = $this->model_setting_store->getStores();
+
+		foreach ($results as $result) {
+			$data['stores'][] = $result;
+		}
+
+		if (!empty($country_info)) {
+			$data['country_store'] = $this->model_localisation_country->getStores($country_info['country_id']);
+		} else {
+			$data['country_store'] = [0];
+		}
+
 		if (!empty($country_info)) {
 			$data['status'] = $country_info['status'];
 		} else {
@@ -386,7 +408,11 @@ class Country extends \Opencart\System\Engine\Controller {
 			'country_id'          => 0,
 			'country_description' => [],
 			'iso_code_2'          => '',
-			'iso_code_3'          => ''
+			'iso_code_3'          => '',
+			'address_format_id'   => 0,
+			'postcode_required'   => 0,
+			'country_store'       => [],
+			'status'              => 0
 		];
 
 		$post_info = $this->request->post + $required;
