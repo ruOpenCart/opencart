@@ -16,7 +16,7 @@ $_['text_failed']   = 'Не удалось сбросить ваш код без
 // Entry
 $_['entry_code']    = 'Код безопасности';
 
-// Button
+// Buttons
 $_['button_send']   = 'Отправить';
 $_['button_reset']  = 'Сбросить';
 

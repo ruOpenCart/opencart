@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_list']        = 'Вы предоставили список валют для рендеринга';
-$_['text_next']        = 'You have rendered %s to %s of %s currencies';
+$_['text_next']        = 'Вы отобрали %s для %s из %s валют';
 $_['text_success']     = 'Успех: Вы изменили валюты!';
 
 // Error

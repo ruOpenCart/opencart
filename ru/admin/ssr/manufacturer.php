@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_list']        = 'Вы предоставили список производителей для рендеринга';
-$_['text_next']        = 'You have rendered %s to %s of %s manufacturers';
+$_['text_next']        = 'Вы отобрали %s для %s из %s производителей';
 $_['text_success']     = 'Успех: Вы изменили производителей!';
 
 // Error
