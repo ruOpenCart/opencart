@@ -1,7 +1,7 @@
 <?php
 // Text
 $_['text_list']        = 'Вы предоставили список языков для рендеринга';
-$_['text_next']        = 'You have rendered %s to %s of %s languages';
+$_['text_next']        = 'Вы отобрали %s для %s из %s языков';
 $_['text_success']     = 'Успех: Вы изменили языки!';
 
 // Error
