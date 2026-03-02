@@ -9,7 +9,7 @@
     <div id="content" class="col">{{ content_top }}
       <h1>{{ heading_title }}</h1>
       <h3>{{ text_location }}</h3>
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-body">
           <div class="row">
             {% if image %}
@@ -25,12 +25,12 @@
               {% endif %}
             </div>
             {% if telephone %}
-            <div class="col-sm-3"><strong>{{ text_telephone }}</strong>
-              <br/>
-              {{ telephone }}
-              <br/>
-              <br/>
-            </div>
+              <div class="col-sm-3"><strong>{{ text_telephone }}</strong>
+                <br/>
+                {{ telephone }}
+                <br/>
+                <br/>
+              </div>
             {% endif %}
             <div class="col-sm-3">
               {% if open %}
@@ -51,14 +51,15 @@
       </div>
       {% if locations %}
         <h3>{{ text_store }}</h3>
-        <div id="accordion" class="card-group">
+        <div id="accordion" class="accordion mb-3">
           {% for location in locations %}
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title pt-2"><a href="#collapse-location-{{ location.location_id }}" class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion">{{ location.name }} <i class="fa-solid fa-caret-down"></i></a></h4>
-              </div>
-              <div class="card-collapse collapse" id="collapse-location-{{ location.location_id }}">
-                <div class="card-body">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapse-location-{{ location.location_id }}">{{ location.name }}</button>
+              </h2>
+              <div id="collapse-location-{{ location.location_id }}" class="accordion-collapse collapse" data-bs-parent="#accordion">
+
+                <div class="accordion-body">
                   <div class="row">
                     {% if location.image %}
                       <div class="col-sm-3"><img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="img-thumbnail"/></div>
@@ -69,7 +70,7 @@
                         {{ location.address }}
                       </address>
                       {% if location.geocode %}
-                        <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-info"><i class="fa-solid fa-location-dot"></i> {{ button_map }}</a>
+                        <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-outline-secondary"><i class="fa-solid fa-location-dot"></i> {{ button_map }}</a>
                       {% endif %}
                     </div>
                     <div class="col-sm-3"><strong>{{ text_telephone }}</strong>
@@ -84,11 +85,8 @@
                         <br/>
                         {{ location.open }}
                         <br/>
-                        <br/>
                       {% endif %}
                       {% if location.comment %}
-                        <strong>{{ text_comment }}</strong>
-                        <br/>
                         {{ location.comment }}
                       {% endif %}
                     </div>
@@ -102,24 +100,24 @@
       <form id="form-contact" action="{{ send }}" method="post" data-oc-toggle="ajax">
         <fieldset>
           <legend>{{ text_contact }}</legend>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-name" class="col-sm-2 col-form-label">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control"/>
+              <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control" required/>
               <div id="error-name" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control"/>
+              <input type="text" name="email" value="{{ email }}" id="input-email" class="form-control" required/>
               <div id="error-email" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-enquiry" class="col-sm-2 col-form-label">{{ entry_enquiry }}</label>
             <div class="col-sm-10">
-              <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control"></textarea>
+              <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control" required></textarea>
               <div id="error-enquiry" class="invalid-feedback"></div>
             </div>
           </div>

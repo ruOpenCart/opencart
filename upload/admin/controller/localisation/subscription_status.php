@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Localisation;
  */
 class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -55,6 +57,8 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -64,9 +68,11 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
-	protected function getList(): string {
+	public function getList(): string {
 		if (isset($this->request->get['sort'])) {
 			$sort = (string)$this->request->get['sort'];
 		} else {
@@ -101,6 +107,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/subscription_status.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Subscription Statuses
 		$data['subscription_statuses'] = [];
 
 		$filter_data = [
@@ -116,11 +123,13 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			$data['subscription_statuses'][] = [
-				'subscription_status_id' => $result['subscription_status_id'],
-				'name'                   => $result['name'] . (($result['subscription_status_id'] == $this->config->get('config_subscription_status_id')) ? $this->language->get('text_default') : ''),
-				'edit'                   => $this->url->link('localisation/subscription_status.form', 'user_token=' . $this->session->data['user_token'] . '&subscription_status_id=' . $result['subscription_status_id'] . $url)
-			];
+				'name' => $result['name'],
+				'edit' => $this->url->link('localisation/subscription_status.form', 'user_token=' . $this->session->data['user_token'] . '&subscription_status_id=' . $result['subscription_status_id'] . $url)
+			] + $result;
 		}
+
+		// Default
+		$data['subscription_status_id'] = $this->config->get('config_subscription_status_id');
 
 		$url = '';
 
@@ -130,6 +139,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sort
 		$data['sort_name'] = $this->url->link('localisation/subscription_status.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 
 		$url = '';
@@ -142,8 +152,10 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Subscription Statuses
 		$subscription_status_total = $this->model_localisation_subscription_status->getTotalSubscriptionStatuses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_status_total,
 			'page'  => $page,
@@ -160,6 +172,8 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Form
+	 *
 	 * @return void
 	 */
 	public function form(): void {
@@ -198,12 +212,14 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/subscription_status.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/subscription_status', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Subscription Status
 		if (isset($this->request->get['subscription_status_id'])) {
 			$data['subscription_status_id'] = (int)$this->request->get['subscription_status_id'];
 		} else {
 			$data['subscription_status_id'] = 0;
 		}
 
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -211,7 +227,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['subscription_status_id'])) {
 			$this->load->model('localisation/subscription_status');
 
-			$data['subscription_status'] = $this->model_localisation_subscription_status->getDescriptions($this->request->get['subscription_status_id']);
+			$data['subscription_status'] = $this->model_localisation_subscription_status->getDescriptions((int)$this->request->get['subscription_status_id']);
 		} else {
 			$data['subscription_status'] = [];
 		}
@@ -226,6 +242,8 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -237,19 +255,27 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['subscription_status'] as $language_id => $value) {
-			if ((oc_strlen($value['name']) < 3) || (oc_strlen($value['name']) > 32)) {
+		$required = [
+			'subscription_status_id' => 0,
+			'subscription_status'    => []
+		];
+
+		$post_info = $this->request->post + $required;
+
+		foreach ($post_info['subscription_status'] as $language_id => $value) {
+			if (!oc_validate_length($value['name'], 3, 32)) {
 				$json['error']['name_' . $language_id] = $this->language->get('error_name');
 			}
 		}
 
 		if (!$json) {
+			// Subscription Status
 			$this->load->model('localisation/subscription_status');
 
-			if (!$this->request->post['subscription_status_id']) {
-				$json['subscription_status_id'] = $this->model_localisation_subscription_status->addSubscriptionStatus($this->request->post);
+			if (!$post_info['subscription_status_id']) {
+				$json['subscription_status_id'] = $this->model_localisation_subscription_status->addSubscriptionStatus($post_info);
 			} else {
-				$this->model_localisation_subscription_status->editSubscriptionStatus($this->request->post['subscription_status_id'], $this->request->post);
+				$this->model_localisation_subscription_status->editSubscriptionStatus($post_info['subscription_status_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -260,6 +286,8 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
 	public function delete(): void {
@@ -268,7 +296,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}
@@ -277,7 +305,10 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Setting
 		$this->load->model('setting/store');
+
+		// Subscription
 		$this->load->model('sale/subscription');
 
 		foreach ($selected as $subscription_status_id) {
@@ -285,12 +316,14 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Subscriptions
 			$subscription_total = $this->model_sale_subscription->getTotalSubscriptionsBySubscriptionStatusId($subscription_status_id);
 
 			if ($subscription_total) {
 				$json['error'] = sprintf($this->language->get('error_subscription'), $subscription_total);
 			}
 
+			// Total Histories
 			$subscription_total = $this->model_sale_subscription->getTotalHistoriesBySubscriptionStatusId($subscription_status_id);
 
 			if ($subscription_total) {
@@ -299,6 +332,7 @@ class SubscriptionStatus extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Subscription Status
 			$this->load->model('localisation/subscription_status');
 
 			foreach ($selected as $subscription_status_id) {

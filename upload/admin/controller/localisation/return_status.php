@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Localisation;
  */
 class ReturnStatus extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -55,6 +57,8 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -64,9 +68,11 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
-	protected function getList(): string {
+	public function getList(): string {
 		if (isset($this->request->get['sort'])) {
 			$sort = (string)$this->request->get['sort'];
 		} else {
@@ -101,6 +107,7 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/return_status.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Return Statuses
 		$data['return_statuses'] = [];
 
 		$filter_data = [
@@ -116,11 +123,13 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			$data['return_statuses'][] = [
-				'return_status_id' => $result['return_status_id'],
-				'name'             => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : ''),
-				'edit'             => $this->url->link('localisation/return_status.form', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $result['return_status_id'] . $url)
-			];
+				'name' => $result['name'],
+				'edit' => $this->url->link('localisation/return_status.form', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $result['return_status_id'] . $url)
+			] + $result;
 		}
+
+		// Default
+		$data['return_status_id'] = $this->config->get('config_return_status_id');
 
 		$url = '';
 
@@ -130,6 +139,7 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sort
 		$data['sort_name'] = $this->url->link('localisation/return_status.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 
 		$url = '';
@@ -142,8 +152,10 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Return Statuses
 		$return_status_total = $this->model_localisation_return_status->getTotalReturnStatuses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $return_status_total,
 			'page'  => $page,
@@ -160,6 +172,8 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Form
+	 *
 	 * @return void
 	 */
 	public function form(): void {
@@ -198,12 +212,14 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/return_status.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Return Status
 		if (isset($this->request->get['return_status_id'])) {
 			$data['return_status_id'] = (int)$this->request->get['return_status_id'];
 		} else {
 			$data['return_status_id'] = 0;
 		}
 
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -211,7 +227,7 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 		if (isset($this->request->get['return_status_id'])) {
 			$this->load->model('localisation/return_status');
 
-			$data['return_status'] = $this->model_localisation_return_status->getDescriptions($this->request->get['return_status_id']);
+			$data['return_status'] = $this->model_localisation_return_status->getDescriptions((int)$this->request->get['return_status_id']);
 		} else {
 			$data['return_status'] = [];
 		}
@@ -224,6 +240,8 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -235,19 +253,27 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['return_status'] as $language_id => $value) {
-			if ((oc_strlen($value['name']) < 3) || (oc_strlen($value['name']) > 32)) {
+		$required = [
+			'return_status_id' => 0,
+			'return_status'    => []
+		];
+
+		$post_info = $this->request->post + $required;
+
+		foreach ($post_info['return_status'] as $language_id => $value) {
+			if (!oc_validate_length($value['name'], 3, 32)) {
 				$json['error']['name_' . $language_id] = $this->language->get('error_name');
 			}
 		}
 
 		if (!$json) {
+			// Return Status
 			$this->load->model('localisation/return_status');
 
-			if (!$this->request->post['return_status_id']) {
-				$json['return_status_id'] = $this->model_localisation_return_status->addReturnStatus($this->request->post);
+			if (!$post_info['return_status_id']) {
+				$json['return_status_id'] = $this->model_localisation_return_status->addReturnStatus($post_info);
 			} else {
-				$this->model_localisation_return_status->editReturnStatus($this->request->post['return_status_id'], $this->request->post);
+				$this->model_localisation_return_status->editReturnStatus($post_info['return_status_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -258,6 +284,8 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
 	public function delete(): void {
@@ -266,7 +294,7 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}
@@ -275,19 +303,22 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Returns
 		$this->load->model('sale/returns');
 
-		foreach ($this->request->post['selected'] as $return_status_id) {
+		foreach ($selected as $return_status_id) {
 			if ($this->config->get('config_return_status_id') == $return_status_id) {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Returns
 			$return_total = $this->model_sale_returns->getTotalReturnsByReturnStatusId($return_status_id);
 
 			if ($return_total) {
 				$json['error'] = sprintf($this->language->get('error_return'), $return_total);
 			}
 
+			// Total Histories
 			$return_total = $this->model_sale_returns->getTotalHistoriesByReturnStatusId($return_status_id);
 
 			if ($return_total) {
@@ -296,6 +327,7 @@ class ReturnStatus extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Return Status
 			$this->load->model('localisation/return_status');
 
 			foreach ($selected as $return_status_id) {

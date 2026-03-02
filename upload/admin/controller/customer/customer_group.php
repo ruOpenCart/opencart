@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Customer;
  */
 class CustomerGroup extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -55,6 +57,8 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -64,9 +68,11 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
-	protected function getList(): string {
+	public function getList(): string {
 		if (isset($this->request->get['sort'])) {
 			$sort = (string)$this->request->get['sort'];
 		} else {
@@ -101,6 +107,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Customer Groups
 		$data['customer_groups'] = [];
 
 		$filter_data = [
@@ -116,12 +123,13 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			$data['customer_groups'][] = [
-				'customer_group_id' => $result['customer_group_id'],
-				'name'              => $result['name'] . (($result['customer_group_id'] == $this->config->get('config_customer_group_id')) ? $this->language->get('text_default') : ''),
-				'sort_order'        => $result['sort_order'],
-				'edit'              => $this->url->link('customer/customer_group.form', 'user_token=' . $this->session->data['user_token'] . '&customer_group_id=' . $result['customer_group_id'] . $url)
-			];
+				'name' => $result['name'],
+				'edit' => $this->url->link('customer/customer_group.form', 'user_token=' . $this->session->data['user_token'] . '&customer_group_id=' . $result['customer_group_id'] . $url)
+			] + $result;
 		}
+
+		// Default
+		$data['customer_group_id'] = $this->config->get('config_customer_group_id');
 
 		$url = '';
 
@@ -131,6 +139,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_name'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cgd.name' . $url);
 		$data['sort_sort_order'] = $this->url->link('customer/customer_group.list', 'user_token=' . $this->session->data['user_token'] . '&sort=cg.sort_order' . $url);
 
@@ -144,8 +153,10 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Customer Groups
 		$customer_group_total = $this->model_customer_customer_group->getTotalCustomerGroups();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $customer_group_total,
 			'page'  => $page,
@@ -162,6 +173,8 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Form
+	 *
 	 * @return void
 	 */
 	public function form(): void {
@@ -200,24 +213,26 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('customer/customer_group.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Customer Group
 		if (isset($this->request->get['customer_group_id'])) {
 			$this->load->model('customer/customer_group');
 
 			$customer_group_info = $this->model_customer_customer_group->getCustomerGroup($this->request->get['customer_group_id']);
 		}
 
-		if (isset($this->request->get['customer_group_id'])) {
-			$data['customer_group_id'] = (int)$this->request->get['customer_group_id'];
+		if (!empty($customer_group_info)) {
+			$data['customer_group_id'] = $customer_group_info['customer_group_id'];
 		} else {
 			$data['customer_group_id'] = 0;
 		}
 
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['customer_group_id'])) {
-			$data['customer_group_description'] = $this->model_customer_customer_group->getDescriptions($this->request->get['customer_group_id']);
+		if (!empty($customer_group_info)) {
+			$data['customer_group_description'] = $this->model_customer_customer_group->getDescriptions($customer_group_info['customer_group_id']);
 		} else {
 			$data['customer_group_description'] = [];
 		}
@@ -242,6 +257,8 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -253,19 +270,28 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['customer_group_description'] as $language_id => $value) {
-			if ((oc_strlen($value['name']) < 3) || (oc_strlen($value['name']) > 32)) {
+		$required = [
+			'customer_group_description' => [],
+			'approval'                   => 0,
+			'sort_order'                 => 0
+		];
+
+		$post_info = $this->request->post + $required;
+
+		foreach ($post_info['customer_group_description'] as $language_id => $value) {
+			if (!oc_validate_length($value['name'], 3, 32)) {
 				$json['error']['name_' . $language_id] = $this->language->get('error_name');
 			}
 		}
 
 		if (!$json) {
+			// Customer Group
 			$this->load->model('customer/customer_group');
 
-			if (!$this->request->post['customer_group_id']) {
-				$json['customer_group_id'] = $this->model_customer_customer_group->addCustomerGroup($this->request->post);
+			if (!$post_info['customer_group_id']) {
+				$json['customer_group_id'] = $this->model_customer_customer_group->addCustomerGroup($post_info);
 			} else {
-				$this->model_customer_customer_group->editCustomerGroup($this->request->post['customer_group_id'], $this->request->post);
+				$this->model_customer_customer_group->editCustomerGroup($post_info['customer_group_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -276,6 +302,8 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
 	public function delete(): void {
@@ -284,7 +312,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}
@@ -293,7 +321,10 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Setting
 		$this->load->model('setting/store');
+
+		// Customer
 		$this->load->model('customer/customer');
 
 		foreach ($selected as $customer_group_id) {
@@ -307,6 +338,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 				$json['error'] = sprintf($this->language->get('error_store'), $store_total);
 			}
 
+			// Total Customers
 			$customer_total = $this->model_customer_customer->getTotalCustomersByCustomerGroupId($customer_group_id);
 
 			if ($customer_total) {
@@ -315,6 +347,7 @@ class CustomerGroup extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Customer Group
 			$this->load->model('customer/customer_group');
 
 			foreach ($selected as $customer_group_id) {

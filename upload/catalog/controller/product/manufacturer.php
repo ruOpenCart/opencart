@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Product;
  */
 class Manufacturer extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -44,10 +46,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				$data['categories'][$key]['href'] = $this->url->link('product/manufacturer', 'language=' . $this->config->get('config_language'));
 			}
 
-			$data['categories'][$key]['manufacturer'][] = [
-				'name'  => $result['name'],
-				'href'  => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $result['manufacturer_id'])
-			];
+			$data['categories'][$key]['manufacturer'][] = ['href' => $this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $result['manufacturer_id'])] + $result;
 		}
 
 		$data['continue'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
@@ -63,9 +62,11 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * @return void
+	 * Info
+	 *
+	 * @return \Opencart\System\Engine\Action|null
 	 */
-	public function info(): \Opencart\System\Engine\Action|null {
+	public function info(): ?\Opencart\System\Engine\Action {
 		$this->load->language('product/manufacturer');
 
 		if (isset($this->request->get['manufacturer_id'])) {
@@ -98,6 +99,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 			$limit = (int)$this->config->get('config_pagination');
 		}
 
+		// Manufacturer
 		$this->load->model('catalog/manufacturer');
 
 		$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
@@ -146,6 +148,7 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 
 			$data['compare'] = $this->url->link('product/compare', 'language=' . $this->config->get('config_language'));
 
+			// Product
 			$data['products'] = [];
 
 			$filter_data = [
@@ -156,7 +159,10 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				'limit'                  => $limit
 			];
 
+			// Products
 			$this->load->model('catalog/product');
+
+			// Image
 			$this->load->model('tool/image');
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
@@ -168,10 +174,10 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 					$description = oc_substr($description, 0, $this->config->get('config_product_description_length')) . '..';
 				}
 
-				if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-					$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_product_width'), $this->config->get('config_image_product_height'));
+				if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+					$image = $result['image'];
 				} else {
-					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('config_image_product_width'), $this->config->get('config_image_product_height'));
+					$image = 'placeholder.png';
 				}
 
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -193,17 +199,14 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				}
 
 				$product_data = [
-					'product_id'  => $result['product_id'],
-					'thumb'       => $image,
-					'name'        => $result['name'],
+					'thumb'       => $this->model_tool_image->resize($image, $this->config->get('config_image_product_width'), $this->config->get('config_image_product_height')),
 					'description' => $description,
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
-					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $result['manufacturer_id'] . '&product_id=' . $result['product_id'] . $url)
-				];
+				] + $result;
 
 				$data['products'][] = $this->load->controller('product/thumb', $product_data);
 			}
@@ -310,8 +313,10 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
+			// Pagination
 			$data['pagination'] = $this->load->controller('common/pagination', [
 				'total' => $product_total,
 				'page'  => $page,
@@ -321,9 +326,9 @@ class Manufacturer extends \Opencart\System\Engine\Controller {
 
 			$data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
 
-			// http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
+			// https://developers.google.com/search/blog/2011/09/pagination-with-relnext-and-relprev
 			if ($page == 1) {
-			    $this->document->addLink($this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id']), 'canonical');
+				$this->document->addLink($this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id']), 'canonical');
 			} else {
 				$this->document->addLink($this->url->link('product/manufacturer.info', 'language=' . $this->config->get('config_language') . '&manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . $page), 'canonical');
 			}

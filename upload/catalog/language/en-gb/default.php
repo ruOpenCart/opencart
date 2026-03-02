@@ -15,6 +15,7 @@ $_['text_yes']              = 'Yes';
 $_['text_no']               = 'No';
 $_['text_none']             = ' --- None --- ';
 $_['text_select']           = ' --- Please Select --- ';
+$_['text_all']              = 'All';
 $_['text_all_zones']        = 'All Zones';
 $_['text_pagination']       = 'Showing %d to %d of %d (%d Pages)';
 $_['text_loading']          = 'Loading...';
@@ -56,14 +57,13 @@ $_['button_write']          = 'Write Review';
 $_['button_login']          = 'Login';
 $_['button_update']         = 'Update';
 $_['button_remove']         = 'Remove';
-$_['button_reorder']        = 'Reorder';
-$_['button_return']         = 'Return';
+$_['button_reorder']        = 'Buy Again';
+$_['button_return']         = 'Return Item';
 $_['button_shopping']       = 'Continue Shopping';
 $_['button_search']         = 'Search';
 $_['button_submit']         = 'Submit';
 $_['button_guest']          = 'Guest Checkout';
 $_['button_view']           = 'View';
-$_['button_voucher']        = 'Apply Gift Certificate';
 $_['button_upload']         = 'Upload File';
 $_['button_reward']         = 'Apply Points';
 $_['button_choose']         = 'Choose';
@@ -87,7 +87,7 @@ $_['error_upload_size']     = 'Warning: The uploaded file exceeds the %smb max f
 $_['error_curl']            = 'CURL: Error Code(%s): %s';
 $_['error_session']         = 'Warning: Session has expired please submit the form again!';
 
-/* When doing translations only include the matching language code */
+// When doing translations only include the matching language code
 // Datepicker
 //$_['datepicker']            = 'af';
 //$_['datepicker']            = 'ar-dz';

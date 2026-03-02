@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Account;
  */
 class Transaction extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -18,10 +20,10 @@ class Transaction extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
-		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+		if (!$this->load->controller('account/login.validate')) {
 			$this->session->data['redirect'] = $this->url->link('account/transaction', 'language=' . $this->config->get('config_language'));
 
-			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language')));
+			$this->response->redirect($this->url->link('account/login', 'language=' . $this->config->get('config_language'), true));
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -47,6 +49,7 @@ class Transaction extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
+		// Transactions
 		$data['transactions'] = [];
 
 		$filter_data = [
@@ -58,18 +61,19 @@ class Transaction extends \Opencart\System\Engine\Controller {
 
 		$this->load->model('account/transaction');
 
-		$results = $this->model_account_transaction->getTransactions($filter_data);
+		$results = $this->model_account_transaction->getTransactions($this->customer->getId(), $filter_data);
 
 		foreach ($results as $result) {
 			$data['transactions'][] = [
-				'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
-				'description' => $result['description'],
-				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
-			];
+				'amount'     => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+			] + $result;
 		}
 
-		$transaction_total = $this->model_account_transaction->getTotalTransactions();
+		// Total Transactions
+		$transaction_total = $this->model_account_transaction->getTotalTransactions($this->customer->getId());
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $transaction_total,
 			'page'  => $page,

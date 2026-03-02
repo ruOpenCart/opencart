@@ -7,10 +7,14 @@ namespace Opencart\Admin\Controller\Localisation;
  */
 class WeightClass extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
 		$this->load->language('localisation/weight_class');
+
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$url = '';
 
@@ -53,6 +57,8 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -62,9 +68,11 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
-	protected function getList(): string {
+	public function getList(): string {
 		if (isset($this->request->get['sort'])) {
 			$sort = (string)$this->request->get['sort'];
 		} else {
@@ -99,6 +107,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Weight Classes
 		$data['weight_classes'] = [];
 
 		$filter_data = [
@@ -114,13 +123,13 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 
 		foreach ($results as $result) {
 			$data['weight_classes'][] = [
-				'weight_class_id' => $result['weight_class_id'],
-				'title'           => $result['title'] . (($result['weight_class_id'] == $this->config->get('config_weight_class_id')) ? $this->language->get('text_default') : ''),
-				'unit'            => $result['unit'],
-				'value'           => $result['value'],
-				'edit'            => $this->url->link('localisation/weight_class.form', 'user_token=' . $this->session->data['user_token'] . '&weight_class_id=' . $result['weight_class_id'] . $url)
-			];
+				'title' => $result['title'],
+				'edit'  => $this->url->link('localisation/weight_class.form', 'user_token=' . $this->session->data['user_token'] . '&weight_class_id=' . $result['weight_class_id'] . $url)
+			] + $result;
 		}
+
+		// Default
+		$data['weight_class_id'] = $this->config->get('config_weight_class_id');
 
 		$url = '';
 
@@ -130,6 +139,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
+		// Sorts
 		$data['sort_title'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=title' . $url);
 		$data['sort_unit'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=unit' . $url);
 		$data['sort_value'] = $this->url->link('localisation/weight_class.list', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url);
@@ -144,8 +154,10 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
+		// Total Weight Classes
 		$weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $weight_class_total,
 			'page'  => $page,
@@ -162,6 +174,8 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Form
+	 *
 	 * @return void
 	 */
 	public function form(): void {
@@ -200,24 +214,26 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('localisation/weight_class.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url);
 
+		// Weight Class
 		if (isset($this->request->get['weight_class_id'])) {
 			$this->load->model('localisation/weight_class');
 
 			$weight_class_info = $this->model_localisation_weight_class->getWeightClass($this->request->get['weight_class_id']);
 		}
 
-		if (isset($this->request->get['weight_class_id'])) {
-			$data['weight_class_id'] = (int)$this->request->get['weight_class_id'];
+		if (!empty($weight_class_info)) {
+			$data['weight_class_id'] = $weight_class_info['weight_class_id'];
 		} else {
 			$data['weight_class_id'] = 0;
 		}
 
+		// Languages
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		if (isset($this->request->get['weight_class_id'])) {
-			$data['weight_class_description'] = $this->model_localisation_weight_class->getDescriptions($this->request->get['weight_class_id']);
+		if (!empty($weight_class_info)) {
+			$data['weight_class_description'] = $this->model_localisation_weight_class->getDescriptions($weight_class_info['weight_class_id']);
 		} else {
 			$data['weight_class_description'] = [];
 		}
@@ -236,6 +252,8 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -247,8 +265,16 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$json['error']['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['weight_class_description'] as $language_id => $value) {
-			if ((oc_strlen($value['title']) < 3) || (oc_strlen($value['title']) > 32)) {
+		$required = [
+			'weight_class_id'          => 0,
+			'weight_class_description' => [],
+			'value'                    => 0.0
+		];
+
+		$post_info = $this->request->post + $required;
+
+		foreach ($post_info['weight_class_description'] as $language_id => $value) {
+			if (!oc_validate_length($value['title'], 3, 32)) {
 				$json['error']['title_' . $language_id] = $this->language->get('error_title');
 			}
 
@@ -258,12 +284,13 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Weight Class
 			$this->load->model('localisation/weight_class');
 
-			if (!$this->request->post['weight_class_id']) {
-				$json['weight_class_id'] = $this->model_localisation_weight_class->addWeightClass($this->request->post);
+			if (!$post_info['weight_class_id']) {
+				$json['weight_class_id'] = $this->model_localisation_weight_class->addWeightClass($post_info);
 			} else {
-				$this->model_localisation_weight_class->editWeightClass($this->request->post['weight_class_id'], $this->request->post);
+				$this->model_localisation_weight_class->editWeightClass($post_info['weight_class_id'], $post_info);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -274,6 +301,8 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
 	public function delete(): void {
@@ -282,7 +311,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->post['selected'])) {
-			$selected = $this->request->post['selected'];
+			$selected = (array)$this->request->post['selected'];
 		} else {
 			$selected = [];
 		}
@@ -291,6 +320,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
+		// Products
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $weight_class_id) {
@@ -298,6 +328,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 				$json['error'] = $this->language->get('error_default');
 			}
 
+			// Total Products
 			$product_total = $this->model_catalog_product->getTotalProductsByWeightClassId($weight_class_id);
 
 			if ($product_total) {
@@ -306,6 +337,7 @@ class WeightClass extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Weight Class
 			$this->load->model('localisation/weight_class');
 
 			foreach ($selected as $weight_class_id) {

@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Extension;
  */
 class Shipping extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -14,6 +16,8 @@ class Shipping extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
 	public function getList(): string {
@@ -29,6 +33,7 @@ class Shipping extends \Opencart\System\Engine\Controller {
 
 		$installed = [];
 
+		// Extensions
 		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('shipping');
@@ -55,7 +60,7 @@ class Shipping extends \Opencart\System\Engine\Controller {
 
 				$data['extensions'][] = [
 					'name'       => $this->language->get($code . '_heading_title'),
-					'status'     => $this->config->get('shipping_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'status'     => $this->config->get('shipping_' . $code . '_status'),
 					'sort_order' => $this->config->get('shipping_' . $code . '_sort_order'),
 					'install'    => $this->url->link('extension/shipping.install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'uninstall'  => $this->url->link('extension/shipping.uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
@@ -71,6 +76,8 @@ class Shipping extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -99,10 +106,12 @@ class Shipping extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->install('shipping', $extension, $code);
 
+			// User Group
 			$this->load->model('user/user_group');
 
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/' . $extension . '/shipping/' . $code);
@@ -135,6 +144,8 @@ class Shipping extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {
@@ -147,6 +158,7 @@ class Shipping extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->uninstall('shipping', $this->request->get['code']);

@@ -7,6 +7,8 @@ namespace Opencart\Catalog\Controller\Cms;
  */
 class Blog extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -36,6 +38,18 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$filter_author = '';
 		}
 
+		if (isset($this->request->get['sort'])) {
+			$sort = (string)$this->request->get['sort'];
+		} else {
+			$sort = 'date_added';
+		}
+
+		if (isset($this->request->get['order'])) {
+			$order = (string)$this->request->get['order'];
+		} else {
+			$order = 'DESC';
+		}
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -51,20 +65,12 @@ class Blog extends \Opencart\System\Engine\Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['search'])) {
-			$url .= '&search=' . $this->request->get['search'];
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
 		}
 
-		if (isset($this->request->get['tag'])) {
-			$url .= '&tag=' . $this->request->get['tag'];
-		}
-
-		if (isset($this->request->get['topic_id'])) {
-			$url .= '&topic_id=' . $this->request->get['topic_id'];
-		}
-
-		if (isset($this->request->get['author'])) {
-			$url .= '&author=' . $this->request->get['author'];
+		if (isset($this->request->get['order'])) {
+			$url .= '&order=' . $this->request->get['order'];
 		}
 
 		if (isset($this->request->get['page'])) {
@@ -76,6 +82,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 			'href' => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . $url)
 		];
 
+		// Topic
 		$this->load->model('cms/topic');
 
 		$topic_info = $this->model_cms_topic->getTopic($filter_topic_id);
@@ -97,6 +104,14 @@ class Blog extends \Opencart\System\Engine\Controller {
 
 			if (isset($this->request->get['author'])) {
 				$url .= '&author=' . $this->request->get['author'];
+			}
+
+			if (isset($this->request->get['sort'])) {
+				$url .= '&sort=' . $this->request->get['sort'];
+			}
+
+			if (isset($this->request->get['order'])) {
+				$url .= '&order=' . $this->request->get['order'];
 			}
 
 			if (isset($this->request->get['page'])) {
@@ -127,16 +142,18 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$data['description'] = '';
 		}
 
+		// Image
 		$this->load->model('tool/image');
 
-		if ($topic_info && is_file(DIR_IMAGE . html_entity_decode($topic_info['image'], ENT_QUOTES, 'UTF-8'))) {
-			$data['image'] = $this->model_tool_image->resize(html_entity_decode($topic_info['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_topic_width'), $this->config->get('config_image_topic_height'));
+		if (!empty($topic_info['image']) && is_file(DIR_IMAGE . html_entity_decode($topic_info['image'], ENT_QUOTES, 'UTF-8'))) {
+			$data['image'] = $this->model_tool_image->resize($topic_info['image'], $this->config->get('config_image_topic_width'), $this->config->get('config_image_topic_height'));
 		} else {
 			$data['image'] = '';
 		}
 
-		$limit = 20;
+		$limit = $this->config->get('config_pagination');
 
+		// Articles
 		$data['articles'] = [];
 
 		$filter_data = [
@@ -144,6 +161,8 @@ class Blog extends \Opencart\System\Engine\Controller {
 			'filter_topic_id' => $filter_topic_id,
 			'filter_author'   => $filter_author,
 			'filter_tag'      => $filter_tag,
+			'sort'            => $sort,
+			'order'           => $order,
 			'start'           => ($page - 1) * $limit,
 			'limit'           => $limit
 		];
@@ -159,23 +178,20 @@ class Blog extends \Opencart\System\Engine\Controller {
 				$description = oc_substr($description, 0, $this->config->get('config_article_description_length')) . '..';
 			}
 
-			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-				$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_article_width'), $this->config->get('config_image_article_height'));
+			if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+				$image = $this->model_tool_image->resize($result['image'], $this->config->get('config_image_article_width'), $this->config->get('config_image_article_height'));
 			} else {
 				$image = '';
 			}
 
 			$data['articles'][] = [
-				'article_id'    => $result['article_id'],
-				'name'          => $result['name'],
 				'description'   => $description,
 				'image'         => $image,
-				'author'        => $result['author'],
 				'filter_author' => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&author=' . $result['author'] . $url),
-				'comment_total' => $this->model_cms_article->getTotalComments($result['article_id']),
+				'comment_total' => $this->model_cms_article->getTotalComments($result['article_id'], ['parent_id' => 0]),
 				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'href'          => $this->url->link('cms/blog.info', 'language=' . $this->config->get('config_language') . '&article_id=' . $result['article_id'] . $url)
-			];
+			] + $result;
 		}
 
 		$url = '';
@@ -196,8 +212,18 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$url .= '&author=' . (string)$this->request->get['author'];
 		}
 
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
+		}
+
+		if (isset($this->request->get['order'])) {
+			$url .= '&order=' . $this->request->get['order'];
+		}
+
+		// Total Articles
 		$article_total = $this->model_cms_article->getTotalArticles($filter_data);
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $article_total,
 			'page'  => $page,
@@ -207,33 +233,71 @@ class Blog extends \Opencart\System\Engine\Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($article_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($article_total - $limit)) ? $article_total : ((($page - 1) * $limit) + $limit), $article_total, ceil($article_total / $limit));
 
-		// http://googlewebmastercentral.articlespot.com/2011/09/pagination-with-relnext-and-relprev.html
-		if ($page == 1) {
-			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language')), 'canonical');
-		} else {
-			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&page='. $page), 'canonical');
-		}
-
-		if ($page > 1) {
-			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . (($page - 2) ? '&page='. ($page - 1) : '')), 'prev');
-		}
-
-		if (ceil($article_total / $limit) > $page) {
-			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&page='. ($page + 1)), 'next');
-		}
-
 		$data['search'] = $filter_search;
 		$data['topic_id'] = $filter_topic_id;
 
-		$data['topics'] = [];
+		$data['topics'] = $this->model_cms_topic->getTopics();
 
-		$results = $this->model_cms_topic->getTopics();
+		$url = '';
 
-		foreach ($results as $result) {
-			$data['topics'][] = [
-				'topic_id' => $result['topic_id'],
-				'name'     => $result['name']
-			];
+		if (isset($this->request->get['search'])) {
+			$url .= '&search=' . $this->request->get['search'];
+		}
+
+		if (isset($this->request->get['tag'])) {
+			$url .= '&tag=' . $this->request->get['tag'];
+		}
+
+		if (isset($this->request->get['topic_id'])) {
+			$url .= '&topic_id=' . $this->request->get['topic_id'];
+		}
+
+		if (isset($this->request->get['author'])) {
+			$url .= '&author=' . (string)$this->request->get['author'];
+		}
+
+		$data['sorts'] = [];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_date_added_asc'),
+			'value' => 'date_added-ASC',
+			'href'  => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&sort=date_added&order=ASC' . $url)
+		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_date_added_desc'),
+			'value' => 'date_added-DESC',
+			'href'  => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&sort=date_added&order=DESC' . $url)
+		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_rating_asc'),
+			'value' => 'rating-ASC',
+			'href'  => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&sort=rating&order=ASC' . $url)
+		];
+
+		$data['sorts'][] = [
+			'text'  => $this->language->get('text_rating_desc'),
+			'value' => 'rating-DESC',
+			'href'  => $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&sort=rating&order=DESC' . $url)
+		];
+
+		$data['sort'] = $sort;
+		$data['order'] = $order;
+
+		// https://developers.google.com/search/blog/2011/09/pagination-with-relnext-and-relprev
+		if ($page == 1) {
+			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language')), 'canonical');
+		} else {
+			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&page=' . $page), 'canonical');
+		}
+
+		if ($page > 1) {
+			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . (($page - 2) ? '&page=' . ($page - 1) : '')), 'prev');
+		}
+
+		if (ceil($article_total / $limit) > $page) {
+			$this->document->addLink($this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&page=' . ($page + 1)), 'next');
 		}
 
 		$data['language'] = $this->config->get('config_language');
@@ -245,10 +309,15 @@ class Blog extends \Opencart\System\Engine\Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$this->response->setOutput($this->load->view('cms/blog_list', $data));
+		$this->response->setOutput($this->load->view('cms/blog', $data));
 	}
 
-	public function info(): object|null {
+	/**
+	 * Info
+	 *
+	 * @return \Opencart\System\Engine\Action|null
+	 */
+	public function info(): ?\Opencart\System\Engine\Action {
 		$this->load->language('cms/blog');
 
 		if (isset($this->request->get['article_id'])) {
@@ -263,6 +332,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 			$topic_id = 0;
 		}
 
+		// Article
 		$this->load->model('cms/article');
 
 		$article_info = $this->model_cms_article->getArticle($article_id);
@@ -306,6 +376,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
+			// Topic
 			$this->load->model('cms/topic');
 
 			$topic_info = $this->model_cms_topic->getTopic($topic_id);
@@ -319,30 +390,29 @@ class Blog extends \Opencart\System\Engine\Controller {
 
 			$data['breadcrumbs'][] = [
 				'text' => $article_info['name'],
-				'href' => $this->url->link('cms/blog.info', 'language=' . $this->config->get('config_language') . '&article_id=' .  $article_id . $url)
+				'href' => $this->url->link('cms/blog.info', 'language=' . $this->config->get('config_language') . '&article_id=' . $article_id . $url)
 			];
 
 			$data['heading_title'] = $article_info['name'];
 
+			// Image
 			$this->load->model('tool/image');
 
-			if (is_file(DIR_IMAGE . html_entity_decode($article_info['image'], ENT_QUOTES, 'UTF-8'))) {
-				$data['image'] = $this->model_tool_image->resize(html_entity_decode($article_info['image'], ENT_QUOTES, 'UTF-8'), $this->config->get('config_image_article_width'), $this->config->get('config_image_article_height'));
+			if (!empty($article_info['image']) && is_file(DIR_IMAGE . html_entity_decode($article_info['image'], ENT_QUOTES, 'UTF-8'))) {
+				$data['image'] = $this->model_tool_image->resize($article_info['image'], $this->config->get('config_image_article_width'), $this->config->get('config_image_article_height'));
 			} else {
 				$data['image'] = '';
 			}
 
 			$data['description'] = html_entity_decode($article_info['description'], ENT_QUOTES, 'UTF-8');
-
 			$data['author'] = $article_info['author'];
 			$data['filter_author'] = $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . '&author=' . $article_info['author']);
-
 			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($article_info['date_added']));
 
 			$data['tags'] = [];
 
 			if ($article_info['tag']) {
-				$tags = explode(',', trim($article_info['tag'], ''));
+				$tags = explode(',', trim($article_info['tag'], ','));
 
 				foreach ($tags as $tag) {
 					$data['tags'][] = [
@@ -353,7 +423,7 @@ class Blog extends \Opencart\System\Engine\Controller {
 			}
 
 			$data['comment'] = $this->config->get('config_comment_status') ? $this->load->controller('cms/comment') : '';
-			$data['comment_total'] = $this->model_cms_article->getTotalComments($article_id);
+			$data['comment_total'] = $this->model_cms_article->getTotalComments($article_id, ['parent_id' => 0]);
 
 			$data['continue'] = $this->url->link('cms/blog', 'language=' . $this->config->get('config_language') . $url);
 

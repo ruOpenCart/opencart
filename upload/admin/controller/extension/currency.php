@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Extension;
  */
 class Currency extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -14,6 +16,8 @@ class Currency extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
 	public function getList(): string {
@@ -29,6 +33,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 
 		$installed = [];
 
+		// Extensions
 		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('currency');
@@ -54,8 +59,9 @@ class Currency extends \Opencart\System\Engine\Controller {
 				$this->load->language('extension/' . $extension . '/currency/' . $code, $code);
 
 				$data['extensions'][] = [
-					'name'      => $this->language->get($code . '_heading_title') . ($code == $this->config->get('config_currency') ? $this->language->get('text_default') : ''),
-					'status'    => $this->config->get('currency_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'name'      => $this->language->get($code . '_heading_title'),
+					'code'      => $code,
+					'status'    => $this->config->get('currency_' . $code . '_status'),
 					'install'   => $this->url->link('extension/currency.install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'uninstall' => $this->url->link('extension/currency.uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension . '&code=' . $code),
 					'installed' => in_array($code, $installed),
@@ -64,12 +70,17 @@ class Currency extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		// Default
+		$data['code'] = $this->config->get('config_currency_engine');
+
 		$data['promotion'] = $this->load->controller('marketplace/promotion');
 
 		return $this->load->view('extension/currency', $data);
 	}
 
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -98,10 +109,12 @@ class Currency extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extensions
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->install('currency', $extension, $code);
 
+			// User Group
 			$this->load->model('user/user_group');
 
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/' . $extension . '/currency/' . $code);
@@ -134,6 +147,8 @@ class Currency extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {
@@ -146,6 +161,7 @@ class Currency extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->uninstall('currency', $this->request->get['code']);

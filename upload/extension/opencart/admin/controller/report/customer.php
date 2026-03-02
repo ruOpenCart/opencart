@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Extension\Opencart\Report;
  */
 class Customer extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -45,6 +47,8 @@ class Customer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
 	public function save(): void {
@@ -57,6 +61,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Setting
 			$this->load->model('setting/setting');
 
 			$this->model_setting_setting->editSetting('report_customer', $this->request->post);
@@ -69,6 +74,8 @@ class Customer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Report
+	 *
 	 * @return void
 	 */
 	public function report(): void {
@@ -104,6 +111,8 @@ class Customer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * List
+	 *
 	 * @return void
 	 */
 	public function list(): void {
@@ -113,6 +122,8 @@ class Customer extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get Report
+	 *
 	 * @return string
 	 */
 	public function getReport(): string {
@@ -140,18 +151,21 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$page = 1;
 		}
 
+		// Customers
 		$data['customers'] = [];
 
 		$filter_data = [
-			'filter_date_start'	=> $filter_date_start,
-			'filter_date_end'	=> $filter_date_end,
-			'filter_group'           => $filter_group,
+			'filter_date_start' => $filter_date_start,
+			'filter_date_end'   => $filter_date_end,
+			'filter_group'      => $filter_group,
 			'start'             => ($page - 1) * 20,
 			'limit'             => 20
 		];
 
+		// Extension
 		$this->load->model('extension/opencart/report/customer');
 
+		// Total Customers
 		$customer_total = $this->model_extension_opencart_report_customer->getTotalCustomers($filter_data);
 
 		$results = $this->model_extension_opencart_report_customer->getCustomers($filter_data);
@@ -178,6 +192,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$url .= '&filter_group=' . $this->request->get['filter_group'];
 		}
 
+		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $customer_total,
 			'page'  => $page,

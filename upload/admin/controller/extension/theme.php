@@ -7,6 +7,8 @@ namespace Opencart\Admin\Controller\Extension;
  */
 class Theme extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
@@ -14,6 +16,8 @@ class Theme extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Get List
+	 *
 	 * @return string
 	 */
 	public function getList(): string {
@@ -29,6 +33,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 
 		$installed = [];
 
+		// Extensions
 		$this->load->model('setting/extension');
 
 		$extensions = $this->model_setting_extension->getExtensionsByType('theme');
@@ -41,7 +46,9 @@ class Theme extends \Opencart\System\Engine\Controller {
 			}
 		}
 
+		// Setting
 		$this->load->model('setting/store');
+
 		$this->load->model('setting/setting');
 
 		$stores = $this->model_setting_store->getStores();
@@ -63,14 +70,14 @@ class Theme extends \Opencart\System\Engine\Controller {
 				$store_data[] = [
 					'name'   => $this->config->get('config_name'),
 					'edit'   => $this->url->link('extension/' . $extension . '/theme/' . $code, 'user_token=' . $this->session->data['user_token'] . '&store_id=0'),
-					'status' => $this->config->get('theme_' . $code . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled')
+					'status' => $this->config->get('theme_' . $code . '_status')
 				];
 
 				foreach ($stores as $store) {
 					$store_data[] = [
 						'name'   => $store['name'],
 						'edit'   => $this->url->link('extension/' . $extension . '/theme/' . $code, 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $store['store_id']),
-						'status' => $this->model_setting_setting->getValue('theme_' . $code . '_status', $store['store_id']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled')
+						'status' => $this->model_setting_setting->getValue('theme_' . $code . '_status', $store['store_id'])
 					];
 				}
 
@@ -90,6 +97,8 @@ class Theme extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
 	public function install(): void {
@@ -118,10 +127,12 @@ class Theme extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->install('theme', $extension, $code);
 
+			// User Group
 			$this->load->model('user/user_group');
 
 			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/' . $extension . '/theme/' . $code);
@@ -154,6 +165,8 @@ class Theme extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
 	public function uninstall(): void {
@@ -166,6 +179,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
+			// Extension
 			$this->load->model('setting/extension');
 
 			$this->model_setting_extension->uninstall('theme', $this->request->get['code']);

@@ -18,7 +18,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.resize_dir = 'vertical';
 	config.htmlEncodeOutput = false;
 	config.entities = false;
-	config.extraPlugins = 'opencart,codemirror'; //
+	config.extraPlugins = 'opencart,codemirror,youtube';
 	config.codemirror_theme = 'monokai';
 	config.toolbar = 'Custom';
 	config.allowedContent = true;
@@ -27,6 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.browserContextMenuOnCtrl = true;
 	config.resize_enabled = true;
 	config.resize_dir = 'vertical';
+	config.versionCheck = false;
 
 	config.toolbar_Custom = [
 		['Source'],
@@ -41,6 +42,6 @@ CKEDITOR.editorConfig = function( config ) {
 		['Format','Font','FontSize'],
 		['TextColor','BGColor'],
 		['Link','Unlink','Anchor'],
-		['Image','OpenCart','Table','HorizontalRule']
+		['Image','OpenCart','Youtube','Table','HorizontalRule']
 	];
 };

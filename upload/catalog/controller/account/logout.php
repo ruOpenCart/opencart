@@ -7,13 +7,17 @@ namespace Opencart\Catalog\Controller\Account;
  */
 class Logout extends \Opencart\System\Engine\Controller {
 	/**
+	 * Index
+	 *
 	 * @return void
 	 */
 	public function index(): void {
 		if ($this->customer->isLogged()) {
 			$this->customer->logout();
 
+			unset($this->session->data['order_id']);
 			unset($this->session->data['customer']);
+			unset($this->session->data['customer_token']);
 			unset($this->session->data['shipping_address']);
 			unset($this->session->data['shipping_method']);
 			unset($this->session->data['shipping_methods']);
@@ -21,14 +25,10 @@ class Logout extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
 			unset($this->session->data['comment']);
-			unset($this->session->data['order_id']);
 			unset($this->session->data['coupon']);
 			unset($this->session->data['reward']);
-			unset($this->session->data['voucher']);
-			unset($this->session->data['vouchers']);
-			unset($this->session->data['customer_token']);
 
-			$this->response->redirect($this->url->link('account/logout', 'language=' . $this->config->get('config_language')));
+			$this->response->redirect($this->url->link('account/logout', 'language=' . $this->config->get('config_language'), true));
 		}
 
 		$this->load->language('account/logout');

@@ -22,7 +22,7 @@ $_['text_select_all']               = 'Select All';
 $_['text_all']                      = 'All';
 $_['text_unselect_all']             = 'Unselect All';
 $_['text_all_zones']                = 'All Zones';
-$_['text_default']                  = ' <b>(Default)</b>';
+$_['text_default']                  = 'Default';
 $_['text_close']                    = 'Close';
 $_['text_pagination']               = 'Showing %d to %d of %d (%d Pages)';
 $_['text_loading']                  = 'Loading...';
@@ -44,7 +44,7 @@ $_['text_months_ago']               = '%s months ago';
 $_['text_year_ago']                 = '%s year ago';
 $_['text_years_ago']                = '%s years ago';
 
-// Button
+// Buttons
 $_['button_add']                    = 'Add New';
 $_['button_delete']                 = 'Delete';
 $_['button_save']                   = 'Save';
@@ -81,7 +81,6 @@ $_['button_option_add']             = 'Add Option';
 $_['button_option_value_add']       = 'Add Option Value';
 $_['button_subscription_add']       = 'Add Subscription';
 $_['button_discount_add']           = 'Add Discount';
-$_['button_special_add']            = 'Add Special';
 $_['button_image_add']              = 'Add Image';
 $_['button_geo_zone_add']           = 'Add Geo Zone';
 $_['button_history_add']            = 'Add History';
@@ -94,8 +93,8 @@ $_['button_customer_add']           = 'Add Customer';
 $_['button_approve']                = 'Approve';
 $_['button_deny']                   = 'Deny';
 $_['button_reset']                  = 'Reset';
+$_['button_login']                  = 'Login';
 $_['button_generate']               = 'Generate';
-$_['button_voucher_add']            = 'Add Voucher';
 $_['button_view']                   = 'View';
 $_['button_reward_add']             = 'Add Reward Points';
 $_['button_reward_remove']          = 'Remove Reward Points';
@@ -126,7 +125,7 @@ $_['button_calculate']              = 'Calculate Payments';
 $_['button_csv']                    = 'Download CSV';
 $_['button_complete']               = 'Complete Payments';
 
-// Tab
+// Tabs
 $_['tab_address']                   = 'Addresses';
 $_['tab_additional']                = 'Additional';
 $_['tab_attribute']                 = 'Attribute';
@@ -146,15 +145,12 @@ $_['tab_option']                    = 'Option';
 $_['tab_server']                    = 'Server';
 $_['tab_seo']                       = 'SEO';
 $_['tab_store']                     = 'Store';
-$_['tab_special']                   = 'Special';
-$_['tab_session']                   = 'Session';
 $_['tab_local']                     = 'Local';
 $_['tab_mail']                      = 'Mail';
 $_['tab_payment_method']            = 'Payment Methods';
 $_['tab_product']                   = 'Products';
 $_['tab_reward']                    = 'Reward Points';
 $_['tab_transaction']               = 'Transactions';
-$_['tab_voucher']                   = 'Vouchers';
 $_['tab_subscription']              = 'Subscription';
 $_['tab_report']                    = 'Report';
 
@@ -170,12 +166,24 @@ $_['error_upload_8']                = 'Warning: File upload stopped by extension
 $_['error_upload_999']              = 'Warning: No error code available!';
 $_['error_upload_size']             = 'Warning: The uploaded file exceeds the %smb max file size!';
 $_['error_curl']                    = 'CURL: Error Code(%s): %s';
+$_['error_session']                 = 'Warning: Session has expired please submit the form again!';
 $_['error_format_b']				= 'Warning: The uploaded file exceeds the max file size: %s bytes!';
 $_['error_format_kb']				= 'Warning: The uploaded file exceeds the max file size: %s kilobytes!';
 $_['error_format_mb']				= 'Warning: The uploaded file exceeds the max file size: %s megabytes!';
 $_['error_format_gb']				= 'Warning: The uploaded file exceeds the max file size: %s gigabytes!';
 
-/* When doing translations only include the matching language code */
+// Zip errors
+$_['error_zip_exists']       		= 'File already exists!';
+$_['error_zip_incons']       		= 'Zip archive inconsistent!';
+$_['error_zip_inval']        		= 'Invalid argument!';
+$_['error_zip_memory']       		= 'Memory allocation failure!';
+$_['error_zip_noent']        		= 'No such file!';
+$_['error_zip_nozip']        		= 'Not a zip archive!';
+$_['error_zip_open']         		= 'Can not open file!';
+$_['error_zip_read']        		= 'Read error!';
+$_['error_zip_seek']         		= 'Seek error!';
+
+// When doing translations only include the matching language code
 
 // CKEditor
 //$_['ckeditor']                    = 'af';

@@ -14,10 +14,10 @@
         <fieldset id="account">
           <legend>{{ text_your_details }}</legend>
           {% if customer_groups|length > 1 %}
-            <div class="row mb-3 required">
+            <div class="row mb-3">
               <label class="col-sm-2 col-form-label">{{ entry_customer_group }}</label>
               <div class="col-sm-10">
-                <select name="customer_group_id" id="input-customer-group" class="form-select">
+                <select name="customer_group_id" id="input-customer-group" class="form-select" required>
                   {% for customer_group in customer_groups %}
                     <option value="{{ customer_group.customer_group_id }}"{% if customer_group.customer_group_id == customer_group_id %} selected{% endif %}>{{ customer_group.name }}</option>
                   {% endfor %}
@@ -25,33 +25,33 @@
               </div>
             </div>
           {% endif %}
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-firstname" class="col-sm-2 col-form-label">{{ entry_firstname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
+              <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" required/>
               <div id="error-firstname" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-lastname" class="col-sm-2 col-form-label">{{ entry_lastname }}</label>
             <div class="col-sm-10">
-              <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
+              <input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control" required/>
               <div id="error-lastname" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-email" class="col-sm-2 col-form-label">{{ entry_email }}</label>
             <div class="col-sm-10">
-              <input type="email" name="email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+              <input type="email" name="email" value="" placeholder="{{ entry_email }}" id="input-email" class="form-control" required/>
               <div id="error-email" class="invalid-feedback"></div>
             </div>
           </div>
 
           {% if config_telephone_display %}
-            <div class="row mb-3{% if config_telephone_required %} required{% endif %}">
+            <div class="row mb-3">
               <label for="input-telephone" class="col-sm-2 col-form-label">{{ entry_telephone }}</label>
               <div class="col-sm-10">
-                <input type="tel" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
+                <input type="tel" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"{% if config_telephone_required %} required{% endif %}/>
                 <div id="error-telephone" class="invalid-feedback"></div>
               </div>
             </div>
@@ -143,10 +143,7 @@
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
                 <div class="col-sm-10">
-                  <div class="input-group">
-                    <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control date"/>
-                    <div class="input-group-text"><i class="fa-regular fa-calendar"></i></div>
-                  </div>
+                  <input type="date" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
                   <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
                 </div>
               </div>
@@ -156,10 +153,7 @@
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
                 <div class="col-sm-10">
-                  <div class="input-group">
-                    <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control time"/>
-                    <div class="input-group-text"><i class="fa-regular fa-calendar"></i></div>
-                  </div>
+                  <input type="time" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
                   <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
                 </div>
               </div>
@@ -169,10 +163,7 @@
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
                 <div class="col-sm-10">
-                  <div class="input-group">
-                    <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control datetime"/>
-                    <div class="input-group-text"><i class="fa-regular fa-calendar"></i></div>
-                  </div>
+                  <input type="datetime-local" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field-{{ custom_field.custom_field_id }}" class="form-control"/>
                   <div id="error-custom-field-{{ custom_field.custom_field_id }}" class="invalid-feedback"></div>
                 </div>
               </div>
@@ -183,10 +174,10 @@
 
         <fieldset>
           <legend>{{ text_your_password }}</legend>
-          <div class="row mb-3 required">
+          <div class="row mb-3">
             <label for="input-password" class="col-sm-2 col-form-label">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
+              <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password" class="form-control" required/>
               <div id="error-password" class="invalid-feedback"></div>
             </div>
           </div>
@@ -197,8 +188,9 @@
           <div class="row mb-3">
             <label class="col-sm-2 col-form-label">{{ entry_newsletter }}</label>
             <div class="col-sm-10">
-              <div class="form-check form-switch form-switch-lg">
-                <input type="hidden" name="newsletter" value="0"/> <input type="checkbox" name="newsletter" value="1" id="input-newsletter" class="form-check-input"/>
+              <div class="form-switch form-switch-lg">
+                <input type="hidden" name="newsletter" value="0"/>
+                <input type="checkbox" name="newsletter" value="1" id="input-newsletter" class="form-check-input"/>
               </div>
             </div>
           </div>
@@ -206,7 +198,7 @@
         {{ captcha }}
         <div class="text-end">
           {% if text_agree %}
-            <div class="form-check form-switch form-switch-lg form-check-reverse form-check-inline">
+            <div class="form-switch form-switch-lg form-check-reverse form-check-inline">
               <label class="form-check-label">{{ text_agree }}</label> <input type="checkbox" name="agree" value="1" class="form-check-input"/>
             </div>
           {% endif %}
