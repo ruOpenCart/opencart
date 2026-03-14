@@ -1,18 +1,16 @@
 preserve_hierarchy: 1
 files:
   - source: upload/admin/language/en-gb/default.php
-    translation: upload/admin/language/%locale%/default.php
+    translation: admin/language/%locale%/default.php
   - source: upload/admin/language/en-gb/**/*.php
-    translation: upload/admin/language/%locale%/**/%file_name%.%file_extension%
-  - source: upload/catalog/language/en-gb/*.php
-    translation: upload/catalog/language/%locale%/%file_name%.%file_extension%
+    translation: admin/language/%locale%/**/%original_file_name%
   - source: upload/catalog/language/en-gb/**/*.php
-    translation: upload/catalog/language/%locale%/**/%file_name%.%file_extension%
+    translation: catalog/language/%locale%/**/%original_file_name%
   - source: upload/install/language/en-gb/*.php
-    translation: upload/install/language/%locale%/%file_name%.%file_extension%
+    translation: install/language/%locale%/%original_file_name%
   - source: upload/install/language/en-gb/**/*.php
-    translation: upload/install/language/%locale%/**/%file_name%.%file_extension%
+    translation: install/language/%locale%/**/%original_file_name%
   - source: upload/extension/opencart/admin/language/en-gb/**/*.php
-    translation: upload/extension/opencart/admin/language/%locale%/**/%file_name%.%file_extension%
+    translation: extension/opencart/admin/language/%locale%/**/%original_file_name%
   - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
-    translation: upload/extension/opencart/catalog/language/%locale%/**/%file_name%.%file_extension%
+    translation: extension/opencart/catalog/language/%locale%/**/%original_file_name%
