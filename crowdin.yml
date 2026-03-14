@@ -3,46 +3,24 @@ preserve_hierarchy: 1
 export_languages:
   - ru
 # Маппинг Crowdin (ru) -> OpenCart (ru-ru)
+# default.php исключён: Crowdin скрывает его из-за дубликатов строк.
+# Файлы хранятся в репо: upload/*/language/ru-ru/default.php
 files:
-  # Админ-панель: default.php (в корне — **/* не матчит)
-  - source: upload/admin/language/en-gb/default.php
-    translation: upload/admin/language/%two_letters_code%/%file_name%.%file_extension%
-    skip_untranslated_files: false
-    languages_mapping:
-      two_letters_code:
-        ru: ru-ru
-
-  # Админ-панель: остальные файлы
+  # Админ-панель (**/* не матчит файлы в корне)
   - source: upload/admin/language/en-gb/**/*.php
     translation: upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
-  # Витрина: default.php (в корне)
-  - source: upload/catalog/language/en-gb/default.php
-    translation: upload/catalog/language/%two_letters_code%/%file_name%.%file_extension%
-    skip_untranslated_files: false
-    languages_mapping:
-      two_letters_code:
-        ru: ru-ru
-
-  # Витрина: остальные файлы
+  # Витрина
   - source: upload/catalog/language/en-gb/**/*.php
     translation: upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
-  # Установщик: default.php (в корне)
-  - source: upload/install/language/en-gb/default.php
-    translation: upload/install/language/%two_letters_code%/%file_name%.%file_extension%
-    skip_untranslated_files: false
-    languages_mapping:
-      two_letters_code:
-        ru: ru-ru
-
-  # Установщик: остальные файлы
+  # Установщик
   - source: upload/install/language/en-gb/**/*.php
     translation: upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
