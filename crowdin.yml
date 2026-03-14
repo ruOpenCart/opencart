@@ -1,23 +1,18 @@
 preserve_hierarchy: true
-
-# Маппинг Crowdin (ru) -> OpenCart (ru-ru)
 files:
-  # === АДМИН-ПАНЕЛЬ ===
+  - source: upload/admin/language/en-gb/*.php
+    translation: admin/%file_name%.%file_extension%
   - source: upload/admin/language/en-gb/**/*.php
-    translation: upload/admin/language/ru-ru/**/%file_name%.%file_extension%
-
-  # === КАТАЛОГ ===
+    translation: admin/**/%file_name%.%file_extension%
+  - source: upload/catalog/language/en-gb/*.php
+    translation: catalog/%file_name%.%file_extension%
   - source: upload/catalog/language/en-gb/**/*.php
-    translation: upload/catalog/language/ru-ru/**/%file_name%.%file_extension%
-
-  # === УСТАНОВЩИК ===
+    translation: catalog/**/%file_name%.%file_extension%
+  - source: upload/install/language/en-gb/*.php
+    translation: install/%file_name%.%file_extension%
   - source: upload/install/language/en-gb/**/*.php
-    translation: upload/install/language/ru-ru/**/%file_name%.%file_extension%
-
-  # === РАСШИРЕНИЯ (админка) ===
+    translation: install/**/%file_name%.%file_extension%
   - source: upload/extension/opencart/admin/language/en-gb/**/*.php
-    translation: upload/extension/opencart/admin/language/ru-ru/**/%file_name%.%file_extension%
-
-  # === РАСШИРЕНИЯ (витрина) ===
+    translation: extension/opencart/admin/**/%file_name%.%file_extension%
   - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
-    translation: upload/extension/opencart/catalog/language/ru-ru/**/%file_name%.%file_extension%
+    translation: extension/opencart/catalog/**/%file_name%.%file_extension%
