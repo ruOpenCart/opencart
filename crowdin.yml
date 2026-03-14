@@ -4,21 +4,42 @@ export_languages:
   - ru
 # Маппинг Crowdin (ru) -> OpenCart (ru-ru)
 files:
-  # Админ-панель: upload/admin/language/ru-ru/**/*.php
+  # Админ-панель: default.php (в корне — **/* не матчит)
+  - source: upload/admin/language/en-gb/default.php
+    translation: upload/admin/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
+
+  # Админ-панель: остальные файлы
   - source: upload/admin/language/en-gb/**/*.php
     translation: upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
-  # Витрина: upload/catalog/language/ru-ru/**/*.php
+  # Витрина: default.php (в корне)
+  - source: upload/catalog/language/en-gb/default.php
+    translation: upload/catalog/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
+
+  # Витрина: остальные файлы
   - source: upload/catalog/language/en-gb/**/*.php
     translation: upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
-  # Установщик: upload/install/language/ru-ru/**/*.php
+  # Установщик: default.php (в корне)
+  - source: upload/install/language/en-gb/default.php
+    translation: upload/install/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
+
+  # Установщик: остальные файлы
   - source: upload/install/language/en-gb/**/*.php
     translation: upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
