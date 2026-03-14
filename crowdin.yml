@@ -1,18 +1,42 @@
 preserve_hierarchy: true
 files:
   - source: upload/admin/language/en-gb/*.php
-    translation: admin/%file_name%.%file_extension%
+    translation: upload/admin/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/admin/language/en-gb/**/*.php
-    translation: admin/**/%file_name%.%file_extension%
+    translation: upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/catalog/language/en-gb/*.php
-    translation: catalog/%file_name%.%file_extension%
+    translation: upload/catalog/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/catalog/language/en-gb/**/*.php
-    translation: catalog/**/%file_name%.%file_extension%
+    translation: upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/install/language/en-gb/*.php
-    translation: install/%file_name%.%file_extension%
+    translation: upload/install/language/%two_letters_code%/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/install/language/en-gb/**/*.php
-    translation: install/**/%file_name%.%file_extension%
+    translation: upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/extension/opencart/admin/language/en-gb/**/*.php
-    translation: extension/opencart/admin/**/%file_name%.%file_extension%
+    translation: upload/extension/opencart/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
   - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
-    translation: extension/opencart/catalog/**/%file_name%.%file_extension%
+    translation: upload/extension/opencart/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
+    languages_mapping:
+      two_letters_code:
+        ru: ru-ru
