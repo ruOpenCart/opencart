@@ -6,7 +6,7 @@ $_['date_format_short']     = 'd.m.Y';
 $_['date_format_long']      = 'l d F Y';
 $_['time_format']           = 'H:i:s';
 $_['datetime_format']       = 'd.m.Y H:i:s';
-$_['decimal_point']         = ',';
+$_['decimal_point']         = '.';
 $_['thousand_point']        = ' ';
 
 // Text
@@ -15,6 +15,7 @@ $_['text_yes']              = 'Да';
 $_['text_no']               = 'Нет';
 $_['text_none']             = ' --- Не выбрано --- ';
 $_['text_select']           = ' --- Выберите --- ';
+$_['text_all']              = 'Все';
 $_['text_all_zones']        = 'Все регионы';
 $_['text_pagination']       = 'Показано с %d по %d из %d (Страниц: %d)';
 $_['text_loading']          = 'Загрузка...';
