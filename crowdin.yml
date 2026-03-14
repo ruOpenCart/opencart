@@ -1,7 +1,7 @@
-preserve_hierarchy: true
+preserve_hierarchy: 1
 files:
-  - source: upload/admin/language/en-gb/*.php
-    translation: upload/admin/language/%locale%/%file_name%.%file_extension%
+  - source: upload/admin/language/en-gb/default.php
+    translation: upload/admin/language/%locale%/default.php
   - source: upload/admin/language/en-gb/**/*.php
     translation: upload/admin/language/%locale%/**/%file_name%.%file_extension%
   - source: upload/catalog/language/en-gb/*.php
