@@ -6,7 +6,7 @@ $_['date_format_short']             = 'd.m.Y';
 $_['date_format_long']              = 'l d F Y';
 $_['time_format']                   = 'H:i:s';
 $_['datetime_format']               = 'd.m.Y H:i:s';
-$_['decimal_point']                 = ',';
+$_['decimal_point']                 = '.';
 $_['thousand_point']                = ' ';
 
 // Text
@@ -22,7 +22,7 @@ $_['text_select_all']               = 'Выбрать все';
 $_['text_all']                      = 'Все';
 $_['text_unselect_all']             = 'Снять все';
 $_['text_all_zones']                = 'Все регионы';
-$_['text_default']                  = ' <b>(По умолчанию)</b>';
+$_['text_default']                  = 'По умолчанию';
 $_['text_close']                    = 'Закрыть';
 $_['text_pagination']               = 'Показано с %d по %d из %d (Страниц: %d)';
 $_['text_loading']                  = 'Загрузка...';
@@ -93,6 +93,7 @@ $_['button_customer_add']           = 'Добавить покупателя';
 $_['button_approve']                = 'Одобрить';
 $_['button_deny']                   = 'Отклонить';
 $_['button_reset']                  = 'Сбросить';
+$_['button_login']                  = 'Войти';
 $_['button_generate']               = 'Генерировать';
 $_['button_view']                   = 'Посмотреть';
 $_['button_reward_add']             = 'Добавить бонусные баллы';
@@ -165,10 +166,22 @@ $_['error_upload_8']                = 'Внимание: Запрещено за
 $_['error_upload_999']              = 'Внимание: Код ошибки отсутствует!';
 $_['error_upload_size']             = 'Внимание: Загруженный файл превышает максимальный размер файла %sмб!';
 $_['error_curl']                    = 'CURL: Код ошибки(%s): %s';
+$_['error_session']                 = 'Внимание: Сессия истекла, пожалуйста, отправьте форму снова!';
 $_['error_format_b']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s байт!';
 $_['error_format_kb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s килобайт!';
 $_['error_format_mb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s мегабайт!';
 $_['error_format_gb']				= 'Внимание: Загруженный файл превышает максимальный размер файла: %s гигабайт!';
+
+// Zip errors
+$_['error_zip_exists']       		= 'Файл уже существует!';
+$_['error_zip_incons']       		= 'Zip архив не совпадает!';
+$_['error_zip_inval']        		= 'Неверный аргумент!';
+$_['error_zip_memory']       		= 'Ошибка выделения памяти!';
+$_['error_zip_noent']        		= 'Нет такого файла!';
+$_['error_zip_nozip']        		= 'Не архив zip!';
+$_['error_zip_open']         		= 'Невозможно открыть файл!';
+$_['error_zip_read']        		= 'Ошибка чтения!';
+$_['error_zip_seek']         		= 'Ошибка поиска!';
 
 // When doing translations only include the matching language code
 
