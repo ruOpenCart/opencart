@@ -1,82 +1,56 @@
 preserve_hierarchy: 1
-
-# Экспорт только русского языка
 export_languages:
   - ru
-
-# Маппинг Crowdin (ru) -> OpenCart (ru-ru)
 files:
-  # === АДМИН-ПАНЕЛЬ ===
-  # Файлы в корне en-gb (например, default.php)
   - source: /upload/admin/language/en-gb/*.php
     translation: /upload/admin/language/%two_letters_code%/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # Файлы в подпапках en-gb (например, en-gb/mail/forgotten.php)
   - source: /upload/admin/language/en-gb/**/*.php
     translation: /upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # === ВИТРИНА ===
-  # Файлы в корне en-gb
   - source: /upload/catalog/language/en-gb/*.php
     translation: /upload/catalog/language/%two_letters_code%/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # Файлы в подпапках en-gb
   - source: /upload/catalog/language/en-gb/**/*.php
     translation: /upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # === УСТАНОВЩИК ===
-  # Файлы в корне en-gb
   - source: /upload/install/language/en-gb/*.php
     translation: /upload/install/language/%two_letters_code%/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # Файлы в подпапках en-gb
   - source: /upload/install/language/en-gb/**/*.php
     translation: /upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # === РАСШИРЕНИЯ (админка) ===
-  # Файлы в корне en-gb (например, upload/extension/opencart/admin/language/en-gb/default.php)
   - source: /upload/extension/opencart/admin/language/en-gb/*.php
     translation: /upload/extension/opencart/admin/language/%two_letters_code%/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # Файлы в подпапках en-gb (например, .../en-gb/sale/order.php)
   - source: /upload/extension/opencart/admin/language/en-gb/**/*.php
     translation: /upload/extension/opencart/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # === РАСШИРЕНИЯ (витрина) ===
-  # Файлы в корне en-gb
   - source: /upload/extension/opencart/catalog/language/en-gb/*.php
     translation: /upload/extension/opencart/catalog/language/%two_letters_code%/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
-
-  # Файлы в подпапках en-gb
   - source: /upload/extension/opencart/catalog/language/en-gb/**/*.php
     translation: /upload/extension/opencart/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
+  - source: upload/admin/language/en-gb/default.php
+    translation: upload/admin/language/ru-ru/default.php
