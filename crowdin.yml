@@ -10,5 +10,3 @@ files:
     translation: extension/opencart/admin/language/%locale%/**/%original_file_name%
   - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
     translation: extension/opencart/catalog/language/%locale%/**/%original_file_name%
-  - source: upload/install/opencart-en-gb.sql
-    translation: install/opencart-%locale%.%file_extension%
