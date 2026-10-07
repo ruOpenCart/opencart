@@ -1,6 +1,6 @@
 <?php
 // Text
 $_['text_subject'] = 'Безопасность';
-$_['text_code']    = 'Please enter the following security code to sign in to your account:';
+$_['text_code']    = 'Пожалуйста, введите следующий защитный код для входа в свой аккаунт:';
 $_['text_ip']      = 'IP-адрес:';
 $_['text_regards'] = 'С уважением';
