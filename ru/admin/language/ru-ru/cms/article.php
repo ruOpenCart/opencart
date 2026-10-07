@@ -4,9 +4,11 @@ $_['heading_title']           = 'Статьи';
 
 // Text
 $_['text_success']            = 'Успех: Вы изменили статьи!';
+$_['text_next']               = 'Success: You have modified %s to %s of %s article ratings!';
 $_['text_list']               = 'Список статей';
 $_['text_add']                = 'Добавить статью';
 $_['text_edit']               = 'Редактировать статью';
+$_['text_default']            = 'По умолчанию';
 $_['text_general']            = 'Общее';
 $_['text_meta']               = 'Метатеги';
 $_['text_keyword']            = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
@@ -14,6 +16,7 @@ $_['text_keyword']            = 'Не используйте пробелы, в�
 // Column
 $_['column_name']             = 'Название статьи';
 $_['column_author']           = 'Автор';
+$_['column_rating']           = 'Рейтинг';
 $_['column_date_added']       = 'Дата добавления';
 $_['column_action']           = 'Действие';
 
@@ -32,6 +35,9 @@ $_['entry_sort_order']        = 'Порядок сортировки';
 $_['entry_status']            = 'Статус';
 $_['entry_keyword']           = 'Ключевое слово';
 $_['entry_layout']            = 'Переопределение макета';
+
+// Button
+$_['button_rating']           = 'Рассчитать рейтинги';
 
 // Error
 $_['error_warning']           = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';

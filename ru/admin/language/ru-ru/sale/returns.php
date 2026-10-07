@@ -34,7 +34,6 @@ $_['column_action']       = 'Действие';
 // Entry
 $_['entry_customer']      = 'Покупатель';
 $_['entry_order_id']      = 'Номер заказа';
-$_['entry_date_ordered']  = 'Дата заказа';
 $_['entry_firstname']     = 'Имя';
 $_['entry_lastname']      = 'Фамилия';
 $_['entry_email']         = 'Эл. почта';

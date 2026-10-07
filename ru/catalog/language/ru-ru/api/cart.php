@@ -1,7 +1,10 @@
 <?php
 // Text
-$_['text_success']       = 'Успех: Вы изменили свою корзину покупок!';
-$_['text_subscription']  = 'Подписка';
+$_['text_success']               = 'Успех: Вы изменили свою корзину покупок!';
+$_['text_subscription']          = 'Подписка';
+$_['text_subscription_trial']    = '%s каждые %d %s для %d платеж(а)(ей) тогда ';
+$_['text_subscription_duration'] = '%s каждые %d %s для %d платеж(а)(ей)';
+$_['text_subscription_cancel']   = '%s каждые %d %s до отмены';
 
 // Error
 $_['error_warning']      = 'Внимание: Внимательно проверьте корзину на наличие ошибок!';

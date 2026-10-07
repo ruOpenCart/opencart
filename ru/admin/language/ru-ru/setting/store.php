@@ -10,7 +10,6 @@ $_['text_add']                         = 'Добавление магазина'
 $_['text_edit']                        = 'Редактирование магазина';
 $_['text_site']                        = 'Информация о сайте';
 $_['text_meta']                        = 'Метатеги';
-$_['text_items']                       = 'Элементы';
 $_['text_shipping']                    = 'Адрес доставки';
 $_['text_payment']                     = 'Платежный адрес';
 $_['text_product']                     = 'Товары';
@@ -53,6 +52,8 @@ $_['entry_currency']                   = 'Валюта';
 $_['entry_product_description_length'] = 'Ограничение описания списка';
 $_['entry_pagination']                 = 'Товаров на странице по умолчанию';
 $_['entry_product_count']              = 'Счетчик товаров в категории';
+$_['entry_product_filters']            = 'Product Filters';
+$_['entry_product_search']             = 'Product Search';
 $_['entry_cookie']                     = 'Политика cookies';
 $_['entry_gdpr']                       = 'Политика GDPR';
 $_['entry_tax']                        = 'Отображение цен с учетом налогов';
@@ -107,6 +108,8 @@ $_['help_checkout']                    = 'Требовать согласия с
 $_['help_stock_display']               = 'Показывать остаток на складе на странице товара.';
 $_['help_stock_checkout']              = 'Разрешить покупателям оформлять заказ, если заказываемые товары отсутствуют на складе.';
 $_['help_product_count']               = 'Показывать количество товаров в подкатегориях в меню категорий в шапке магазина. Будьте внимательны, это приведет к резкому снижению производительности для магазинов с большим количеством подкатегорий!';
+$_['help_product_filters']             = 'Choose whether product filters use AND or OR logic.';
+$_['help_product_search']              = 'Choose whether the product multi-word search uses AND or OR logic.';
 
 // Error
 $_['error_warning']                    = 'Внимание: Пожалуйста, проверьте форму на наличие ошибок!';
