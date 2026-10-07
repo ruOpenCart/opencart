@@ -26,7 +26,7 @@ $_['entry_code']             = 'Код';
 // Error
 $_['error_permission']       = 'Внимание: У вас нет прав на изменение расширений!';
 $_['error_install']          = 'Внимание: Не удалось найти файл install.json!';
-$_['error_default']          = 'Default extension could not be uninstalled or deleted!';
+$_['error_default']          = 'Расширение по умолчанию не может быть деинсталлировано или удалено!';
 $_['error_extension']        = 'Установленное расширение не может быть найдено!';
 $_['error_installed']        = 'Расширение уже установлено!';
 $_['error_uninstall']        = 'Есть %s расширений, которые должны быть удалены, прежде чем это расширение можно безопасно удалить!';
@@ -44,12 +44,12 @@ $_['error_upload']           = 'Файл не может быть загруже
 $_['error_unknown']          = 'Произошла неизвестная ошибка!';
 
 // Zip errors
-$_['zip_error_exists']       = 'File already exists!';
-$_['zip_error_incons']       = 'Zip archive inconsistent!';
-$_['zip_error_inval']        = 'Invalid argument!';
-$_['zip_error_memory']       = 'Memory allocation failure!';
-$_['zip_error_noent']        = 'No such file!';
-$_['zip_error_nozip']        = 'Not a zip archive!';
-$_['zip_error_open']         = 'Can not open file!';
-$_['zip_error_read']         = 'Read error!';
-$_['zip_error_seek']         = 'Seek error!';
+$_['zip_error_exists']       = 'Файл уже существует!';
+$_['zip_error_incons']       = 'Zip архив не совпадает!';
+$_['zip_error_inval']        = 'Неверный аргумент!';
+$_['zip_error_memory']       = 'Ошибка выделения памяти!';
+$_['zip_error_noent']        = 'Нет такого файла!';
+$_['zip_error_nozip']        = 'Не zip-архив!';
+$_['zip_error_open']         = 'Невозможно открыть файл!';
+$_['zip_error_read']         = 'Ошибка чтения!';
+$_['zip_error_seek']         = 'Ошибка поиска!';
