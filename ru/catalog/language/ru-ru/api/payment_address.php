@@ -3,6 +3,7 @@
 $_['text_success']       = 'Успех: Установлен платежный адрес!';
 
 // Error
+$_['error_address']      = 'Warning: Address could not be found!';
 $_['error_firstname']    = 'Имя должно быть от 1 до 32-х символов!';
 $_['error_lastname']     = 'Фамилия должна быть от 1 до 32 символов!';
 $_['error_address_1']    = 'Адрес 1 должен быть от 3 до 128 символов!';
