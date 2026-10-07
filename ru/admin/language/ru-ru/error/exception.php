@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title'] = 'Exception Error!';
+$_['heading_title'] = 'Ошибка исключения!';
 
 // Text
 $_['text_home']     = 'Главная';
-$_['text_exception'] = 'An unexpected error has occurred. Please check the error log for details.';
+$_['text_exception'] = 'Произошла непредвиденная ошибка. Пожалуйста, проверьте журнал ошибок для подробностей.';
