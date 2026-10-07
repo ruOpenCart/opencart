@@ -4,7 +4,7 @@ $_['heading_title']           = 'Статьи';
 
 // Text
 $_['text_success']            = 'Успех: Вы изменили статьи!';
-$_['text_next']               = 'Success: You have modified %s to %s of %s article ratings!';
+$_['text_next']               = 'Успех: Вы изменили %s на %s из %s оценок статей!';
 $_['text_list']               = 'Список статей';
 $_['text_add']                = 'Добавить статью';
 $_['text_edit']               = 'Редактировать статью';
