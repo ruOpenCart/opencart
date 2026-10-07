@@ -19,7 +19,6 @@ $_['text_unopened']      = 'Не открыто';
 $_['text_reason']        = 'Причина возврата';
 $_['text_action']        = 'Действие';
 $_['text_tbc']           = 'TBC';
-$_['text_history']       = 'История';
 $_['text_comment']       = 'Комментарий';
 $_['text_history']       = 'История возврата';
 $_['text_no_results']    = 'Вы не делали ранее возвратов!';
