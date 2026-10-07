@@ -12,18 +12,17 @@ $_['text_storage_move']               = 'Перемещение %s в %s из %s
 $_['text_storage_success']            = 'Успех: Каталог хранилища был перемещен!';
 $_['text_storage_delete']             = 'Удалить предыдущую директорию хранилища';
 $_['text_storage_delete_description'] = 'Ваш предыдущий каталог хранилища необходимо удалить!';
-$_['text_storage_delete_success']     = 'Успех: Предыдущий каталог хранилища был удален!';
+$_['text_storage_delete_success']     = 'Success: The previous storage directory has been deleted!';
 $_['text_admin']                      = 'Переместить каталог администратора';
 $_['text_admin_description']          = 'Пожалуйста, введите новое имя каталога администрирования в поле ниже.';
 $_['text_admin_move']                 = 'Перемещение %s в %s из %s файлов администратора';
 $_['text_admin_success']              = 'Успех: Каталог администратора был перемещен!';
 $_['text_admin_delete']               = 'Удалить предыдущий каталог администратора';
 $_['text_admin_delete_description']   = 'Ваш предыдущий каталог администратора необходимо удалить!';
-$_['text_admin_delete_success']       = 'Успех: Предыдущий каталог администратора был удален!';
+$_['text_admin_delete_success']       = 'Success: Your previous admin directory has been deleted!';
 $_['text_path']                       = 'Путь';
 
 // Entry
-$_['entry_path']                      = 'Путь';
 $_['entry_path_current']              = 'Текущий путь';
 $_['entry_path_new']                  = 'Новый путь';
 $_['entry_name']                      = 'Название каталога';
@@ -44,4 +43,5 @@ $_['error_admin']                     = 'Внимание: Директория 
 $_['error_admin_allowed']             = 'Внимание: Это имя каталога администратора не может быть использовано!';
 $_['error_admin_exists']              = 'Внимание: Каталог администратора уже существует!';
 $_['error_writable']                  = 'Внимание: config.php и admin/config.php должны быть доступны для записи!';
+$_['error_writable_path']             = 'Warning: The folder \'%s\' needs to be writable!';
 $_['error_remove']                    = 'Внимание: Каталог не существует для удаления!';
