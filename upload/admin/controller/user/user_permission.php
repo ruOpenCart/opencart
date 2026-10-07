@@ -133,7 +133,6 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sort
 		$data['sort_name'] = $this->url->link('user/user_permission.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 
 		$url = '';
@@ -146,10 +145,8 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total User Groups
 		$user_group_total = $this->model_user_user_group->getTotalUserGroups();
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $user_group_total,
 			'page'  => $page,
@@ -299,7 +296,7 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		$data['extensions'] = [];
 
 		// Extension permissions
-		$results = glob(DIR_EXTENSION . '*/admin/controller/{,*/,*/*/,*/*/*/}*.php', GLOB_BRACE);
+		$results = oc_glob(DIR_EXTENSION . '*/admin/controller/{,*/,*/*/,*/*/*/}*.php');
 
 		foreach ($results as $result) {
 			$path = substr($result, strlen(DIR_EXTENSION));
@@ -395,7 +392,6 @@ class UserPermission extends \Opencart\System\Engine\Controller {
 		$this->load->model('user/user');
 
 		foreach ($selected as $user_group_id) {
-			// Total Users
 			$user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 
 			if ($user_total) {

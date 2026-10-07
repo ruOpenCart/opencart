@@ -46,3 +46,15 @@ $_['error_directory_exists'] = 'Путь %s уже существует!';
 $_['error_unzip']            = 'Zip-файл не может быть открыт!';
 $_['error_upload']           = 'Файл не может быть загружен!';
 $_['error_unknown']          = 'Произошла неизвестная ошибка!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['error_default']          = 'Default extension could not be uninstalled or deleted!';
+$_['zip_error_exists']       = 'File already exists!';
+$_['zip_error_incons']       = 'Zip archive inconsistent!';
+$_['zip_error_inval']        = 'Invalid argument!';
+$_['zip_error_memory']       = 'Memory allocation failure!';
+$_['zip_error_noent']        = 'No such file!';
+$_['zip_error_nozip']        = 'Not a zip archive!';
+$_['zip_error_open']         = 'Can not open file!';
+$_['zip_error_read']         = 'Read error!';
+$_['zip_error_seek']         = 'Seek error!';

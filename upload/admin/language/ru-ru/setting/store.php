@@ -138,3 +138,9 @@ $_['error_image_compare']              = 'Укажите размер изобр
 $_['error_image_wishlist']             = 'Размер изображения списка желаний обязателен!';
 $_['error_image_cart']                 = 'Размер изображения в корзине обязателен!';
 $_['error_image_location']             = 'Укажите размер изображений магазина!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['entry_product_filters']            = 'Product Filters';
+$_['entry_product_search']             = 'Product Search';
+$_['help_product_filters']             = 'Choose whether product filters use AND or OR logic.';
+$_['help_product_search']              = 'Choose whether the product multi-word search uses AND or OR logic.';

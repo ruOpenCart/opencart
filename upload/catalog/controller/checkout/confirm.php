@@ -337,6 +337,8 @@ class Confirm extends \Opencart\System\Engine\Controller {
 			$code = '';
 		}
 
+		$this->load->model('setting/extension');
+
 		$extension_info = $this->model_setting_extension->getExtensionByCode('payment', $code);
 
 		if ($status && $extension_info) {

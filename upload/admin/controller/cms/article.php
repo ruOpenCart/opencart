@@ -107,7 +107,7 @@ class Article extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('cms/article.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Articles
+		// Article
 		$data['articles'] = [];
 
 		$filter_data = [
@@ -137,7 +137,6 @@ class Article extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_name'] = $this->url->link('cms/article.list', 'user_token=' . $this->session->data['user_token'] . '&sort=ad.name' . $url);
 		$data['sort_author'] = $this->url->link('cms/article.list', 'user_token=' . $this->session->data['user_token'] . '&sort=a.author' . $url);
 		$data['sort_rating'] = $this->url->link('cms/article.list', 'user_token=' . $this->session->data['user_token'] . '&sort=a.rating' . $url);
@@ -153,10 +152,8 @@ class Article extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Articles
 		$article_total = $this->model_cms_article->getTotalArticles();
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $article_total,
 			'page'  => $page,
@@ -216,7 +213,6 @@ class Article extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('cms/article.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('cms/article', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Article
 		if (isset($this->request->get['article_id'])) {
 			$this->load->model('cms/article');
 
@@ -229,7 +225,7 @@ class Article extends \Opencart\System\Engine\Controller {
 			$data['article_id'] = 0;
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -273,20 +269,16 @@ class Article extends \Opencart\System\Engine\Controller {
 		}
 
 		// Stores
-		$data['stores'] = [];
+		$stores = [];
 
-		$data['stores'][] = [
+		$stores[] = [
 			'store_id' => 0,
-			'name'     => $this->language->get('text_default')
+			'name'     => $this->config->get('config_name')
 		];
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = $result;
-		}
+		$data['stores'] = array_merge($stores, $this->model_setting_store->getStores());
 
 		if (!empty($article_info)) {
 			$data['article_store'] = $this->model_cms_article->getStores($article_info['article_id']);
@@ -309,7 +301,7 @@ class Article extends \Opencart\System\Engine\Controller {
 			$data['article_seo_url'] = [];
 		}
 
-		// Layouts
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -395,7 +387,6 @@ class Article extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Article
 			$this->load->model('cms/article');
 
 			if (!$post_info['article_id']) {
@@ -432,7 +423,6 @@ class Article extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Article
 			$this->load->model('cms/article');
 
 			foreach ($selected as $article_id) {
@@ -469,7 +459,6 @@ class Article extends \Opencart\System\Engine\Controller {
 		if (!$json) {
 			$limit = 100;
 
-			// Articles
 			$filter_data = [
 				'sort'  => 'date_added',
 				'order' => 'ASC',
@@ -477,6 +466,7 @@ class Article extends \Opencart\System\Engine\Controller {
 				'limit' => $limit
 			];
 
+			// Article
 			$this->load->model('cms/article');
 
 			$results = $this->model_cms_article->getArticles($filter_data);
@@ -500,7 +490,6 @@ class Article extends \Opencart\System\Engine\Controller {
 				$this->model_cms_article->editRating($result['article_id'], $like - $dislike);
 			}
 
-			// Total Articles
 			$article_total = $this->model_cms_article->getTotalArticles();
 
 			$start = ($page - 1) * $limit;

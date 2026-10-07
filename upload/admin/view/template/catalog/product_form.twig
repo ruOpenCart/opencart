@@ -47,11 +47,11 @@
                   <div id="language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
                     <fieldset>
                       <legend>{{ text_general }}</legend>
-                      <div class="row mb-3">
+                      <div class="row mb-3 required">
                         <label for="input-name-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_name }}</label>
                         <div class="col-sm-10">
                           <div class="input-group">
-                            <input type="text" name="product_description[{{ language.language_id }}][name]" value="{{ product_description[language.language_id] ? product_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name-{{ language.language_id }}" class="form-control" required/>
+                            <input type="text" name="product_description[{{ language.language_id }}][name]" value="{{ product_description[language.language_id] ? product_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name-{{ language.language_id }}" class="form-control"/>
                             {% if master_id %}
                               <div class="input-group-text">
                                 <div class="form-switch">
@@ -83,11 +83,11 @@
                     </fieldset>
                     <fieldset>
                       <legend>{{ text_meta }}</legend>
-                      <div class="row mb-3">
+                      <div class="row mb-3 required">
                         <label for="input-meta-title-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_meta_title }}</label>
                         <div class="col-sm-10">
                           <div class="input-group">
-                            <input type="text" name="product_description[{{ language.language_id }}][meta_title]" value="{{ product_description[language.language_id] ? product_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title-{{ language.language_id }}" class="form-control" required/>
+                            <input type="text" name="product_description[{{ language.language_id }}][meta_title]" value="{{ product_description[language.language_id] ? product_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title-{{ language.language_id }}" class="form-control"/>
                             {% if master_id %}
                               <div class="input-group-text">
                                 <div class="form-switch">
@@ -154,16 +154,15 @@
               <input type="hidden" name="master_id" value="{{ master_id }}"/>
               <fieldset>
                 <legend>{{ text_model }}</legend>
-                <div class="row mb-3">
+                <div class="row mb-3 required">
                   <label for="input-model" class="col-sm-2 col-form-label">{{ entry_model }}</label>
                   <div class="col-sm-10">
                     <div class="input-group">
-                      <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control" required/>
+                      <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
                       {% if master_id %}
                         <div class="input-group-text">
                           <div class="form-switch">
-                            <input type="checkbox" name="override[model]" value="1" id="input-variant-model" data-oc-toggle="switch" data-oc-target="#input-model" class="form-check-input"{% if override.model %} checked{% endif %}/>
-                            <label for="input-variant-model" class="form-check-label"></label>
+                            <input type="checkbox" name="override[model]" value="1" id="input-variant-model" data-oc-toggle="switch" data-oc-target="#input-model" class="form-check-input"{% if override.model %} checked{% endif %}/> <label for="input-variant-model" class="form-check-label"></label>
                           </div>
                         </div>
                       {% endif %}
@@ -177,24 +176,23 @@
                     <div class="input-group">
                       <select id="input-code" class="form-select">
                         {% for identifier in identifiers %}
-                          <option value="{{ identifier.identifier_id }}">{{ identifier.code }}</option>
+                          <option value="{{ identifier.code }}">{{ identifier.code }}</option>
                         {% endfor %}
                       </select>
                       <input type="text" value="" placeholder="{{ entry_product_code }}" id="input-value" class="form-control w-75"/>
                       <button type="button" id="button-code" class="btn btn-primary"><i class="fa-solid fa-plus-circle"></i></button>
                     </div>
                     <div class="input-group">
-                      <div class="form-control p-0" style="height: 150px; overflow: auto;">
+                      <div class="form-control p-0" style="height: 100px; overflow: auto;">
                         <table id="product-code" class="table m-0">
                           <tbody>
                             {% set code_row = 0 %}
                             {% for product_code in product_codes %}
                               <tr id="code-row-{{ code_row }}">
-                                <td style="width: 1px;">{{ product_code.code }}<input type="hidden" name="product_code[{{ code_row }}][identifier_id]" value="{{ product_code.identifier_id }}"/></td>
-                                <td>{{ product_code.value }}
+                                <td style="width: 1px;">{{ product_code.code }}<input type="hidden" name="product_code[{{ code_row }}][code]" value="{{ product_code.code }}"/></td>
+                                <td id="input-code-{{ code_row }}">{{ product_code.value }}
                                   <div id="error-code-{{ code_row }}" class="invalid-feedback"></div>
-                                  <input type="hidden" name="product_code[{{ code_row }}][value]" value="{{ product_code.value }}">
-                                </td>
+                                  <input type="hidden" name="product_code[{{ code_row }}][value]" value="{{ product_code.value }}"></td>
                                 <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
                               </tr>
                               {% set code_row = code_row + 1 %}
@@ -205,7 +203,7 @@
                       {% if master_id %}
                         <div class="input-group-text">
                           <div class="form-switch">
-                            <input type="checkbox" name="override[product_code]" value="1" id="input-variant-code" data-oc-toggle="switch" data-oc-target="#input-code, #button-code, #product-code" class="form-check-input"{% if override.product_code %} checked{% endif %}/> <label for="input-variant-code" class="form-check-label"></label>
+                            <input type="checkbox" name="override[product_code]" value="1" id="input-variant-code" data-oc-toggle="switch" data-oc-target="#input-code, #product-code" class="form-check-input"{% if override.product_code %} checked{% endif %}/> <label for="input-variant-code" class="form-check-label"></label>
                           </div>
                         </div>
                       {% endif %}
@@ -328,6 +326,23 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="row mb-3">
+                    <label for="input-date-available" class="col-sm-2 col-form-label">{{ entry_date_added }}</label>
+                    <div class="col-sm-10 col-md-4">
+                        <div class="input-group">
+                            <input type="date" name="date_added" value="{{ date_added }}" placeholder="{{ date_added }}" id="input-date-added" class="form-control"/>
+                            {% if master_id %}
+                                <div class="input-group-text">
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" name="override[date_added]" value="1" id="input-variant-date-added" data-oc-toggle="switch" data-oc-target="#input-date-added" class="form-check-input"{% if override.date_added %} checked{% endif %}/> <label for="input-variant-date-added" class="form-check-label"></label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                   <label for="input-date-available" class="col-sm-2 col-form-label">{{ entry_date_available }}</label>
                   <div class="col-sm-10 col-md-4">
@@ -507,12 +522,12 @@
                   <ul id="autocomplete-category" class="dropdown-menu"></ul>
                   <div class="input-group">
                     <div class="form-control p-0" style="height: 150px; overflow: auto;">
-                      <table id="product-category" class="table m-0">
+                      <table id="product-category" class="table table-sm table-hover table-borderless m-0">
                         <tbody>
                           {% for product_category in product_categories %}
                             <tr id="product-category-{{ product_category.category_id }}">
                               <td>{{ product_category.name }}<input type="hidden" name="product_category[]" value="{{ product_category.category_id }}"/></td>
-                              <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
+                              <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -536,12 +551,12 @@
                   <ul id="autocomplete-filter" class="dropdown-menu"></ul>
                   <div class="input-group">
                     <div class="form-control p-0" style="height: 150px; overflow: auto;">
-                      <table id="product-filter" class="table m-0">
+                      <table id="product-filter" class="table table-sm table-hover table-borderless m-0">
                         <tbody>
                           {% for product_filter in product_filters %}
                             <tr id="product-filter-{{ product_filter.filter_id }}">
                               <td>{{ product_filter.name }}<input type="hidden" name="product_filter[]" value="{{ product_filter.filter_id }}"/></td>
-                              <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
+                              <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -586,12 +601,12 @@
                   <ul id="autocomplete-download" class="dropdown-menu"></ul>
                   <div class="input-group">
                     <div class="form-control p-0" style="height: 150px; overflow: auto;">
-                      <table id="product-download" class="table m-0">
+                      <table id="product-download" class="table table-sm table-hover table-borderless m-0">
                         <tbody>
                           {% for product_download in product_downloads %}
                             <tr id="product-download-{{ product_download.download_id }}">
                               <td>{{ product_download.name }}<input type="hidden" name="product_download[]" value="{{ product_download.download_id }}"/></td>
-                              <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
+                              <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -615,12 +630,12 @@
                   <ul id="autocomplete-related" class="dropdown-menu"></ul>
                   <div class="input-group">
                     <div class="form-control p-0" style="height: 150px; overflow: auto;">
-                      <table id="product-related" class="table m-0">
+                      <table id="product-related" class="table table-sm table-hover table-borderless m-0">
                         <tbody>
                           {% for product_related in product_relateds %}
                             <tr id="product-related-{{ product_related.product_id }}">
                               <td>{{ product_related.name }}<input type="hidden" name="product_related[]" value="{{ product_related.product_id }}"/></td>
-                              <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>
+                              <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-minus-circle"></i></button></td>
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -692,6 +707,7 @@
 
                     <fieldset id="option-row-{{ option_row }}">
                       <legend>{{ product_option.name }}</legend>
+                      <div id="error-option-row-{{ option_row }}" class="invalid-feedback"></div>
                       <input type="hidden" name="product_option[{{ option_row }}][product_option_id]" value="{{ product_option.product_option_id }}"/> <input type="hidden" name="product_option[{{ option_row }}][name]" value="{{ product_option.name }}"/> <input type="hidden" name="product_option[{{ option_row }}][option_id]" value="{{ product_option.option_id }}"/> <input type="hidden" name="product_option[{{ option_row }}][type]" value="{{ product_option.type }}"/>
 
                       <div class="row align-items-center">
@@ -1311,10 +1327,11 @@ var code_row = {{ code_row }};
 $('#button-code').on('click', function() {
     var html = '';
 
+    let code = $('#input-code').val();
     let value = $('#input-value').val();
 
     html += '<tr id="code-row-' + code_row + '">';
-    html += '  <td style="width: 1px;">' + $('#input-code option:selected').text() + '<input type="hidden" name="product_code[' + code_row + '][identifier_id]" value="' + $('#input-code').val() + '"/></td>';
+    html += '  <td style="width: 1px;">' + code + '<input type="hidden" name="product_code[' + code_row + '][code]" value="' + code + '"/></td>';
     html += '  <td>' + value + '<div id="error-code-' + code_row + '" class="invalid-feedback"></div><input type="hidden" name="product_code[' + code_row + '][value]" value="' + value + '"/></td>';
     html += '  <td class="text-end"><button type="button" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';
     html += '</tr>';
@@ -1570,6 +1587,7 @@ $('#input-option').autocomplete({
     'select': function(item) {
         html = '<fieldset id="option-row-' + option_row + '">';
         html += '  <legend class="float-none">' + item['label'] + '</legend>';
+        html += '  <div id="error-option-row-' + option_row + '" class="invalid-feedback"></div>';
         html += '  <input type="hidden" name="product_option[' + option_row + '][product_option_id]" value="" />';
         html += '  <input type="hidden" name="product_option[' + option_row + '][name]" value="' + decodeHTMLEntities(item['label']) + '" />';
         html += '  <input type="hidden" name="product_option[' + option_row + '][option_id]" value="' + item['value'] + '" />';
@@ -1891,7 +1909,7 @@ $('#button-subscription').on('click', function() {
   {% for customer_group in customer_groups %}
     html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name|escape('js') }}</option>';
   {% endfor %}
-    html += '  </select></td>';
+    html += '  <select></td>';
     html += '  <td class="text-end"><input type="text" name="product_subscription[' + subscription_row + '][trial_price]" value="" placeholder="{{ entry_trial_price|escape('js') }}" class="form-control"/></td>';
     html += '  <td class="text-end"><input type="text" name="product_subscription[' + subscription_row + '][price]" value="" placeholder="{{ entry_price|escape('js') }}" class="form-control"/></td>';
     html += '  <td class="text-end"><button type="button" onclick="$(\'#subscription-row-' + subscription_row + '\').remove()" data-bs-toggle="tooltip" title="{{ button_remove|escape('js') }}" class="btn btn-danger"><i class="fa-solid fa-minus-circle"></i></button></td>';

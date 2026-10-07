@@ -262,7 +262,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('customer/customer.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Setting
+		// Stores
 		$this->load->model('setting/store');
 
 		$stores = $this->model_setting_store->getStores();
@@ -522,20 +522,16 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		// Stores
-		$data['stores'] = [];
+		$stores = [];
 
-		$data['stores'][] = [
+		$stores[] = [
 			'store_id' => 0,
 			'name'     => $this->language->get('text_default')
 		];
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = $result;
-		}
+		$data['stores'] = array_merge($stores, $this->model_setting_store->getStores());
 
 		if (!empty($customer_info)) {
 			$data['store_id'] = $customer_info['store_id'];
@@ -606,7 +602,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			if ($custom_field['status']) {
 				$data['custom_fields'][] = [
 					'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
-					'value'              => ['value'],
+					'value'              => $custom_field['value'],
 				] + $custom_field;
 			}
 		}
@@ -644,11 +640,6 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$data['commenter'] = 0;
 		}
 
-		// Countries
-		$this->load->model('localisation/country');
-
-		$data['countries'] = $this->model_localisation_country->getCountries();
-
 		$data['address'] = $this->load->controller('customer/address.getAddress');
 		$data['history'] = $this->getHistory();
 		$data['transaction'] = $this->getTransaction();
@@ -680,6 +671,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 		}
 
 		$required = [
+			'customer_id'       => 0,
 			'store_id'          => 0,
 			'language_id'       => 0,
 			'customer_group_id' => 0,
@@ -690,6 +682,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			'custom_field'      => [],
 			'newsletter'        => 0,
 			'password'          => '',
+			'confirm'           => '',
 			'status'            => 0,
 			'safe'              => 0,
 			'commenter'         => 0
@@ -714,7 +707,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 
 		$customer_info = $this->model_customer_customer->getCustomerByEmail($post_info['email']);
 
-		if ($customer_info && (!$post_info['customer_id'] && ($post_info['customer_id'] != $customer_info['customer_id']))) {
+		if ($customer_info && (!$post_info['customer_id'] || ($post_info['customer_id'] != $customer_info['customer_id']))) {
 			$json['error']['warning'] = $this->language->get('error_exists');
 		}
 
@@ -741,7 +734,7 @@ class Customer extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if ($post_info['password'] || !isset($post_info['customer_id'])) {
+		if ($post_info['password'] || !$post_info['customer_id']) {
 			$password = html_entity_decode($post_info['password'], ENT_QUOTES, 'UTF-8');
 
 			if (!oc_validate_length($password, $this->config->get('config_password_length'), 40)) {
@@ -871,38 +864,48 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$customer_id = 0;
 		}
 
+		if (isset($this->request->get['store_id'])) {
+			$store_id = (int)$this->request->get['store_id'];
+		} else {
+			$store_id = 0;
+		}
+
+		if (!$this->user->hasPermission('modify', 'customer/customer')) {
+			return new \Opencart\System\Engine\Action('error/permission');
+		}
+
+		// Store
+		if ($store_id) {
+			$this->load->model('setting/store');
+
+			$store_info = $this->model_setting_store->getStore($store_id);
+
+			if (!$store_info) {
+				return new \Opencart\System\Engine\Action('error/not_found');
+			}
+		}
+
 		// Customer
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($customer_id);
 
-		if ($customer_info) {
-			// Create token to login with
-			$token = oc_token(64);
-
-			$this->model_customer_customer->editToken($customer_id, $token);
-
-			// Store
-			if (isset($this->request->get['store_id'])) {
-				$store_id = (int)$this->request->get['store_id'];
-			} else {
-				$store_id = 0;
-			}
-
-			$this->load->model('setting/store');
-
-			$store_info = $this->model_setting_store->getStore($store_id);
-
-			if ($store_info) {
-				$this->response->redirect($store_info['url'] . 'index.php?route=account/login.token&email=' . urlencode($customer_info['email']) . '&login_token=' . $token);
-			} else {
-				$this->response->redirect(HTTP_CATALOG . 'index.php?route=account/login.token&email=' . urlencode($customer_info['email']) . '&login_token=' . $token);
-			}
-
-			return null;
-		} else {
+		if (!$customer_info) {
 			return new \Opencart\System\Engine\Action('error/not_found');
 		}
+
+		// Create login token
+		$token = oc_token(32);
+
+		$this->model_customer_customer->addToken($customer_id, 'login', $token);
+
+		if ($store_id) {
+			$this->response->redirect($store_info['url'] . 'index.php?route=account/login.token&email=' . urlencode($customer_info['email']) . '&code=' . $token);
+		} else {
+			$this->response->redirect(HTTP_CATALOG . 'index.php?route=account/login.token&email=' . urlencode($customer_info['email']) . '&code=' . $token);
+		}
+
+		return null;
 	}
 
 	/**
@@ -1208,8 +1211,6 @@ class Customer extends \Opencart\System\Engine\Controller {
 
 		if (!$json) {
 			// Customer
-			$this->load->model('customer/customer');
-
 			$this->model_customer_customer->addTransaction($customer_id, (string)$post_info['description'], (float)$post_info['amount']);
 
 			$json['success'] = $this->language->get('text_success');
@@ -1480,12 +1481,6 @@ class Customer extends \Opencart\System\Engine\Controller {
 			$customer_authorize_id = (int)$this->request->get['customer_authorize_id'];
 		} else {
 			$customer_authorize_id = 0;
-		}
-
-		if (isset($this->request->cookie['authorize'])) {
-			$token = $this->request->cookie['authorize'];
-		} else {
-			$token = '';
 		}
 
 		if (!$this->user->hasPermission('modify', 'customer/customer')) {

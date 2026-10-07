@@ -137,3 +137,8 @@ $_['error_keyword_exists']       = 'Семантический URL-адрес д
 $_['error_keyword_character']    = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
 $_['error_required']             = '%s обязательно к заполнению!';
 $_['error_regex']                = '%s не является допустимым вводом!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['text_default']               = 'Default';
+$_['entry_date_added']           = 'Date Added';
+$_['error_option_value']         = 'Option values required for %s!';

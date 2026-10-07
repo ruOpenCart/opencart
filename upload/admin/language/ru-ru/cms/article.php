@@ -42,3 +42,9 @@ $_['error_author']            = 'Автор должен быть от 3 до 64
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
 $_['error_keyword_character'] = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['text_next']               = 'Success: You have modified %s to %s of %s article ratings!';
+$_['text_default']            = 'Default';
+$_['column_rating']           = 'Rating';
+$_['button_rating']           = 'Calculate Ratings';

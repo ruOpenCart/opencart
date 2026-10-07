@@ -797,7 +797,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 					if ($upload_info) {
 						$option_data[] = [
-							'filename' => $upload_info['mask'],
+							'filename' => $upload_info['name'],
 							'href'     => $this->url->link('tool/upload.download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $upload_info['code'])
 						] + $option;
 					}
@@ -1024,7 +1024,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			if ($this->config->get('total_' . $extension['code'] . '_status')) {
 				$output = $this->load->controller('extension/' . $extension['extension'] . '/api/' . $extension['code']);
 
-				if (!$output instanceof \Exception) {
+				if ($output && !$output instanceof \Exception) {
 					$data['extensions'][] = $output;
 				}
 			}
@@ -1079,7 +1079,7 @@ class Order extends \Opencart\System\Engine\Controller {
 			if ($extension_info && $this->user->hasPermission('access', 'extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'])) {
 				$output = $this->load->controller('extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'] . '.order');
 
-				if (!$output instanceof \Exception) {
+				if ($output && !$output instanceof \Exception) {
 					$this->load->language('extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'], 'extension');
 
 					$data['tabs'][] = [
@@ -1102,7 +1102,7 @@ class Order extends \Opencart\System\Engine\Controller {
 
 				$output = $this->load->controller('extension/' . $extension['extension'] . '/fraud/' . $extension['code'] . '.order');
 
-				if (!$output instanceof \Exception) {
+				if ($output && !$output instanceof \Exception) {
 					$data['tabs'][] = [
 						'code'    => $extension['extension'],
 						'title'   => $this->language->get('extension_heading_title'),
@@ -1184,19 +1184,19 @@ class Order extends \Opencart\System\Engine\Controller {
 	 * $curl = curl_init();
 	 *
 	 * curl_setopt($curl, CURLOPT_URL, 'https://' . $domain . $path . 'index.php?route=api/api' . $url);
-	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	 * curl_setopt($curl, CURLOPT_HEADER, false);
-	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	 * curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
 	 * curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-	 * curl_setopt($curl, CURLOPT_POST, 1);
+	 * curl_setopt($curl, CURLOPT_POST, true);
 	 * curl_setopt($curl, CURLOPT_POSTFIELDS, $_POST);
 	 *
 	 * $response = curl_exec($curl);
 	 *
 	 * $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	 *
-	 * curl_close($curl);
+	 * unset($curl);
 	 *
 	 * if ($status == 200) {
 	 *      $response_info = json_decode($response, true);
@@ -1254,6 +1254,8 @@ class Order extends \Opencart\System\Engine\Controller {
 
 			$store = $this->model_setting_store->createStoreInstance($store_id, $language, $currency);
 
+			$store->session->data['currency'] = $currency;
+
 			// 2. Remove the unneeded keys.
 			$request_data = $this->request->get;
 
@@ -1262,12 +1264,16 @@ class Order extends \Opencart\System\Engine\Controller {
 			// 3. Add the request GET vars.
 			$store->request->get = $request_data;
 
-			print_r($store->request->get);
-
 			$store->request->get['route'] = 'api/order';
 
-			// 4. Add the request POST var
+			// 4. Add the request POST var, with added preserved order_status_id for confirm
 			$store->request->post = $this->request->post;
+			if ($call == 'confirm') {
+				$order_id = isset($this->request->post['order_id']) ? (int)$this->request->post['order_id'] : 0;
+				$this->load->model('sale/order');
+				$order_info = $this->model_sale_order->getOrder($order_id);
+				$store->request->post['order_status_id'] = $order_info['order_status_id'] ?? $this->config->get('config_order_status_id');
+			}
 
 			// 5. Call the required API controller.
 			$store->load->controller($store->request->get['route']);

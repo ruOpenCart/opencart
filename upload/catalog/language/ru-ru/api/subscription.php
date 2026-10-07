@@ -13,3 +13,6 @@ $_['error_stock']            = 'Внимание: Товары, отмеченн
 $_['error_minimum']          = 'Внимание: Минимальная сумма заказа %s из %s!';
 $_['error_call']             = 'API вызов не найден';
 $_['error_subscription']     = 'План подписки недействителен!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['error_subscription_plan']  = 'Warning: Subscription plan required!';

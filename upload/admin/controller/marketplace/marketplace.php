@@ -366,17 +366,17 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace' . $url);
 
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($curl, CURLOPT_POST, true);
 
 		$response = curl_exec($curl);
 
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		curl_close($curl);
+		unset($curl);
 
 		if ($status == 200) {
 			$response_info = json_decode($response, true);
@@ -514,17 +514,17 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/info' . $url);
 
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($curl, CURLOPT_POST, true);
 
 		$response = curl_exec($curl);
 
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		curl_close($curl);
+		unset($curl);
 
 		if ($status == 200) {
 			$response_info = json_decode($response, true);
@@ -778,16 +778,16 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/purchase' . $url);
 
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-			curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+			curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 			$response = curl_exec($curl);
 
 			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-			curl_close($curl);
+			unset($curl);
 
 			if ($status == 200) {
 				$response_info = json_decode($response, true);
@@ -867,16 +867,16 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/download&extension_download_id=' . $extension_download_id . $url);
 
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-			curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+			curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 			$response = curl_exec($curl);
 
 			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-			curl_close($curl);
+			unset($curl);
 
 			if ($status == 200) {
 				$response_info = json_decode($response, true);
@@ -980,18 +980,18 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 			$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/addcomment&extension_id=' . $extension_id . $url);
 
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-			curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($curl, CURLOPT_POST, 1);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+			curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($curl, CURLOPT_POST, true);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, ['comment' => $this->request->post['comment']]);
 
 			$response = curl_exec($curl);
 
 			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-			curl_close($curl);
+			unset($curl);
 
 			if ($status == 200) {
 				$response_info = json_decode($response, true);
@@ -1037,16 +1037,16 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/comment&extension_id=' . $extension_id . '&page=' . $page);
 
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 		$response = curl_exec($curl);
 
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		curl_close($curl);
+		unset($curl);
 
 		if ($status == 200) {
 			$json = json_decode($response, true);
@@ -1122,16 +1122,16 @@ class Marketplace extends \Opencart\System\Engine\Controller {
 
 		$curl = curl_init(OPENCART_SERVER . 'index.php?route=api/marketplace/comment&extension_id=' . $extension_id . '&parent_id=' . $parent_id . '&page=' . $page);
 
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 		$response = curl_exec($curl);
 
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		curl_close($curl);
+		unset($curl);
 
 		if ($status == 200) {
 			$json = json_decode($response, true);

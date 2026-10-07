@@ -127,7 +127,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getList();
 
-		// Return Statuses
+		// Return Status
 		$this->load->model('localisation/return_status');
 
 		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
@@ -350,7 +350,6 @@ class Returns extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_return_id'] = $this->url->link('sale/returns.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.return_id' . $url);
 		$data['sort_order_id'] = $this->url->link('sale/returns.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.order_id' . $url);
 		$data['sort_customer'] = $this->url->link('sale/returns.list', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url);
@@ -401,10 +400,8 @@ class Returns extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Returns
 		$return_total = $this->model_sale_returns->getTotalReturns($filter_data);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $return_total,
 			'page'  => $page,
@@ -501,11 +498,12 @@ class Returns extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('sale/returns.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Return
+		$return_info = [];
+
 		if (isset($this->request->get['return_id'])) {
 			$this->load->model('sale/returns');
 
-			$return_info = $this->model_sale_returns->getReturn($this->request->get['return_id']);
+			$return_info = $this->model_sale_returns->getReturn((int)$this->request->get['return_id']);
 		}
 
 		if (!empty($return_info)) {
@@ -574,17 +572,17 @@ class Returns extends \Opencart\System\Engine\Controller {
 			$data['comment'] = '';
 		}
 
-		// Return Reasons
+		// Return Reason
 		$this->load->model('localisation/return_reason');
 
 		$data['return_reasons'] = $this->model_localisation_return_reason->getReturnReasons();
 
-		// Return Actions
+		// Return Action
 		$this->load->model('localisation/return_action');
 
 		$data['return_actions'] = $this->model_localisation_return_action->getReturnActions();
 
-		// Return Statuses
+		// Return Status
 		$this->load->model('localisation/return_status');
 
 		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
@@ -621,6 +619,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 		}
 
 		$required = [
+			'return_id'        => 0,
 			'order_id'         => 0,
 			'product_id'       => 0,
 			'customer_id'      => 0,
@@ -634,6 +633,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			'opened'           => 0,
 			'return_reason_id' => 0,
 			'return_action_id' => 0,
+			'return_status_id' => 0,
 			'comment'          => '',
 			'date_ordered'     => ''
 		];
@@ -646,11 +646,11 @@ class Returns extends \Opencart\System\Engine\Controller {
 		$order_info = $this->model_sale_order->getOrder($post_info['order_id']);
 
 		if (!$order_info) {
-			$json['error']['order'] = $this->language->get('error_order_id');
+			$json['error']['order'] = $this->language->get('error_order');
 		}
 
-		// Customer
 		if ($post_info['customer_id']) {
+			// Customer
 			$this->load->model('customer/customer');
 
 			$customer_info = $this->model_customer_customer->getCustomer($post_info['customer_id']);
@@ -720,7 +720,6 @@ class Returns extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Returns
 			$this->load->model('sale/returns');
 
 			if (!$post_info['return_id']) {
@@ -759,7 +758,6 @@ class Returns extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Returns
 			$this->load->model('sale/returns');
 
 			foreach ($selected as $return_id) {
@@ -819,10 +817,8 @@ class Returns extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
-		// Total Histories
 		$history_total = $this->model_sale_returns->getTotalHistories($return_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $history_total,
 			'page'  => $page,

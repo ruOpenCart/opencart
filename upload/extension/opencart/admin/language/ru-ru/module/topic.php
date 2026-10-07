@@ -12,3 +12,6 @@ $_['entry_status']     = 'Статус';
 
 // Error
 $_['error_permission'] = 'Внимание: У вас нет прав для изменения модуля топика!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['entry_article_count'] = 'Include Articles Count';

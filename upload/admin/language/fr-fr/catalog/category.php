@@ -10,7 +10,7 @@ $_['text_edit']               = 'Modifier la Catégorie';
 $_['text_filter']             = 'Filtre';
 $_['text_default']            = 'Par Défaut';
 $_['text_general']            = 'Général';
-$_['text_meta']               = 'Balises Meta';
+$_['text_meta']               = 'Balises Méta';
 $_['text_keyword']            = 'N\'utilisez pas d\'espaces, remplacez plutôt les espaces par - et assurez-vous que l\'URL SEO soit unique à l\'échelle mondiale.';
 
 // Colonne

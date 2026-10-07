@@ -25,3 +25,6 @@ $_['entry_cron']           = 'URL-адрес CRON';
 
 // Error
 $_['error_permission']     = 'Внимание: У вас нет разрешения на изменение заданий CRON!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['entry_description']    = 'Description';

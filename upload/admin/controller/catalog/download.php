@@ -109,7 +109,7 @@ class Download extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/download.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Downloads
+		// Download
 		$data['downloads'] = [];
 
 		$filter_data = [
@@ -138,7 +138,6 @@ class Download extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_name'] = $this->url->link('catalog/download.list', 'user_token=' . $this->session->data['user_token'] . '&sort=dd.name' . $url);
 		$data['sort_date_added'] = $this->url->link('catalog/download.list', 'user_token=' . $this->session->data['user_token'] . '&sort=d.date_added' . $url);
 
@@ -152,10 +151,8 @@ class Download extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Downloads
 		$download_total = $this->model_catalog_download->getTotalDownloads();
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $download_total,
 			'page'  => $page,
@@ -218,7 +215,8 @@ class Download extends \Opencart\System\Engine\Controller {
 		$data['back'] = $this->url->link('catalog/download', 'user_token=' . $this->session->data['user_token'] . $url);
 		$data['upload'] = $this->url->link('catalog/download.upload', 'user_token=' . $this->session->data['user_token']);
 
-		// Download
+		$download_info = [];
+
 		if (isset($this->request->get['download_id'])) {
 			$this->load->model('catalog/download');
 
@@ -231,7 +229,7 @@ class Download extends \Opencart\System\Engine\Controller {
 			$data['download_id'] = 0;
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -298,12 +296,10 @@ class Download extends \Opencart\System\Engine\Controller {
 			$json['error']['filename'] = $this->language->get('error_filename');
 		}
 
-		if (substr(str_replace('\\', '/', realpath(DIR_DOWNLOAD . $post_info['filename'])), 0, strlen(DIR_DOWNLOAD)) != DIR_DOWNLOAD) {
-			$json['error']['filename'] = $this->language->get('error_directory');
-		}
-
 		if (!is_file(DIR_DOWNLOAD . $post_info['filename'])) {
 			$json['error']['filename'] = $this->language->get('error_exists');
+		} elseif (substr(str_replace('\\', '/', realpath(DIR_DOWNLOAD . $post_info['filename'])), 0, strlen(DIR_DOWNLOAD)) != DIR_DOWNLOAD) {
+			$json['error']['filename'] = $this->language->get('error_directory');
 		}
 
 		if (!oc_validate_filename($post_info['filename'])) {
@@ -323,7 +319,6 @@ class Download extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Download
 			$this->load->model('catalog/download');
 
 			if (!$post_info['download_id']) {
@@ -363,7 +358,6 @@ class Download extends \Opencart\System\Engine\Controller {
 		$this->load->model('catalog/product');
 
 		foreach ($selected as $download_id) {
-			// Total Downloads
 			$product_total = $this->model_catalog_product->getTotalDownloadsByDownloadId($download_id);
 
 			if ($product_total) {
@@ -372,7 +366,6 @@ class Download extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Download
 			$this->load->model('catalog/download');
 
 			foreach ($selected as $download_id) {
@@ -417,7 +410,6 @@ class Download extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
-		// Reports
 		$data['reports'] = [];
 
 		// Download
@@ -426,7 +418,7 @@ class Download extends \Opencart\System\Engine\Controller {
 		// Customer
 		$this->load->model('customer/customer');
 
-		// Setting
+		// Store
 		$this->load->model('setting/store');
 
 		$results = $this->model_catalog_download->getReports($download_id, ($page - 1) * $limit, $limit);
@@ -452,10 +444,8 @@ class Download extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		// Total Reports
 		$report_total = $this->model_catalog_download->getTotalReports($download_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $report_total,
 			'page'  => $page,
@@ -613,7 +603,6 @@ class Download extends \Opencart\System\Engine\Controller {
 		$json = [];
 
 		if (isset($this->request->get['filter_name'])) {
-			// Downloads
 			$this->load->model('catalog/download');
 
 			$filter_data = [

@@ -311,3 +311,10 @@ $_['error_log_required']                  = 'Необходимо ввести �
 $_['error_log_invalid']                   = 'Недопустимое имя файла журнала ошибок!';
 $_['error_log_extension']                 = 'Расширение для файла журнала ошибок должно быть .log!';
 $_['error_encryption']                    = 'Ключ шифрования должен быть длиной от 32 до 1024 символов!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['entry_product_filters']               = 'Product Filters';
+$_['entry_product_search']                = 'Product Search';
+$_['entry_product_search_admin']          = 'Product Search (Admin)';
+$_['help_product_filters']                = 'Choose whether product filters use AND or OR logic.';
+$_['help_product_search']                 = 'Choose whether the product multi-word search uses AND or OR logic.';

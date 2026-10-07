@@ -12,3 +12,6 @@ $_['error_country']      = 'Пожалуйста, выберите страну!
 $_['error_zone']         = 'Пожалуйста, выберите регион / область!';
 $_['error_custom_field'] = '%s обязательно к заполнению!';
 $_['error_regex']        = '%s не является допустимым вводом!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['error_address']      = 'Warning: Address could not be found!';

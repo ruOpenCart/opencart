@@ -168,17 +168,14 @@ class Category extends \Opencart\System\Engine\Controller {
 		// Image
 		$this->load->model('tool/image');
 
-		// Categories
 		$this->load->model('catalog/category');
 
 		$results = $this->model_catalog_category->getCategories($filter_data);
 
 		foreach ($results as $result) {
-			if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-				$image = $result['image'];
-			} else {
-				$image = 'no_image.png';
-			}
+			$image = $result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))
+				? $result['image']
+				: 'no_image.png';
 
 			$data['categories'][] = [
 				'image' => $this->model_tool_image->resize($image, 40, 40),
@@ -194,7 +191,6 @@ class Category extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_name'] = $this->url->link('catalog/category.list', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url);
 		$data['sort_sort_order'] = $this->url->link('catalog/category.list', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url);
 
@@ -216,10 +212,8 @@ class Category extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Categories
 		$category_total = $this->model_catalog_category->getTotalCategories($filter_data);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $category_total,
 			'page'  => $page,
@@ -287,7 +281,8 @@ class Category extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/category.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Category
+		$category_info = [];
+
 		if (isset($this->request->get['category_id'])) {
 			$this->load->model('catalog/category');
 
@@ -300,7 +295,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			$data['category_id'] = 0;
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -346,20 +341,16 @@ class Category extends \Opencart\System\Engine\Controller {
 		}
 
 		// Stores
-		$data['stores'] = [];
+		$stores = [];
 
-		$data['stores'][] = [
+		$stores[] = [
 			'store_id' => 0,
-			'name'     => $this->language->get('text_default')
+			'name'     => $this->config->get('config_name')
 		];
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = $result;
-		}
+		$data['stores'] = array_merge($stores, $this->model_setting_store->getStores());
 
 		if (!empty($category_info)) {
 			$data['category_store'] = $this->model_catalog_category->getStores($category_info['category_id']);
@@ -417,7 +408,7 @@ class Category extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Layouts
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -542,7 +533,6 @@ class Category extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Categories
 			$this->load->model('catalog/category');
 
 			$this->model_catalog_category->repairCategories();
@@ -575,45 +565,11 @@ class Category extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Category
 			$this->load->model('catalog/category');
 
 			foreach ($selected as $category_id) {
 				$this->model_catalog_category->deleteCategory($category_id);
 			}
-
-			$json['success'] = $this->language->get('text_success');
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
-
-	/**
-	 * Status
-	 *
-	 * @return void
-	 */
-	public function status(): void {
-		$this->load->language('catalog/category');
-
-		$json = [];
-
-		if (isset($this->request->get['category_id'])) {
-			$category_id = (int)$this->request->get['category_id'];
-		} else {
-			$category_id = 0;
-		}
-
-		if (!$this->user->hasPermission('modify', 'catalog/category')) {
-			$json['error'] = $this->language->get('error_permission');
-		}
-
-		if (!$json) {
-			// Modification
-			$this->load->model('catalog/category');
-
-			$this->model_setting_modification->editStatus($category_id, true);
 
 			$json['success'] = $this->language->get('text_success');
 		}
@@ -630,26 +586,37 @@ class Category extends \Opencart\System\Engine\Controller {
 	public function autocomplete(): void {
 		$json = [];
 
-		// Categories
 		if (isset($this->request->get['filter_name'])) {
-			$this->load->model('catalog/category');
+			$filter_name = $this->request->get['filter_name'];
+		} else {
+			$filter_name = '';
+		}
 
-			$filter_data = [
-				'filter_name' => $this->request->get['filter_name'] . '%',
-				'sort'        => 'name',
-				'order'       => 'ASC',
-				'start'       => 0,
-				'limit'       => $this->config->get('config_autocomplete_limit')
+		if (isset($this->request->get['filter_status']) && $this->request->get['filter_status'] !== '') {
+			$filter_status = $this->request->get['filter_status'];
+		} else {
+			$filter_status = '';
+		}
+
+		$this->load->model('catalog/category');
+
+		$filter_data = [
+			'filter_name'   => $filter_name,
+			'filter_status' => $filter_status,
+			'sort'          => 'name',
+			'order'         => 'ASC',
+			'start'         => 0,
+			'limit'         => $this->config->get('config_autocomplete_limit')
+		];
+
+		$results = $this->model_catalog_category->getCategories($filter_data);
+
+		foreach ($results as $result) {
+			$json[] = [
+				'category_id' => $result['category_id'],
+				'name'        => $result['name'],
+				'status'      => $result['status']
 			];
-
-			$results = $this->model_catalog_category->getCategories($filter_data);
-
-			foreach ($results as $result) {
-				$json[] = [
-					'category_id' => $result['category_id'],
-					'name'        => $result['name']
-				];
-			}
 		}
 
 		$sort_order = [];

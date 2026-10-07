@@ -107,7 +107,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['list'] = $this->getList();
 
-		// Subscription Statuses
+		// Subscription Status
 		$this->load->model('localisation/subscription_status');
 
 		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
@@ -239,7 +239,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Subscriptions
+		// Subscription
 		$data['subscriptions'] = [];
 
 		$filter_data = [
@@ -299,7 +299,6 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_subscription'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=s.subscription_id' . $url);
 		$data['sort_order'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=s.order_id' . $url);
 		$data['sort_customer'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url);
@@ -340,10 +339,8 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Subscriptions
 		$subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,
@@ -509,20 +506,16 @@ class Subscription extends \Opencart\System\Engine\Controller {
 		}
 
 		// Stores
-		$data['stores'] = [];
+		$stores = [];
 
-		$data['stores'][] = [
+		$stores[] = [
 			'store_id' => 0,
-			'name'     => $this->config->get('config_name')
+			'name'     => $this->language->get('text_default')
 		];
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = $result;
-		}
+		$data['stores'] = array_merge($stores, $this->model_setting_store->getStores());
 
 		if (!empty($subscription_info)) {
 			$data['store_id'] = $subscription_info['store_id'];
@@ -530,7 +523,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['store_id'] = (int)$this->config->get('config_store_id');
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -541,7 +534,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['language_code'] = $this->config->get('config_language');
 		}
 
-		// Currencies
+		// Currency
 		$this->load->model('localisation/currency');
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
@@ -552,7 +545,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['currency_code'] = $this->config->get('config_currency');
 		}
 
-		// Subscription Plans
+		// Subscription Plan
 		$this->load->model('catalog/subscription_plan');
 
 		$data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -652,12 +645,12 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['payment_custom_field'] = [];
 		}
 
-		// Countries
+		// Country
 		$this->load->model('localisation/country');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
-		// Zones
+		// Zone
 		$this->load->model('localisation/zone');
 
 		$data['payment_zones'] = $this->model_localisation_zone->getZonesByCountryId($data['payment_country_id']);
@@ -733,7 +726,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['comment'] = '';
 		}
 
-		// Subscription Statuses
+		// Subscription Status
 		$this->load->model('localisation/subscription_status');
 
 		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
@@ -744,13 +737,8 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['subscription_status_id'] = '';
 		}
 
-		// Histories
 		$data['history'] = $this->getHistory();
-
-		// Orders
 		$data['orders'] = $this->getOrder();
-
-		// Log
 		$data['log'] = $this->getLog();
 
 		// Additional tabs that are payment gateway specific
@@ -765,7 +753,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			if ($extension_info && $this->user->hasPermission('access', 'extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'])) {
 				$output = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '.subscription');
 
-				if (!$output instanceof \Exception) {
+				if ($output && !$output instanceof \Exception) {
 					$this->load->language('extension/' . $extension_info['extension'] . '/payment/' . $extension_info['code'], 'extension');
 
 					$data['tabs'][] = [
@@ -829,19 +817,19 @@ class Subscription extends \Opencart\System\Engine\Controller {
 	 * $curl = curl_init();
 	 *
 	 * curl_setopt($curl, CURLOPT_URL, 'https://' . $domain . $path . 'index.php?route=api/api' . $url);
-	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	 * curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	 * curl_setopt($curl, CURLOPT_HEADER, false);
-	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 * curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	 * curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
 	 * curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-	 * curl_setopt($curl, CURLOPT_POST, 1);
+	 * curl_setopt($curl, CURLOPT_POST, true);
 	 * curl_setopt($curl, CURLOPT_POSTFIELDS, $_POST);
 	 *
 	 * $response = curl_exec($curl);
 	 *
 	 * $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	 *
-	 * curl_close($curl);
+	 * unset($curl);
 	 *
 	 * if ($status == 200) {
 	 *      $response_info = json_decode($response, true);
@@ -880,11 +868,11 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$currency = (string)$this->config->get('config_currency');
 		}
 
-		if (!$this->user->hasPermission('modify', 'sale/order')) {
+		if (!$this->user->hasPermission('modify', 'sale/subscription')) {
 			$json['error'] = $this->language->get('error_permission');
 		}
 
-		// Api
+		// API
 		$this->load->model('user/api');
 
 		$api_info = $this->model_user_api->getApi((int)$this->config->get('config_api_id'));
@@ -926,7 +914,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			// 7. Clean up data by clearing cart.
 			$store->cart->clear();
 
-			// 8. Deleting the current session, so we are not creating infinite sessions.
+			// 8. Deleting the current session so we are not creating infinite sessions.
 			$store->session->destroy();
 		} else {
 			$output = json_encode($json);
@@ -1004,7 +992,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['histories'] = [];
 
-		// Histories
+		// Subscription
 		$this->load->model('sale/subscription');
 
 		$results = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * $limit, $limit);
@@ -1017,10 +1005,8 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
-		// Total Histories
 		$subscription_total = $this->model_sale_subscription->getTotalHistories($subscription_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,
@@ -1120,7 +1106,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$limit = 10;
 
-		// Orders
+		// Order
 		$data['orders'] = [];
 
 		$this->load->model('sale/order');
@@ -1135,10 +1121,8 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
-		// Total Orders
 		$order_total = $this->model_sale_order->getTotalOrdersBySubscriptionId($subscription_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $order_total,
 			'page'  => $page,
@@ -1184,7 +1168,7 @@ class Subscription extends \Opencart\System\Engine\Controller {
 
 		$data['logs'] = [];
 
-		// Logs
+		// Subscription
 		$this->load->model('sale/subscription');
 
 		$results = $this->model_sale_subscription->getLogs($subscription_id, ($page - 1) * $limit, $limit);
@@ -1193,10 +1177,8 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			$data['logs'][] = ['date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))] + $result;
 		}
 
-		// Total Subscriptions
 		$subscription_total = $this->model_sale_subscription->getTotalLogs($subscription_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $subscription_total,
 			'page'  => $page,

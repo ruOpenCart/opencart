@@ -64,18 +64,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			$filter_quantity_to = '';
 		}
 
-		if (isset($this->request->get['filter_quantity_from'])) {
-			$filter_quantity_from = $this->request->get['filter_quantity_from'];
-		} else {
-			$filter_quantity_from = '';
-		}
-
-		if (isset($this->request->get['filter_quantity_to'])) {
-			$filter_quantity_to = $this->request->get['filter_quantity_to'];
-		} else {
-			$filter_quantity_to = '';
-		}
-
 		if (isset($this->request->get['filter_status'])) {
 			$filter_status = $this->request->get['filter_status'];
 		} else {
@@ -203,8 +191,6 @@ class Product extends \Opencart\System\Engine\Controller {
 	}
 
 	/**
-	 * Get List
-	 *
 	 * @return string
 	 */
 	public function getList(): string {
@@ -324,7 +310,7 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/product.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Products
+		// Product
 		$data['products'] = [];
 
 		$filter_data = [
@@ -363,8 +349,20 @@ class Product extends \Opencart\System\Engine\Controller {
 
 			foreach ($product_discounts as $product_discount) {
 				if (($product_discount['date_start'] == '0000-00-00' || strtotime($product_discount['date_start']) < time()) && ($product_discount['date_end'] == '0000-00-00' || strtotime($product_discount['date_end']) > time())) {
-					$special = $this->currency->format($product_discount['price'], $this->config->get('config_currency'));
+					switch ($product_discount['type']) {
+						case 'P':
+							$price = $result['price'] - ($result['price'] * ($product_discount['price'] / 100));
+							break;
+						case 'S':
+							$price = $result['price'] - $product_discount['price'];
+							break;
+						case 'F':
+						default:
+							$price = $product_discount['price'];
+							break;
+					}
 
+					$special = $this->currency->format($price, $this->config->get('config_currency'));
 					break;
 				}
 			}
@@ -422,7 +420,6 @@ class Product extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_name'] = $this->url->link('catalog/product.list', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url);
 		$data['sort_model'] = $this->url->link('catalog/product.list', 'user_token=' . $this->session->data['user_token'] . '&sort=p.model' . $url);
 		$data['sort_price'] = $this->url->link('catalog/product.list', 'user_token=' . $this->session->data['user_token'] . '&sort=p.price' . $url);
@@ -475,10 +472,8 @@ class Product extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Products
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $product_total,
 			'page'  => $page,
@@ -513,7 +508,6 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$data['config_file_max_size'] = ((int)$this->config->get('config_file_max_size') * 1024 * 1024);
 
-		// Product
 		if (isset($this->request->get['master_id'])) {
 			$this->load->model('catalog/product');
 
@@ -673,7 +667,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['master_id'] = 0;
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -708,7 +702,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['price'] = '';
 		}
 
-		// Tax Classes
+		// Tax Class
 		$this->load->model('localisation/tax_class');
 
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -737,7 +731,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['subtract'] = 1;
 		}
 
-		// Stock Statuses
+		// Stock Status
 		$this->load->model('localisation/stock_status');
 
 		$data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
@@ -784,7 +778,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['height'] = '';
 		}
 
-		// Length Classes
+		// Length Class
 		$this->load->model('localisation/length_class');
 
 		$data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
@@ -795,7 +789,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['length_class_id'] = (int)$this->config->get('config_length_class_id');
 		}
 
-		// Weight Classes
+		// Weight Class
 		if (!empty($product_info)) {
 			$data['weight'] = $product_info['weight'];
 		} else {
@@ -884,20 +878,16 @@ class Product extends \Opencart\System\Engine\Controller {
 		}
 
 		// Stores
-		$data['stores'] = [];
+		$stores = [];
 
-		$data['stores'][] = [
+		$stores[] = [
 			'store_id' => 0,
-			'name'     => $this->language->get('text_default')
+			'name'     => $this->config->get('config_name')
 		];
 
 		$this->load->model('setting/store');
 
-		$results = $this->model_setting_store->getStores();
-
-		foreach ($results as $result) {
-			$data['stores'][] = $result;
-		}
+		$data['stores'] = array_merge($stores, $this->model_setting_store->getStores());
 
 		if ($product_id) {
 			$data['product_store'] = $this->model_catalog_product->getStores($product_id);
@@ -960,7 +950,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Customer Groups
+		// Customer Group
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -973,6 +963,10 @@ class Product extends \Opencart\System\Engine\Controller {
 		} else {
 			$product_options = [];
 		}
+
+		$this->load->model('tool/image');
+
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
 
 		$data['product_options'] = [];
 
@@ -987,7 +981,7 @@ class Product extends \Opencart\System\Engine\Controller {
 						$product_option_value_data[] = [
 							'name'   => $option_value_info['name'],
 							'points' => round($product_option_value['points']),
-							'weight' => round($product_option_value['weight']),
+							'weight' => (float)$product_option_value['weight'],
 						] + $product_option_value;
 					}
 				}
@@ -1002,7 +996,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		$data['option_values'] = [];
 
 		foreach ($data['product_options'] as $product_option) {
-			if ($product_option['type'] == 'select' || $product_option['type'] == 'radio' || $product_option['type'] == 'checkbox' || $product_option['type'] == 'image') {
+			if (in_array($product_option['type'], ['select', 'radio', 'checkbox'])) {
 				if (!isset($data['option_values'][$product_option['option_id']])) {
 					$data['option_values'][$product_option['option_id']] = $this->model_catalog_option->getValues($product_option['option_id']);
 				}
@@ -1035,8 +1029,15 @@ class Product extends \Opencart\System\Engine\Controller {
 					$option_value_info = $this->model_catalog_option->getValue($product_option_value['option_value_id']);
 
 					if ($option_value_info) {
+						if ($option_value_info['image'] && is_file(DIR_IMAGE . html_entity_decode($option_value_info['image'], ENT_QUOTES, 'UTF-8'))) {
+							$image = $option_value_info['image'];
+						} else {
+							$image = 'no_image.png';
+						}
+
 						$product_option_value_data[] = [
 							'name'  => $option_value_info['name'],
+							'image' => $this->model_tool_image->resize($image, 50, 50),
 							'price' => (float)$product_option_value['price'] ? $product_option_value['price'] : false,
 						] + $product_option_value;
 					}
@@ -1053,7 +1054,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		// Subscription Plans
+		// Subscription Plan
 		$this->load->model('catalog/subscription_plan');
 
 		$data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -1086,10 +1087,6 @@ class Product extends \Opencart\System\Engine\Controller {
 		} else {
 			$data['image'] = '';
 		}
-
-		$this->load->model('tool/image');
-
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
 
 		if ($data['image'] && is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
 			$data['thumb'] = $this->model_tool_image->resize($data['image'], (int)$this->config->get('config_image_default_width'), (int)$this->config->get('config_image_default_height'));
@@ -1139,12 +1136,12 @@ class Product extends \Opencart\System\Engine\Controller {
 		if ($product_id) {
 			$this->load->model('design/seo_url');
 
-			$data['product_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('product_id', $product_id);
+			$data['product_seo_url'] = $this->model_design_seo_url->getSeoUrlsByKeyValue('product_id', (string)$product_id);
 		} else {
 			$data['product_seo_url'] = [];
 		}
 
-		// Layouts
+		// Layout
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
@@ -1209,6 +1206,15 @@ class Product extends \Opencart\System\Engine\Controller {
 
 		$post_info = $this->request->post + $required;
 
+		// empty variant checks
+		$variant = [];
+		foreach ($post_info['variant'] as $key => $value) {
+			if (!empty($value)) {
+				$variant[$key] = $value;
+			}
+		}
+		$post_info['variant'] = $variant;
+
 		foreach ($post_info['product_description'] as $language_id => $value) {
 			if (!oc_validate_length($value['name'], 1, 255)) {
 				$json['error']['name_' . $language_id] = $this->language->get('error_name');
@@ -1227,7 +1233,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		$this->load->model('catalog/identifier');
 
 		foreach ($post_info['product_code'] as $key => $product_code) {
-			$identifier_info = $this->model_catalog_identifier->getIdentifier($product_code['identifier_id']);
+			$identifier_info = $this->model_catalog_identifier->getIdentifierByCode($product_code['code']);
 
 			if ($identifier_info && $identifier_info['validation'] && !oc_validate_regex($product_code['value'], $identifier_info['validation'])) {
 				$json['error']['code_' . $key] = sprintf($this->language->get('error_regex'), $product_code['code']);
@@ -1239,9 +1245,18 @@ class Product extends \Opencart\System\Engine\Controller {
 		if ($post_info['master_id']) {
 			$product_options = $this->model_catalog_product->getOptions($post_info['master_id']);
 
-			foreach ($product_options as $product_option) {
+			foreach ($product_options as $row_idx => $product_option) {
 				if (isset($post_info['override']['variant'][$product_option['product_option_id']]) && $product_option['required'] && empty($post_info['variant'][$product_option['product_option_id']])) {
-					$json['error']['option_' . $product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+					$json['error']['option-row-' . $row_idx] = sprintf($this->language->get('error_required'), $product_option['name']);
+				}
+			}
+		}
+
+		// Options
+		if (!empty($post_info['product_option'])) {
+			foreach ($post_info['product_option'] as $row_idx => $option) {
+				if ((in_array($option['type'], ['select', 'radio', 'checkbox'])) && empty($option['product_option_value'])) {
+					$json['error']['option-row-' . $row_idx] = sprintf($this->language->get('error_option_value'), $option['name']);
 				}
 			}
 		}
@@ -1327,7 +1342,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$this->load->model('catalog/product');
 
 			foreach ($selected as $product_id) {
-				$this->model_catalog_product->deleteProduct($product_id);
+				$this->model_catalog_product->deleteProduct((int)$product_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -1358,11 +1373,10 @@ class Product extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Product
 			$this->load->model('catalog/product');
 
 			foreach ($selected as $product_id) {
-				$this->model_catalog_product->copyProduct($product_id);
+				$this->model_catalog_product->copyProduct((int)$product_id);
 			}
 
 			$json['success'] = $this->language->get('text_success');
@@ -1408,7 +1422,7 @@ class Product extends \Opencart\System\Engine\Controller {
 		// Product
 		$this->load->model('catalog/product');
 
-		// Setting
+		// Store
 		$this->load->model('setting/store');
 
 		$results = $this->model_catalog_product->getReports($product_id, ($page - 1) * $limit, $limit);
@@ -1432,10 +1446,8 @@ class Product extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		// Total Reports
 		$report_total = $this->model_catalog_product->getTotalReports($product_id);
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $report_total,
 			'page'  => $page,
@@ -1483,7 +1495,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			'limit'        => $limit
 		];
 
-		// Products
+		// Product
 		$this->load->model('catalog/product');
 
 		// Option
@@ -1497,9 +1509,18 @@ class Product extends \Opencart\System\Engine\Controller {
 		foreach ($results as $result) {
 			$option_data = [];
 
-			$product_options = $this->model_catalog_product->getOptions($result['product_id']);
+			// Check if product is variant
+			if ($result['master_id']) {
+				$master_id = (int)$result['master_id'];
+			} else {
+				$master_id = (int)$result['product_id'];
+			}
+
+			$product_options = $this->model_catalog_product->getOptions($master_id);
 
 			foreach ($product_options as $product_option) {
+				$override = isset($result['override']['variant'][$product_option['product_option_id']]);
+
 				$option_info = $this->model_catalog_option->getOption($product_option['option_id']);
 
 				if ($option_info) {
@@ -1525,9 +1546,11 @@ class Product extends \Opencart\System\Engine\Controller {
 						'option_id'            => $product_option['option_id'],
 						'name'                 => $option_info['name'],
 						'type'                 => $option_info['type'],
-						'value'                => $product_option['value'],
-						'required'             => $product_option['required']
+						'value'                => $override ? $result['variant'][$product_option['product_option_id']] : $product_option['value'],
+						'required'             => $override ? false : $product_option['required'],
+						'disabled'             => $override
 					];
+
 				}
 			}
 

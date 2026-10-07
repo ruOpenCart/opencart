@@ -4,9 +4,11 @@ $_['heading_title']           = 'Articles';
 
 // Text
 $_['text_success']            = 'Success: You have modified articles!';
+$_['text_next']               = 'Success: You have modified %s to %s of %s article ratings!';
 $_['text_list']               = 'Article List';
 $_['text_add']                = 'Add Article';
 $_['text_edit']               = 'Edit Article';
+$_['text_default']            = 'Default';
 $_['text_general']            = 'General';
 $_['text_meta']               = 'Meta Tags';
 $_['text_keyword']            = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
@@ -14,6 +16,7 @@ $_['text_keyword']            = 'Do not use spaces, instead replace spaces with 
 // Column
 $_['column_name']             = 'Article Name';
 $_['column_author']           = 'Author';
+$_['column_rating']           = 'Rating';
 $_['column_date_added']       = 'Date Added';
 $_['column_action']           = 'Action';
 
@@ -32,6 +35,9 @@ $_['entry_sort_order']        = 'Sort Order';
 $_['entry_status']            = 'Status';
 $_['entry_keyword']           = 'Keyword';
 $_['entry_layout']            = 'Layout Override';
+
+// Button
+$_['button_rating']           = 'Calculate Ratings';
 
 // Error
 $_['error_warning']           = 'Warning: Please check the form carefully for errors!';

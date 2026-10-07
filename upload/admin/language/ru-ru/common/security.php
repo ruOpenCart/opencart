@@ -45,3 +45,6 @@ $_['error_admin_allowed']             = 'Внимание: Это имя кат�
 $_['error_admin_exists']              = 'Внимание: Каталог администратора уже существует!';
 $_['error_writable']                  = 'Внимание: config.php и admin/config.php должны быть доступны для записи!';
 $_['error_remove']                    = 'Внимание: Каталог не существует для удаления!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['error_writable_path']             = 'Warning: The folder \'%s\' needs to be writable!';

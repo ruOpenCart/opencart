@@ -194,7 +194,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 			$next = array_shift($directory);
 
 			if (is_dir($next)) {
-				foreach (glob(rtrim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+				foreach (oc_glob(rtrim($next, '/') . '/{*,.[!.]*,..?*}') as $file) {
 					$directory[] = $file;
 				}
 			}
@@ -231,7 +231,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 				$next = array_shift($directory);
 
 				if (is_dir($next)) {
-					foreach (glob(rtrim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+					foreach (oc_glob(rtrim($next, '/') . '/{*,.[!.]*,..?*}') as $file) {
 						$directory[] = $file;
 					}
 				}
@@ -332,6 +332,7 @@ class Theme extends \Opencart\System\Engine\Controller {
 
 		$required = [
 			'theme_id' => 0,
+			'store_id' => 0,
 			'route'    => '',
 			'code'     => '',
 			'status'   => 0

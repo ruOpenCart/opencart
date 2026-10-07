@@ -41,16 +41,26 @@ class Authorize extends \Opencart\System\Engine\Controller {
 		if (!$token_info) {
 			// Create a token that can be stored as a cookie and will be used to identify device is safe.
 			$token = oc_token(32);
+			$expire = max(1, (int)$this->config->get('config_2fa_expire'));
 
 			$authorize_data = [
 				'token'      => $token,
 				'ip'         => oc_get_ip(),
-				'user_agent' => $this->request->server['HTTP_USER_AGENT']
+				'user_agent' => $this->request->server['HTTP_USER_AGENT'],
+				'expire'     => $expire
 			];
 
 			$this->model_account_customer->addAuthorize($this->customer->getId(), $authorize_data);
 
-			setcookie('customer_authorize', $token, time() + 60 * 60 * 24 * 90);
+			$option = [
+				'expires'  => time() + 60 * 60 * 24 * $expire,
+				'path'     => $this->config->get('session_path'),
+				'secure'   => $this->request->server['HTTPS'],
+				'httponly' => true,
+				'samesite' => $this->config->get('config_session_samesite')
+			];
+
+			setcookie('customer_authorize', $token, $option);
 		}
 
 		// Set the code to be emailed
@@ -161,7 +171,7 @@ class Authorize extends \Opencart\System\Engine\Controller {
 				$json['redirect'] = $this->url->link('account/authorize', 'language=' . $this->config->get('config_language'), true);
 			} elseif ($token_info['total'] > 2) {
 				$json['redirect'] = $this->url->link('account/authorize.reset', 'language=' . $this->config->get('config_language'), true);
-			} elseif (!isset($post_info['code']) || !isset($this->session->data['code']) || $post_info['code'] != $this->session->data['code']) {
+			} elseif (!isset($post_info['code']) || !isset($this->session->data['code']) || $post_info['code'] !== $this->session->data['code']) {
 				$total = $token_info['total'] + 1;
 
 				if ($total <= 2) {

@@ -295,7 +295,7 @@ a {
 }
 
 #menu li a.parent:after {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Free';
     font-weight: 600;
     float: right;
     margin-right: 8px;
@@ -349,7 +349,7 @@ a {
 }
 
 #menu li li a:before {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Free';
     content: "\f101";
     font-weight: 900;
     font-size: 13px;
@@ -513,7 +513,7 @@ label.required:before, label:has(+ input:required):before, label:has(+ select:re
 }
 
 .table thead td span[data-toggle='tooltip']:after, label.form-label span:after {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Free';
     font-weight: 600;
     content: "\f059";
     color: #1E91CF;
@@ -521,13 +521,13 @@ label.required:before, label:has(+ input:required):before, label:has(+ select:re
 }
 
 .table a.asc:after {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Free';
     font-weight: 600;
     content: " \f106";
 }
 
 .table a.desc:after {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 7 Free';
     font-weight: 600;
     content: " \f107";
 }
@@ -869,7 +869,8 @@ label.required:before, label:has(+ input:required):before, label:has(+ select:re
 }
 
 .list-check li::before {
-    font-family: 'Font Awesome 6 Solid';
+    font-family: 'Font Awesome 7 Free';
+    font-weight: 600;
     content: "\f00c";
     margin-left: -30px;
     width: 29px;
@@ -881,11 +882,7 @@ label.required:before, label:has(+ input:required):before, label:has(+ select:re
     color: #02afe9;
 }
 
-.table-responsive {
-    overflow: visible;
-}
-
 td {
     position: relative;
-	vertical-align: middle;
+    vertical-align: middle;
 }

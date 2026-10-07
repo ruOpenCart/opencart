@@ -47,3 +47,6 @@ $_['error_parent']            = 'Выбранная вами родительс�
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
 $_['error_keyword_character'] = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
+
+// Added from 4.1.0.4 (untranslated)
+$_['text_default']            = 'Default';

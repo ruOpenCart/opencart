@@ -109,7 +109,7 @@ class Option extends \Opencart\System\Engine\Controller {
 
 		$data['action'] = $this->url->link('catalog/option.list', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Options
+		// Option
 		$data['options'] = [];
 
 		$filter_data = [
@@ -135,7 +135,6 @@ class Option extends \Opencart\System\Engine\Controller {
 			$url .= '&order=ASC';
 		}
 
-		// Sorts
 		$data['sort_name'] = $this->url->link('catalog/option.list', 'user_token=' . $this->session->data['user_token'] . '&sort=od.name' . $url);
 		$data['sort_sort_order'] = $this->url->link('catalog/option.list', 'user_token=' . $this->session->data['user_token'] . '&sort=o.sort_order' . $url);
 
@@ -149,10 +148,8 @@ class Option extends \Opencart\System\Engine\Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		// Total Options
 		$option_total = $this->model_catalog_option->getTotalOptions();
 
-		// Pagination
 		$data['pagination'] = $this->load->controller('common/pagination', [
 			'total' => $option_total,
 			'page'  => $page,
@@ -209,7 +206,8 @@ class Option extends \Opencart\System\Engine\Controller {
 		$data['save'] = $this->url->link('catalog/option.save', 'user_token=' . $this->session->data['user_token']);
 		$data['back'] = $this->url->link('catalog/option', 'user_token=' . $this->session->data['user_token'] . $url);
 
-		// Option
+		$option_info = [];
+
 		if (isset($this->request->get['option_id'])) {
 			$this->load->model('catalog/option');
 
@@ -222,7 +220,7 @@ class Option extends \Opencart\System\Engine\Controller {
 			$data['option_id'] = 0;
 		}
 
-		// Languages
+		// Language
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -321,7 +319,7 @@ class Option extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		if (($post_info['type'] == 'select' || $post_info['type'] == 'radio' || $post_info['type'] == 'checkbox') && !isset($post_info['option_value'])) {
+		if ((in_array($post_info['type'], ['select', 'radio', 'checkbox'])) && !isset($post_info['option_value'])) {
 			$json['error']['warning'] = $this->language->get('error_type');
 		}
 
@@ -363,7 +361,6 @@ class Option extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Option
 			$this->load->model('catalog/option');
 
 			if (!$post_info['option_id']) {
@@ -402,7 +399,6 @@ class Option extends \Opencart\System\Engine\Controller {
 		// Product
 		$this->load->model('catalog/product');
 
-		// Total Options
 		foreach ($selected as $option_id) {
 			$product_total = $this->model_catalog_product->getTotalOptionsByOptionId($option_id);
 
@@ -412,7 +408,6 @@ class Option extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!$json) {
-			// Option
 			$this->load->model('catalog/option');
 
 			foreach ($selected as $option_id) {
@@ -454,7 +449,7 @@ class Option extends \Opencart\System\Engine\Controller {
 			foreach ($options as $option) {
 				$option_value_data = [];
 
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox' || $option['type'] == 'image') {
+				if (in_array($option['type'], ['select', 'radio', 'checkbox'])) {
 					$option_values = $this->model_catalog_option->getValues($option['option_id']);
 
 					foreach ($option_values as $option_value) {
@@ -482,11 +477,11 @@ class Option extends \Opencart\System\Engine\Controller {
 
 				$type = '';
 
-				if ($option['type'] == 'select' || $option['type'] == 'radio' || $option['type'] == 'checkbox') {
+				if (in_array($option['type'], ['select', 'radio', 'checkbox'])) {
 					$type = $this->language->get('text_choose');
 				}
 
-				if ($option['type'] == 'text' || $option['type'] == 'textarea') {
+				if (in_array($option['type'], ['text', 'textarea'])) {
 					$type = $this->language->get('text_input');
 				}
 
@@ -494,7 +489,7 @@ class Option extends \Opencart\System\Engine\Controller {
 					$type = $this->language->get('text_file');
 				}
 
-				if ($option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
+				if (in_array($option['type'], ['date', 'datetime', 'time'])) {
 					$type = $this->language->get('text_date');
 				}
 

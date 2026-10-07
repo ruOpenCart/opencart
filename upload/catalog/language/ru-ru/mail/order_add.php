@@ -33,3 +33,6 @@ $_['text_year']                  = 'год';
 $_['text_download']              = 'После подтверждения оплаты, загружаемые товары будут доступны по ссылке:';
 $_['text_comment']               = 'Комментарии к вашему заказу:';
 $_['text_footer']                = 'Пожалуйста, ответьте на это письмо, если у вас есть какие-либо вопросы.';
+
+// Added from 4.1.0.4 (untranslated)
+$_['text_subscription_trial']    = '%s every %d %s(s) for %d payment(s) then ';
