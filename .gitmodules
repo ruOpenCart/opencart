@@ -1,0 +1,4 @@
+[submodule "ocn/language/package"]
+	path = ocn/language
+	url = https://github.com/ruOpenCart/opencart-language-russian-4.git
+	branch = main

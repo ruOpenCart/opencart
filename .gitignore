@@ -44,3 +44,12 @@
 /.DS_Store
 /.cache
 /.php-cs-fixer.cache
+
+# Local Docker environment (secrets)
+.env
+/upload/install.lock
+
+# OCN language pack: local paths and build output
+/ocn/language/.env
+/ocn/language/build/
+/ocn/language/dist/
