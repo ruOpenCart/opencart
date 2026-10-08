@@ -8,10 +8,8 @@ $_['text_success']     = 'Успех: Вы изменили модуль топ�
 $_['text_edit']        = 'Редактирование модуля топика';
 
 // Entry
-$_['entry_status']     = 'Статус';
+$_['entry_status']        = 'Статус';
+$_['entry_article_count'] = 'Включить количество статей';
 
 // Error
-$_['error_permission'] = 'Внимание: У вас нет прав для изменения модуля топика!';
-
-// Added from 4.1.0.4 (untranslated)
-$_['entry_article_count'] = 'Include Articles Count';
+$_['error_permission']  = 'Внимание: У вас нет прав для изменения модуля топика!';
