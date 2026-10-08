@@ -1,8 +1,7 @@
 <?php
-// Untranslated placeholder from en-gb (4.1.0.4)
 // Heading
-$_['heading_title'] = 'An unexpected error occurred!';
+$_['heading_title'] = 'Произошла непредвиденная ошибка!';
 
 // Text
-$_['text_home']     = 'Home';
-$_['text_error']    = 'An unexpected error has occurred. Please try again later or contact us.';
+$_['text_home']     = 'Главная';
+$_['text_error']    = 'Произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже или свяжитесь с нами.';
