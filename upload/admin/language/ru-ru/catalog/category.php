@@ -8,6 +8,7 @@ $_['text_list']               = 'Список категорий';
 $_['text_add']                = 'Добавление категории';
 $_['text_edit']               = 'Редактирование категории';
 $_['text_filter']             = 'Фильтр';
+$_['text_default']            = 'По умолчанию';
 $_['text_general']            = 'Общее';
 $_['text_meta']               = 'Метатеги';
 $_['text_keyword']            = 'Не используйте пробелы, вместо этого заменяйте пробелы на - и убедитесь, что Семантический URL-адрес является глобально уникальным.';
@@ -22,7 +23,7 @@ $_['column_action']           = 'Действие';
 // Entry
 $_['entry_name']              = 'Название категории';
 $_['entry_description']       = 'Описание';
-$_['entry_meta_title']        = 'Мета-тег Title';
+$_['entry_meta_title']        = 'Мета-тег title';
 $_['entry_meta_keyword']      = 'Мета-тег Keywords';
 $_['entry_meta_description']  = 'Мета-тег Description';
 $_['entry_store']             = 'Магазины';
@@ -47,6 +48,3 @@ $_['error_parent']            = 'Выбранная вами родительс�
 $_['error_keyword']           = 'SEO URL-адрес должен быть от 1 до 64 символов!';
 $_['error_keyword_exists']    = 'Семантический URL-адрес должен быть уникальным!';
 $_['error_keyword_character'] = 'Ключевое слово может использовать только символы a-z, 0-9, - и _!';
-
-// Added from 4.1.0.4 (untranslated)
-$_['text_default']            = 'Default';
