@@ -7,36 +7,36 @@ export_languages:
 # Файлы хранятся в репо: upload/*/language/ru-ru/default.php
 files:
   # Админ-панель (**/* не матчит файлы в корне)
-  - source: upload/admin/language/en-gb/**/*.php
-    translation: upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
+  - source: /upload/admin/language/en-gb/**/*.php
+    translation: /upload/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
   # Витрина
-  - source: upload/catalog/language/en-gb/**/*.php
-    translation: upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
+  - source: /upload/catalog/language/en-gb/**/*.php
+    translation: /upload/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
   # Установщик
-  - source: upload/install/language/en-gb/**/*.php
-    translation: upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
+  - source: /upload/install/language/en-gb/**/*.php
+    translation: /upload/install/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
   # Расширения админки: upload/extension/opencart/admin/language/ru-ru/**/*.php
-  - source: upload/extension/opencart/admin/language/en-gb/**/*.php
-    translation: upload/extension/opencart/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
+  - source: /upload/extension/opencart/admin/language/en-gb/**/*.php
+    translation: /upload/extension/opencart/admin/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
 
   # Расширения витрины: upload/extension/opencart/catalog/language/ru-ru/**/*.php
-  - source: upload/extension/opencart/catalog/language/en-gb/**/*.php
-    translation: upload/extension/opencart/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
+  - source: /upload/extension/opencart/catalog/language/en-gb/**/*.php
+    translation: /upload/extension/opencart/catalog/language/%two_letters_code%/**/%file_name%.%file_extension%
     languages_mapping:
       two_letters_code:
         ru: ru-ru
