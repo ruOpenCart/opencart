@@ -2,3 +2,7 @@
 	path = ocn/language
 	url = https://github.com/ruOpenCart/opencart-language-russian-4.git
 	branch = main
+[submodule "ocn/theme/package"]
+	path = ocn/theme
+	url = file:///D:/OSPanel/home/opencart/ocn/theme
+	branch = main
