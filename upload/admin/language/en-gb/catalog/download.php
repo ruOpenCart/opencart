@@ -8,7 +8,7 @@ $_['text_list']                = 'Download List';
 $_['text_add']                 = 'Add Download';
 $_['text_edit']                = 'Edit Download';
 $_['text_upload']              = 'Your file was successfully uploaded!';
-$_['text_report']              = 'Report';
+$_['text_report']              = 'Reports';
 
 // Column
 $_['column_name']              = 'Download Name';
@@ -36,8 +36,6 @@ $_['error_filename']           = 'Filename must be between 3 and 128 characters!
 $_['error_filename_character'] = 'Filename can only use characters a-Z, 0-9, - and _!';
 $_['error_directory']          = 'Downloads need to be within the storage/download directory!';
 $_['error_exists']             = 'File does not exist!';
-$_['error_upload']             = 'File could not be uploaded!';
-$_['error_headers_sent']       = 'Error: Headers already sent out!';
 $_['error_mask']               = 'Mask must be between 3 and 128 characters!';
 $_['error_mask_character']     = 'Mask can only use characters a-Z, 0-9, - and _!';
 $_['error_file_type']          = 'Invalid file type!';
