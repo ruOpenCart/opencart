@@ -4,7 +4,7 @@ $_['heading_title']     = 'Отзывы';
 
 // Text
 $_['text_success']      = 'Успех: Вы изменили отзывы!';
-$_['text_next']         = 'Success: You have modified %s to %s of %s product ratings!';
+$_['text_next']         = 'Успех: Вы изменили %s на %s из %s оценок товаров!';
 $_['text_list']         = 'Список отзывов';
 $_['text_add']          = 'Добавление отзыва';
 $_['text_edit']         = 'Редактирование отзыва';
