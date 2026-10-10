@@ -53,3 +53,6 @@
 /ocn/language/.env
 /ocn/language/build/
 /ocn/language/dist/
+
+# Живая копия заглушки шаблона. Канон — ocn/theme; файлы связаны жёсткими ссылками.
+/upload/extension/ocn_theme_plain/
