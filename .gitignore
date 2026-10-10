@@ -56,3 +56,6 @@
 
 # Живая копия темы AI Simple. Канон — ocn/theme; файлы связаны жёсткими ссылками.
 /upload/extension/ocn_theme_ai_simple/
+
+# Сгенерированный кэш окмода. Refresh пишет копии сюда и не меняет исходники ядра.
+/upload/extension/ocmod/
