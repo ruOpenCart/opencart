@@ -18,7 +18,7 @@ $_['text_history']              = 'History';
 $_['text_history_add']          = 'Add History';
 $_['text_transaction']          = 'Transactions';
 $_['text_transaction_add']      = 'Add Transaction';
-$_['text_report']               = 'Report';
+$_['text_report']               = 'Reports';
 $_['text_filter']               = 'Filter';
 
 // Column
@@ -76,4 +76,3 @@ $_['error_paypal']              = 'PayPal Email Address does not appear to be va
 $_['error_bank_account_name']   = 'Account Name required!';
 $_['error_bank_account_number'] = 'Account Number required!';
 $_['error_custom_field']        = '%s required!';
-$_['error_regex']               = '%s is not a valid input!';
