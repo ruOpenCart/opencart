@@ -14,6 +14,7 @@ $_['text_comment']           = 'Успех: Комментарий добавл�
 $_['entry_payment_method']   = 'Выберите способ оплаты...';
 
 // Error
+$_['error_order']            = 'Order not found! Please refresh the page.';
 $_['error_customer']         = 'Покупатель обязателен!';
 $_['error_payment_address']  = 'Необходимо указать адрес оплаты!';
 $_['error_shipping_address'] = 'Необходимо указать адрес доставки!';

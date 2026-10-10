@@ -18,7 +18,7 @@ $_['text_history']              = 'История';
 $_['text_history_add']          = 'Добавление истории';
 $_['text_transaction']          = 'Транзакции';
 $_['text_transaction_add']      = 'Добавление транзакции';
-$_['text_report']               = 'Отчет';
+$_['text_report']               = 'Отчеты';
 $_['text_filter']               = 'Фильтр';
 
 // Column
@@ -76,4 +76,3 @@ $_['error_paypal']              = 'Адрес электронной почты 
 $_['error_bank_account_name']   = 'Имя счета обязательно!';
 $_['error_bank_account_number'] = 'Номер счета обязателен!';
 $_['error_custom_field']        = '%s обязательно к заполнению!';
-$_['error_regex']               = '%s не является допустимым вводом!';
