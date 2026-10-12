@@ -1,0 +1,42 @@
+<section id="ocn-slider-{{ module }}" class="ocn-slider{% if effect == 'fade' %} ocn-slider--fade{% endif %}" data-ocn-slider data-effect="{{ effect }}" data-interval="{{ interval }}" data-autoplay="{{ autoplay }}" data-pause="{{ pause }}" aria-roledescription="carousel" aria-label="{{ text_slider }}">
+  <div class="ocn-slider__viewport" data-ocn-viewport>
+    <div class="ocn-slider__track" data-ocn-track>
+      {% for slide in slides %}
+        <div class="ocn-slider__slide{% if loop.first %} is-active{% endif %}" data-ocn-slide{% if not loop.first %} aria-hidden="true"{% endif %}>
+          {% if slide.link %}
+            <a class="ocn-slider__link" href="{{ slide.link }}">
+          {% else %}
+            <div class="ocn-slider__link">
+          {% endif %}
+            <img src="{{ slide.image }}" alt="{{ slide.title }}" width="{{ width }}" height="{{ height }}"/>
+            {% if slide.title or slide.text %}
+              <div class="ocn-slider__caption">
+                {% if slide.title %}
+                  <p class="ocn-slider__title">{{ slide.title }}</p>
+                {% endif %}
+                {% if slide.text %}
+                  <p class="ocn-slider__text">{{ slide.text|nl2br }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% if slide.link %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if arrows and slides|length > 1 %}
+    <button type="button" class="ocn-slider__prev" data-ocn-prev aria-label="{{ text_prev }}"><span class="ocn-slider__chevron"></span></button>
+    <button type="button" class="ocn-slider__next" data-ocn-next aria-label="{{ text_next }}"><span class="ocn-slider__chevron"></span></button>
+  {% endif %}
+  {% if dots and slides|length > 1 %}
+    <div class="ocn-slider__dots">
+      {% for slide in slides %}
+        <button type="button" class="ocn-slider__dot{% if loop.first %} is-active{% endif %}" data-ocn-dot aria-label="{{ text_dot|format(loop.index) }}"{% if loop.first %} aria-current="true"{% endif %}></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

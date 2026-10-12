@@ -1,0 +1,237 @@
+{% macro row(index, slide, languages, placeholder, texts) %}
+<div class="card mb-3" data-ocn-slide>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>{{ texts.text_slide_item }}</span>
+    <button type="button" class="btn btn-danger" data-ocn-slide-remove><i class="fa-solid fa-minus-circle"></i> {{ texts.button_slide_remove }}</button>
+  </div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">{{ texts.entry_image }}</label>
+      <div class="col-sm-10">
+        <div class="border rounded d-block" style="max-width: 220px;">
+          <img src="{{ slide.thumb }}" alt="" id="thumb-image-{{ index }}" data-oc-placeholder="{{ placeholder }}" class="img-fluid"/>
+          <input type="hidden" name="slide[{{ index }}][image]" value="{{ slide.image }}" id="input-image-{{ index }}"/>
+          <div class="d-grid">
+            <button type="button" data-oc-toggle="image" data-oc-target="#input-image-{{ index }}" data-oc-thumb="#thumb-image-{{ index }}" class="btn btn-primary rounded-0"><i class="fa-solid fa-pencil"></i></button>
+            <button type="button" data-oc-toggle="clear" data-oc-target="#input-image-{{ index }}" data-oc-thumb="#thumb-image-{{ index }}" class="btn btn-warning rounded-0"><i class="fa-regular fa-trash-can"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="nav nav-tabs">
+      {% for language in languages %}
+        <li class="nav-item"><button type="button" class="nav-link{% if loop.first %} active{% endif %}" data-bs-toggle="tab" data-bs-target="#slide-{{ index }}-language-{{ language.language_id }}">{{ language.name }}</button></li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content border border-top-0 rounded-bottom p-3 mb-3">
+      {% for language in languages %}
+        <div id="slide-{{ index }}-language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-title-{{ index }}-{{ language.language_id }}">{{ texts.entry_title }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="slide[{{ index }}][description][{{ language.language_id }}][title]" value="{{ slide.description[language.language_id] ? slide.description[language.language_id].title }}" placeholder="{{ texts.entry_title }}" id="input-title-{{ index }}-{{ language.language_id }}" class="form-control"/>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-text-{{ index }}-{{ language.language_id }}">{{ texts.entry_text }}</label>
+            <div class="col-sm-10">
+              <textarea name="slide[{{ index }}][description][{{ language.language_id }}][text]" placeholder="{{ texts.entry_text }}" id="input-text-{{ index }}-{{ language.language_id }}" rows="3" class="form-control">{{ slide.description[language.language_id] ? slide.description[language.language_id].text }}</textarea>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label" for="input-link-{{ index }}">{{ texts.entry_link }}</label>
+      <div class="col-sm-10">
+        <input type="text" name="slide[{{ index }}][link]" value="{{ slide.link }}" placeholder="{{ texts.entry_link }}" id="input-link-{{ index }}" class="form-control"/>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-2 col-form-label" for="input-sort-{{ index }}">{{ texts.entry_sort_order }}</label>
+      <div class="col-sm-10">
+        <input type="number" name="slide[{{ index }}][sort_order]" value="{{ slide.sort_order }}" placeholder="{{ texts.entry_sort_order }}" id="input-sort-{{ index }}" class="form-control" style="max-width: 8rem;"/>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+{% import _self as form %}
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_edit }}</div>
+      <div class="card-body">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3 required">
+            <label for="input-name" class="col-sm-2 col-form-label">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
+              <div id="error-name" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="input-effect" class="col-sm-2 col-form-label">{{ entry_effect }}</label>
+            <div class="col-sm-10">
+              <select name="effect" id="input-effect" class="form-select">
+                <option value="slide"{% if effect == 'slide' %} selected{% endif %}>{{ text_slide }}</option>
+                <option value="fade"{% if effect == 'fade' %} selected{% endif %}>{{ text_fade }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="input-interval" class="col-sm-2 col-form-label">{{ entry_interval }}</label>
+            <div class="col-sm-10">
+              <input type="number" name="interval" value="{{ interval }}" placeholder="{{ entry_interval }}" id="input-interval" class="form-control"/>
+              <div id="error-interval" class="invalid-feedback"></div>
+              <div class="form-text">{{ help_interval }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_autoplay }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="autoplay" value="0"/>
+                <input type="checkbox" name="autoplay" value="1" id="input-autoplay" class="form-check-input"{% if autoplay %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_pause }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="pause" value="0"/>
+                <input type="checkbox" name="pause" value="1" id="input-pause" class="form-check-input"{% if pause %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_arrows }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="arrows" value="0"/>
+                <input type="checkbox" name="arrows" value="1" id="input-arrows" class="form-check-input"{% if arrows %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_dots }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="dots" value="0"/>
+                <input type="checkbox" name="dots" value="1" id="input-dots" class="form-check-input"{% if dots %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label for="input-width" class="col-sm-2 col-form-label">{{ entry_width }}</label>
+            <div class="col-sm-10">
+              <input type="number" name="width" value="{{ width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
+              <div id="error-width" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label for="input-height" class="col-sm-2 col-form-label">{{ entry_height }}</label>
+            <div class="col-sm-10">
+              <input type="number" name="height" value="{{ height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
+              <div id="error-height" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="status" value="0"/>
+                <input type="checkbox" name="status" value="1" id="input-status" class="form-check-input"{% if status %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <fieldset>
+            <legend>{{ text_slide_item }}</legend>
+            <p class="form-text">{{ help_slide }}</p>
+            <div id="slide-list" data-next="{{ slide_next }}">
+              {% for slide in slides %}
+                {{ form.row(loop.index0, slide, languages, placeholder, {
+                  text_slide_item: text_slide_item,
+                  button_slide_remove: button_slide_remove,
+                  entry_image: entry_image,
+                  entry_title: entry_title,
+                  entry_text: entry_text,
+                  entry_link: entry_link,
+                  entry_sort_order: entry_sort_order
+                }) }}
+              {% endfor %}
+            </div>
+            <button type="button" id="button-slide-add" class="btn btn-primary"><i class="fa-solid fa-plus-circle"></i> {{ button_slide_add }}</button>
+          </fieldset>
+          <input type="hidden" name="module_id" value="{{ module_id }}" id="input-module-id"/>
+        </form>
+        <template id="ocn-slider-prototype">
+          {{ form.row('__INDEX__', { image: '', thumb: placeholder, link: '', sort_order: slide_next, description: {} }, languages, placeholder, {
+            text_slide_item: text_slide_item,
+            button_slide_remove: button_slide_remove,
+            entry_image: entry_image,
+            entry_title: entry_title,
+            entry_text: entry_text,
+            entry_link: entry_link,
+            entry_sort_order: entry_sort_order
+          }) }}
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+(function () {
+  var add = document.getElementById('button-slide-add');
+  var list = document.getElementById('slide-list');
+  var prototype = document.getElementById('ocn-slider-prototype');
+
+  if (!add || !list || !prototype) {
+    return;
+  }
+
+  add.addEventListener('click', function () {
+    var next = Number(list.getAttribute('data-next') || '0');
+    var html = prototype.innerHTML.split('__INDEX__').join(String(next));
+    var wrap = document.createElement('div');
+
+    wrap.innerHTML = html.trim();
+
+    if (wrap.firstElementChild) {
+      list.appendChild(wrap.firstElementChild);
+      list.setAttribute('data-next', String(next + 1));
+    }
+  });
+
+  list.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-ocn-slide-remove]');
+
+    if (!button) {
+      return;
+    }
+
+    var slide = button.closest('[data-ocn-slide]');
+
+    if (slide) {
+      slide.remove();
+    }
+  });
+})();
+</script>
+{{ footer }}

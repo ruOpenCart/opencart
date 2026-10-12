@@ -1,0 +1,159 @@
+.ocn-slider {
+  position: relative;
+  margin: 0 0 1.5rem;
+  color: inherit;
+}
+
+.ocn-slider__viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  border-radius: 0.5rem;
+}
+
+.ocn-slider__track {
+  display: flex;
+  transition: transform 0.45s ease;
+}
+
+.ocn-slider__slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
+.ocn-slider__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ocn-slider__link img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.ocn-slider__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2.75rem 1.25rem 1rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
+}
+
+.ocn-slider__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ocn-slider__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ocn-slider__prev,
+.ocn-slider__next {
+  position: absolute;
+  top: 42%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ocn-slider__prev {
+  left: 0.75rem;
+}
+
+.ocn-slider__next {
+  right: 0.75rem;
+}
+
+.ocn-slider__prev:focus-visible,
+.ocn-slider__next:focus-visible,
+.ocn-slider__dot:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.ocn-slider__chevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.ocn-slider__prev .ocn-slider__chevron {
+  transform: translateX(2px) rotate(135deg);
+}
+
+.ocn-slider__next .ocn-slider__chevron {
+  transform: translateX(-2px) rotate(-45deg);
+}
+
+.ocn-slider__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+}
+
+.ocn-slider__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 35%, transparent);
+  cursor: pointer;
+}
+
+.ocn-slider__dot.is-active {
+  background: currentColor;
+}
+
+.ocn-slider--fade .ocn-slider__track {
+  display: block;
+  transition: none;
+}
+
+.ocn-slider--fade .ocn-slider__slide {
+  position: absolute;
+  inset: 0;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.ocn-slider--fade .ocn-slider__slide:first-child {
+  position: relative;
+}
+
+.ocn-slider--fade .ocn-slider__slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ocn-slider__track,
+  .ocn-slider--fade .ocn-slider__slide {
+    transition: none;
+  }
+}
